@@ -1,1584 +1,2203 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
 <meta name="theme-color" content="#080808">
-<title>RoXThal Art Design - Analizador F1 Plus</title><style>
-*{box-sizing:border-box}
 
-html,body{
- margin:0;
- padding:0;
- background:#080808;
- color:#fff;
- font-family:Arial,Helvetica,sans-serif
+<title>RoXThal Art Design · F1 Plus Lab</title>
+
+<style>
+* {
+  box-sizing: border-box;
 }
 
-body{min-height:100vh}
-
-.container{
- width:100%;
- max-width:850px;
- margin:auto;
- padding:15px
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #080808;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.header{
- text-align:center;
- padding:18px 10px
+body {
+  min-height: 100vh;
 }
 
-.logo{font-size:46px}
-
-.title{
- font-size:27px;
- margin:5px 0
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  padding: 15px;
 }
 
-.subtitle{color:#aaa}
-
-.card{
- background:#151515;
- border-radius:18px;
- padding:18px;
- margin-top:16px;
- box-shadow:0 6px 25px rgba(0,0,0,.35)
+header {
+  text-align: center;
+  padding: 20px 10px;
 }
 
-.section-title{
- color:#ffd54a;
- margin-top:0
+.logo {
+  font-size: 48px;
 }
 
-.compatibility{
- background:#222;
- border-radius:12px;
- padding:13px;
- text-align:center
+h1 {
+  margin: 5px 0;
+  font-size: 27px;
 }
 
-button{
- width:100%;
- border:0;
- border-radius:13px;
- padding:15px;
- margin-top:10px;
- font-size:16px;
- font-weight:bold
+.subtitle {
+  color: #aaa;
 }
 
-#connectBtn{
- background:#e0b400;
- color:#111
+.card {
+  background: #151515;
+  border-radius: 18px;
+  padding: 18px;
+  margin-top: 15px;
+  box-shadow: 0 6px 25px rgba(0,0,0,.35);
 }
 
-#disconnectBtn{
- background:#333;
- color:#fff;
- display:none
+.title {
+  color: #ffd54a;
+  font-size: 19px;
+  margin: 0 0 14px;
 }
 
-#sendBtn{
- background:#238636;
- color:#fff
+.compatibility {
+  padding: 13px;
+  border-radius: 12px;
+  background: #222;
+  text-align: center;
+  color: #ffd54a;
+  margin-bottom: 12px;
 }
 
-#clearBtn{
- background:#292929;
- color:#fff
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 9px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-#clearLogBtn{
- background:#292929;
- color:#fff
+button:disabled {
+  opacity: .45;
 }
 
-button:disabled{opacity:.5}
-
-.status{
- margin-top:14px;
- padding:14px;
- border-radius:12px;
- text-align:center;
- background:#202020
+.connect {
+  background: #e0b400;
+  color: #111;
 }
 
-.success{
- background:#123d20;
- color:#7cff9b
+.disconnect {
+  background: #333;
+  color: #fff;
+  display: none;
 }
 
-.error{
- background:#431515;
- color:#ff8f8f
+.test {
+  background: #1d5f9e;
+  color: #fff;
 }
 
-.warning{
- background:#403715;
- color:#ffe477
+.danger {
+  background: #572020;
+  color: #fff;
 }
 
-.info-row{
- background:#202020;
- border-radius:9px;
- padding:10px;
- margin-top:7px;
- word-break:break-word
+.clear {
+  background: #292929;
+  color: #fff;
 }
 
-.hidden{display:none}
-
-textarea{
- width:100%;
- min-height:80px;
- background:#050505;
- color:#fff;
- border:1px solid #444;
- border-radius:10px;
- padding:13px;
- font-family:monospace;
- font-size:15px;
- resize:vertical
+.status {
+  margin-top: 12px;
+  padding: 13px;
+  border-radius: 11px;
+  background: #202020;
+  text-align: center;
 }
 
-.help{
- color:#999;
- font-size:13px;
- line-height:1.5;
- margin-top:8px
+.success {
+  background: #123d20;
+  color: #7cff9b;
 }
 
-.counter{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:7px;
- margin-top:10px
+.error {
+  background: #431515;
+  color: #ff8f8f;
 }
 
-.counter div{
- background:#202020;
- border-radius:10px;
- padding:11px 4px;
- text-align:center
+.warning {
+  background: #403715;
+  color: #ffe477;
 }
 
-.counter strong{
- display:block;
- font-size:20px
+.info-row {
+  padding: 10px;
+  margin-top: 7px;
+  border-radius: 9px;
+  background: #202020;
+  word-break: break-word;
 }
 
-.counter span{
- color:#aaa;
- font-size:10px
+.lab-warning {
+  padding: 12px;
+  background: #342c12;
+  color: #ffe477;
+  border-radius: 10px;
+  line-height: 1.45;
+  font-size: 14px;
 }
 
-.packet{
- background:#0e0e0e;
- border-radius:11px;
- padding:12px;
- margin-top:10px;
- border-left:4px solid #777;
- font-family:monospace;
- font-size:12px;
- line-height:1.55;
- word-break:break-word
+textarea,
+input {
+  width: 100%;
+  border: 1px solid #444;
+  border-radius: 10px;
+  background: #090909;
+  color: #fff;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 15px;
+  outline: none;
 }
 
-.packet.tx{border-left-color:#4da6ff}
-.packet.rx{border-left-color:#7cff9b}
-.packet.echo{border-left-color:#ffd54a}
-.packet.response{border-left-color:#ff9f43}
-
-.packet-type{
- font-size:14px;
- font-weight:bold;
- margin-bottom:5px
+textarea {
+  min-height: 75px;
+  resize: vertical;
 }
 
-.tx .packet-type{color:#4da6ff}
-.rx .packet-type{color:#7cff9b}
-.echo .packet-type{color:#ffd54a}
-.response .packet-type{color:#ff9f43}
-
-.hex{color:#fff}
-.decimal{color:#999}
-.ascii{color:#8fe3ff}
-
-.analysis{
- margin-top:9px;
- padding:9px;
- background:#191919;
- border-radius:8px;
- color:#ffd54a
+input:focus,
+textarea:focus {
+  border-color: #ffd54a;
 }
 
-table{
- width:100%;
- border-collapse:collapse;
- font-size:12px;
- margin-top:10px
+.packet {
+  background: #0e0e0e;
+  border-radius: 12px;
+  padding: 13px;
+  margin-top: 10px;
+  border-left: 4px solid #555;
 }
 
-th,td{
- padding:8px;
- border-bottom:1px solid #333;
- text-align:left;
- word-break:break-all
+.packet.rx {
+  border-left-color: #4caf50;
 }
 
-th{color:#ffd54a}
-
-.log{
- background:#050505;
- border-radius:12px;
- padding:13px;
- max-height:330px;
- overflow-y:auto;
- white-space:pre-wrap;
- word-break:break-word;
- font-family:monospace;
- font-size:12px;
- line-height:1.5
+.packet.tx {
+  border-left-color: #42a5f5;
 }
 
-.footer{
- text-align:center;
- color:#666;
- font-size:12px;
- padding:25px 0
+.packet.echo {
+  border-left-color: #ffca28;
 }
-</style></head><body><div class="container"><header class="header">
- <div class="logo">⌚</div>
- <h1 class="title">Smart Band F1 Plus</h1>
- <div class="subtitle">Analizador de protocolo · RoXThal Art Design</div>
-</header><section class="card"> <div id="compatibility" class="compatibility">
-  🔵 Comprobando Bluetooth...
- </div> <button id="connectBtn">
-  🔗 CONECTAR SMART BAND
- </button> <button id="disconnectBtn">
-  ❌ DESCONECTAR
- </button> <div id="status" class="status">
-  ⚪ Smart Band desconectada
- </div></section><section id="deviceCard" class="card hidden"> <h2 class="section-title">📱 Dispositivo</h2> <div id="deviceName" class="info-row">
-  Nombre: —
- </div> <div id="deviceId" class="info-row">
-  ID: —
- </div> <div id="gatt" class="info-row">
-  GATT: —
- </div> <div id="uart" class="info-row">
-  UART: —
- </div></section><section class="card"> <h2 class="section-title">📊 Tráfico</h2> <div class="counter">  <div>
-   <strong id="txCount">0</strong>
-   <span>TX</span>
-  </div>  <div>
-   <strong id="rxCount">0</strong>
-   <span>RX</span>
-  </div>  <div>
-   <strong id="echoCount">0</strong>
-   <span>ECO</span>
-  </div>  <div>
-   <strong id="responseCount">0</strong>
-   <span>POSIBLE RESP.</span>
-  </div> </div></section><section class="card"> <h2 class="section-title">
-  📤 Consola HEX
- </h2> <div class="help">
-  Esta consola NO envía nada automáticamente.
-  Introduce bytes hexadecimales separados por espacios.
- </div> <textarea
-  id="hexInput"
-  placeholder="Ejemplo: 01 02 FF 00"
-  spellcheck="false"></textarea> <button id="sendBtn" disabled>
-  📤 ENVIAR HEX
- </button> <div id="sendInfo" class="help">
-  🔒 Conecta primero la F1 Plus.
- </div></section><section class="card"> <h2 class="section-title">
-  🧬 Análisis automático
- </h2> <div id="structure">
-  Esperando paquetes...
- </div></section><section class="card"> <h2 class="section-title">
-  📡 Paquetes
- </h2> <div id="packets">
-  <div style="color:#777">
-   Esperando tráfico...
+
+.packet.spontaneous {
+  border-left-color: #ab47bc;
+}
+
+.packet-title {
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.hex {
+  color: #8fe3ff;
+  font-family: monospace;
+  word-break: break-word;
+}
+
+.decimal,
+.ascii,
+.meta {
+  color: #aaa;
+  font-family: monospace;
+  font-size: 12px;
+  margin-top: 5px;
+  word-break: break-word;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #333;
+  margin-right: 5px;
+  font-size: 11px;
+}
+
+.pattern {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  padding: 10px;
+  background: #202020;
+  margin-top: 7px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.log {
+  background: #050505;
+  color: #ccc;
+  padding: 13px;
+  border-radius: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.counter {
+  text-align: center;
+  padding: 10px;
+  background: #202020;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: #ffd54a;
+  font-weight: bold;
+}
+
+.small {
+  color: #888;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  padding: 25px 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div class="logo">⌚</div>
+  <h1>Smart Band F1 Plus</h1>
+  <div class="subtitle">RoXThal Art Design · Analizador de protocolo</div>
+</header>
+
+
+<!-- CONEXIÓN -->
+<section class="card">
+
+  <div id="compatibility" class="compatibility">
+    🔵 Comprobando Bluetooth...
   </div>
- </div> <button id="clearBtn">
-  🧹 LIMPIAR PAQUETES
- </button></section><section class="card"> <h2 class="section-title">
-  📈 Patrones detectados
- </h2> <div id="patterns">
-  Todavía no hay suficientes datos.
- </div></section><section class="card"> <h2 class="section-title">
-  🛠️ Diagnóstico
- </h2> <div id="log" class="log">
+
+  <button id="connectBtn" class="connect">
+    🔗 CONECTAR F1 PLUS
+  </button>
+
+  <button id="disconnectBtn" class="disconnect">
+    ❌ DESCONECTAR
+  </button>
+
+  <div id="status" class="status">
+    ⚪ Smart Band desconectada
+  </div>
+
+</section>
+
+
+<!-- DISPOSITIVO -->
+<section id="deviceCard" class="card" style="display:none">
+
+  <h2 class="title">📱 Dispositivo</h2>
+
+  <div id="deviceName" class="info-row">
+    Nombre: —
+  </div>
+
+  <div id="deviceId" class="info-row">
+    ID: —
+  </div>
+
+  <div id="gattStatus" class="info-row">
+    GATT: —
+  </div>
+
+</section>
+
+
+<!-- CANALES -->
+<section id="channelCard" class="card" style="display:none">
+
+  <h2 class="title">🔧 Canal UART</h2>
+
+  <div class="info-row">
+    Servicio:
+    <br>
+    <span class="small">
+      6e400001-b5a3-f393-e0a9-e50e24dcca9e
+    </span>
+  </div>
+
+  <div class="info-row">
+    WRITE / TX:
+    <br>
+    <span class="small">
+      6e400002-b5a3-f393-e0a9-e50e24dcca9e
+    </span>
+  </div>
+
+  <div class="info-row">
+    NOTIFY / RX:
+    <br>
+    <span class="small">
+      6e400003-b5a3-f393-e0a9-e50e24dcca9e
+    </span>
+  </div>
+
+  <div id="channelStatus" class="status warning">
+    Esperando conexión...
+  </div>
+
+</section>
+
+
+<!-- LABORATORIO -->
+<section id="labCard" class="card" style="display:none">
+
+  <h2 class="title">🧪 Laboratorio F1 Plus</h2>
+
+  <div class="lab-warning">
+    ⚠️ Esta consola NO envía comandos automáticamente.
+    <br><br>
+    Cada transmisión debe hacerse manualmente.
+    La aplicación registra qué TX ocurrió y qué RX llegó después.
+  </div>
+
+  <div style="margin-top:15px">
+
+    <label>
+      <strong>HEX a enviar</strong>
+    </label>
+
+    <textarea
+      id="hexInput"
+      placeholder="Ejemplo: 00"
+      spellcheck="false"
+    ></textarea>
+
+    <button
+      id="sendHexBtn"
+      class="test"
+    >
+      📤 ENVIAR HEX
+    </button>
+
+  </div>
+
+
+  <div style="margin-top:15px">
+
+    <strong>🧪 Pruebas individuales</strong>
+
+    <button
+      class="test test-command"
+      data-command="00"
+    >
+      Probar 00
+    </button>
+
+    <button
+      class="test test-command"
+      data-command="01"
+    >
+      Probar 01
+    </button>
+
+    <button
+      class="test test-command"
+      data-command="02"
+    >
+      Probar 02
+    </button>
+
+    <button
+      class="test test-command"
+      data-command="03"
+    >
+      Probar 03
+    </button>
+
+    <button
+      class="test test-command"
+      data-command="04"
+    >
+      Probar 04
+    </button>
+
+    <button
+      class="test test-command"
+      data-command="05"
+    >
+      Probar 05
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- CONTADORES -->
+<section id="statsCard" class="card" style="display:none">
+
+  <h2 class="title">📊 Estadísticas</h2>
+
+  <div class="counter">
+    TX enviados:
+    <span id="txCount">0</span>
+  </div>
+
+  <div class="counter">
+    RX recibidos:
+    <span id="rxCount">0</span>
+  </div>
+
+  <div class="counter">
+    RX asociados:
+    <span id="associatedCount">0</span>
+  </div>
+
+  <div class="counter">
+    RX espontáneos:
+    <span id="spontaneousCount">0</span>
+  </div>
+
+</section>
+
+
+<!-- PAQUETES -->
+<section id="packetsCard" class="card" style="display:none">
+
+  <h2 class="title">📦 Paquetes analizados</h2>
+
+  <div class="small">
+    Las respuestas recibidas hasta 3 segundos después de un TX
+    se asociarán temporalmente con ese TX.
+  </div>
+
+  <div id="packets"></div>
+
+  <button id="clearPacketsBtn" class="clear">
+    🧹 LIMPIAR PAQUETES
+  </button>
+
+</section>
+
+
+<!-- PATRONES -->
+<section id="patternsCard" class="card" style="display:none">
+
+  <h2 class="title">📈 Patrones detectados</h2>
+
+  <div id="patterns"></div>
+
+</section>
+
+
+<!-- COMPARACIÓN -->
+<section id="compareCard" class="card" style="display:none">
+
+  <h2 class="title">🔬 Comparación</h2>
+
+  <div id="comparison">
+    Todavía no hay suficientes paquetes para comparar.
+  </div>
+
+</section>
+
+
+<!-- DIAGNÓSTICO -->
+<section class="card">
+
+  <h2 class="title">🛠️ Diagnóstico</h2>
+
+  <div id="log" class="log">
 Sistema preparado.
- </div> <button id="clearLogBtn">
-  🧹 LIMPIAR DIAGNÓSTICO
- </button></section><footer class="footer">
- RoXThal Art Design · F1 Plus Protocol Analyzer
-</footer></div><script>
+  </div>
+
+  <button id="clearLogBtn" class="clear">
+    🧹 LIMPIAR DIAGNÓSTICO
+  </button>
+
+</section>
+
+
+<footer>
+  RoXThal Art Design · F1 Plus Laboratory
+</footer>
+
+</div>
+
+
+<script>
 
 "use strict";
 
 
-/* =========================================================
-   UUID UART CONFIRMADO
-   ========================================================= */
+/* ==========================================================
+   UUID REAL DE LA F1 PLUS
+   ========================================================== */
 
 const UART_SERVICE =
-"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+  "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UART_WRITE =
-"6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+  "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UART_NOTIFY =
-"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+  "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
 
-/* =========================================================
+/* ==========================================================
    VARIABLES
-   ========================================================= */
+   ========================================================== */
 
-let device=null;
-let server=null;
-let writeCharacteristic=null;
-let notifyCharacteristic=null;
+let device = null;
+let server = null;
+let service = null;
+let writeCharacteristic = null;
+let notifyCharacteristic = null;
 
-let txCount=0;
-let rxCount=0;
-let echoCount=0;
-let responseCount=0;
+let txPackets = [];
+let rxPackets = [];
 
-let packetNumber=0;
+let txCount = 0;
+let rxCount = 0;
+let associatedCount = 0;
+let spontaneousCount = 0;
 
-let lastTX=null;
-let lastTXTime=0;
+let lastTX = null;
 
-const packets=[];
-
-const patternMap={};
+const ASSOCIATION_WINDOW = 3000;
 
 
-/* =========================================================
+/* ==========================================================
    ELEMENTOS
-   ========================================================= */
+   ========================================================== */
 
-const compatibility=
-document.getElementById("compatibility");
+const compatibility =
+  document.getElementById("compatibility");
 
-const connectBtn=
-document.getElementById("connectBtn");
+const connectBtn =
+  document.getElementById("connectBtn");
 
-const disconnectBtn=
-document.getElementById("disconnectBtn");
+const disconnectBtn =
+  document.getElementById("disconnectBtn");
 
-const status=
-document.getElementById("status");
+const status =
+  document.getElementById("status");
 
-const deviceCard=
-document.getElementById("deviceCard");
+const deviceCard =
+  document.getElementById("deviceCard");
 
-const deviceName=
-document.getElementById("deviceName");
+const channelCard =
+  document.getElementById("channelCard");
 
-const deviceId=
-document.getElementById("deviceId");
+const labCard =
+  document.getElementById("labCard");
 
-const gatt=
-document.getElementById("gatt");
+const statsCard =
+  document.getElementById("statsCard");
 
-const uart=
-document.getElementById("uart");
+const packetsCard =
+  document.getElementById("packetsCard");
 
-const sendBtn=
-document.getElementById("sendBtn");
+const patternsCard =
+  document.getElementById("patternsCard");
 
-const sendInfo=
-document.getElementById("sendInfo");
+const compareCard =
+  document.getElementById("compareCard");
 
-const hexInput=
-document.getElementById("hexInput");
+const packetsContainer =
+  document.getElementById("packets");
 
-const packetsBox=
-document.getElementById("packets");
+const patternsContainer =
+  document.getElementById("patterns");
 
-const structure=
-document.getElementById("structure");
+const comparisonContainer =
+  document.getElementById("comparison");
 
-const patterns=
-document.getElementById("patterns");
+const logContainer =
+  document.getElementById("log");
 
-const logBox=
-document.getElementById("log");
+const hexInput =
+  document.getElementById("hexInput");
 
-const clearBtn=
-document.getElementById("clearBtn");
-
-const clearLogBtn=
-document.getElementById("clearLogBtn");
+const sendHexBtn =
+  document.getElementById("sendHexBtn");
 
 
-/* =========================================================
+/* ==========================================================
    LOG
-   ========================================================= */
+   ========================================================== */
 
-function log(message){
+function log(message) {
 
- const time=
- new Date().toLocaleTimeString();
+  const time =
+    new Date().toLocaleTimeString();
 
- const line=
- "["+time+"] "+message;
+  const line =
+    "[" + time + "] " + message;
 
- console.log(line);
+  console.log(line);
 
- if(
-  logBox.textContent.trim()
-  ===
-  "Sistema preparado."
- ){
-  logBox.textContent="";
- }
+  if (
+    logContainer.textContent.trim() ===
+    "Sistema preparado."
+  ) {
+    logContainer.textContent = "";
+  }
 
- logBox.textContent+=
- line+"\n";
+  logContainer.textContent +=
+    line + "\n";
 
- logBox.scrollTop=
- logBox.scrollHeight;
+  logContainer.scrollTop =
+    logContainer.scrollHeight;
 }
 
 
-/* =========================================================
+/* ==========================================================
    ESTADO
-   ========================================================= */
+   ========================================================== */
 
-function setStatus(message,type){
+function setStatus(message, type) {
 
- status.textContent=message;
- status.className="status";
+  status.textContent = message;
 
- if(type){
-  status.classList.add(type);
- }
+  status.className = "status";
+
+  if (type) {
+    status.classList.add(type);
+  }
 }
 
 
-/* =========================================================
+/* ==========================================================
    BLUETOOTH
-   ========================================================= */
+   ========================================================== */
 
-function checkBluetooth(){
+function checkBluetooth() {
 
- log("Comprobando Web Bluetooth...");
+  log("Comprobando Web Bluetooth...");
 
- if(!navigator.bluetooth){
+  if (!navigator.bluetooth) {
 
-  compatibility.textContent=
-  "❌ Web Bluetooth no disponible.";
+    compatibility.textContent =
+      "❌ Web Bluetooth no está disponible.";
 
-  connectBtn.disabled=true;
+    compatibility.classList.add("error");
+
+    connectBtn.disabled = true;
+
+    log(
+      "ERROR: navigator.bluetooth no existe."
+    );
+
+    return false;
+  }
+
+  compatibility.textContent =
+    "✅ Web Bluetooth disponible.";
+
+  compatibility.className =
+    "compatibility success";
+
+  connectBtn.disabled = false;
 
   log(
-   "❌ navigator.bluetooth no existe."
+    "Web Bluetooth detectado correctamente."
   );
 
-  return false;
- }
-
- compatibility.textContent=
- "✅ Web Bluetooth disponible.";
-
- connectBtn.disabled=false;
-
- log(
-  "Web Bluetooth detectado correctamente."
- );
-
- return true;
+  return true;
 }
 
 
-/* =========================================================
-   CONECTAR
-   ========================================================= */
+/* ==========================================================
+   CONEXIÓN
+   ========================================================== */
 
-async function connectBand(){
+async function connectF1Plus() {
 
- if(!checkBluetooth()){
+  if (!checkBluetooth()) {
 
-  setStatus(
-   "❌ Bluetooth no disponible",
-   "error"
-  );
+    setStatus(
+      "❌ Bluetooth no disponible",
+      "error"
+    );
 
-  return;
- }
+    return;
+  }
 
- try{
+  try {
 
-  connectBtn.disabled=true;
+    connectBtn.disabled = true;
 
-  connectBtn.textContent=
-  "🔍 BUSCANDO F1 PLUS...";
+    connectBtn.textContent =
+      "🔍 BUSCANDO F1 PLUS...";
 
-  setStatus(
-   "🔍 Abriendo selector Bluetooth...",
-   "warning"
-  );
+    setStatus(
+      "🔍 Abriendo selector Bluetooth...",
+      "warning"
+    );
 
-  log("==============================");
-  log("INICIO DE CONEXIÓN");
-  log("Solicitando dispositivo...");
-
-
-  device=
-  await navigator.bluetooth.requestDevice({
-
-   acceptAllDevices:true,
-
-   optionalServices:[
-    UART_SERVICE,
-    "00001800-0000-1000-8000-00805f9b34fb",
-    "00001801-0000-1000-8000-00805f9b34fb"
-   ]
-
-  });
+    log("==============================");
+    log("INICIO DE CONEXIÓN");
+    log("Solicitando dispositivo...");
 
 
-  log("DISPOSITIVO ENCONTRADO");
+    /*
+     * IMPORTANTE:
+     *
+     * El servicio UART real se incluye como
+     * optionalService para que Chrome permita
+     * acceder a él después de seleccionar
+     * el dispositivo.
+     */
 
-  log(
-   "Nombre: "+
-   (device.name||"Sin nombre")
-  );
+    device =
+      await navigator.bluetooth.requestDevice({
 
-  log(
-   "ID: "+
-   (device.id||"No disponible")
-  );
+        acceptAllDevices: true,
 
+        optionalServices: [
+          UART_SERVICE
+        ]
 
-  deviceName.textContent=
-  "Nombre: "+(device.name||"Sin nombre");
-
-  deviceId.textContent=
-  "ID: "+(device.id||"No disponible");
-
-  deviceCard.classList.remove("hidden");
-
-
-  device.addEventListener(
-   "gattserverdisconnected",
-   handleDisconnected
-  );
+      });
 
 
-  setStatus(
-   "🔄 Conectando GATT...",
-   "warning"
-  );
+    if (!device) {
 
-  connectBtn.textContent=
-  "🔄 CONECTANDO...";
-
-  log("Conectando GATT...");
+      throw new Error(
+        "No se seleccionó ningún dispositivo."
+      );
+    }
 
 
-  server=
-  await device.gatt.connect();
+    log("DISPOSITIVO ENCONTRADO");
+
+    log(
+      "Nombre: " +
+      (device.name || "Sin nombre")
+    );
+
+    log(
+      "ID: " +
+      (device.id || "No disponible")
+    );
 
 
-  gatt.textContent=
-  "GATT: 🟢 Conectado";
-
-  log("✅ GATT conectado.");
-
-
-  await prepareUART();
+    document.getElementById(
+      "deviceName"
+    ).textContent =
+      "Nombre: " +
+      (device.name || "Sin nombre");
 
 
- }catch(error){
-
-  console.error(error);
-
-  log(
-   "❌ ERROR: "+
-   (error.name||"desconocido")
-  );
-
-  log(
-   "Mensaje: "+
-   (error.message||error)
-  );
+    document.getElementById(
+      "deviceId"
+    ).textContent =
+      "ID: " +
+      (device.id || "No disponible");
 
 
-  if(error.name==="NotFoundError"){
+    deviceCard.style.display =
+      "block";
 
-   setStatus(
-    "⚪ Selección cancelada",
-    "warning"
-   );
 
-  }else{
+    device.addEventListener(
+      "gattserverdisconnected",
+      handleDisconnected
+    );
 
-   setStatus(
-    "❌ No se pudo conectar",
-    "error"
-   );
+
+    setStatus(
+      "🔄 Conectando GATT...",
+      "warning"
+    );
+
+
+    log("Conectando GATT...");
+
+
+    server =
+      await device.gatt.connect();
+
+
+    if (
+      !server ||
+      !server.connected
+    ) {
+
+      throw new Error(
+        "GATT no quedó conectado."
+      );
+    }
+
+
+    document.getElementById(
+      "gattStatus"
+    ).textContent =
+      "GATT: 🟢 Conectado";
+
+
+    log("✅ GATT conectado.");
+
+
+    /*
+     * Acceso DIRECTO al UART conocido.
+     *
+     * No hacemos un escaneo genérico de servicios.
+     */
+
+    log(
+      "Buscando servicio UART de F1 Plus..."
+    );
+
+
+    service =
+      await server.getPrimaryService(
+        UART_SERVICE
+      );
+
+
+    if (!service) {
+
+      throw new Error(
+        "No se encontró el servicio UART."
+      );
+    }
+
+
+    log(
+      "✅ Servicio UART encontrado."
+    );
+
+
+    writeCharacteristic =
+      await service.getCharacteristic(
+        UART_WRITE
+      );
+
+
+    if (!writeCharacteristic) {
+
+      throw new Error(
+        "No se encontró WRITE."
+      );
+    }
+
+
+    log(
+      "✅ WRITE encontrado."
+    );
+
+
+    notifyCharacteristic =
+      await service.getCharacteristic(
+        UART_NOTIFY
+      );
+
+
+    if (!notifyCharacteristic) {
+
+      throw new Error(
+        "No se encontró NOTIFY."
+      );
+    }
+
+
+    log(
+      "✅ NOTIFY encontrado."
+    );
+
+
+    /*
+     * Activamos NOTIFY.
+     *
+     * NO enviamos ningún comando.
+     */
+
+    notifyCharacteristic.addEventListener(
+      "characteristicvaluechanged",
+      handleNotification
+    );
+
+
+    await notifyCharacteristic
+      .startNotifications();
+
+
+    log(
+      "✅ NOTIFY ACTIVADO."
+    );
+
+    log(
+      "Canal WRITE preparado."
+    );
+
+    log(
+      "Canal NOTIFY preparado."
+    );
+
+    log(
+      "NO se enviará ningún comando automáticamente."
+    );
+
+    log(
+      "Esperando datos de la F1 Plus..."
+    );
+
+
+    channelCard.style.display =
+      "block";
+
+    labCard.style.display =
+      "block";
+
+    statsCard.style.display =
+      "block";
+
+    packetsCard.style.display =
+      "block";
+
+    patternsCard.style.display =
+      "block";
+
+    compareCard.style.display =
+      "block";
+
+
+    document.getElementById(
+      "channelStatus"
+    ).textContent =
+      "🟢 Canal UART preparado · NOTIFY activo";
+
+
+    document.getElementById(
+      "channelStatus"
+    ).className =
+      "status success";
+
+
+    setStatus(
+      "🟢 Smart Band conectada y escuchando",
+      "success"
+    );
+
+
+    connectBtn.textContent =
+      "🟢 F1 PLUS CONECTADA";
+
+
+    disconnectBtn.style.display =
+      "block";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    log(
+      "❌ ERROR DE CONEXIÓN"
+    );
+
+    log(
+      "Nombre: " +
+      (error.name || "desconocido")
+    );
+
+    log(
+      "Mensaje: " +
+      (error.message || error)
+    );
+
+
+    setStatus(
+      "❌ No se pudo conectar",
+      "error"
+    );
+
+
+    connectBtn.disabled = false;
+
+    connectBtn.textContent =
+      "🔗 CONECTAR F1 PLUS";
+  }
+}
+
+
+/* ==========================================================
+   NOTIFY / RX
+   ========================================================== */
+
+function handleNotification(event) {
+
+  const value =
+    event.target.value;
+
+  const bytes = [];
+
+  for (
+    let i = 0;
+    i < value.byteLength;
+    i++
+  ) {
+
+    bytes.push(
+      value.getUint8(i)
+    );
   }
 
 
-  connectBtn.disabled=false;
-
-  connectBtn.textContent=
-  "🔗 CONECTAR SMART BAND";
- }
+  processRX(bytes);
 }
 
 
-/* =========================================================
-   UART
-   ========================================================= */
+/* ==========================================================
+   PROCESAR RX
+   ========================================================== */
 
-async function prepareUART(){
+function processRX(bytes) {
 
- log(
-  "Buscando servicio UART de F1 Plus..."
- );
+  const now =
+    Date.now();
 
+  const hex =
+    bytesToHex(bytes);
 
- let service;
+  const decimal =
+    bytes.join(" ");
 
- try{
-
-  service=
-  await server.getPrimaryService(
-   UART_SERVICE
-  );
-
-  log(
-   "✅ Servicio UART encontrado."
-  );
-
- }catch(error){
-
-  log(
-   "❌ Servicio UART no encontrado: "+
-   error.message
-  );
-
-  setStatus(
-   "❌ UART no disponible",
-   "error"
-  );
-
-  return;
- }
-
-
- try{
-
-  writeCharacteristic=
-  await service.getCharacteristic(
-   UART_WRITE
-  );
-
-  log("✅ WRITE encontrado.");
-
- }catch(error){
-
-  log(
-   "❌ WRITE no encontrado."
-  );
- }
-
-
- try{
-
-  notifyCharacteristic=
-  await service.getCharacteristic(
-   UART_NOTIFY
-  );
-
-  log("✅ NOTIFY encontrado.");
-
- }catch(error){
-
-  log(
-   "❌ NOTIFY no encontrado."
-  );
- }
-
-
- uart.textContent=
- "UART: 🟢 Preparado";
-
-
- if(notifyCharacteristic){
-
-  try{
-
-   await notifyCharacteristic
-   .startNotifications();
-
-   notifyCharacteristic
-   .addEventListener(
-    "characteristicvaluechanged",
-    handleRX
-   );
-
-   log(
-    "✅ NOTIFY ACTIVADO."
-   );
-
-  }catch(error){
-
-   log(
-    "❌ Error NOTIFY: "+
-    error.message
-   );
-
-   return;
-  }
- }
-
-
- sendBtn.disabled=
- !writeCharacteristic;
-
-
- sendInfo.textContent=
- writeCharacteristic
- ?
- "🟢 WRITE disponible. Nada se enviará automáticamente."
- :
- "🔴 WRITE no disponible.";
-
-
- setStatus(
-  "🟢 Smart Band conectada y escuchando",
-  "success"
- );
-
-
- connectBtn.textContent=
- "🟢 SMART BAND CONECTADA";
-
- disconnectBtn.style.display=
- "block";
-
-
- log(
-  "Canal de comunicación preparado."
- );
-
- log(
-  "NO se enviará ningún comando automáticamente."
- );
-
- log(
-  "Esperando datos de la F1 Plus..."
- );
-}
-
-
-/* =========================================================
-   BYTES
-   ========================================================= */
-
-function bytesFromView(view){
-
- const bytes=[];
-
- for(
-  let i=0;
-  i<view.byteLength;
-  i++
- ){
-
-  bytes.push(
-   view.getUint8(i)
-  );
- }
-
- return bytes;
-}
-
-
-function hex(bytes){
-
- return bytes
- .map(
-  b=>
-   b.toString(16)
-   .padStart(2,"0")
-   .toUpperCase()
- )
- .join(" ");
-}
-
-
-function ascii(bytes){
-
- return bytes
- .map(
-  b=>
-   b>=32&&b<=126
-   ?String.fromCharCode(b)
-   :"."
- )
- .join("");
-}
-
-
-function equal(a,b){
-
- if(!a||!b) return false;
-
- if(a.length!==b.length) return false;
-
- for(
-  let i=0;
-  i<a.length;
-  i++
- ){
-
-  if(a[i]!==b[i]) return false;
- }
-
- return true;
-}
-
-
-/* =========================================================
-   ANALIZAR ESTRUCTURA AB 00
-   ========================================================= */
-
-function analyzeStructure(bytes){
-
- if(
-  bytes.length<2 ||
-  bytes[0]!==0xAB ||
-  bytes[1]!==0x00
- ){
-
-  return "Sin cabecera AB 00 reconocida.";
- }
-
-
- let result=[];
-
-
- result.push(
-  "Cabecera: AB 00"
- );
-
-
- if(bytes.length>=3){
-
-  result.push(
-   "Byte[2]: "+
-   bytes[2]+
-   " (0x"+
-   bytes[2]
-   .toString(16)
-   .padStart(2,"0")
-   .toUpperCase()+
-   ")"
-  );
- }
-
-
- if(bytes.length>=4){
-
-  result.push(
-   "Byte[3]: "+
-   bytes[3]+
-   " (0x"+
-   bytes[3]
-   .toString(16)
-   .padStart(2,"0")
-   .toUpperCase()+
-   ")"
-  );
- }
-
-
- if(bytes.length>=5){
-
-  result.push(
-   "Tipo/campo candidato: "+
-   bytes[4]+
-   " (0x"+
-   bytes[4]
-   .toString(16)
-   .padStart(2,"0")
-   .toUpperCase()+
-   ")"
-  );
- }
-
-
- result.push(
-  "Longitud real: "+
-  bytes.length+
-  " bytes"
- );
-
-
- return result.join("<br>");
-}
-
-
-/* =========================================================
-   ACTUALIZAR ESTRUCTURA
-   ========================================================= */
-
-function updateStructure(bytes){
-
- structure.innerHTML=
- analyzeStructure(bytes);
-}
-
-
-/* =========================================================
-   REGISTRAR PATRÓN
-   ========================================================= */
-
-function registerPattern(bytes){
-
- const key=hex(bytes);
-
- if(!patternMap[key]){
-
-  patternMap[key]={
-   count:0,
-   first:Date.now(),
-   last:Date.now()
-  };
- }
-
- patternMap[key].count++;
- patternMap[key].last=Date.now();
-
-
- renderPatterns();
-}
-
-
-/* =========================================================
-   PATRONES
-   ========================================================= */
-
-function renderPatterns(){
-
- const keys=
- Object.keys(patternMap);
-
- if(!keys.length){
-
-  patterns.innerHTML=
-  "Todavía no hay suficientes datos.";
-
-  return;
- }
-
-
- let html=
- "<table>"+
- "<tr>"+
- "<th>HEX</th>"+
- "<th>Veces</th>"+
- "<th>Intervalo</th>"+
- "</tr>";
-
-
- keys
- .sort(
-  (a,b)=>
-   patternMap[b].count-
-   patternMap[a].count
- )
- .forEach(
-  key=>{
-
-   const p=
-   patternMap[key];
-
-   const interval=
-   ((p.last-p.first)/1000)
-   .toFixed(1);
-
-   html+=
-   "<tr>"+
-   "<td>"+key+"</td>"+
-   "<td>"+p.count+"</td>"+
-   "<td>"+interval+" s</td>"+
-   "</tr>";
-  }
- );
-
-
- html+="</table>";
-
- patterns.innerHTML=html;
-}
-
-
-/* =========================================================
-   CREAR PAQUETE
-   ========================================================= */
-
-function addPacket(type,bytes,note){
-
- packetNumber++;
-
-
- const item=
- document.createElement("div");
-
- item.className=
- "packet "+
- type.toLowerCase();
-
-
- item.innerHTML=
-
- "<div class='packet-type'>"+
- (
-  type==="TX"
-  ?"📤"
-  :type==="ECO"
-  ?"🔁"
-  :type==="RESPUESTA"
-  ?"🟠"
-  :"📥"
- )+
- " PAQUETE #"+
- packetNumber+
- " · "+
- type+
- "</div>"+
-
- "<div class='hex'><b>HEX:</b> "+
- hex(bytes)+
- "</div>"+
-
- "<div class='decimal'><b>DECIMAL:</b> "+
- bytes.join(" ")+
- "</div>"+
-
- "<div class='ascii'><b>ASCII:</b> "+
- ascii(bytes)+
- "</div>"+
-
- (
-  note
-  ?
-  "<div class='analysis'>"+
-  note+
-  "</div>"
-  :""
- );
-
-
- if(
-  packetsBox.textContent.includes(
-   "Esperando tráfico"
-  )
- ){
-
-  packetsBox.innerHTML="";
- }
-
-
- packetsBox.prepend(item);
-
-
- packets.push({
-  type,
-  bytes:Array.from(bytes),
-  time:Date.now()
- });
-
-
- /*
-  * Mantener memoria razonable.
-  */
-
- if(packets.length>200){
-
-  packets.shift();
- }
-}
-
-
-/* =========================================================
-   RX
-   ========================================================= */
-
-function handleRX(event){
-
- try{
-
-  const bytes=
-  bytesFromView(
-   event.target.value
-  );
-
-
-  if(!bytes.length) return;
-
-
-  const now=Date.now();
-
-
-  /*
-   * ECO:
-   * solamente si el RX coincide EXACTAMENTE
-   * con el último TX y llega muy rápido.
-   */
-
-  const exactEcho=
-  lastTX &&
-  equal(bytes,lastTX) &&
-  (now-lastTXTime)<=3000;
-
-
-  if(exactEcho){
-
-   echoCount++;
-
-   document.getElementById(
-    "echoCount"
-   ).textContent=
-   echoCount;
-
-
-   log(
-    "🔁 ECO confirmado | "+
-    hex(bytes)
-   );
-
-
-   addPacket(
-    "ECO",
-    bytes,
-    "Coincide exactamente con el último TX."
-   );
-
-
-   return;
-  }
-
-
-  /*
-   * Posible respuesta:
-   *
-   * solo la marcamos como candidata
-   * si llega dentro de 3 segundos de un TX,
-   * pero NO es igual al TX.
-   *
-   * No afirmamos que sea respuesta real.
-   */
-
-  const possibleResponse=
-  lastTX &&
-  (now-lastTXTime)<=3000;
+  const ascii =
+    bytesToASCII(bytes);
 
 
   rxCount++;
 
-  document.getElementById(
-   "rxCount"
-  ).textContent=
-  rxCount;
+
+  let relation =
+    "SPONTÁNEO";
+
+  let relationClass =
+    "spontaneous";
+
+  let associatedTX = null;
 
 
-  registerPattern(bytes);
+  /*
+   * Asociación temporal:
+   *
+   * Solo consideramos que un RX corresponde
+   * al TX anterior si llega dentro de 3 segundos.
+   */
 
+  if (
+    lastTX &&
+    now - lastTX.timestamp <=
+    ASSOCIATION_WINDOW
+  ) {
 
-  updateStructure(bytes);
+    associatedTX =
+      lastTX;
 
+    associatedCount++;
 
-  if(possibleResponse){
+    relation =
+      "RX ← TX " +
+      lastTX.hex;
 
-   responseCount++;
+    relationClass =
+      "rx";
 
-   document.getElementById(
-    "responseCount"
-   ).textContent=
-   responseCount;
+    log(
+      "📥 RX asociado a TX reciente | " +
+      hex
+    );
 
+  } else {
 
-   log(
-    "📥 RX | POSIBLE RESPUESTA | "+
-    hex(bytes)
-   );
+    spontaneousCount++;
 
-
-   addPacket(
-    "RESPUESTA",
-    bytes,
-    "Llegó dentro de 3 segundos del último TX, pero NO coincide con él. Candidata, no confirmada."
-   );
-
-  }else{
-
-   log(
-    "📥 RX | PAQUETE ESPONTÁNEO | "+
-    hex(bytes)
-   );
-
-
-   addPacket(
-    "RX",
-    bytes,
-    "No está asociado temporalmente a un TX reciente."
-   );
+    log(
+      "📥 RX | PAQUETE ESPONTÁNEO | " +
+      hex
+    );
   }
 
 
- }catch(error){
+  /*
+   * Detectar eco.
+   *
+   * Solo se considera eco si el RX coincide
+   * exactamente con los bytes de un TX reciente.
+   */
 
-  log(
-   "❌ Error procesando RX: "+
-   error.message
-  );
- }
-}
+  if (
+    associatedTX &&
+    arraysEqual(
+      bytes,
+      associatedTX.bytes
+    )
+  ) {
 
+    relation =
+      "ECO de TX";
 
-/* =========================================================
-   PARSE HEX
-   ========================================================= */
+    relationClass =
+      "echo";
 
-function parseHex(text){
-
- const clean=
- text
- .trim()
- .replace(/,/g," ")
- .replace(/\s+/g," ");
-
-
- if(!clean){
-
-  throw new Error(
-   "Introduce bytes HEX."
-  );
- }
-
-
- const parts=
- clean.split(" ");
-
-
- const bytes=[];
-
-
- for(
-  const part of parts
- ){
-
-  if(
-   !/^[0-9a-fA-F]{1,2}$/
-   .test(part)
-  ){
-
-   throw new Error(
-    "Byte HEX inválido: "+
-    part
-   );
+    log(
+      "🟡 POSIBLE ECO DETECTADO | " +
+      hex
+    );
   }
 
 
-  bytes.push(
-   parseInt(part,16)
-  );
- }
+  const packet = {
+
+    number: rxCount,
+
+    direction: "RX",
+
+    bytes: bytes.slice(),
+
+    hex: hex,
+
+    decimal: decimal,
+
+    ascii: ascii,
+
+    timestamp: now,
+
+    relation: relation,
+
+    relationClass: relationClass,
+
+    associatedTX:
+      associatedTX
+        ? associatedTX.hex
+        : null
+  };
 
 
- return bytes;
+  rxPackets.unshift(packet);
+
+  renderPackets();
+  renderPatterns();
+  renderComparison();
+
+  updateStats();
 }
 
 
-/* =========================================================
+/* ==========================================================
    TX
-   ========================================================= */
+   ========================================================== */
 
-async function sendHEX(){
+async function sendHex(hexText) {
 
- if(
-  !writeCharacteristic ||
-  !server ||
-  !server.connected
- ){
+  if (
+    !writeCharacteristic
+  ) {
 
-  setStatus(
-   "❌ F1 Plus no conectada",
-   "error"
-  );
+    alert(
+      "La F1 Plus no está conectada."
+    );
 
-  return;
- }
+    return;
+  }
 
 
- let bytes;
+  let bytes;
 
 
- try{
+  try {
 
-  bytes=
-  parseHex(
-   hexInput.value
-  );
+    bytes =
+      parseHex(hexText);
 
- }catch(error){
+  } catch (error) {
 
-  alert(error.message);
+    alert(error.message);
 
-  return;
- }
+    return;
+  }
 
 
- try{
+  if (
+    bytes.length === 0
+  ) {
+
+    alert(
+      "Introduce al menos un byte HEX."
+    );
+
+    return;
+  }
+
+
+  if (
+    bytes.length > 512
+  ) {
+
+    alert(
+      "El comando es demasiado largo."
+    );
+
+    return;
+  }
+
+
+  const packetNumber =
+    txCount + 1;
+
+  const now =
+    Date.now();
+
+  const hex =
+    bytesToHex(bytes);
+
+
+  const packet = {
+
+    number: packetNumber,
+
+    direction: "TX",
+
+    bytes: bytes.slice(),
+
+    hex: hex,
+
+    timestamp: now
+  };
+
+
+  try {
+
+    /*
+     * Preferimos writeValueWithoutResponse
+     * si está disponible.
+     */
+
+    if (
+      typeof writeCharacteristic
+        .writeValueWithoutResponse ===
+      "function"
+    ) {
+
+      await writeCharacteristic
+        .writeValueWithoutResponse(
+          new Uint8Array(bytes)
+        );
+
+    } else {
+
+      await writeCharacteristic
+        .writeValue(
+          new Uint8Array(bytes)
+        );
+    }
+
+
+    txCount++;
+
+    txPackets.push(packet);
+
+    lastTX = packet;
+
+
+    log(
+      "📤 TX enviado | " +
+      bytes.length +
+      " bytes | HEX: " +
+      hex
+    );
+
+
+    renderPackets();
+    renderPatterns();
+    renderComparison();
+
+    updateStats();
+
+
+  } catch (error) {
+
+    log(
+      "❌ ERROR TX | " +
+      error.message
+    );
+
+    alert(
+      "No se pudo enviar: " +
+      error.message
+    );
+  }
+}
+
+
+/* ==========================================================
+   PARSE HEX
+   ========================================================== */
+
+function parseHex(text) {
+
+  const clean =
+    text
+      .trim()
+      .replace(/,/g, " ")
+      .replace(/\s+/g, " ");
+
+
+  if (!clean) {
+    return [];
+  }
+
+
+  const parts =
+    clean.split(" ");
+
+
+  const bytes = [];
+
+
+  for (
+    const part of parts
+  ) {
+
+    if (
+      !/^[0-9a-fA-F]{1,2}$/
+        .test(part)
+    ) {
+
+      throw new Error(
+        "HEX inválido: " +
+        part
+      );
+    }
+
+
+    const value =
+      parseInt(part, 16);
+
+
+    if (
+      value < 0 ||
+      value > 255
+    ) {
+
+      throw new Error(
+        "Byte fuera de rango: " +
+        part
+      );
+    }
+
+
+    bytes.push(value);
+  }
+
+
+  return bytes;
+}
+
+
+/* ==========================================================
+   HEX
+   ========================================================== */
+
+function bytesToHex(bytes) {
+
+  return bytes
+    .map(
+      byte =>
+        byte
+          .toString(16)
+          .padStart(2, "0")
+          .toUpperCase()
+    )
+    .join(" ");
+}
+
+
+/* ==========================================================
+   ASCII
+   ========================================================== */
+
+function bytesToASCII(bytes) {
+
+  return bytes
+    .map(
+      byte =>
+        byte >= 32 &&
+        byte <= 126
+          ? String.fromCharCode(byte)
+          : "."
+    )
+    .join("");
+}
+
+
+/* ==========================================================
+   COMPARAR ARRAYS
+   ========================================================== */
+
+function arraysEqual(a, b) {
+
+  if (
+    a.length !==
+    b.length
+  ) {
+    return false;
+  }
+
+  for (
+    let i = 0;
+    i < a.length;
+    i++
+  ) {
+
+    if (
+      a[i] !== b[i]
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+/* ==========================================================
+   RENDER PAQUETES
+   ========================================================== */
+
+function renderPackets() {
+
+  packetsContainer.innerHTML = "";
+
+
+  const all = [];
+
 
   /*
-   * Guardar TX inmediatamente antes
-   * de la escritura.
+   * Mezclamos TX y RX y ordenamos por tiempo.
    */
 
-  lastTX=
-  Array.from(bytes);
+  txPackets.forEach(
+    packet =>
+      all.push(packet)
+  );
 
-  lastTXTime=
-  Date.now();
+  rxPackets.forEach(
+    packet =>
+      all.push(packet)
+  );
 
 
-  txCount++;
+  all.sort(
+    (a,b) =>
+      b.timestamp -
+      a.timestamp
+  );
+
+
+  all
+    .slice(0, 100)
+    .forEach(
+      packet => {
+
+        const element =
+          document.createElement(
+            "div"
+          );
+
+
+        element.className =
+          "packet " +
+          (
+            packet.direction ===
+            "RX"
+              ? packet.relationClass || "rx"
+              : "tx"
+          );
+
+
+        const title =
+          document.createElement(
+            "div"
+          );
+
+
+        title.className =
+          "packet-title";
+
+
+        if (
+          packet.direction ===
+          "TX"
+        ) {
+
+          title.innerHTML =
+            "📤 PAQUETE #" +
+            packet.number +
+            " · TX · WRITE";
+
+        } else {
+
+          title.innerHTML =
+            "📥 PAQUETE #" +
+            packet.number +
+            " · RX · NOTIFY";
+        }
+
+
+        element.appendChild(
+          title
+        );
+
+
+        const hex =
+          document.createElement(
+            "div"
+          );
+
+
+        hex.className =
+          "hex";
+
+
+        hex.innerHTML =
+          "<strong>HEX:</strong> " +
+          escapeHTML(
+            packet.hex
+          );
+
+
+        element.appendChild(
+          hex
+        );
+
+
+        if (
+          packet.direction ===
+          "RX"
+        ) {
+
+          const dec =
+            document.createElement(
+              "div"
+            );
+
+
+          dec.className =
+            "decimal";
+
+
+          dec.textContent =
+            "DECIMAL: " +
+            packet.decimal;
+
+
+          element.appendChild(
+            dec
+          );
+
+
+          const ascii =
+            document.createElement(
+              "div"
+            );
+
+
+          ascii.className =
+            "ascii";
+
+
+          ascii.textContent =
+            "ASCII: " +
+            packet.ascii;
+
+
+          element.appendChild(
+            ascii
+          );
+
+
+          const meta =
+            document.createElement(
+              "div"
+            );
+
+
+          meta.className =
+            "meta";
+
+
+          meta.textContent =
+            packet.relation;
+
+
+          element.appendChild(
+            meta
+          );
+        }
+
+
+        packetsContainer.appendChild(
+          element
+        );
+      }
+    );
+}
+
+
+/* ==========================================================
+   PATRONES
+   ========================================================== */
+
+function renderPatterns() {
+
+  const map =
+    new Map();
+
+
+  rxPackets.forEach(
+    packet => {
+
+      if (
+        !map.has(packet.hex)
+      ) {
+
+        map.set(
+          packet.hex,
+          {
+            count: 0,
+            first: packet.timestamp,
+            last: packet.timestamp
+          }
+        );
+      }
+
+
+      const item =
+        map.get(packet.hex);
+
+
+      item.count++;
+
+      item.last =
+        packet.timestamp;
+    }
+  );
+
+
+  patternsContainer.innerHTML = "";
+
+
+  if (
+    map.size === 0
+  ) {
+
+    patternsContainer.innerHTML =
+      '<div class="small">Aún no hay RX.</div>';
+
+    return;
+  }
+
+
+  map.forEach(
+    (item, hex) => {
+
+      const interval =
+        item.count > 1
+          ? (
+              (
+                item.last -
+                item.first
+              ) /
+              1000
+            ).toFixed(2)
+          : "0.00";
+
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "pattern";
+
+
+      row.innerHTML =
+        "<div>" +
+        escapeHTML(hex) +
+        "</div>" +
+        "<div>" +
+        item.count +
+        "</div>" +
+        "<div>" +
+        interval +
+        " s" +
+        "</div>";
+
+
+      patternsContainer.appendChild(
+        row
+      );
+    }
+  );
+}
+
+
+/* ==========================================================
+   COMPARACIÓN
+   ========================================================== */
+
+function renderComparison() {
+
+  if (
+    rxPackets.length < 2
+  ) {
+
+    comparisonContainer.textContent =
+      "Todavía no hay suficientes paquetes RX para comparar.";
+
+    return;
+  }
+
+
+  const a =
+    rxPackets[0];
+
+  const b =
+    rxPackets[1];
+
+
+  const max =
+    Math.max(
+      a.bytes.length,
+      b.bytes.length
+    );
+
+
+  const differences = [];
+
+
+  for (
+    let i = 0;
+    i < max;
+    i++
+  ) {
+
+    const av =
+      a.bytes[i];
+
+    const bv =
+      b.bytes[i];
+
+
+    if (
+      av !== bv
+    ) {
+
+      differences.push(
+        "Byte " +
+        i +
+        ": " +
+        (
+          av === undefined
+            ? "--"
+            : av
+              .toString(16)
+              .padStart(2,"0")
+              .toUpperCase()
+        ) +
+        " → " +
+        (
+          bv === undefined
+            ? "--"
+            : bv
+              .toString(16)
+              .padStart(2,"0")
+              .toUpperCase()
+        )
+      );
+    }
+  }
+
+
+  let html =
+    "<div class='small'>" +
+    "Comparando los dos RX más recientes:" +
+    "</div>";
+
+
+  html +=
+    "<div class='info-row'>" +
+    "<strong>A:</strong><br>" +
+    escapeHTML(a.hex) +
+    "</div>";
+
+
+  html +=
+    "<div class='info-row'>" +
+    "<strong>B:</strong><br>" +
+    escapeHTML(b.hex) +
+    "</div>";
+
+
+  if (
+    differences.length === 0
+  ) {
+
+    html +=
+      "<div class='info-row'>" +
+      "🟢 Los dos paquetes son idénticos." +
+      "</div>";
+
+  } else {
+
+    html +=
+      "<div class='info-row'>" +
+      "<strong>Bytes diferentes:</strong><br>" +
+      escapeHTML(
+        differences.join("\n")
+      ) +
+      "</div>";
+  }
+
+
+  comparisonContainer.innerHTML =
+    html;
+}
+
+
+/* ==========================================================
+   ESTADÍSTICAS
+   ========================================================== */
+
+function updateStats() {
 
   document.getElementById(
-   "txCount"
-  ).textContent=
-  txCount;
+    "txCount"
+  ).textContent =
+    txCount;
 
 
-  addPacket(
-   "TX",
-   bytes,
-   "Enviado por WRITE."
-  );
+  document.getElementById(
+    "rxCount"
+  ).textContent =
+    rxCount;
 
 
-  log(
-   "📤 TX | "+
-   bytes.length+
-   " bytes | "+
-   hex(bytes)
-  );
+  document.getElementById(
+    "associatedCount"
+  ).textContent =
+    associatedCount;
 
 
-  const data=
-  new Uint8Array(bytes);
-
-
-  /*
-   * Elegimos automáticamente el método
-   * compatible con las propiedades reales.
-   */
-
-  if(
-   writeCharacteristic.properties &&
-   writeCharacteristic.properties
-   .writeWithoutResponse
-  ){
-
-   await writeCharacteristic
-   .writeValueWithoutResponse(
-    data
-   );
-
-  }else{
-
-   await writeCharacteristic
-   .writeValue(data);
-  }
-
-
-  setStatus(
-   "📤 TX enviado correctamente",
-   "success"
-  );
-
-
- }catch(error){
-
-  log(
-   "❌ ERROR TX: "+
-   error.message
-  );
-
-  setStatus(
-   "❌ Error enviando HEX",
-   "error"
-  );
- }
+  document.getElementById(
+    "spontaneousCount"
+  ).textContent =
+    spontaneousCount;
 }
 
 
-/* =========================================================
+/* ==========================================================
+   ESCAPE HTML
+   ========================================================== */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* ==========================================================
    DESCONECTAR
-   ========================================================= */
+   ========================================================== */
 
-function handleDisconnected(){
-
- log(
-  "🔴 SMART BAND DESCONECTADA."
- );
-
-
- setStatus(
-  "🔴 Smart Band desconectada",
-  "error"
- );
-
-
- gatt.textContent=
- "GATT: 🔴 Desconectado";
-
- uart.textContent=
- "UART: 🔴 Desconectado";
-
-
- sendBtn.disabled=true;
-
- connectBtn.disabled=false;
-
- connectBtn.textContent=
- "🔗 CONECTAR SMART BAND";
-
- disconnectBtn.style.display=
- "none";
-
-
- server=null;
- writeCharacteristic=null;
- notifyCharacteristic=null;
-}
-
-
-function disconnectBand(){
-
- try{
-
-  if(
-   device &&
-   device.gatt &&
-   device.gatt.connected
-  ){
-
-   device.gatt.disconnect();
-  }
-
- }catch(error){
+function disconnectF1Plus() {
 
   log(
-   "❌ Error desconectando: "+
-   error.message
+    "Solicitando desconexión..."
   );
- }
 
 
- handleDisconnected();
+  try {
+
+    if (
+      notifyCharacteristic
+    ) {
+
+      try {
+
+        notifyCharacteristic
+          .removeEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+          );
+
+      } catch (_) {}
+    }
+
+
+    if (
+      device &&
+      device.gatt &&
+      device.gatt.connected
+    ) {
+
+      device.gatt.disconnect();
+    }
+
+  } catch (error) {
+
+    log(
+      "Error desconectando: " +
+      error.message
+    );
+  }
+
+
+  cleanupConnection();
+
+
+  setStatus(
+    "⚪ Smart Band desconectada",
+    "warning"
+  );
 }
 
 
-/* =========================================================
-   LIMPIAR
-   ========================================================= */
+/* ==========================================================
+   DESCONECCIÓN INVOLUNTARIA
+   ========================================================== */
 
-function clearPackets(){
+function handleDisconnected() {
 
- packetsBox.innerHTML=
- "<div style='color:#777'>Esperando tráfico...</div>";
+  log(
+    "🔴 SMART BAND DESCONECTADA."
+  );
 
- packetNumber=0;
-
- txCount=0;
- rxCount=0;
- echoCount=0;
- responseCount=0;
-
- lastTX=null;
- lastTXTime=0;
-
- Object.keys(patternMap)
- .forEach(
-  key=>delete patternMap[key]
- );
+  cleanupConnection();
 
 
- document.getElementById("txCount").textContent="0";
- document.getElementById("rxCount").textContent="0";
- document.getElementById("echoCount").textContent="0";
- document.getElementById("responseCount").textContent="0";
-
- structure.innerHTML=
- "Esperando paquetes...";
-
- patterns.innerHTML=
- "Todavía no hay suficientes datos.";
-
- log(
-  "🧹 Paquetes y análisis reiniciados."
- );
+  setStatus(
+    "🔴 Smart Band desconectada",
+    "error"
+  );
 }
 
 
-/* =========================================================
+/* ==========================================================
+   LIMPIEZA CONEXIÓN
+   ========================================================== */
+
+function cleanupConnection() {
+
+  server = null;
+  service = null;
+  writeCharacteristic = null;
+  notifyCharacteristic = null;
+
+
+  document.getElementById(
+    "gattStatus"
+  ).textContent =
+    "GATT: 🔴 Desconectado";
+
+
+  document.getElementById(
+    "channelStatus"
+  ).textContent =
+    "Canal desconectado";
+
+
+  document.getElementById(
+    "channelStatus"
+  ).className =
+    "status error";
+
+
+  connectBtn.disabled =
+    false;
+
+  connectBtn.textContent =
+    "🔗 CONECTAR F1 PLUS";
+
+
+  disconnectBtn.style.display =
+    "none";
+}
+
+
+/* ==========================================================
+   LIMPIAR PAQUETES
+   ========================================================== */
+
+function clearPackets() {
+
+  txPackets = [];
+  rxPackets = [];
+
+  txCount = 0;
+  rxCount = 0;
+  associatedCount = 0;
+  spontaneousCount = 0;
+
+  lastTX = null;
+
+  renderPackets();
+  renderPatterns();
+  renderComparison();
+  updateStats();
+
+  log(
+    "Historial de paquetes limpiado."
+  );
+}
+
+
+/* ==========================================================
+   LIMPIAR LOG
+   ========================================================== */
+
+function clearLog() {
+
+  logContainer.textContent =
+    "Sistema preparado.\n";
+}
+
+
+/* ==========================================================
    EVENTOS
-   ========================================================= */
+   ========================================================== */
 
 connectBtn.addEventListener(
- "click",
- connectBand
+  "click",
+  connectF1Plus
 );
+
 
 disconnectBtn.addEventListener(
- "click",
- disconnectBand
-);
-
-sendBtn.addEventListener(
- "click",
- sendHEX
-);
-
-clearBtn.addEventListener(
- "click",
- clearPackets
-);
-
-clearLogBtn.addEventListener(
- "click",
- function(){
-
-  logBox.textContent=
-  "Sistema preparado.";
- }
+  "click",
+  disconnectF1Plus
 );
 
 
-/* =========================================================
-   INICIALIZACIÓN
-   ========================================================= */
+document.getElementById(
+  "clearPacketsBtn"
+).addEventListener(
+  "click",
+  clearPackets
+);
+
+
+document.getElementById(
+  "clearLogBtn"
+).addEventListener(
+  "click",
+  clearLog
+);
+
+
+sendHexBtn.addEventListener(
+  "click",
+  async function () {
+
+    await sendHex(
+      hexInput.value
+    );
+  }
+);
+
+
+/*
+ * Botones 00, 01, 02, 03, 04 y 05.
+ *
+ * SOLO se ejecutan cuando el usuario pulsa
+ * explícitamente uno de ellos.
+ */
+
+document
+  .querySelectorAll(".test-command")
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        async function () {
+
+          const command =
+            this.dataset.command;
+
+          const confirmed =
+            confirm(
+              "Enviar HEX " +
+              command +
+              " a la F1 Plus?"
+            );
+
+          if (!confirmed) {
+            return;
+          }
+
+          hexInput.value =
+            command;
+
+          await sendHex(
+            command
+          );
+        }
+      );
+    }
+  );
+
+
+/* ==========================================================
+   INICIO
+   ========================================================== */
 
 log(
- "Inicializando analizador F1 Plus..."
+  "Inicializando analizador F1 Plus..."
 );
 
 checkBluetooth();
 
 </script>
+
 </body>
 </html>
