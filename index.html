@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0f14">
+<meta name="description" content="Smart Band - Salud, actividad y estadísticas">
+<title>Smart Band</title>
+
+<style>
+:root{
+  --bg:#080b10;
+  --card:#11161e;
+  --card2:#171e28;
+  --text:#f5f7fa;
+  --muted:#8994a5;
+  --accent:#35d0ba;
+  --accent2:#4d8dff;
+  --danger:#ff5968;
+  --border:rgba(255,255,255,.08);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at top right,
+    rgba(53,208,186,.13),
+    transparent 32%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+button{
+  font:inherit;
+}
+
+.app{
+  max-width:620px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:90px;
+}
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:16px;
+  background:rgba(8,11,16,.9);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-size:23px;
+}
+
+.brand strong{
+  display:block;
+  font-size:17px;
+}
+
+.brand span{
+  display:block;
+  margin-top:2px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.connection{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 10px;
+  background:var(--card);
+  border-radius:20px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--danger);
+}
+
+.dot.connected{
+  background:var(--accent);
+  box-shadow:0 0 10px var(--accent);
+}
+
+/* MAIN */
+
+main{
+  padding:18px;
+}
+
+.page{
+  display:none;
+  animation:fade .2s ease;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.greeting{
+  margin-bottom:18px;
+}
+
+.greeting h1{
+  margin:0 0 5px;
+  font-size:27px;
+}
+
+.greeting p{
+  margin:0;
+  color:var(--muted);
+}
+
+/* CARDS */
+
+.card{
+  background:linear-gradient(145deg,
+    rgba(255,255,255,.045),
+    rgba(255,255,255,.015));
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:14px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.card-title h2{
+  margin:0;
+  font-size:16px;
+}
+
+.small{
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* DEVICE */
+
+.device-card{
+  background:
+    radial-gradient(circle at 90% 10%,
+    rgba(53,208,186,.18),
+    transparent 35%),
+    linear-gradient(145deg,#121a22,#0e131a);
+}
+
+.device-top{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.band-icon{
+  width:72px;
+  height:72px;
+  border-radius:24px;
+  display:grid;
+  place-items:center;
+  background:rgba(53,208,186,.1);
+  font-size:37px;
+}
+
+.device-name strong{
+  display:block;
+  font-size:20px;
+}
+
+.device-name span{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.battery{
+  margin-top:20px;
+}
+
+.battery-head{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:7px;
+}
+
+.progress{
+  height:7px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#29313c;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:76%;
+  border-radius:20px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.metric{
+  min-height:130px;
+  padding:15px;
+  border-radius:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+}
+
+.metric-icon{
+  font-size:23px;
+  margin-bottom:10px;
+}
+
+.metric-value{
+  font-size:25px;
+  font-weight:bold;
+}
+
+.metric-label{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.metric-change{
+  color:var(--accent);
+  font-size:10px;
+  margin-top:9px;
+}
+
+/* GOAL */
+
+.goal{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.circle{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle,var(--card) 58%,transparent 59%),
+    conic-gradient(var(--accent) 78%,#28313c 0);
+}
+
+.circle strong{
+  font-size:21px;
+}
+
+.goal-text strong{
+  display:block;
+  font-size:17px;
+}
+
+.goal-text span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+  margin-top:5px;
+}
+
+/* BUTTON */
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:14px;
+  color:white;
+  background:var(--card2);
+  border:1px solid var(--border);
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.btn-primary{
+  color:#07100e;
+  background:linear-gradient(135deg,var(--accent),#269f91);
+  border:0;
+}
+
+/* LIST */
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.list-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+}
+
+.list-icon{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  background:var(--card2);
+  border-radius:12px;
+  font-size:19px;
+}
+
+.list-main{
+  flex:1;
+}
+
+.list-main strong{
+  display:block;
+  font-size:13px;
+}
+
+.list-main span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+/* CHART */
+
+.chart{
+  height:160px;
+  display:flex;
+  align-items:end;
+  gap:8px;
+  padding:10px 2px 2px;
+}
+
+.bar{
+  flex:1;
+  border-radius:8px 8px 3px 3px;
+  background:linear-gradient(to top,var(--accent2),var(--accent));
+  opacity:.85;
+}
+
+/* TOGGLE */
+
+.toggle{
+  width:47px;
+  height:27px;
+  border:0;
+  border-radius:20px;
+  background:#303844;
+  position:relative;
+}
+
+.toggle span{
+  position:absolute;
+  width:21px;
+  height:21px;
+  top:3px;
+  left:3px;
+  background:white;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.toggle.on{
+  background:var(--accent);
+}
+
+.toggle.on span{
+  left:23px;
+}
+
+/* NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:min(620px,100%);
+  z-index:30;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 6px;
+  background:rgba(12,16,22,.95);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+}
+
+.nav-btn{
+  border:0;
+  background:none;
+  color:#727e8f;
+  padding:6px 2px;
+  font-size:10px;
+  cursor:pointer;
+}
+
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+.nav-btn.active{
+  color:var(--accent);
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:flex-end;
+  padding:18px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(7px);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(620px,100%);
+  margin:auto;
+  padding:22px;
+  background:#11161e;
+  border:1px solid var(--border);
+  border-radius:24px;
+}
+
+.modal-box h2{
+  margin-top:0;
+}
+
+.close{
+  float:right;
+  border:0;
+  background:none;
+  color:white;
+  font-size:25px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:90px;
+  z-index:200;
+  padding:12px 17px;
+  background:#202833;
+  border:1px solid var(--border);
+  border-radius:14px;
+  font-size:12px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+@media(max-width:360px){
+
+  main{
+    padding:13px;
+  }
+
+  .greeting h1{
+    font-size:24px;
+  }
+
+  .metric{
+    padding:12px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="header-row">
+
+    <div class="brand">
+      <div class="logo">⌚</div>
+      <div>
+        <strong>SMART BAND</strong>
+        <span>Health & Activity</span>
+      </div>
+    </div>
+
+    <div class="connection">
+      <span id="connectionDot" class="dot"></span>
+      <span id="connectionText">Desconectada</span>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<!-- INICIO -->
+
+<section id="home" class="page active">
+
+  <div class="greeting">
+    <h1>Buenos días 👋</h1>
+    <p>Tu resumen de actividad.</p>
+  </div>
+
+  <div class="card device-card">
+
+    <div class="device-top">
+
+      <div class="band-icon">⌚</div>
+
+      <div class="device-name">
+        <strong id="deviceName">Smart Band</strong>
+        <span id="deviceStatus">No conectada</span>
+      </div>
+
+    </div>
+
+    <div class="battery">
+
+      <div class="battery-head">
+        <span>Batería</span>
+        <strong id="batteryValue">76%</strong>
+      </div>
+
+      <div class="progress">
+        <span id="batteryBar"></span>
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn btn-primary"
+            onclick="connectBand()">
+      🔵 Conectar Smart Band
+    </button>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="metric">
+      <div class="metric-icon">👣</div>
+      <div class="metric-value" id="steps">7.842</div>
+      <div class="metric-label">Pasos</div>
+      <div class="metric-change">+12% vs ayer</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🔥</div>
+      <div class="metric-value" id="calories">486</div>
+      <div class="metric-label">Calorías</div>
+      <div class="metric-change">Objetivo 650</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">❤️</div>
+      <div class="metric-value" id="heart">72</div>
+      <div class="metric-label">BPM</div>
+      <div class="metric-change">Normal</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">💧</div>
+      <div class="metric-value" id="spo2">98%</div>
+      <div class="metric-label">SpO₂</div>
+      <div class="metric-change">Última medición</div>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Objetivo diario</h2>
+      <span class="small">7.842 / 10.000</span>
+    </div>
+
+    <div class="goal">
+
+      <div class="circle">
+        <strong>78%</strong>
+      </div>
+
+      <div class="goal-text">
+        <strong>Buen trabajo</strong>
+        <span>
+          Te faltan 2.158 pasos para completar
+          tu objetivo diario.
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Actividad semanal</h2>
+      <span class="small">Pasos</span>
+    </div>
+
+    <div id="weeklyChart" class="chart"></div>
+
+  </div>
+
+</section>
+
+
+<!-- SALUD -->
+
+<section id="health" class="page">
+
+  <div class="greeting">
+    <h1>Salud ❤️</h1>
+    <p>Indicadores de salud registrados.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="metric">
+      <div class="metric-icon">❤️</div>
+      <div class="metric-value">72</div>
+      <div class="metric-label">Frecuencia cardíaca</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">💧</div>
+      <div class="metric-value">98%</div>
+      <div class="metric-label">SpO₂</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🌡️</div>
+      <div class="metric-value">36.5°</div>
+      <div class="metric-label">Temperatura</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🫁</div>
+      <div class="metric-value">16</div>
+      <div class="metric-label">Respiraciones/min</div>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Frecuencia cardíaca</h2>
+      <span class="small">Hoy</span>
+    </div>
+
+    <div id="heartChart" class="chart"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ACTIVIDAD -->
+
+<section id="activity" class="page">
+
+  <div class="greeting">
+    <h1>Actividad 🏃</h1>
+    <p>Movimiento y entrenamientos.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Hoy</h2>
+      <span class="small">Objetivo 10.000</span>
+    </div>
+
+    <div class="goal">
+
+      <div class="circle">
+        <strong>78%</strong>
+      </div>
+
+      <div class="goal-text">
+        <strong>7.842 pasos</strong>
+        <span>5,6 km recorridos</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="metric">
+      <div class="metric-icon">👣</div>
+      <div class="metric-value">7.842</div>
+      <div class="metric-label">Pasos</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">📍</div>
+      <div class="metric-value">5,6</div>
+      <div class="metric-label">Kilómetros</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🔥</div>
+      <div class="metric-value">486</div>
+      <div class="metric-label">Calorías</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">⏱️</div>
+      <div class="metric-value">58m</div>
+      <div class="metric-label">Actividad</div>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Entrenamientos</h2>
+    </div>
+
+    <div class="list">
+
+      <div class="list-item">
+        <div class="list-icon">🚶</div>
+        <div class="list-main">
+          <strong>Caminata</strong>
+          <span>Hoy · 32 minutos</span>
+        </div>
+        <strong>2,8 km</strong>
+      </div>
+
+      <div class="list-item">
+        <div class="list-icon">🏃</div>
+        <div class="list-main">
+          <strong>Carrera</strong>
+          <span>Ayer · 26 minutos</span>
+        </div>
+        <strong>4,1 km</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SUEÑO -->
+
+<section id="sleep" class="page">
+
+  <div class="greeting">
+    <h1>Sueño 😴</h1>
+    <p>Resumen de tu descanso.</p>
+  </div>
+
+  <div class="card device-card">
+
+    <div class="card-title">
+      <h2>Última noche</h2>
+      <span class="small">Excelente</span>
+    </div>
+
+    <div class="goal">
+
+      <div class="circle">
+        <strong>87%</strong>
+      </div>
+
+      <div class="goal-text">
+        <strong>7 h 42 min</strong>
+        <span>Tiempo total de sueño</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="metric">
+      <div class="metric-icon">🌙</div>
+      <div class="metric-value">5h 58m</div>
+      <div class="metric-label">Sueño ligero</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🛌</div>
+      <div class="metric-value">1h 44m</div>
+      <div class="metric-label">Sueño profundo</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">⏰</div>
+      <div class="metric-value">2</div>
+      <div class="metric-label">Despertares</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">❤️</div>
+      <div class="metric-value">64</div>
+      <div class="metric-label">BPM promedio</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ESTADÍSTICAS -->
+
+<section id="stats" class="page">
+
+  <div class="greeting">
+    <h1>Estadísticas 📊</h1>
+    <p>Tu evolución semanal.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Pasos</h2>
+      <span class="small">Últimos 7 días</span>
+    </div>
+
+    <div id="statsChart" class="chart"></div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="metric">
+      <div class="metric-icon">🏆</div>
+      <div class="metric-value">12.430</div>
+      <div class="metric-label">Récord de pasos</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🔥</div>
+      <div class="metric-value">681</div>
+      <div class="metric-label">Récord calorías</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DISPOSITIVO -->
+
+<section id="device" class="page">
+
+  <div class="greeting">
+    <h1>Mi Smart Band ⌚</h1>
+    <p>Gestiona tu dispositivo.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Dispositivo</h2>
+    </div>
+
+    <div class="list">
+
+      <div class="list-item">
+        <div class="list-icon">⌚</div>
+        <div class="list-main">
+          <strong id="deviceName2">Smart Band</strong>
+          <span id="deviceInfo">
+            Sin dispositivo conectado
+          </span>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-icon">🔋</div>
+        <div class="list-main">
+          <strong>Batería</strong>
+          <span>Nivel actual</span>
+        </div>
+        <strong id="deviceBattery">76%</strong>
+      </div>
+
+      <div class="list-item">
+        <div class="list-icon">🔵</div>
+        <div class="list-main">
+          <strong>Bluetooth</strong>
+          <span>Estado</span>
+        </div>
+        <strong id="bluetoothStatus">
+          Desconectado
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+  <button class="btn btn-primary"
+          onclick="connectBand()">
+    🔵 Buscar Smart Band
+  </button>
+
+  <br><br>
+
+  <button class="btn"
+          onclick="disconnectBand()">
+    Desconectar dispositivo
+  </button>
+
+</section>
+
+</main>
+
+
+<!-- NAVEGACIÓN -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-btn active"
+          onclick="showPage('home',this)">
+    <span class="nav-icon">🏠</span>
+    Inicio
+  </button>
+
+  <button class="nav-btn"
+          onclick="showPage('health',this)">
+    <span class="nav-icon">❤️</span>
+    Salud
+  </button>
+
+  <button class="nav-btn"
+          onclick="showPage('activity',this)">
+    <span class="nav-icon">🏃</span>
+    Actividad
+  </button>
+
+  <button class="nav-btn"
+          onclick="showPage('sleep',this)">
+    <span class="nav-icon">😴</span>
+    Sueño
+  </button>
+
+  <button class="nav-btn"
+          onclick="showPage('device',this)">
+    <span class="nav-icon">⌚</span>
+    Band
+  </button>
+
+</nav>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div id="bluetoothModal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close"
+            onclick="closeModal()">×</button>
+
+    <h2>🔵 Conectar Smart Band</h2>
+
+    <p class="small">
+      Desde aquí prepararemos la conexión Bluetooth
+      con tu dispositivo.
+    </p>
+
+    <br>
+
+    <button class="btn btn-primary"
+            onclick="requestBluetoothDevice()">
+      Buscar dispositivo
+    </button>
+
+    <br><br>
+
+    <button class="btn"
+            onclick="closeModal()">
+      Cancelar
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* ===============================
+   NAVEGACIÓN
+================================ */
+
+function showPage(pageId,button){
+
+  document.querySelectorAll(".page")
+    .forEach(page=>{
+      page.classList.remove("active");
+    });
+
+  const page=document.getElementById(pageId);
+
+  if(page){
+    page.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* ===============================
+   MENSAJES
+================================ */
+
+function toast(message){
+
+  const element=
+    document.getElementById("toast");
+
+  element.textContent=message;
+
+  element.classList.add("show");
+
+  setTimeout(()=>{
+    element.classList.remove("show");
+  },2500);
+}
+
+
+/* ===============================
+   GRÁFICAS
+================================ */
+
+function createChart(id,values){
+
+  const chart=
+    document.getElementById(id);
+
+  if(!chart) return;
+
+  chart.innerHTML="";
+
+  const max=Math.max(...values);
+
+  values.forEach(value=>{
+
+    const bar=
+      document.createElement("div");
+
+    bar.className="bar";
+
+    bar.style.height=
+      Math.max(8,(value/max)*100)+"%";
+
+    chart.appendChild(bar);
+
+  });
+}
+
+createChart(
+  "weeklyChart",
+  [42,58,64,48,81,72,78]
+);
+
+createChart(
+  "statsChart",
+  [52,61,73,46,82,68,78]
+);
+
+createChart(
+  "heartChart",
+  [62,70,68,74,72,76,69,73,71,75,72]
+);
+
+
+/* ===============================
+   BLUETOOTH
+================================ */
+
+let bluetoothDevice=null;
+let bluetoothServer=null;
+
+
+function connectBand(){
+
+  document
+    .getElementById("bluetoothModal")
+    .classList.add("show");
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("bluetoothModal")
+    .classList.remove("show");
+}
+
+
+async function requestBluetoothDevice(){
+
+  if(!navigator.bluetooth){
+
+    toast(
+      "Bluetooth no está disponible en este navegador."
+    );
+
+    return;
+  }
+
+  try{
+
+    toast("Buscando dispositivos...");
+
+    bluetoothDevice=
+      await navigator.bluetooth.requestDevice({
+
+        acceptAllDevices:true,
+
+        optionalServices:[
+          "battery_service",
+          "device_information"
+        ]
+
+      });
+
+    if(!bluetoothDevice){
+
+      toast("No se encontró dispositivo.");
+
+      return;
+    }
+
+    document
+      .getElementById("deviceName")
+      .textContent=
+      bluetoothDevice.name ||
+      "Smart Band";
+
+    document
+      .getElementById("deviceName2")
+      .textContent=
+      bluetoothDevice.name ||
+      "Smart Band";
+
+    document
+      .getElementById("deviceStatus")
+      .textContent=
+      "Conectando...";
+
+    document
+      .getElementById("deviceInfo")
+      .textContent=
+      "Dispositivo detectado";
+
+    closeModal();
+
+    bluetoothDevice.addEventListener(
+      "gattserverdisconnected",
+      disconnected
+    );
+
+    bluetoothServer=
+      await bluetoothDevice.gatt.connect();
+
+    setConnection(true);
+
+    await readBattery();
+
+    toast(
+      "Smart Band conectada."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    setConnection(false);
+
+    toast(
+      "No se pudo conectar."
+    );
+
+  }
+
+}
+
+
+/* ===============================
+   CONEXIÓN
+================================ */
+
+function setConnection(connected){
+
+  const dot=
+    document.getElementById("connectionDot");
+
+  const text=
+    document.getElementById("connectionText");
+
+  const status=
+    document.getElementById("deviceStatus");
+
+  const bluetooth=
+    document.getElementById("bluetoothStatus");
+
+  if(connected){
+
+    dot.classList.add("connected");
+
+    text.textContent="Conectada";
+
+    status.textContent="Conectada";
+
+    bluetooth.textContent="Conectado";
+
+  }else{
+
+    dot.classList.remove("connected");
+
+    text.textContent="Desconectada";
+
+    status.textContent="No conectada";
+
+    bluetooth.textContent="Desconectado";
+  }
+}
+
+
+function disconnected(){
+
+  setConnection(false);
+
+  toast(
+    "Smart Band desconectada."
+  );
+}
+
+
+/* ===============================
+   BATERÍA
+================================ */
+
+async function readBattery(){
+
+  if(!bluetoothServer) return;
+
+  try{
+
+    const service=
+      await bluetoothServer
+      .getPrimaryService(
+        "battery_service"
+      );
+
+    const characteristic=
+      await service
+      .getCharacteristic(
+        "battery_level"
+      );
+
+    const value=
+      await characteristic.readValue();
+
+    const battery=
+      value.getUint8(0);
+
+    updateBattery(battery);
+
+  }catch(error){
+
+    console.log(
+      "No hay batería BLE estándar disponible."
+    );
+
+  }
+
+}
+
+
+function updateBattery(value){
+
+  value=
+    Math.max(0,Math.min(100,value));
+
+  document
+    .getElementById("batteryValue")
+    .textContent=
+    value+"%";
+
+  document
+    .getElementById("deviceBattery")
+    .textContent=
+    value+"%";
+
+  document
+    .getElementById("batteryBar")
+    .style.width=
+    value+"%";
+}
+
+
+/* ===============================
+   DESCONECTAR
+================================ */
+
+function disconnectBand(){
+
+  if(
+    bluetoothDevice &&
+    bluetoothDevice.gatt &&
+    bluetoothDevice.gatt.connected
+  ){
+
+    bluetoothDevice.gatt.disconnect();
+
+  }
+
+  bluetoothDevice=null;
+  bluetoothServer=null;
+
+  setConnection(false);
+
+  document
+    .getElementById("deviceName")
+    .textContent=
+    "Smart Band";
+
+  document
+    .getElementById("deviceName2")
+    .textContent=
+    "Smart Band";
+
+  document
+    .getElementById("deviceInfo")
+    .textContent=
+    "Sin dispositivo conectado";
+
+  toast(
+    "Dispositivo desconectado."
+  );
+}
+
+
+/* ===============================
+   INICIO
+================================ */
+
+updateBattery(76);
+
+</script>
+
+</body>
+</html>
