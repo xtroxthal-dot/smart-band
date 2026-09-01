@@ -4,74 +4,126 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#080808">
-<title>F1 Plus Protocol Analyzer</title>
+<title>RoXThal Art Design - F1 Plus Analyzer</title>
 
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;background:#080808;color:#fff;
-font-family:Arial,sans-serif
+html,body{
+  margin:0;
+  padding:0;
+  background:#080808;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif
 }
+body{min-height:100vh}
 .container{
-max-width:760px;margin:auto;padding:15px
+  width:100%;
+  max-width:760px;
+  margin:auto;
+  padding:15px 15px 40px
 }
-header{text-align:center;padding:20px}
+.header{text-align:center;padding:20px 10px}
 .logo{font-size:50px}
-h1{margin:5px 0;font-size:27px}
-.sub{color:#aaa}
+h1{font-size:27px;margin:5px 0}
+.subtitle{color:#aaa}
 .card{
-background:#151515;border-radius:18px;
-padding:18px;margin-top:15px
+  background:#151515;
+  border-radius:18px;
+  padding:18px;
+  margin-top:15px;
+  box-shadow:0 6px 25px rgba(0,0,0,.25)
 }
 .title{
-color:#ffd54a;font-size:19px;margin:0 0 12px
+  color:#ffd54a;
+  font-size:19px;
+  margin:0 0 12px
 }
 button{
-width:100%;padding:15px;margin-top:9px;
-border:0;border-radius:12px;
-font-size:16px;font-weight:bold
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:15px;
+  margin-top:9px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer
 }
-#connect{background:#e0b400;color:#111}
-#listen{background:#16834a;color:#fff}
-#stop{background:#333;color:#fff;display:none}
-#disconnect{background:#333;color:#fff;display:none}
-#send{background:#2377d8;color:#fff}
-#clear{background:#292929;color:#fff}
-textarea,input{
-width:100%;background:#080808;color:#fff;
-border:1px solid #444;border-radius:10px;
-padding:12px;font-family:monospace;
-font-size:14px;margin-top:7px
+button:disabled{opacity:.45}
+#connectBtn{background:#e0b400;color:#111}
+#listenBtn{background:#16834a;color:#fff}
+#stopBtn,#disconnectBtn,#clearBtn{
+  background:#333;color:#fff
 }
-textarea{min-height:80px;resize:vertical}
+#sendBtn{background:#2377d8;color:#fff}
+#testBtn{background:#7b4bd1;color:#fff}
+
 .status{
-padding:14px;border-radius:10px;
-background:#202020;text-align:center;
-margin-top:12px
+  padding:14px;
+  border-radius:10px;
+  background:#202020;
+  text-align:center;
+  margin-top:12px
 }
 .success{background:#123d20;color:#7cff9b}
 .error{background:#431515;color:#ff8f8f}
 .warning{background:#403715;color:#ffe477}
+
 .info{
-background:#202020;padding:11px;
-border-radius:9px;margin-top:8px;
-word-break:break-all
+  background:#202020;
+  padding:11px;
+  border-radius:9px;
+  margin-top:8px;
+  word-break:break-all
+}
+.small{
+  color:#999;
+  font-size:12px;
+  line-height:1.5
+}
+textarea{
+  width:100%;
+  min-height:90px;
+  resize:vertical;
+  margin-top:8px;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #444;
+  background:#080808;
+  color:#fff;
+  font-family:monospace;
+  font-size:14px
 }
 .log{
-background:#050505;border-radius:10px;
-padding:13px;max-height:420px;
-overflow:auto;white-space:pre-wrap;
-font-family:monospace;font-size:12px;
-line-height:1.5
+  background:#050505;
+  border-radius:10px;
+  padding:13px;
+  max-height:420px;
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+  font-family:monospace;
+  font-size:12px;
+  line-height:1.55
 }
 .packet{
-background:#090909;border-left:3px solid #ffd54a;
-border-radius:8px;padding:12px;
-margin-top:10px;font-family:monospace;
-font-size:12px;line-height:1.6;
-word-break:break-word
+  background:#090909;
+  border-left:3px solid #ffd54a;
+  border-radius:8px;
+  padding:12px;
+  margin-top:10px;
+  font-family:monospace;
+  font-size:12px;
+  line-height:1.6;
+  word-break:break-word
 }
-.small{color:#999;font-size:12px;line-height:1.5}
+.rx{border-left-color:#55d6ff}
+.tx{border-left-color:#d58cff}
+.footer{
+  text-align:center;
+  color:#777;
+  font-size:12px;
+  margin-top:25px
+}
 </style>
 </head>
 
@@ -79,126 +131,157 @@ word-break:break-word
 
 <div class="container">
 
-<header>
-<div class="logo">⌚</div>
-<h1>Smart Band F1 Plus</h1>
-<div class="sub">RoXThal Art Design · Analizador de protocolo</div>
+<header class="header">
+  <div class="logo">⌚</div>
+  <h1>Smart Band F1 Plus</h1>
+  <div class="subtitle">
+    RoXThal Art Design · Analizador de protocolo
+  </div>
 </header>
 
 <section class="card">
 
-<div id="compatibility" class="status">
-🔵 Comprobando Bluetooth...
-</div>
+  <div id="compatibility" class="status">
+    🔵 Comprobando Bluetooth...
+  </div>
 
-<button id="connect">
-🔗 CONECTAR F1 PLUS
-</button>
+  <button id="connectBtn">
+    🔗 CONECTAR F1 PLUS
+  </button>
 
-<button id="listen" disabled>
-📡 ACTIVAR ESCUCHA
-</button>
+  <button id="listenBtn" disabled>
+    📡 ACTIVAR ESCUCHA
+  </button>
 
-<button id="stop">
-⏹️ DETENER ESCUCHA
-</button>
+  <button id="stopBtn" style="display:none">
+    ⏹️ DETENER ESCUCHA
+  </button>
 
-<button id="disconnect">
-❌ DESCONECTAR
-</button>
+  <button id="disconnectBtn" style="display:none">
+    ❌ DESCONECTAR
+  </button>
 
-<div id="status" class="status">
-⚪ Smart Band desconectada
-</div>
+  <div id="bandStatus" class="status">
+    ⚪ Smart Band desconectada
+  </div>
 
 </section>
 
 <section id="deviceCard" class="card" style="display:none">
 
-<h2 class="title">📱 Dispositivo</h2>
+  <h2 class="title">📱 Dispositivo detectado</h2>
 
-<div id="deviceName" class="info">Nombre: —</div>
-<div id="deviceId" class="info">ID: —</div>
-<div id="gatt" class="info">GATT: —</div>
+  <div id="deviceName" class="info">
+    Nombre: —
+  </div>
+
+  <div id="deviceId" class="info">
+    ID: —
+  </div>
+
+  <div id="deviceGatt" class="info">
+    GATT: —
+  </div>
 
 </section>
 
 <section id="uartCard" class="card" style="display:none">
 
-<h2 class="title">📡 Nordic UART</h2>
+  <h2 class="title">📡 Canal F1 Plus</h2>
 
-<div class="info">
-<strong>Servicio</strong><br>
-6e400001-b5a3-f393-e0a9-e50e24dcca9e
-</div>
+  <div class="info">
+    <strong>Servicio UART</strong><br>
+    6e400001-b5a3-f393-e0a9-e50e24dcca9e
+  </div>
 
-<div class="info">
-<strong>WRITE</strong><br>
-6e400002-b5a3-f393-e0a9-e50e24dcca9e
-</div>
+  <div class="info">
+    <strong>WRITE</strong><br>
+    6e400002-b5a3-f393-e0a9-e50e24dcca9e
+  </div>
 
-<div class="info">
-<strong>NOTIFY</strong><br>
-6e400003-b5a3-f393-e0a9-e50e24dcca9e
-</div>
+  <div class="info">
+    <strong>NOTIFY</strong><br>
+    6e400003-b5a3-f393-e0a9-e50e24dcca9e
+  </div>
 
-<div id="uartState" class="info">
-⏳ UART pendiente
-</div>
-
-</section>
-
-<section id="sendCard" class="card" style="display:none">
-
-<h2 class="title">🧪 Consola HEX</h2>
-
-<div class="small">
-Esta consola NO envía nada automáticamente.
-Introduce bytes hexadecimales separados por espacios.
-Ejemplo: 01 02 FF 00
-</div>
-
-<textarea id="hexInput"
-placeholder="Ejemplo: 01 02 FF 00"></textarea>
-
-<button id="send" disabled>
-📤 ENVIAR HEX
-</button>
+  <div id="uartStatus" class="info">
+    ⏳ UART pendiente
+  </div>
 
 </section>
 
-<section id="packetsCard" class="card" style="display:none">
+<section id="consoleCard" class="card" style="display:none">
 
-<h2 class="title">📦 Tráfico capturado</h2>
+  <h2 class="title">🧪 Consola de protocolo</h2>
 
-<div id="counter" class="info">
-Paquetes recibidos: 0
-</div>
+  <div class="small">
+    Introduce bytes HEX separados por espacios.
+    No se enviará nada hasta que pulses ENVIAR HEX.
+  </div>
 
-<div id="packets"></div>
+  <textarea
+    id="hexInput"
+    placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
+  ></textarea>
+
+  <button id="sendBtn" disabled>
+    📤 ENVIAR HEX
+  </button>
+
+  <button id="testBtn" disabled>
+    🧪 ENVIAR PRUEBA CONTROLADA
+  </button>
+
+  <div class="small" style="margin-top:12px">
+    La prueba controlada utiliza el paquete de 8 bytes
+    que la propia F1 Plus ya nos envió espontáneamente.
+    No se ejecuta automáticamente.
+  </div>
+
+</section>
+
+<section id="trafficCard" class="card" style="display:none">
+
+  <h2 class="title">📦 Tráfico BLE</h2>
+
+  <div id="packetCounter" class="info">
+    RX: 0 · TX: 0
+  </div>
+
+  <div id="traffic"></div>
 
 </section>
 
 <section class="card">
 
-<h2 class="title">🛠️ Diagnóstico</h2>
+  <h2 class="title">🛠️ Diagnóstico</h2>
 
-<div id="log" class="log">Sistema preparado.</div>
+  <div id="log" class="log">
+Sistema preparado.
+  </div>
 
-<button id="clear">
-🧹 LIMPIAR
-</button>
+  <button id="copyBtn">
+    📋 COPIAR DIAGNÓSTICO
+  </button>
+
+  <button id="clearBtn">
+    🧹 LIMPIAR
+  </button>
 
 </section>
+
+<div class="footer">
+  RoXThal Art Design · F1 Plus
+</div>
 
 </div>
 
 <script>
 "use strict";
 
-/* ================================
-   UUID F1 PLUS
-================================ */
+/* =========================================================
+   UUID EXACTOS DE LA F1 PLUS DETECTADA
+========================================================= */
 
 const UART_SERVICE =
 "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
@@ -210,41 +293,59 @@ const UART_NOTIFY =
 "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
 
-/* ================================
+/* =========================================================
+   PAQUETE REAL YA CAPTURADO
+========================================================= */
+
+const KNOWN_PACKET = new Uint8Array([
+  0xAB,
+  0x00,
+  0x05,
+  0xFF,
+  0x91,
+  0x80,
+  0x00,
+  0x64
+]);
+
+
+/* =========================================================
    VARIABLES
-================================ */
+========================================================= */
 
-let device=null;
-let server=null;
-let service=null;
-let writeChar=null;
-let notifyChar=null;
+let device = null;
+let server = null;
+let uartService = null;
+let writeCharacteristic = null;
+let notifyCharacteristic = null;
 
-let listening=false;
-let packetCount=0;
+let listening = false;
+
+let rxCount = 0;
+let txCount = 0;
 
 
-/* ================================
+/* =========================================================
    ELEMENTOS
-================================ */
+========================================================= */
 
 const compatibility =
 document.getElementById("compatibility");
 
-const connect =
-document.getElementById("connect");
+const connectBtn =
+document.getElementById("connectBtn");
 
-const listen =
-document.getElementById("listen");
+const listenBtn =
+document.getElementById("listenBtn");
 
-const stop =
-document.getElementById("stop");
+const stopBtn =
+document.getElementById("stopBtn");
 
-const disconnect =
-document.getElementById("disconnect");
+const disconnectBtn =
+document.getElementById("disconnectBtn");
 
-const status =
-document.getElementById("status");
+const bandStatus =
+document.getElementById("bandStatus");
 
 const deviceCard =
 document.getElementById("deviceCard");
@@ -252,778 +353,1039 @@ document.getElementById("deviceCard");
 const uartCard =
 document.getElementById("uartCard");
 
-const sendCard =
-document.getElementById("sendCard");
+const consoleCard =
+document.getElementById("consoleCard");
 
-const packetsCard =
-document.getElementById("packetsCard");
+const trafficCard =
+document.getElementById("trafficCard");
+
+const uartStatus =
+document.getElementById("uartStatus");
 
 const logBox =
 document.getElementById("log");
 
-const packets =
-document.getElementById("packets");
+const traffic =
+document.getElementById("traffic");
 
-const counter =
-document.getElementById("counter");
+const packetCounter =
+document.getElementById("packetCounter");
 
 const hexInput =
 document.getElementById("hexInput");
 
-const send =
-document.getElementById("send");
+const sendBtn =
+document.getElementById("sendBtn");
 
-const clear =
-document.getElementById("clear");
+const testBtn =
+document.getElementById("testBtn");
+
+const copyBtn =
+document.getElementById("copyBtn");
+
+const clearBtn =
+document.getElementById("clearBtn");
 
 
-/* ================================
+/* =========================================================
    LOG
-================================ */
+========================================================= */
 
 function log(message){
 
-const time=
-new Date().toLocaleTimeString();
+  const time =
+    new Date().toLocaleTimeString();
 
-const line=
-"["+time+"] "+message;
+  const line =
+    "[" + time + "] " + message;
 
-console.log(line);
+  console.log(line);
 
-if(
-logBox.textContent.trim()==="Sistema preparado."
-){
-logBox.textContent="";
+  if(
+    logBox.textContent.trim() ===
+    "Sistema preparado."
+  ){
+    logBox.textContent = "";
+  }
+
+  logBox.textContent +=
+    line + "\n";
+
+  logBox.scrollTop =
+    logBox.scrollHeight;
 }
 
-logBox.textContent+=line+"\n";
-logBox.scrollTop=logBox.scrollHeight;
-}
 
-
-/* ================================
-   STATUS
-================================ */
+/* =========================================================
+   ESTADO
+========================================================= */
 
 function setStatus(text,type){
 
-status.textContent=text;
-status.className="status";
+  bandStatus.textContent = text;
 
-if(type){
-status.classList.add(type);
+  bandStatus.className = "status";
+
+  if(type){
+    bandStatus.classList.add(type);
+  }
+
 }
 
-}
 
-
-/* ================================
+/* =========================================================
    BLUETOOTH
-================================ */
+========================================================= */
 
 function checkBluetooth(){
 
-if(!navigator.bluetooth){
+  log("Comprobando Web Bluetooth...");
 
-compatibility.textContent=
-"❌ Web Bluetooth no disponible";
+  if(!navigator.bluetooth){
 
-compatibility.className=
-"status error";
+    compatibility.textContent =
+      "❌ Web Bluetooth no disponible";
 
-connect.disabled=true;
+    compatibility.className =
+      "status error";
 
-log(
-"ERROR: navigator.bluetooth no existe."
-);
+    connectBtn.disabled = true;
 
-return false;
+    log(
+      "ERROR: navigator.bluetooth no existe."
+    );
+
+    return false;
+  }
+
+  compatibility.textContent =
+    "✅ Web Bluetooth disponible";
+
+  compatibility.className =
+    "status success";
+
+  connectBtn.disabled = false;
+
+  log(
+    "Web Bluetooth detectado correctamente."
+  );
+
+  return true;
 }
 
-compatibility.textContent=
-"✅ Web Bluetooth disponible";
 
-compatibility.className=
-"status success";
-
-connect.disabled=false;
-
-log(
-"Web Bluetooth detectado correctamente."
-);
-
-return true;
-}
-
-
-/* ================================
-   CONECTAR
-================================ */
+/* =========================================================
+   CONEXIÓN
+========================================================= */
 
 async function connectBand(){
 
-if(!checkBluetooth()) return;
+  if(!checkBluetooth()){
+    return;
+  }
 
-connect.disabled=true;
+  connectBtn.disabled = true;
 
-connect.textContent=
-"🔍 BUSCANDO F1 PLUS...";
+  connectBtn.textContent =
+    "🔍 BUSCANDO F1 PLUS...";
 
-setStatus(
-"🔵 Abriendo selector Bluetooth...",
-"warning"
-);
+  setStatus(
+    "🔵 Abriendo selector Bluetooth...",
+    "warning"
+  );
 
-log("==============================");
-log("INICIO DE CONEXIÓN");
-log("Solicitando F1 Plus...");
+  log("==============================");
+  log("INICIO DE CONEXIÓN");
+  log("Solicitando dispositivo...");
 
-try{
+  try{
 
-device=
-await navigator.bluetooth.requestDevice({
+    device =
+      await navigator.bluetooth.requestDevice({
 
-acceptAllDevices:true,
+        acceptAllDevices:true,
 
-optionalServices:[
-UART_SERVICE,
-"00001800-0000-1000-8000-00805f9b34fb",
-"00001801-0000-1000-8000-00805f9b34fb"
-]
+        optionalServices:[
+          UART_SERVICE
+        ]
 
-});
+      });
 
-log(
-"DISPOSITIVO ENCONTRADO"
-);
+    log(
+      "DISPOSITIVO ENCONTRADO"
+    );
 
-log(
-"Nombre: "+
-(device.name||"Sin nombre")
-);
+    log(
+      "Nombre: " +
+      (device.name || "Sin nombre")
+    );
 
-log(
-"ID: "+device.id
-);
+    log(
+      "ID: " +
+      device.id
+    );
 
-document.getElementById("deviceName").textContent=
-"Nombre: "+(device.name||"Sin nombre");
+    document.getElementById(
+      "deviceName"
+    ).textContent =
+      "Nombre: " +
+      (device.name || "Sin nombre");
 
-document.getElementById("deviceId").textContent=
-"ID: "+device.id;
+    document.getElementById(
+      "deviceId"
+    ).textContent =
+      "ID: " +
+      device.id;
 
-deviceCard.style.display="block";
+    deviceCard.style.display =
+      "block";
 
-device.addEventListener(
-"gattserverdisconnected",
-onDisconnected
-);
+    device.addEventListener(
+      "gattserverdisconnected",
+      handleDisconnected
+    );
 
-log("Conectando GATT...");
+    log("Conectando GATT...");
 
-server=
-await device.gatt.connect();
+    server =
+      await device.gatt.connect();
 
-if(!server.connected){
-throw new Error(
-"GATT no quedó conectado"
-);
+    if(
+      !server ||
+      !server.connected
+    ){
+      throw new Error(
+        "GATT no quedó conectado."
+      );
+    }
+
+    document.getElementById(
+      "deviceGatt"
+    ).textContent =
+      "GATT: 🟢 Conectado";
+
+    setStatus(
+      "🟢 F1 Plus conectada",
+      "success"
+    );
+
+    connectBtn.textContent =
+      "🟢 F1 PLUS CONECTADA";
+
+    disconnectBtn.style.display =
+      "block";
+
+    uartCard.style.display =
+      "block";
+
+    await prepareUART();
+
+  }
+  catch(error){
+
+    log(
+      "❌ ERROR DE CONEXIÓN"
+    );
+
+    log(
+      "Nombre: " +
+      (error.name || "desconocido")
+    );
+
+    log(
+      "Mensaje: " +
+      (error.message || String(error))
+    );
+
+    setStatus(
+      error.name === "NotFoundError"
+        ? "⚪ Selección cancelada"
+        : "❌ No se pudo conectar",
+      "error"
+    );
+
+    connectBtn.disabled = false;
+
+    connectBtn.textContent =
+      "🔗 CONECTAR F1 PLUS";
+  }
+
 }
 
-document.getElementById("gatt").textContent=
-"GATT: 🟢 Conectado";
 
-setStatus(
-"🟢 F1 Plus conectada",
-"success"
-);
-
-connect.textContent=
-"🟢 F1 PLUS CONECTADA";
-
-disconnect.style.display="block";
-
-uartCard.style.display="block";
-
-await prepareUART();
-
-}
-catch(error){
-
-log(
-"❌ "+error.name
-);
-
-log(
-error.message||String(error)
-);
-
-setStatus(
-"❌ No se pudo conectar",
-"error"
-);
-
-connect.disabled=false;
-
-connect.textContent=
-"🔗 CONECTAR F1 PLUS";
-}
-
-}
-
-
-/* ================================
+/* =========================================================
    PREPARAR UART
-================================ */
+========================================================= */
 
 async function prepareUART(){
 
-try{
+  try{
 
-log(
-"Buscando servicio UART..."
-);
+    log(
+      "Buscando servicio UART de F1 Plus..."
+    );
 
-service=
-await server.getPrimaryService(
-UART_SERVICE
-);
+    uartService =
+      await server.getPrimaryService(
+        UART_SERVICE
+      );
 
-log(
-"✅ Servicio UART encontrado."
-);
+    log(
+      "✅ Servicio UART encontrado."
+    );
 
-writeChar=
-await service.getCharacteristic(
-UART_WRITE
-);
+    writeCharacteristic =
+      await uartService.getCharacteristic(
+        UART_WRITE
+      );
 
-log(
-"✅ WRITE encontrado."
-);
+    log(
+      "✅ Característica WRITE encontrada."
+    );
 
-notifyChar=
-await service.getCharacteristic(
-UART_NOTIFY
-);
+    notifyCharacteristic =
+      await uartService.getCharacteristic(
+        UART_NOTIFY
+      );
 
-log(
-"✅ NOTIFY encontrado."
-);
+    log(
+      "✅ Característica NOTIFY encontrada."
+    );
 
-document.getElementById("uartState").textContent=
-"🟢 UART preparado";
+    uartStatus.textContent =
+      "🟢 Canal UART preparado";
 
-listen.disabled=false;
+    consoleCard.style.display =
+      "block";
 
-send.disabled=false;
+    listenBtn.disabled = false;
 
-sendCard.style.display="block";
+    sendBtn.disabled = false;
 
-log(
-"Canal WRITE preparado."
-);
+    testBtn.disabled = false;
 
-log(
-"Canal NOTIFY preparado."
-);
+    log(
+      "Canal WRITE preparado."
+    );
 
-log(
-"NO se enviará ningún comando automáticamente."
-);
+    log(
+      "Canal NOTIFY preparado."
+    );
 
-setStatus(
-"🟢 F1 Plus lista",
-"success"
-);
+    log(
+      "NO se enviará ningún comando automáticamente."
+    );
 
-}
-catch(error){
+  }
+  catch(error){
 
-log(
-"❌ Error preparando UART: "+
-error.message
-);
+    uartStatus.textContent =
+      "❌ Error preparando UART";
 
-document.getElementById("uartState").textContent=
-"❌ UART no disponible";
+    log(
+      "❌ ERROR UART: " +
+      error.message
+    );
 
-}
+  }
 
 }
 
 
-/* ================================
-   ESCUCHAR
-================================ */
+/* =========================================================
+   ACTIVAR NOTIFY
+========================================================= */
 
 async function startListening(){
 
-if(!notifyChar){
+  if(!notifyCharacteristic){
 
-log(
-"❌ NOTIFY no disponible."
-);
+    log(
+      "❌ NOTIFY no disponible."
+    );
 
-return;
+    return;
+  }
+
+  if(listening){
+    return;
+  }
+
+  try{
+
+    notifyCharacteristic.addEventListener(
+      "characteristicvaluechanged",
+      handleNotification
+    );
+
+    await notifyCharacteristic.startNotifications();
+
+    listening = true;
+
+    listenBtn.style.display =
+      "none";
+
+    stopBtn.style.display =
+      "block";
+
+    trafficCard.style.display =
+      "block";
+
+    setStatus(
+      "📡 F1 Plus conectada y escuchando",
+      "success"
+    );
+
+    log(
+      "✅ NOTIFY ACTIVADO."
+    );
+
+    log(
+      "Esperando datos de la F1 Plus..."
+    );
+
+  }
+  catch(error){
+
+    log(
+      "❌ ERROR ACTIVANDO NOTIFY: " +
+      error.message
+    );
+
+  }
+
 }
 
-if(listening) return;
 
-try{
-
-notifyChar.addEventListener(
-"characteristicvaluechanged",
-onNotification
-);
-
-await notifyChar.startNotifications();
-
-listening=true;
-
-listen.style.display="none";
-stop.style.display="block";
-
-packetsCard.style.display="block";
-
-setStatus(
-"📡 Escuchando F1 Plus...",
-"success"
-);
-
-log(
-"✅ NOTIFY ACTIVADO."
-);
-
-log(
-"Esperando datos..."
-);
-
-}
-catch(error){
-
-log(
-"❌ Error activando NOTIFY: "+
-error.message
-);
-
-}
-
-}
-
-
-/* ================================
-   DETENER
-================================ */
+/* =========================================================
+   DETENER NOTIFY
+========================================================= */
 
 async function stopListening(){
 
-if(!notifyChar) return;
+  if(!notifyCharacteristic){
+    return;
+  }
 
-try{
+  try{
 
-if(listening){
+    if(listening){
 
-await notifyChar.stopNotifications();
+      await notifyCharacteristic.stopNotifications();
 
-notifyChar.removeEventListener(
-"characteristicvaluechanged",
-onNotification
-);
+      notifyCharacteristic.removeEventListener(
+        "characteristicvaluechanged",
+        handleNotification
+      );
 
-}
+    }
 
-}
-catch(error){
+  }
+  catch(error){
 
-log(
-"⚠️ "+
-error.message
-);
+    log(
+      "⚠️ Error deteniendo NOTIFY: " +
+      error.message
+    );
 
-}
+  }
 
-listening=false;
+  listening = false;
 
-listen.style.display="block";
-stop.style.display="none";
+  listenBtn.style.display =
+    "block";
 
-setStatus(
-"🟢 F1 Plus conectada",
-"success"
-);
+  stopBtn.style.display =
+    "none";
 
-log(
-"NOTIFY detenido."
-);
-
-}
-
-
-/* ================================
-   RECIBIR DATOS
-================================ */
-
-function onNotification(event){
-
-const value=
-event.target.value;
-
-const bytes=[];
-
-for(
-let i=0;
-i<value.byteLength;
-i++
-){
-
-bytes.push(
-value.getUint8(i)
-);
-
-}
-
-packetCount++;
-
-const hex=
-bytes.map(
-b=>b.toString(16)
-.padStart(2,"0")
-.toUpperCase()
-).join(" ");
-
-const decimal=
-bytes.join(" ");
-
-let ascii="";
-
-for(const b of bytes){
-
-if(b>=32 && b<=126){
-
-ascii+=
-String.fromCharCode(b);
-
-}else{
-
-ascii+=".";
-
-}
-
-}
-
-log(
-"📥 PAQUETE #"+
-packetCount+
-" | "+
-bytes.length+
-" bytes"
-);
-
-log(
-"HEX: "+hex
-);
-
-log(
-"DECIMAL: "+decimal
-);
-
-log(
-"ASCII: "+ascii
-);
-
-counter.textContent=
-"Paquetes recibidos: "+
-packetCount;
-
-const box=
-document.createElement("div");
-
-box.className="packet";
-
-box.innerHTML=
-"<strong>📥 PAQUETE #"+
-packetCount+
-"</strong><br>"+
-"<strong>LONGITUD:</strong> "+
-bytes.length+
-"<br>"+
-"<strong>HEX:</strong><br>"+
-hex+
-"<br>"+
-"<strong>DECIMAL:</strong><br>"+
-decimal+
-"<br>"+
-"<strong>ASCII:</strong><br>"+
-ascii;
-
-packets.prepend(box);
+  log(
+    "NOTIFY detenido."
+  );
 
 }
 
 
-/* ================================
-   ENVIAR HEX
-================================ */
+/* =========================================================
+   CONVERSIÓN
+========================================================= */
+
+function bytesToHex(bytes){
+
+  return Array.from(bytes)
+    .map(
+      b =>
+        b.toString(16)
+        .padStart(2,"0")
+        .toUpperCase()
+    )
+    .join(" ");
+
+}
+
+
+function bytesToAscii(bytes){
+
+  let text = "";
+
+  for(const b of bytes){
+
+    if(
+      b >= 32 &&
+      b <= 126
+    ){
+      text +=
+        String.fromCharCode(b);
+    }
+    else{
+      text += ".";
+    }
+
+  }
+
+  return text;
+}
+
+
+/* =========================================================
+   RECIBIR
+========================================================= */
+
+function handleNotification(event){
+
+  const value =
+    event.target.value;
+
+  const bytes = new Uint8Array(
+    value.buffer.slice(
+      value.byteOffset,
+      value.byteOffset +
+      value.byteLength
+    )
+  );
+
+  rxCount++;
+
+  const hex =
+    bytesToHex(bytes);
+
+  const decimal =
+    Array.from(bytes).join(" ");
+
+  const ascii =
+    bytesToAscii(bytes);
+
+  log("==============================");
+
+  log(
+    "📥 RX #" +
+    rxCount +
+    " · " +
+    bytes.length +
+    " bytes"
+  );
+
+  log(
+    "HEX: " + hex
+  );
+
+  log(
+    "DECIMAL: " + decimal
+  );
+
+  log(
+    "ASCII: " + ascii
+  );
+
+  addPacket(
+    "rx",
+    "📥 RX #" + rxCount,
+    bytes
+  );
+
+  updateCounter();
+
+}
+
+
+/* =========================================================
+   MOSTRAR PAQUETE
+========================================================= */
+
+function addPacket(type,title,bytes){
+
+  const box =
+    document.createElement("div");
+
+  box.className =
+    "packet " + type;
+
+  box.innerHTML =
+    "<strong>" +
+    title +
+    "</strong><br>" +
+
+    "<strong>LONGITUD:</strong> " +
+    bytes.length +
+    "<br>" +
+
+    "<strong>HEX:</strong><br>" +
+    escapeHtml(
+      bytesToHex(bytes)
+    ) +
+
+    "<br><strong>DECIMAL:</strong><br>" +
+    escapeHtml(
+      Array.from(bytes).join(" ")
+    ) +
+
+    "<br><strong>ASCII:</strong><br>" +
+    escapeHtml(
+      bytesToAscii(bytes)
+    );
+
+  traffic.prepend(box);
+
+}
+
+
+function escapeHtml(text){
+
+  return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+function updateCounter(){
+
+  packetCounter.textContent =
+    "RX: " +
+    rxCount +
+    " · TX: " +
+    txCount;
+
+}
+
+
+/* =========================================================
+   PARSE HEX
+========================================================= */
 
 function parseHex(text){
 
-text=
-text.trim();
+  const clean =
+    text.trim();
 
-if(!text){
+  if(!clean){
 
-throw new Error(
-"Introduce datos HEX."
-);
+    throw new Error(
+      "No has introducido ningún byte HEX."
+    );
+
+  }
+
+  const parts =
+    clean.split(/\s+/);
+
+  const result = [];
+
+  for(const part of parts){
+
+    if(
+      !/^[0-9a-fA-F]{1,2}$/.test(part)
+    ){
+
+      throw new Error(
+        "Byte HEX inválido: " + part
+      );
+
+    }
+
+    result.push(
+      parseInt(part,16)
+    );
+
+  }
+
+  return new Uint8Array(result);
 
 }
 
-const parts=
-text.split(/\s+/);
 
-const bytes=[];
-
-for(const part of parts){
-
-if(!/^[0-9a-fA-F]{1,2}$/.test(part)){
-
-throw new Error(
-"HEX inválido: "+part
-);
-
-}
-
-bytes.push(
-parseInt(part,16)
-);
-
-}
-
-return new Uint8Array(bytes);
-
-}
-
-
-/* ================================
-   ESCRIBIR
-================================ */
+/* =========================================================
+   ENVIAR HEX MANUAL
+========================================================= */
 
 async function sendHex(){
 
-if(!writeChar){
+  if(!writeCharacteristic){
 
-log(
-"❌ WRITE no disponible."
-);
+    log(
+      "❌ WRITE no disponible."
+    );
 
-return;
-}
+    return;
+  }
 
-try{
+  try{
 
-const bytes=
-parseHex(hexInput.value);
+    const bytes =
+      parseHex(hexInput.value);
 
-log("==============================");
+    await sendBytes(
+      bytes,
+      "ENVÍO MANUAL"
+    );
 
-log(
-"📤 ENVÍO MANUAL"
-);
+  }
+  catch(error){
 
-log(
-"Bytes: "+
-bytes.length
-);
+    log(
+      "❌ " + error.message
+    );
 
-log(
-"HEX: "+
-Array.from(bytes)
-.map(
-b=>b.toString(16)
-.padStart(2,"0")
-.toUpperCase()
-)
-.join(" ")
-);
-
-log(
-"Enviando a 6e400002..."
-);
-
-await writeChar.writeValue(bytes);
-
-log(
-"✅ ESCRITURA COMPLETADA."
-);
-
-}
-catch(error){
-
-log(
-"❌ ERROR DE ESCRITURA"
-);
-
-log(
-error.message||String(error)
-);
-
-}
+  }
 
 }
 
 
-/* ================================
-   DESCONECTAR
-================================ */
+/* =========================================================
+   ENVÍO CONTROLADO
+========================================================= */
+
+async function sendKnownTest(){
+
+  if(!writeCharacteristic){
+
+    log(
+      "❌ WRITE no disponible."
+    );
+
+    return;
+  }
+
+  const confirmed =
+    window.confirm(
+      "Se enviará a la F1 Plus el paquete real que ella misma nos envió anteriormente:\n\n" +
+      "AB 00 05 FF 91 80 00 64\n\n" +
+      "¿Quieres continuar?"
+    );
+
+  if(!confirmed){
+    log(
+      "Prueba cancelada por el usuario."
+    );
+    return;
+  }
+
+  await sendBytes(
+    KNOWN_PACKET,
+    "PRUEBA CONTROLADA"
+  );
+
+}
+
+
+/* =========================================================
+   ESCRITURA
+========================================================= */
+
+async function sendBytes(bytes,label){
+
+  try{
+
+    log("==============================");
+
+    log(
+      "📤 " + label
+    );
+
+    log(
+      "Longitud: " +
+      bytes.length +
+      " bytes"
+    );
+
+    log(
+      "HEX: " +
+      bytesToHex(bytes)
+    );
+
+    log(
+      "Escribiendo en 6e400002..."
+    );
+
+    /*
+     * writeValueWithoutResponse suele ser adecuado
+     * para Nordic UART cuando la característica
+     * ofrece WRITE WITHOUT RESPONSE.
+     *
+     * Si el dispositivo no lo soporta, usamos
+     * writeValue como respaldo.
+     */
+
+    if(
+      writeCharacteristic.properties
+        .writeWithoutResponse
+    ){
+
+      await writeCharacteristic
+        .writeValueWithoutResponse(bytes);
+
+      log(
+        "✅ WRITE WITHOUT RESPONSE completado."
+      );
+
+    }
+    else{
+
+      await writeCharacteristic
+        .writeValue(bytes);
+
+      log(
+        "✅ WRITE completado."
+      );
+
+    }
+
+    txCount++;
+
+    addPacket(
+      "tx",
+      "📤 TX #" + txCount,
+      bytes
+    );
+
+    updateCounter();
+
+    log(
+      "Esperando respuesta NOTIFY..."
+    );
+
+  }
+  catch(error){
+
+    log(
+      "❌ ERROR DE ESCRITURA"
+    );
+
+    log(
+      "Nombre: " +
+      (error.name || "desconocido")
+    );
+
+    log(
+      "Mensaje: " +
+      (error.message || String(error))
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DESCONEXIÓN
+========================================================= */
 
 async function disconnectBand(){
 
-await stopListening();
+  await stopListening();
 
-try{
+  try{
 
-if(
-device &&
-device.gatt &&
-device.gatt.connected
-){
+    if(
+      device &&
+      device.gatt &&
+      device.gatt.connected
+    ){
 
-device.gatt.disconnect();
+      device.gatt.disconnect();
 
-}
+    }
 
-}
-catch(error){
+  }
+  catch(error){
 
-log(
-"⚠️ "+
-error.message
-);
+    log(
+      "⚠️ " +
+      error.message
+    );
 
-}
-
-}
-
-
-/* ================================
-   DESCONEXIÓN
-================================ */
-
-function onDisconnected(){
-
-log("==============================");
-
-log(
-"🔴 F1 PLUS DESCONECTADA."
-);
-
-server=null;
-service=null;
-writeChar=null;
-notifyChar=null;
-
-listening=false;
-
-setStatus(
-"🔴 Smart Band desconectada",
-"error"
-);
-
-document.getElementById("gatt").textContent=
-"GATT: 🔴 Desconectado";
-
-connect.disabled=false;
-
-connect.textContent=
-"🔗 CONECTAR F1 PLUS";
-
-listen.disabled=true;
-
-listen.style.display="block";
-stop.style.display="none";
-
-send.disabled=true;
-
-disconnect.style.display="none";
+  }
 
 }
 
 
-/* ================================
+/* =========================================================
+   DESCONEXIÓN AUTOMÁTICA
+========================================================= */
+
+function handleDisconnected(){
+
+  log("==============================");
+
+  log(
+    "🔴 F1 PLUS DESCONECTADA."
+  );
+
+  server = null;
+  uartService = null;
+  writeCharacteristic = null;
+  notifyCharacteristic = null;
+
+  listening = false;
+
+  setStatus(
+    "🔴 Smart Band desconectada",
+    "error"
+  );
+
+  document.getElementById(
+    "deviceGatt"
+  ).textContent =
+    "GATT: 🔴 Desconectado";
+
+  connectBtn.disabled = false;
+
+  connectBtn.textContent =
+    "🔗 CONECTAR F1 PLUS";
+
+  listenBtn.disabled = true;
+
+  listenBtn.style.display =
+    "block";
+
+  stopBtn.style.display =
+    "none";
+
+  sendBtn.disabled = true;
+
+  testBtn.disabled = true;
+
+  disconnectBtn.style.display =
+    "none";
+
+}
+
+
+/* =========================================================
+   COPIAR DIAGNÓSTICO
+========================================================= */
+
+async function copyDiagnostic(){
+
+  try{
+
+    await navigator.clipboard.writeText(
+      logBox.textContent
+    );
+
+    log(
+      "📋 Diagnóstico copiado."
+    );
+
+  }
+  catch(error){
+
+    log(
+      "❌ No se pudo copiar: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
    LIMPIAR
-================================ */
+========================================================= */
 
-function clearLog(){
+function clearAll(){
 
-logBox.textContent=
-"Sistema preparado.";
+  logBox.textContent =
+    "Sistema preparado.";
 
-packets.innerHTML="";
+  traffic.innerHTML = "";
 
-packetCount=0;
+  rxCount = 0;
+  txCount = 0;
 
-counter.textContent=
-"Paquetes recibidos: 0";
+  updateCounter();
 
-log(
-"Diagnóstico y captura limpiados."
-);
+  log(
+    "Diagnóstico y tráfico limpiados."
+  );
 
 }
 
 
-/* ================================
+/* =========================================================
    EVENTOS
-================================ */
+========================================================= */
 
-connect.addEventListener(
-"click",
-connectBand
+connectBtn.addEventListener(
+  "click",
+  connectBand
 );
 
-listen.addEventListener(
-"click",
-startListening
+listenBtn.addEventListener(
+  "click",
+  startListening
 );
 
-stop.addEventListener(
-"click",
-stopListening
+stopBtn.addEventListener(
+  "click",
+  stopListening
 );
 
-disconnect.addEventListener(
-"click",
-disconnectBand
+disconnectBtn.addEventListener(
+  "click",
+  disconnectBand
 );
 
-send.addEventListener(
-"click",
-sendHex
+sendBtn.addEventListener(
+  "click",
+  sendHex
 );
 
-clear.addEventListener(
-"click",
-clearLog
+testBtn.addEventListener(
+  "click",
+  sendKnownTest
+);
+
+copyBtn.addEventListener(
+  "click",
+  copyDiagnostic
+);
+
+clearBtn.addEventListener(
+  "click",
+  clearAll
 );
 
 
-/* ================================
+/* =========================================================
    INICIO
-================================ */
+========================================================= */
 
 window.addEventListener(
-"load",
-()=>{
+  "load",
+  function(){
 
-log(
-"Inicializando analizador F1 Plus..."
-);
+    log(
+      "Inicializando analizador F1 Plus..."
+    );
 
-checkBluetooth();
+    checkBluetooth();
 
-}
+  }
 );
 
 </script>
