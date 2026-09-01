@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0b0b0d">
-<title>RoXThal — F1 Plus Protocol Laboratory v2</title>
-
-<style>
+<title>RoXThal — F1 Plus Protocol Laboratory v3 Differential</title><style>
 :root{
   --bg:#0b0b0d;
   --panel:#151519;
@@ -22,13 +19,9 @@
   --orange:#ff9d4d;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -90,9 +83,7 @@ button{
   font-weight:bold;
 }
 
-button:hover{
-  background:#303039;
-}
+button:hover{background:#303039}
 
 button.primary{
   background:#185d3d;
@@ -186,33 +177,14 @@ pre,
   font-size:12px;
 }
 
-.packet{
-  margin-bottom:10px;
-}
+.packet{margin-bottom:10px}
 
-.rx{
-  border-left:4px solid var(--green);
-}
-
-.tx{
-  border-left:4px solid var(--blue);
-}
-
-.spont{
-  border-left:4px solid var(--purple);
-}
-
-.echo{
-  border-left:4px solid var(--yellow);
-}
-
-.response{
-  border-left:4px solid var(--green);
-}
-
-.unknown{
-  border-left:4px solid var(--orange);
-}
+.rx{border-left:4px solid var(--green)}
+.tx{border-left:4px solid var(--blue)}
+.spont{border-left:4px solid var(--purple)}
+.echo{border-left:4px solid var(--yellow)}
+.response{border-left:4px solid var(--green)}
+.unknown{border-left:4px solid var(--orange)}
 
 input[type=text]{
   width:100%;
@@ -240,9 +212,7 @@ td{
   vertical-align:top;
 }
 
-th{
-  color:var(--muted);
-}
+th{color:var(--muted)}
 
 .badge{
   display:inline-block;
@@ -253,25 +223,11 @@ th{
   margin-left:5px;
 }
 
-.badge.green{
-  color:var(--green);
-}
-
-.badge.yellow{
-  color:var(--yellow);
-}
-
-.badge.purple{
-  color:var(--purple);
-}
-
-.badge.blue{
-  color:var(--blue);
-}
-
-.badge.orange{
-  color:var(--orange);
-}
+.badge.green{color:var(--green)}
+.badge.yellow{color:var(--yellow)}
+.badge.purple{color:var(--purple)}
+.badge.blue{color:var(--blue)}
+.badge.orange{color:var(--orange)}
 
 .byte-grid{
   display:grid;
@@ -299,12 +255,38 @@ th{
   margin-top:4px;
 }
 
-.variable{
-  border-color:#75611d;
+.variable{border-color:#75611d}
+.constant{border-color:#245b43}
+
+.changed{
+  border-color:#9b8128;
+  background:#17150c;
 }
 
-.constant{
+.unchanged{
   border-color:#245b43;
+  background:#0d1712;
+}
+
+.diff-old{
+  color:var(--red);
+  font-family:monospace;
+  font-weight:bold;
+}
+
+.diff-new{
+  color:var(--green);
+  font-family:monospace;
+  font-weight:bold;
+}
+
+.diff-arrow{
+  color:var(--muted);
+  padding:0 5px;
+}
+
+.diff-table td{
+  padding:9px;
 }
 
 .info-box{
@@ -330,6 +312,11 @@ th{
   background:#170d0d;
 }
 
+.diff-highlight{
+  border-color:#9b8128;
+  background:#17150c;
+}
+
 footer{
   color:var(--muted);
   text-align:center;
@@ -343,423 +330,165 @@ hr{
   margin:14px 0;
 }
 
-.code{
-  font-family:monospace;
-}
+.code{font-family:monospace}
 
 @media(max-width:600px){
-
-  header h1{
-    font-size:19px;
-  }
-
-  main{
-    padding:10px;
-  }
-
-  .card{
-    padding:12px;
-  }
-
+  header h1{font-size:19px}
+  main{padding:10px}
+  .card{padding:12px}
   button{
     width:100%;
     margin:4px 0;
   }
-
 }
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>🔬 RoXThal — Laboratorio F1 Plus v2</h1>
-  <p>Captura pasiva · análisis estructural · detección de patrones · sin comandos automáticos</p>
-</header>
-
-<main>
-
-<!-- =====================================================
-     CONEXIÓN
-===================================================== -->
-
-<section class="card">
-
-<h2>📡 Conexión F1 Plus</h2>
-
-<button id="connectBtn" class="primary">
+</style></head><body><header>
+  <h1>🔬 RoXThal — Laboratorio F1 Plus v3</h1>
+  <p>Captura pasiva · análisis estructural · comparación diferencial automática · detección de patrones</p>
+</header><main><section class="card"><h2>📡 Conexión F1 Plus</h2><button id="connectBtn" class="primary">
 🔗 CONECTAR F1 PLUS
-</button>
-
-<button id="disconnectBtn" class="danger" disabled>
+</button><button id="disconnectBtn" class="danger" disabled>
 ⛔ DESCONECTAR
-</button>
-
-<button id="scanBtn">
+</button><button id="scanBtn">
 🔎 COMPROBAR BLUETOOTH
-</button>
-
-<div id="connectionStatus" class="status">
+</button><div id="connectionStatus" class="status">
 ⚪ Desconectada
-</div>
-
-<div id="deviceInfo" class="status">
+</div><div id="deviceInfo" class="status">
 Sin dispositivo seleccionado.
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     UART
-===================================================== -->
-
-<section class="card">
-
-<h2>🔌 Canal BLE / UART</h2>
-
-<div id="uartInfo">
+</div></section><section class="card"><h2>🔌 Canal BLE / UART</h2><div id="uartInfo">
 Aún no se ha preparado el canal.
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     MODO
-===================================================== -->
-
-<section class="card">
-
-<h2>🧪 Estado del laboratorio</h2>
-
-<div class="status success">
-
-<b class="green">
+</div></section><section class="card"><h2>🧪 Estado del laboratorio</h2><div class="status success"><b class="green">
 🟢 MODO PASIVO ACTIVO
-</b>
-
-<p>
+</b><p>
 La aplicación <b>no envía ningún comando automáticamente</b>.
-</p>
-
-<p>
+</p><p>
 Todo RX recibido desde NOTIFY se captura y analiza.
-</p>
-
-<p>
+</p><p>
 La aplicación no presupone que ningún byte sea un comando válido.
-</p>
-
-</div>
-
-<div class="status warning">
-
-<b class="yellow">
+</p></div><div class="status warning"><b class="yellow">
 ⚠️ IMPORTANTE
-</b>
-
-<p>
+</b><p>
 Los significados de los bytes se consideran
 <b>desconocidos</b> hasta disponer de suficientes capturas
 experimentales.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     ESTADÍSTICAS
-===================================================== -->
-
-<section class="card">
-
-<h2>📊 Estadísticas globales</h2>
-
-<div class="grid">
-
-<div class="stat">
+</p></div></section><section class="card"><h2>📊 Estadísticas globales</h2><div class="grid"><div class="stat">
 TX
 <b id="txCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 RX
 <b id="rxCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 RX espontáneos
 <b id="spontCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 Respuestas
 <b id="responseCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 Ecos
 <b id="echoCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 Tipos RX
 <b id="typeCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 Longitudes
 <b id="lengthCount">0</b>
-</div>
-
-<div class="stat">
+</div><div class="stat">
 Patrones
 <b id="patternCount">0</b>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     TIPOS
-===================================================== -->
-
-<section class="card">
-
-<h2>🧬 Tipos de trama detectados</h2>
-
-<div id="frameTypes">
+</div><div class="stat">
+Comparaciones
+<b id="comparisonCount">0</b>
+</div><div class="stat">
+Bytes modificados
+<b id="changedByteCount">0</b>
+</div></div></section><!-- =====================================================
+     NUEVO COMPARADOR DIFERENCIAL
+===================================================== --><section class="card"><h2>🔬 Comparador diferencial automático</h2><div class="status diff-highlight"><b class="yellow">
+🧪 ANÁLISIS BYTE POR BYTE
+</b><p>
+Cada nueva trama RX se compara automáticamente con la
+<b>trama anterior del mismo tipo y longitud</b>.
+</p><p>
+Ejemplo:
+<code>0x91 / 8 bytes</code> solo se compara con otra
+<code>0x91 / 8 bytes</code>.
+</p><p class="small">
+Esto evita comparar tramas estructuralmente diferentes.
+Ningún significado funcional se asigna automáticamente.
+</p></div><div id="liveDifference"><div class="small">
+Esperando dos tramas comparables.
+</div></div></section><!-- =====================================================
+     HISTORIAL DIFERENCIAL
+===================================================== --><section class="card"><h2>📚 Historial de diferencias</h2><div id="differenceHistory"><div class="small">
+Todavía no existen comparaciones.
+</div></div></section><!-- =====================================================
+     MATRIZ DE CAMBIOS
+===================================================== --><section class="card"><h2>📊 Matriz de cambios por byte</h2><p class="small">
+Muestra cuántas veces ha cambiado cada posición dentro de
+cada tipo y longitud.
+</p><div id="changeMatrix"><div class="small">
+Esperando datos comparables.
+</div></div></section><section class="card"><h2>🧬 Tipos de trama detectados</h2><div id="frameTypes">
 <div class="small">
 Todavía no hay suficientes datos.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     LONGITUD
-===================================================== -->
-
-<section class="card">
-
-<h2>📏 Análisis de longitud</h2>
-
-<div id="lengthAnalysis">
+</div></section><section class="card"><h2>📏 Análisis de longitud</h2><div id="lengthAnalysis">
 <div class="small">
 Esperando tramas.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     ESTRUCTURA
-===================================================== -->
-
-<section class="card">
-
-<h2>🧩 Estructura de las tramas</h2>
-
-<div id="structure">
+</div></section><section class="card"><h2>🧩 Estructura de las tramas</h2><div id="structure">
 <div class="small">
 Esperando RX.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CAMPOS FIJOS VARIABLES
-===================================================== -->
-
-<section class="card">
-
-<h2>🔎 Campos fijos y variables</h2>
-
-<p class="small">
+</div></section><section class="card"><h2>🔎 Campos fijos y variables</h2><p class="small">
 El laboratorio compara automáticamente todas las tramas de cada
 tipo y determina qué posiciones permanecen constantes y cuáles cambian.
-</p>
-
-<div id="fieldAnalysis">
+</p><div id="fieldAnalysis">
 <div class="small">
 Se necesitan más de una trama comparable.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     TIPOS INDIVIDUALES
-===================================================== -->
-
-<section class="card">
-
-<h2>📚 Análisis por tipo</h2>
-
-<div id="typeAnalysis">
+</div></section><section class="card"><h2>📚 Análisis por tipo</h2><div id="typeAnalysis">
 <div class="small">
 Esperando datos.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PATRONES
-===================================================== -->
-
-<section class="card">
-
-<h2>📈 Patrones y frecuencia</h2>
-
-<div id="patterns">
+</div></section><section class="card"><h2>📈 Patrones y frecuencia</h2><div id="patterns">
 <div class="small">
 Todavía no hay RX.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     INTERVALOS
-===================================================== -->
-
-<section class="card">
-
-<h2>⏱️ Intervalos temporales</h2>
-
-<div id="timingAnalysis">
+</div></section><section class="card"><h2>⏱️ Intervalos temporales</h2><div id="timingAnalysis">
 <div class="small">
 Esperando al menos dos RX.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     COMPARACIÓN
-===================================================== -->
-
-<section class="card">
-
-<h2>🔬 Comparación acumulada</h2>
-
-<div id="comparison">
+</div></section><section class="card"><h2>🔬 Comparación acumulada</h2><div id="comparison">
 <div class="small">
 Esperando RX.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CHECKSUM
-===================================================== -->
-
-<section class="card">
-
-<h2>🧮 Hipótesis de checksum</h2>
-
-<div class="status warning">
-
-<b class="yellow">
+</div></section><section class="card"><h2>🧮 Hipótesis de checksum</h2><div class="status warning"><b class="yellow">
 ⚠️ No se declara ningún checksum como confirmado.
-</b>
-
-<p>
+</b><p>
 Se prueban solamente fórmulas simples para buscar coincidencias
 experimentales.
-</p>
-
-</div>
-
-<div id="checksum">
+</p></div><div id="checksum">
 <div class="small">
 Esperando tramas.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     SECUENCIA
-===================================================== -->
-
-<section class="card">
-
-<h2>🔗 Secuencia de tipos</h2>
-
-<div id="sequence">
+</div></section><section class="card"><h2>🔗 Secuencia de tipos</h2><div id="sequence">
 <div class="small">
 Todavía no hay secuencia.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PAQUETES
-===================================================== -->
-
-<section class="card">
-
-<h2>📦 Capturas RX/TX</h2>
-
-<button id="clearPacketsBtn" class="danger">
+</div></section><section class="card"><h2>📦 Capturas RX/TX</h2><button id="clearPacketsBtn" class="danger">
 🧹 LIMPIAR CAPTURAS
-</button>
-
-<div id="packets">
+</button><div id="packets">
 <div class="small">
 Todavía no hay paquetes.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CONSOLA MANUAL
-===================================================== -->
-
-<section class="card">
-
-<h2>📤 TX manual</h2>
-
-<div class="status warning">
-
-<b class="yellow">
+</div></section><section class="card"><h2>📤 TX manual</h2><div class="status warning"><b class="yellow">
 ⚠️ TRANSMISIÓN MANUAL
-</b>
-
-<p>
+</b><p>
 Esta función NO se utiliza durante la captura pasiva.
 Solo está disponible si decides introducir una trama manualmente.
-</p>
-
-<p>
+</p><p>
 No se enviará nada por sí solo.
-</p>
-
-</div>
-
-<input
+</p></div><input
 id="hexInput"
 type="text"
 placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
@@ -767,84 +496,27 @@ placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
 
 <button id="sendBtn" class="blue" disabled>
 📤 ENVIAR HEX MANUAL
-</button>
-
-<button id="clearInputBtn">
+</button><button id="clearInputBtn">
 🧹 LIMPIAR
-</button>
-
-</section>
-
-
-<!-- =====================================================
-     RELACIONES
-===================================================== -->
-
-<section class="card">
-
-<h2>🔗 Relaciones TX → RX</h2>
-
-<div id="relations">
+</button></section><section class="card"><h2>🔗 Relaciones TX → RX</h2><div id="relations">
 <div class="small">
 No existen relaciones todavía.
 </div>
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     EXPORTACIÓN
-===================================================== -->
-
-<section class="card">
-
-<h2>💾 Datos de investigación</h2>
-
-<button id="exportBtn" class="yellow">
+</div></section><section class="card"><h2>💾 Datos de investigación</h2><button id="exportBtn" class="yellow">
 💾 EXPORTAR ANÁLISIS JSON
-</button>
-
-<button id="copyBtn">
+</button><button id="copyBtn">
 📋 COPIAR RESUMEN
-</button>
-
-<button id="exportHexBtn" class="purple">
+</button><button id="exportHexBtn" class="purple">
 📄 EXPORTAR RX EN HEX
-</button>
-
-</section>
-
-
-<!-- =====================================================
-     DIAGNÓSTICO
-===================================================== -->
-
-<section class="card">
-
-<h2>🛠️ Diagnóstico</h2>
-
-<div id="diagnostic" class="log">
+</button></section><section class="card"><h2>🛠️ Diagnóstico</h2><div id="diagnostic" class="log">
 Sistema preparado.
-</div>
-
-<button id="clearDiagnosticBtn" class="danger">
+</div><button id="clearDiagnosticBtn" class="danger">
 🧹 LIMPIAR DIAGNÓSTICO
-</button>
-
-</section>
-
-</main>
-
-<footer>
-RoXThal Art Design · F1 Plus Protocol Laboratory v2
-</footer>
-
-
-<script>
+</button></section></main><footer>
+RoXThal Art Design · F1 Plus Protocol Laboratory v3 Differential
+</footer><script>
 
 "use strict";
-
 
 /* =========================================================
    UUID CONOCIDOS
@@ -857,8 +529,7 @@ const UUID_WRITE =
 "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UUID_NOTIFY =
-"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
-
+"6e400003-b5a3-f393-e0a9-e50e";
 
 /* =========================================================
    ESTADO
@@ -884,13 +555,26 @@ let lastTx = null;
 const IMMEDIATE_WINDOW = 300;
 const SECONDARY_WINDOW = 3000;
 
+/*
+ * Historial diferencial.
+ *
+ * La clave es:
+ *   TIPO|LONGITUD
+ *
+ * Ejemplo:
+ *   91|8
+ *   92|16
+ */
+
+const differentialState = new Map();
+
+let differenceHistory = [];
 
 /* =========================================================
    DOM
 ========================================================= */
 
 const $ = id => document.getElementById(id);
-
 
 /* =========================================================
    UTILIDADES
@@ -900,11 +584,9 @@ function nowTime(){
   return new Date().toLocaleTimeString();
 }
 
-
 function timestamp(){
   return Date.now();
 }
-
 
 function hex(bytes){
 
@@ -918,13 +600,11 @@ function hex(bytes){
 
 }
 
-
 function decimal(bytes){
 
   return Array.from(bytes).join(" ");
 
 }
-
 
 function ascii(bytes){
 
@@ -938,10 +618,10 @@ function ascii(bytes){
 
 }
 
-
 function sameBytes(a,b){
 
-  if(!a || !b) return false;
+  if(!a || !b)
+    return false;
 
   if(a.length !== b.length)
     return false;
@@ -956,7 +636,6 @@ function sameBytes(a,b){
   return true;
 }
 
-
 function fmt(v){
 
   if(v === null || v === undefined)
@@ -969,7 +648,6 @@ function fmt(v){
 
 }
 
-
 function escapeHTML(value){
 
   return String(value)
@@ -980,7 +658,6 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 
 }
-
 
 function bytesFromHex(text){
 
@@ -1015,7 +692,6 @@ function bytesFromHex(text){
 
 }
 
-
 /* =========================================================
    DIAGNÓSTICO
 ========================================================= */
@@ -1036,7 +712,6 @@ function log(message){
     box.scrollHeight;
 
 }
-
 
 /* =========================================================
    BLUETOOTH
@@ -1067,7 +742,6 @@ function bluetoothCheck(){
   return true;
 
 }
-
 
 /* =========================================================
    CONEXIÓN
@@ -1104,7 +778,6 @@ async function connect(){
 
       });
 
-
     log("DISPOSITIVO ENCONTRADO");
 
     $("deviceInfo").innerHTML =
@@ -1114,7 +787,6 @@ async function connect(){
       ) +
       "<br><b>ID:</b> " +
       escapeHTML(device.id);
-
 
     log(
       "Nombre: " +
@@ -1126,12 +798,10 @@ async function connect(){
       device.id
     );
 
-
     device.addEventListener(
       "gattserverdisconnected",
       handleDisconnect
     );
-
 
     log("Conectando GATT...");
 
@@ -1168,7 +838,6 @@ async function connect(){
   }
 
 }
-
 
 /* =========================================================
    UART
@@ -1276,7 +945,6 @@ async function prepareUART(){
 
 }
 
-
 /* =========================================================
    NOTIFY
 ========================================================= */
@@ -1299,7 +967,6 @@ function handleNotification(event){
 
 }
 
-
 /* =========================================================
    CLASIFICACIÓN
 ========================================================= */
@@ -1314,7 +981,6 @@ function classifyRX(bytes){
 
   let relation =
     null;
-
 
   if(lastTx){
 
@@ -1341,7 +1007,6 @@ function classifyRX(bytes){
 
   }
 
-
   if(
     lastTx &&
     sameBytes(bytes,lastTx.bytes)
@@ -1355,7 +1020,6 @@ function classifyRX(bytes){
 
   }
 
-
   return {
     type,
     relation
@@ -1363,6 +1027,286 @@ function classifyRX(bytes){
 
 }
 
+/* =========================================================
+   CLAVE DIFERENCIAL
+========================================================= */
+
+function differentialKey(bytes){
+
+  return (
+    getFrameType(bytes) +
+    "|" +
+    bytes.length
+  );
+
+}
+
+/* =========================================================
+   COMPARACIÓN DIFERENCIAL
+========================================================= */
+
+function calculateDifferences(previous,current){
+
+  const max =
+    Math.max(
+      previous.length,
+      current.length
+    );
+
+  const differences = [];
+
+  for(let i=0;i<max;i++){
+
+    const oldValue =
+      previous[i];
+
+    const newValue =
+      current[i];
+
+    if(oldValue !== newValue){
+
+      differences.push({
+
+        index:i,
+
+        previous:
+          oldValue === undefined
+          ? null
+          : oldValue,
+
+        current:
+          newValue === undefined
+          ? null
+          : newValue
+
+      });
+
+    }
+
+  }
+
+  return differences;
+
+}
+
+/* =========================================================
+   REGISTRAR COMPARACIÓN DIFERENCIAL
+========================================================= */
+
+function processDifferential(packet){
+
+  const key =
+    differentialKey(packet.bytes);
+
+  let state =
+    differentialState.get(key);
+
+  if(!state){
+
+    state = {
+
+      type:
+        getFrameType(packet.bytes),
+
+      length:
+        packet.bytes.length,
+
+      count:
+        0,
+
+      comparisons:
+        0,
+
+      changedBytes:
+        0,
+
+      previous:
+        null,
+
+      lastPacket:
+        null,
+
+      byteStats:
+        Array.from(
+          {length:packet.bytes.length},
+          () => ({
+            comparisons:0,
+            changes:0,
+            values:new Set()
+          })
+        )
+
+    };
+
+    differentialState.set(
+      key,
+      state
+    );
+
+  }
+
+  state.count++;
+
+  const current =
+    packet.bytes.slice();
+
+  let differences = [];
+
+  if(state.previous){
+
+    differences =
+      calculateDifferences(
+        state.previous,
+        current
+      );
+
+    state.comparisons++;
+
+    differences.forEach(d => {
+
+      state.changedBytes++;
+
+      if(state.byteStats[d.index]){
+
+        state.byteStats[d.index].changes++;
+
+      }
+
+    });
+
+    for(
+      let i=0;
+      i<current.length;
+      i++
+    ){
+
+      if(state.byteStats[i]){
+
+        state.byteStats[i].comparisons++;
+
+        state.byteStats[i].values.add(
+          current[i]
+        );
+
+      }
+
+    }
+
+    const comparisonRecord = {
+
+      timestamp:
+        timestamp(),
+
+      time:
+        packet.time,
+
+      type:
+        state.type,
+
+      length:
+        state.length,
+
+      previousPacket:
+        state.lastPacket,
+
+      currentPacket:
+        packet.number,
+
+      previous:
+        state.previous.slice(),
+
+      current:
+        current.slice(),
+
+      differences:
+        differences
+
+    };
+
+    differenceHistory.push(
+      comparisonRecord
+    );
+
+    if(
+      differences.length
+    ){
+
+      log(
+        "🔬 DIFERENCIAL 0x" +
+        state.type +
+        "/" +
+        state.length +
+        " | " +
+        differences.length +
+        " byte(s) cambiado(s)."
+      );
+
+      differences.forEach(d => {
+
+        log(
+          "   Byte " +
+          d.index +
+          ": " +
+          fmt(d.previous) +
+          " → " +
+          fmt(d.current)
+        );
+
+      });
+
+    }else{
+
+      log(
+        "🟢 DIFERENCIAL 0x" +
+        state.type +
+        "/" +
+        state.length +
+        " | sin cambios."
+      );
+
+    }
+
+  }else{
+
+    /*
+     * Primera captura del grupo.
+     * No se compara porque todavía no existe referencia.
+     */
+
+    for(
+      let i=0;
+      i<current.length;
+      i++
+    ){
+
+      if(state.byteStats[i]){
+
+        state.byteStats[i].values.add(
+          current[i]
+        );
+
+      }
+
+    }
+
+    log(
+      "📌 Primera referencia almacenada para 0x" +
+      state.type +
+      "/" +
+      state.length
+    );
+
+  }
+
+  state.previous =
+    current;
+
+  state.lastPacket =
+    packet.number;
+
+  renderDifferentialAnalysis();
+
+}
 
 /* =========================================================
    REGISTRAR RX
@@ -1403,13 +1347,12 @@ function registerRX(bytes){
 
   };
 
-
   rxPackets.push(packet);
   packets.push(packet);
 
+  processDifferential(packet);
 
   updateAllAnalysis();
-
 
   if(packet.type === "ECO"){
 
@@ -1441,6 +1384,486 @@ function registerRX(bytes){
 
 }
 
+/* =========================================================
+   RENDER DIFERENCIAL
+========================================================= */
+
+function renderDifferentialAnalysis(){
+
+  renderLiveDifference();
+
+  renderDifferenceHistory();
+
+  renderChangeMatrix();
+
+}
+
+/* =========================================================
+   ÚLTIMA COMPARACIÓN POR GRUPO
+========================================================= */
+
+function getLatestComparisonForKey(key){
+
+  for(
+    let i=differenceHistory.length-1;
+    i>=0;
+    i--
+  ){
+
+    const d =
+      differenceHistory[i];
+
+    if(
+      d.type +
+      "|" +
+      d.length ===
+      key
+    ){
+
+      return d;
+
+    }
+
+  }
+
+  return null;
+
+}
+
+/* =========================================================
+   LIVE DIFFERENCE
+========================================================= */
+
+function renderLiveDifference(){
+
+  const box =
+    $("liveDifference");
+
+  if(!differenceHistory.length){
+
+    box.innerHTML = `
+
+      <div class="status">
+
+        <span class="small">
+        Esperando dos tramas del mismo tipo y longitud.
+        </span>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  const d =
+    differenceHistory[
+      differenceHistory.length-1
+    ];
+
+  let html = `
+
+    <div class="packet diff-highlight">
+
+      <b>
+      ÚLTIMA COMPARACIÓN
+      </b>
+
+      <br><br>
+
+      <span class="badge blue">
+      0x${escapeHTML(d.type)}
+      </span>
+
+      <span class="badge">
+      ${d.length} bytes
+      </span>
+
+      <br><br>
+
+      <b>
+      Paquete anterior:
+      </b>
+
+      #${d.previousPacket}
+
+      <br>
+
+      <span class="code">
+      ${hex(d.previous)}
+      </span>
+
+      <br><br>
+
+      <b>
+      Paquete actual:
+      </b>
+
+      #${d.currentPacket}
+
+      <br>
+
+      <span class="code">
+      ${hex(d.current)}
+      </span>
+
+      <hr>
+
+      <b>
+      🔎 CAMBIOS DETECTADOS
+      </b>
+
+      <br><br>
+
+  `;
+
+  if(!d.differences.length){
+
+    html += `
+
+      <span class="green">
+      🟢 Ningún byte cambió.
+      </span>
+
+      <br><br>
+
+      <span class="small">
+      Las dos tramas son idénticas.
+      </span>
+
+    `;
+
+  }else{
+
+    html += `
+
+      <table class="diff-table">
+
+        <thead>
+
+          <tr>
+            <th>Posición</th>
+            <th>Anterior</th>
+            <th>Nuevo</th>
+            <th>Estado</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+    `;
+
+    d.differences.forEach(diff => {
+
+      html += `
+
+        <tr>
+
+          <td>
+            <b>Byte ${diff.index}</b>
+          </td>
+
+          <td>
+            <span class="diff-old">
+            ${fmt(diff.previous)}
+            </span>
+          </td>
+
+          <td>
+            <span class="diff-new">
+            ${fmt(diff.current)}
+            </span>
+          </td>
+
+          <td>
+            <span class="yellow">
+            🔄 CAMBIÓ
+            </span>
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+    html += `
+
+        </tbody>
+
+      </table>
+
+      <br>
+
+      <span class="yellow">
+      ${d.differences.length}
+      posición(es) modificada(s).
+      </span>
+
+    `;
+
+  }
+
+  html += `
+
+      <hr>
+
+      <span class="small">
+      Comparación estrictamente byte a byte.
+      No se atribuye significado funcional a los cambios.
+      </span>
+
+    </div>
+
+  `;
+
+  box.innerHTML =
+    html;
+
+}
+
+/* =========================================================
+   HISTORIAL DIFERENCIAL
+========================================================= */
+
+function renderDifferenceHistory(){
+
+  const box =
+    $("differenceHistory");
+
+  if(!differenceHistory.length){
+
+    box.innerHTML =
+      "<div class='small'>Todavía no existen comparaciones.</div>";
+
+    return;
+
+  }
+
+  let html = `
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Hora</th>
+          <th>Tipo</th>
+          <th>Anterior</th>
+          <th>Actual</th>
+          <th>Cambios</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+  `;
+
+  differenceHistory
+    .slice()
+    .reverse()
+    .slice(0,50)
+    .forEach(d => {
+
+      const changed =
+        d.differences.length;
+
+      html += `
+
+        <tr>
+
+          <td>
+          ${escapeHTML(d.time)}
+          </td>
+
+          <td>
+          <span class="badge blue">
+          0x${escapeHTML(d.type)}
+          </span>
+          </td>
+
+          <td>
+          #${d.previousPacket}
+          </td>
+
+          <td>
+          #${d.currentPacket}
+          </td>
+
+          <td>
+
+          ${
+            changed === 0
+            ? "<span class='green'>🟢 0</span>"
+            : "<span class='yellow'>🔄 " +
+              changed +
+              "</span>"
+          }
+
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+  html += `
+
+      </tbody>
+
+    </table>
+
+  `;
+
+  box.innerHTML =
+    html;
+
+}
+
+/* =========================================================
+   MATRIZ DE CAMBIOS
+========================================================= */
+
+function renderChangeMatrix(){
+
+  const box =
+    $("changeMatrix");
+
+  if(!differentialState.size){
+
+    box.innerHTML =
+      "<div class='small'>Esperando datos comparables.</div>";
+
+    return;
+
+  }
+
+  let html = "";
+
+  differentialState.forEach(
+    (state,key) => {
+
+      if(state.comparisons < 1)
+        return;
+
+      html += `
+
+        <div class="packet">
+
+          <h3>
+          <span class="badge blue">
+          0x${state.type}
+          </span>
+
+          · ${state.length} bytes
+          </h3>
+
+          <div class="grid">
+
+            <div class="stat">
+              Comparaciones
+              <b>${state.comparisons}</b>
+            </div>
+
+            <div class="stat">
+              Cambios totales
+              <b>${state.changedBytes}</b>
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="byte-grid">
+
+      `;
+
+      state.byteStats.forEach(
+        (stat,index) => {
+
+          const changed =
+            stat.changes > 0;
+
+          const uniqueValues =
+            [...stat.values]
+              .map(v => fmt(v))
+              .join(" · ");
+
+          html += `
+
+            <div class="byte-cell ${
+              changed
+              ? "changed"
+              : "unchanged"
+            }">
+
+              <div class="index">
+              BYTE ${index}
+              </div>
+
+              <div class="value">
+
+              ${
+                changed
+                ? "🔄"
+                : "🔒"
+              }
+
+              </div>
+
+              <div class="small">
+
+              ${
+                changed
+                ? stat.changes +
+                  " cambio(s)"
+                : "sin cambios"
+              }
+
+              </div>
+
+              <div class="small code">
+
+              ${
+                uniqueValues ||
+                "—"
+              }
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      );
+
+      html += `
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+  );
+
+  if(!html){
+
+    html =
+      "<div class='small'>Aún no hay dos tramas comparables del mismo grupo.</div>";
+
+  }
+
+  box.innerHTML =
+    html;
+
+}
 
 /* =========================================================
    TX MANUAL
@@ -1458,7 +1881,6 @@ async function sendHex(){
 
   }
 
-
   try{
 
     const bytes =
@@ -1466,11 +1888,9 @@ async function sendHex(){
         $("hexInput").value
       );
 
-
     await writeCharacteristic.writeValue(
       bytes
     );
-
 
     const packet = {
 
@@ -1494,26 +1914,21 @@ async function sendHex(){
 
     };
 
-
     txPackets.push(packet);
     packets.push(packet);
 
     lastTx =
       packet;
 
-
     $("hexInput").value =
       "";
 
-
     updateAllAnalysis();
-
 
     log(
       "📤 TX MANUAL ENVIADO | " +
       hex(bytes)
     );
-
 
   }catch(error){
 
@@ -1529,7 +1944,6 @@ async function sendHex(){
   }
 
 }
-
 
 /* =========================================================
    ACTUALIZACIÓN GLOBAL
@@ -1563,8 +1977,9 @@ function updateAllAnalysis(){
 
   renderRelations();
 
-}
+  renderDifferentialAnalysis();
 
+}
 
 /* =========================================================
    ESTADÍSTICAS
@@ -1595,7 +2010,6 @@ function updateStats(){
       p => p.type === "ECO"
     ).length;
 
-
   const types =
     new Set(
       rxPackets.map(
@@ -1617,7 +2031,6 @@ function updateStats(){
       )
     );
 
-
   $("typeCount").textContent =
     types.size;
 
@@ -1627,8 +2040,18 @@ function updateStats(){
   $("patternCount").textContent =
     patterns.size;
 
-}
+  $("comparisonCount").textContent =
+    differenceHistory.length;
 
+  $("changedByteCount").textContent =
+    differenceHistory.reduce(
+      (total,d) =>
+        total +
+        d.differences.length,
+      0
+    );
+
+}
 
 /* =========================================================
    TIPO DE TRAMA
@@ -1642,7 +2065,6 @@ function getFrameType(bytes){
   return "??";
 
 }
-
 
 function renderFrameTypes(){
 
@@ -1658,10 +2080,8 @@ function renderFrameTypes(){
 
   }
 
-
   const map =
     new Map();
-
 
   rxPackets.forEach(p => {
 
@@ -1674,7 +2094,6 @@ function renderFrameTypes(){
     map.get(type).push(p);
 
   });
-
 
   let html = `
 
@@ -1695,7 +2114,6 @@ function renderFrameTypes(){
 
   `;
 
-
   for(
     const [type,list]
     of map
@@ -1708,7 +2126,6 @@ function renderFrameTypes(){
         100
       ).toFixed(1);
 
-
     const lengths =
       [
         ...new Set(
@@ -1719,7 +2136,6 @@ function renderFrameTypes(){
       ]
       .sort((a,b)=>a-b)
       .join(", ");
-
 
     html += `
 
@@ -1749,18 +2165,15 @@ function renderFrameTypes(){
 
   }
 
-
   html += `
       </tbody>
     </table>
   `;
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    LONGITUD
@@ -1780,10 +2193,8 @@ function renderLengthAnalysis(){
 
   }
 
-
   const map =
     new Map();
-
 
   rxPackets.forEach(p => {
 
@@ -1800,7 +2211,6 @@ function renderLengthAnalysis(){
       ? declared + 3
       : null;
 
-
     if(!map.has(real))
       map.set(real,[]);
 
@@ -1811,7 +2221,6 @@ function renderLengthAnalysis(){
     });
 
   });
-
 
   let html = `
 
@@ -1846,7 +2255,6 @@ function renderLengthAnalysis(){
 
   `;
 
-
   for(
     const [real,list]
     of map
@@ -1868,7 +2276,6 @@ function renderLengthAnalysis(){
           : "<span class='yellow'>🟡 NO COINCIDE</span>";
 
       }
-
 
       html += `
 
@@ -1902,18 +2309,15 @@ function renderLengthAnalysis(){
 
   }
 
-
   html += `
       </tbody>
     </table>
   `;
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    ESTRUCTURA
@@ -1933,10 +2337,8 @@ function renderStructure(){
 
   }
 
-
   const unique =
     new Map();
-
 
   rxPackets.forEach(p => {
 
@@ -1948,9 +2350,7 @@ function renderStructure(){
 
   });
 
-
   let html = "";
-
 
   unique.forEach(p => {
 
@@ -1969,7 +2369,6 @@ function renderStructure(){
 
     const lengthOK =
       expected === b.length;
-
 
     html += `
 
@@ -2094,12 +2493,10 @@ function renderStructure(){
 
   });
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    CAMPOS FIJOS VARIABLES
@@ -2119,10 +2516,8 @@ function renderFieldAnalysis(){
 
   }
 
-
   const groups =
     new Map();
-
 
   rxPackets.forEach(p => {
 
@@ -2135,7 +2530,6 @@ function renderFieldAnalysis(){
     const key =
       type + "|" + length;
 
-
     if(!groups.has(key))
       groups.set(key,[]);
 
@@ -2143,15 +2537,12 @@ function renderFieldAnalysis(){
 
   });
 
-
   let html = "";
-
 
   groups.forEach((list,key) => {
 
     if(list.length < 2)
       return;
-
 
     const max =
       Math.max(
@@ -2160,10 +2551,8 @@ function renderFieldAnalysis(){
         )
       );
 
-
     const [type,length] =
       key.split("|");
-
 
     html += `
 
@@ -2176,7 +2565,6 @@ function renderFieldAnalysis(){
         <div class="byte-grid">
     `;
 
-
     for(let i=0;i<max;i++){
 
       const values =
@@ -2188,14 +2576,11 @@ function renderFieldAnalysis(){
             v => v !== undefined
           );
 
-
       const unique =
         [...new Set(values)];
 
-
       const isVariable =
         unique.length > 1;
-
 
       const valueText =
         unique
@@ -2203,7 +2588,6 @@ function renderFieldAnalysis(){
             v => fmt(v)
           )
           .join(" · ");
-
 
       html += `
 
@@ -2237,7 +2621,6 @@ function renderFieldAnalysis(){
 
     }
 
-
     html += `
 
         </div>
@@ -2254,7 +2637,6 @@ function renderFieldAnalysis(){
 
   });
 
-
   if(!html){
 
     html =
@@ -2262,12 +2644,10 @@ function renderFieldAnalysis(){
 
   }
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    ANÁLISIS POR TIPO
@@ -2287,10 +2667,8 @@ function renderTypeAnalysis(){
 
   }
 
-
   const map =
     new Map();
-
 
   rxPackets.forEach(p => {
 
@@ -2304,9 +2682,7 @@ function renderTypeAnalysis(){
 
   });
 
-
   let html = "";
-
 
   map.forEach((list,type) => {
 
@@ -2320,13 +2696,11 @@ function renderTypeAnalysis(){
       ]
       .sort((a,b)=>a-b);
 
-
     const first =
       list[0];
 
     const last =
       list[list.length-1];
-
 
     html += `
 
@@ -2372,12 +2746,10 @@ function renderTypeAnalysis(){
 
   });
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    PATRONES
@@ -2397,10 +2769,8 @@ function renderPatterns(){
 
   }
 
-
   const map =
     new Map();
-
 
   rxPackets.forEach(p => {
 
@@ -2413,7 +2783,6 @@ function renderPatterns(){
     map.get(key).push(p);
 
   });
-
 
   let html = `
 
@@ -2434,7 +2803,6 @@ function renderPatterns(){
 
   `;
 
-
   for(
     const [key,list]
     of map
@@ -2446,7 +2814,6 @@ function renderPatterns(){
         rxPackets.length *
         100
       ).toFixed(1);
-
 
     html += `
 
@@ -2476,18 +2843,15 @@ function renderPatterns(){
 
   }
 
-
   html += `
       </tbody>
     </table>
   `;
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    TIMING
@@ -2507,16 +2871,13 @@ function renderTiming(){
 
   }
 
-
   const diffs = [];
-
 
   for(let i=1;i<rxPackets.length;i++){
 
     const diff =
       rxPackets[i].timestamp -
       rxPackets[i-1].timestamp;
-
 
     diffs.push({
       ms:diff,
@@ -2526,14 +2887,12 @@ function renderTiming(){
 
   }
 
-
   const average =
     diffs.reduce(
       (a,b)=>a+b.ms,
       0
     ) /
     diffs.length;
-
 
   const min =
     Math.min(
@@ -2542,7 +2901,6 @@ function renderTiming(){
       )
     );
 
-
   const max =
     Math.max(
       ...diffs.map(
@@ -2550,8 +2908,7 @@ function renderTiming(){
       )
     );
 
-
-  html = `
+  let html = `
 
     <div class="grid">
 
@@ -2591,7 +2948,6 @@ function renderTiming(){
 
   `;
 
-
   diffs
     .slice(-30)
     .reverse()
@@ -2623,18 +2979,15 @@ function renderTiming(){
 
     });
 
-
   html += `
       </tbody>
     </table>
   `;
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    COMPARACIÓN ACUMULADA
@@ -2654,13 +3007,11 @@ function renderComparison(){
 
   }
 
-
   const a =
     rxPackets[rxPackets.length-2];
 
   const b =
     rxPackets[rxPackets.length-1];
-
 
   const max =
     Math.max(
@@ -2668,9 +3019,7 @@ function renderComparison(){
       b.bytes.length
     );
 
-
   const differences = [];
-
 
   for(let i=0;i<max;i++){
 
@@ -2679,7 +3028,6 @@ function renderComparison(){
 
     const bv =
       b.bytes[i];
-
 
     if(av !== bv){
 
@@ -2694,7 +3042,6 @@ function renderComparison(){
     }
 
   }
-
 
   let html = `
 
@@ -2728,7 +3075,6 @@ function renderComparison(){
 
   `;
 
-
   if(!differences.length){
 
     html +=
@@ -2760,17 +3106,14 @@ function renderComparison(){
 
   }
 
-
   html += `
     </div>
   `;
-
 
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    CHECKSUM
@@ -2781,17 +3124,13 @@ function checksumCandidates(bytes){
   if(bytes.length < 2)
     return [];
 
-
   const last =
     bytes[bytes.length-1];
 
-
   const result = [];
-
 
   let sumAll =
     0;
-
 
   for(
     let i=0;
@@ -2804,7 +3143,6 @@ function checksumCandidates(bytes){
       0xFF;
 
   }
-
 
   result.push({
 
@@ -2819,10 +3157,8 @@ function checksumCandidates(bytes){
 
   });
 
-
   let xorAll =
     0;
-
 
   for(
     let i=0;
@@ -2834,7 +3170,6 @@ function checksumCandidates(bytes){
       bytes[i];
 
   }
-
 
   result.push({
 
@@ -2849,10 +3184,8 @@ function checksumCandidates(bytes){
 
   });
 
-
   let sum1 =
     0;
-
 
   for(
     let i=1;
@@ -2865,7 +3198,6 @@ function checksumCandidates(bytes){
       0xFF;
 
   }
-
 
   result.push({
 
@@ -2880,10 +3212,8 @@ function checksumCandidates(bytes){
 
   });
 
-
   let xor1 =
     0;
-
 
   for(
     let i=1;
@@ -2895,7 +3225,6 @@ function checksumCandidates(bytes){
       bytes[i];
 
   }
-
 
   result.push({
 
@@ -2910,11 +3239,9 @@ function checksumCandidates(bytes){
 
   });
 
-
   return result;
 
 }
-
 
 function renderChecksum(){
 
@@ -2930,9 +3257,7 @@ function renderChecksum(){
 
   }
 
-
   let html = "";
-
 
   rxPackets
     .slice()
@@ -2945,10 +3270,8 @@ function renderChecksum(){
           p.bytes
         );
 
-
       const last =
         p.bytes[p.bytes.length-1];
-
 
       html += `
 
@@ -2976,7 +3299,6 @@ function renderChecksum(){
 
       `;
 
-
       candidates.forEach(c => {
 
         html += `
@@ -2999,19 +3321,16 @@ function renderChecksum(){
 
       });
 
-
       html += `
         </div>
       `;
 
     });
 
-
   box.innerHTML =
     html;
 
 }
-
 
 /* =========================================================
    SECUENCIA
@@ -3031,7 +3350,6 @@ function renderSequence(){
 
   }
 
-
   const sequence =
     rxPackets
       .map(
@@ -3039,7 +3357,6 @@ function renderSequence(){
         getFrameType(p.bytes)
       )
       .join(" → ");
-
 
   box.innerHTML = `
 
@@ -3059,7 +3376,6 @@ function renderSequence(){
 
 }
 
-
 /* =========================================================
    PAQUETES
 ========================================================= */
@@ -3078,7 +3394,6 @@ function renderPackets(){
 
   }
 
-
   box.innerHTML =
     packets
       .slice()
@@ -3090,18 +3405,15 @@ function renderPackets(){
           ? "tx"
           : "rx";
 
-
         if(
           p.type === "SPONTÁNEO"
         )
           cls = "spont";
 
-
         if(
           p.type === "ECO"
         )
           cls = "echo";
-
 
         if(
           p.type ===
@@ -3109,10 +3421,8 @@ function renderPackets(){
         )
           cls = "response";
 
-
         const h =
           hex(p.bytes);
-
 
         return `
 
@@ -3204,7 +3514,6 @@ function renderPackets(){
 
 }
 
-
 /* =========================================================
    RELACIONES
 ========================================================= */
@@ -3219,7 +3528,6 @@ function renderRelations(){
       p => p.relation
     );
 
-
   if(!related.length){
 
     box.innerHTML =
@@ -3228,7 +3536,6 @@ function renderRelations(){
     return;
 
   }
-
 
   box.innerHTML =
     related
@@ -3242,7 +3549,6 @@ function renderRelations(){
               t.number ===
               rx.relation
           );
-
 
         return `
 
@@ -3293,7 +3599,6 @@ function renderRelations(){
 
 }
 
-
 /* =========================================================
    DESCONECTAR
 ========================================================= */
@@ -3312,7 +3617,6 @@ function disconnect(){
 
     }
 
-
     if(
       device &&
       device.gatt &&
@@ -3325,11 +3629,9 @@ function disconnect(){
 
   }catch(e){}
 
-
   handleDisconnect();
 
 }
-
 
 function handleDisconnect(){
 
@@ -3348,7 +3650,6 @@ function handleDisconnect(){
   server =
     null;
 
-
   $("connectionStatus").innerHTML =
     "<span class='yellow'>⚪ Smart Band desconectada</span>";
 
@@ -3358,17 +3659,14 @@ function handleDisconnect(){
   $("sendBtn").disabled =
     true;
 
-
   $("uartInfo").innerHTML =
     "Canal UART desconectado.";
-
 
   log(
     "🔌 GATT desconectado."
   );
 
 }
-
 
 /* =========================================================
    LIMPIAR CAPTURAS
@@ -3386,25 +3684,77 @@ function clearPackets(){
 
   lastTx = null;
 
+  differentialState.clear();
+
+  differenceHistory = [];
 
   updateAllAnalysis();
 
-
   log(
-    "🧹 Historial de capturas limpiado."
+    "🧹 Historial de capturas y análisis diferencial limpiado."
   );
 
 }
-
 
 /* =========================================================
    EXPORTACIÓN JSON
 ========================================================= */
 
+function serializeDifferentialState(){
+
+  const result = {};
+
+  differentialState.forEach(
+    (state,key) => {
+
+      result[key] = {
+
+        type:
+          state.type,
+
+        length:
+          state.length,
+
+        count:
+          state.count,
+
+        comparisons:
+          state.comparisons,
+
+        changedBytes:
+          state.changedBytes,
+
+        lastPacket:
+          state.lastPacket,
+
+        byteStats:
+          state.byteStats.map(stat => ({
+
+            comparisons:
+              stat.comparisons,
+
+            changes:
+              stat.changes,
+
+            values:
+              [...stat.values].map(
+                v => fmt(v)
+              )
+
+          }))
+
+      };
+
+    }
+  );
+
+  return result;
+
+}
+
 function buildExport(){
 
   const typeMap = {};
-
 
   rxPackets.forEach(p => {
 
@@ -3418,11 +3768,10 @@ function buildExport(){
 
   });
 
-
   return JSON.stringify({
 
     application:
-      "RoXThal F1 Plus Protocol Laboratory v2",
+      "RoXThal F1 Plus Protocol Laboratory v3 Differential",
 
     exportDate:
       new Date().toISOString(),
@@ -3480,15 +3829,31 @@ function buildExport(){
         ).length,
 
       types:
-        Object.keys(typeMap).length
+        Object.keys(typeMap).length,
+
+      comparisons:
+        differenceHistory.length,
+
+      changedBytes:
+        differenceHistory.reduce(
+          (total,d) =>
+            total +
+            d.differences.length,
+          0
+        )
 
     },
 
     detectedTypes:
       typeMap,
 
-    packets:
+    differentialState:
+      serializeDifferentialState(),
 
+    differenceHistory:
+      differenceHistory,
+
+    packets:
       packets,
 
     protocolObservations:{
@@ -3502,6 +3867,9 @@ function buildExport(){
       byte3:
         "FF observado en las capturas disponibles",
 
+      differentialMethod:
+        "Cada trama se compara con la captura anterior del mismo tipo y longitud.",
+
       warning:
         "Los significados funcionales de los campos no están confirmados."
 
@@ -3511,12 +3879,10 @@ function buildExport(){
 
 }
 
-
 function exportAnalysis(){
 
   const content =
     buildExport();
-
 
   const blob =
     new Blob(
@@ -3527,26 +3893,21 @@ function exportAnalysis(){
       }
     );
 
-
   const url =
     URL.createObjectURL(blob);
-
 
   const a =
     document.createElement("a");
 
-
   a.href =
     url;
 
-
   a.download =
-    "F1-Plus-Laboratory-v2-" +
+    "F1-Plus-Laboratory-v3-" +
     new Date()
       .toISOString()
       .replace(/[:.]/g,"-") +
     ".json";
-
 
   document.body.appendChild(a);
 
@@ -3556,13 +3917,11 @@ function exportAnalysis(){
 
   URL.revokeObjectURL(url);
 
-
   log(
-    "💾 Análisis JSON exportado."
+    "💾 Análisis JSON con diferencias exportado."
   );
 
 }
-
 
 /* =========================================================
    EXPORTAR HEX
@@ -3580,7 +3939,6 @@ function exportHex(){
 
   }
 
-
   const lines =
     rxPackets.map(p =>
       `${p.time} | ` +
@@ -3588,10 +3946,8 @@ function exportHex(){
       hex(p.bytes)
     );
 
-
   const content =
     lines.join("\n");
-
 
   const blob =
     new Blob(
@@ -3602,18 +3958,14 @@ function exportHex(){
       }
     );
 
-
   const url =
     URL.createObjectURL(blob);
-
 
   const a =
     document.createElement("a");
 
-
   a.href =
     url;
-
 
   a.download =
     "F1-Plus-RX-" +
@@ -3621,7 +3973,6 @@ function exportHex(){
       .toISOString()
       .replace(/[:.]/g,"-") +
     ".txt";
-
 
   document.body.appendChild(a);
 
@@ -3631,13 +3982,11 @@ function exportHex(){
 
   URL.revokeObjectURL(url);
 
-
   log(
     "📄 RX exportados en HEX."
   );
 
 }
-
 
 /* =========================================================
    COPIAR RESUMEN
@@ -3652,7 +4001,6 @@ async function copySummary(){
       )
     );
 
-
   const lengths =
     new Set(
       rxPackets.map(
@@ -3660,10 +4008,47 @@ async function copySummary(){
       )
     );
 
+  const totalChanges =
+    differenceHistory.reduce(
+      (total,d) =>
+        total +
+        d.differences.length,
+      0
+    );
+
+  let latestDifference =
+    "N/A";
+
+  if(differenceHistory.length){
+
+    const d =
+      differenceHistory[
+        differenceHistory.length-1
+      ];
+
+    if(!d.differences.length){
+
+      latestDifference =
+        "Sin cambios";
+
+    }else{
+
+      latestDifference =
+        d.differences
+          .map(diff =>
+            `Byte ${diff.index}: ` +
+            `${fmt(diff.previous)} -> ` +
+            `${fmt(diff.current)}`
+          )
+          .join(" | ");
+
+    }
+
+  }
 
   const text = `
 
-RoXThal F1 Plus Protocol Laboratory v2
+RoXThal F1 Plus Protocol Laboratory v3
 
 DEVICE:
 ${device ? device.name : "N/A"}
@@ -3683,6 +4068,15 @@ ${[...types].map(t=>"0x"+t).join(", ") || "N/A"}
 LONGITUDES:
 ${[...lengths].join(", ") || "N/A"}
 
+COMPARACIONES DIFERENCIALES:
+${differenceHistory.length}
+
+CAMBIOS DE BYTES:
+${totalChanges}
+
+ÚLTIMA COMPARACIÓN:
+${latestDifference}
+
 TRAMAS RX:
 
 ${rxPackets.map(p =>
@@ -3695,11 +4089,14 @@ OBSERVACIÓN:
 Byte 2 + 3 coincide con la longitud total
 en las capturas actuales.
 
+COMPARACIÓN:
+Cada trama se compara automáticamente con
+la trama anterior del mismo tipo y longitud.
+
 No se considera ningún significado de campo
 como confirmado sin más evidencia.
 
 `;
-
 
   try{
 
@@ -3708,7 +4105,7 @@ como confirmado sin más evidencia.
     );
 
     log(
-      "📋 Resumen copiado."
+      "📋 Resumen diferencial copiado."
     );
 
   }catch(e){
@@ -3718,7 +4115,6 @@ como confirmado sin más evidencia.
   }
 
 }
-
 
 /* =========================================================
    EVENTOS
@@ -3730,13 +4126,11 @@ $("connectBtn")
     connect
   );
 
-
 $("disconnectBtn")
   .addEventListener(
     "click",
     disconnect
   );
-
 
 $("scanBtn")
   .addEventListener(
@@ -3744,13 +4138,11 @@ $("scanBtn")
     bluetoothCheck
   );
 
-
 $("sendBtn")
   .addEventListener(
     "click",
     sendHex
   );
-
 
 $("clearInputBtn")
   .addEventListener(
@@ -3763,13 +4155,11 @@ $("clearInputBtn")
     }
   );
 
-
 $("clearPacketsBtn")
   .addEventListener(
     "click",
     clearPackets
   );
-
 
 $("clearDiagnosticBtn")
   .addEventListener(
@@ -3782,13 +4172,11 @@ $("clearDiagnosticBtn")
     }
   );
 
-
 $("exportBtn")
   .addEventListener(
     "click",
     exportAnalysis
   );
-
 
 $("exportHexBtn")
   .addEventListener(
@@ -3796,13 +4184,11 @@ $("exportHexBtn")
     exportHex
   );
 
-
 $("copyBtn")
   .addEventListener(
     "click",
     copySummary
   );
-
 
 $("hexInput")
   .addEventListener(
@@ -3815,7 +4201,6 @@ $("hexInput")
     }
   );
 
-
 /* =========================================================
    INICIO
 ========================================================= */
@@ -3823,11 +4208,19 @@ $("hexInput")
 bluetoothCheck();
 
 log(
-  "Inicializando Laboratorio F1 Plus v2..."
+  "Inicializando Laboratorio F1 Plus v3 Differential..."
 );
 
 log(
   "Modo PASIVO activo."
+);
+
+log(
+  "Comparador diferencial automático preparado."
+);
+
+log(
+  "Comparación por TIPO + LONGITUD."
 );
 
 log(
@@ -3839,6 +4232,5 @@ log(
 );
 
 </script>
-
 </body>
 </html>
