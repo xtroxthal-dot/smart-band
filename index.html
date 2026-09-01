@@ -2203,6 +2203,904 @@ window.addEventListener(
 );
 
 </script>
+<!-- =========================================================
+     ROXTHAL ART DESIGN - SMART BAND F1 PLUS
+     MÓDULO BLUETOOTH WEB
+     ========================================================= -->
 
+<section id="smartBandModule" style="
+    margin:25px auto;
+    max-width:700px;
+    padding:20px;
+    border-radius:20px;
+    background:#111;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    box-shadow:0 8px 30px rgba(0,0,0,.35);
+">
+
+    <div style="text-align:center">
+
+        <div style="
+            font-size:42px;
+            margin-bottom:8px;
+        ">⌚</div>
+
+        <h2 style="
+            margin:0 0 8px;
+            font-size:26px;
+        ">
+            Smart Band F1 Plus
+        </h2>
+
+        <p style="
+            margin:0 0 18px;
+            color:#bbb;
+        ">
+            Conexión Bluetooth
+        </p>
+
+        <div id="bluetoothCompatibility" style="
+            padding:12px;
+            border-radius:12px;
+            margin-bottom:15px;
+            background:#222;
+            color:#ffd54a;
+        ">
+            🔵 Comprobando compatibilidad Bluetooth...
+        </div>
+
+        <button
+            id="connectBandBtn"
+            type="button"
+            style="
+                width:100%;
+                padding:16px;
+                border:0;
+                border-radius:14px;
+                background:#e0b400;
+                color:#111;
+                font-size:18px;
+                font-weight:bold;
+                cursor:pointer;
+                margin-bottom:10px;
+            "
+        >
+            🔗 Conectar Smart Band
+        </button>
+
+        <button
+            id="disconnectBandBtn"
+            type="button"
+            style="
+                width:100%;
+                padding:14px;
+                border:0;
+                border-radius:14px;
+                background:#333;
+                color:#fff;
+                font-size:16px;
+                cursor:pointer;
+                display:none;
+                margin-bottom:15px;
+            "
+        >
+            ❌ Desconectar
+        </button>
+
+        <div id="bandStatus" style="
+            padding:14px;
+            border-radius:12px;
+            background:#1c1c1c;
+            margin-top:5px;
+            font-size:16px;
+        ">
+            ⚪ Estado: Desconectada
+        </div>
+
+    </div>
+
+
+    <!-- INFORMACIÓN DEL DISPOSITIVO -->
+
+    <div id="bandDeviceInfo" style="
+        display:none;
+        margin-top:20px;
+        padding:15px;
+        border-radius:14px;
+        background:#1b1b1b;
+    ">
+
+        <h3 style="
+            margin-top:0;
+            color:#ffd54a;
+        ">
+            📱 Dispositivo
+        </h3>
+
+        <div id="deviceName">
+            Nombre: —
+        </div>
+
+        <div id="deviceId" style="
+            margin-top:6px;
+            word-break:break-all;
+            color:#aaa;
+        ">
+            ID: —
+        </div>
+
+    </div>
+
+
+    <!-- SERVICIOS -->
+
+    <div id="bandServicesBox" style="
+        display:none;
+        margin-top:20px;
+        padding:15px;
+        border-radius:14px;
+        background:#1b1b1b;
+    ">
+
+        <h3 style="
+            margin-top:0;
+            color:#ffd54a;
+        ">
+            🔧 Servicios Bluetooth detectados
+        </h3>
+
+        <div id="bandServices">
+            Esperando conexión...
+        </div>
+
+    </div>
+
+
+    <!-- DIAGNÓSTICO -->
+
+    <div style="
+        margin-top:20px;
+        padding:15px;
+        border-radius:14px;
+        background:#080808;
+    ">
+
+        <h3 style="
+            margin-top:0;
+            color:#ffd54a;
+        ">
+            🛠️ Diagnóstico
+        </h3>
+
+        <div id="bandLog" style="
+            max-height:260px;
+            overflow:auto;
+            font-size:13px;
+            line-height:1.5;
+            color:#ccc;
+            white-space:pre-wrap;
+        ">
+            Sistema preparado.
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+    /* =====================================================
+       VARIABLES
+       ===================================================== */
+
+    let bluetoothDevice = null;
+    let bluetoothServer = null;
+
+    const connectBtn =
+        document.getElementById("connectBandBtn");
+
+    const disconnectBtn =
+        document.getElementById("disconnectBandBtn");
+
+    const compatibility =
+        document.getElementById("bluetoothCompatibility");
+
+    const status =
+        document.getElementById("bandStatus");
+
+    const deviceInfo =
+        document.getElementById("bandDeviceInfo");
+
+    const deviceName =
+        document.getElementById("deviceName");
+
+    const deviceId =
+        document.getElementById("deviceId");
+
+    const servicesBox =
+        document.getElementById("bandServicesBox");
+
+    const servicesContainer =
+        document.getElementById("bandServices");
+
+    const logContainer =
+        document.getElementById("bandLog");
+
+
+    /* =====================================================
+       LOG
+       ===================================================== */
+
+    function log(message) {
+
+        const time =
+            new Date().toLocaleTimeString();
+
+        const line =
+            "[" + time + "] " + message;
+
+        console.log(line);
+
+        if (logContainer) {
+
+            logContainer.textContent +=
+                "\n" + line;
+
+            logContainer.scrollTop =
+                logContainer.scrollHeight;
+        }
+    }
+
+
+    /* =====================================================
+       ESTADO
+       ===================================================== */
+
+    function setStatus(message, type) {
+
+        status.textContent =
+            message;
+
+        if (type === "success") {
+
+            status.style.background =
+                "#123d20";
+
+            status.style.color =
+                "#7cff9b";
+
+        } else if (type === "error") {
+
+            status.style.background =
+                "#431515";
+
+            status.style.color =
+                "#ff8f8f";
+
+        } else {
+
+            status.style.background =
+                "#1c1c1c";
+
+            status.style.color =
+                "#fff";
+        }
+    }
+
+
+    /* =====================================================
+       COMPATIBILIDAD
+       ===================================================== */
+
+    function checkBluetooth() {
+
+        if (!("bluetooth" in navigator)) {
+
+            compatibility.textContent =
+                "❌ Este navegador no permite Web Bluetooth.";
+
+            compatibility.style.color =
+                "#ff8f8f";
+
+            connectBtn.disabled = true;
+
+            connectBtn.style.opacity =
+                "0.5";
+
+            log(
+                "Web Bluetooth NO está disponible."
+            );
+
+            return false;
+        }
+
+        compatibility.textContent =
+            "✅ Web Bluetooth disponible.";
+
+        compatibility.style.color =
+            "#7cff9b";
+
+        connectBtn.disabled = false;
+
+        connectBtn.style.opacity =
+            "1";
+
+        log(
+            "Web Bluetooth detectado correctamente."
+        );
+
+        return true;
+    }
+
+
+    /* =====================================================
+       CONECTAR
+       ===================================================== */
+
+    async function connectBand() {
+
+        log(
+            "Inicio del proceso de conexión."
+        );
+
+        if (!checkBluetooth()) {
+
+            setStatus(
+                "❌ Bluetooth Web no disponible",
+                "error"
+            );
+
+            return;
+        }
+
+        try {
+
+            connectBtn.disabled = true;
+
+            connectBtn.textContent =
+                "🔍 Buscando Smart Band...";
+
+            setStatus(
+                "🔍 Selecciona tu F1 Plus en la ventana Bluetooth...",
+                "normal"
+            );
+
+            log(
+                "Solicitando dispositivo Bluetooth..."
+            );
+
+
+            /*
+             * IMPORTANTE:
+             *
+             * No filtramos por un UUID específico.
+             *
+             * Esto permite detectar la F1 Plus aunque
+             * utilice un servicio propietario o UUID
+             * diferente.
+             */
+
+            bluetoothDevice =
+                await navigator.bluetooth.requestDevice({
+
+                    acceptAllDevices: true,
+
+                    optionalServices: [
+
+                        "battery_service",
+
+                        "device_information",
+
+                        "heart_rate",
+
+                        "heart_rate_service",
+
+                        "0000180f-0000-1000-8000-00805f9b34fb",
+
+                        "0000180a-0000-1000-8000-00805f9b34fb",
+
+                        "0000180d-0000-1000-8000-00805f9b34fb"
+
+                    ]
+
+                });
+
+
+            if (!bluetoothDevice) {
+
+                throw new Error(
+                    "No se seleccionó ningún dispositivo."
+                );
+            }
+
+
+            log(
+                "Dispositivo seleccionado: " +
+                (bluetoothDevice.name || "Sin nombre")
+            );
+
+
+            deviceName.textContent =
+                "Nombre: " +
+                (bluetoothDevice.name || "Sin nombre");
+
+
+            deviceId.textContent =
+                "ID: " +
+                (bluetoothDevice.id || "No disponible");
+
+
+            deviceInfo.style.display =
+                "block";
+
+
+            /*
+             * Evento de desconexión
+             */
+
+            bluetoothDevice.addEventListener(
+                "gattserverdisconnected",
+                handleDisconnected
+            );
+
+
+            setStatus(
+                "🔄 Conectando con " +
+                (bluetoothDevice.name || "Smart Band") +
+                "...",
+                "normal"
+            );
+
+
+            connectBtn.textContent =
+                "🔄 Conectando...";
+
+
+            log(
+                "Conectando mediante GATT..."
+            );
+
+
+            bluetoothServer =
+                await bluetoothDevice.gatt.connect();
+
+
+            if (!bluetoothServer.connected) {
+
+                throw new Error(
+                    "El servidor GATT no quedó conectado."
+                );
+            }
+
+
+            log(
+                "✅ Conexión GATT establecida."
+            );
+
+
+            setStatus(
+                "🟢 Smart Band conectada",
+                "success"
+            );
+
+
+            connectBtn.textContent =
+                "🟢 Smart Band conectada";
+
+
+            disconnectBtn.style.display =
+                "block";
+
+
+            /*
+             * Buscar servicios
+             */
+
+            await discoverServices();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            log(
+                "❌ ERROR: " +
+                (error.message || error)
+            );
+
+
+            if (
+                error.name ===
+                "NotFoundError"
+            ) {
+
+                setStatus(
+                    "⚪ Selección cancelada",
+                    "normal"
+                );
+
+                log(
+                    "El usuario canceló la selección Bluetooth."
+                );
+
+            } else {
+
+                setStatus(
+                    "❌ No se pudo conectar",
+                    "error"
+                );
+            }
+
+
+            connectBtn.disabled =
+                false;
+
+            connectBtn.textContent =
+                "🔗 Conectar Smart Band";
+        }
+    }
+
+
+    /* =====================================================
+       DESCUBRIR SERVICIOS
+       ===================================================== */
+
+    async function discoverServices() {
+
+        if (!bluetoothServer) {
+
+            log(
+                "No existe conexión GATT."
+            );
+
+            return;
+        }
+
+
+        log(
+            "Buscando servicios Bluetooth..."
+        );
+
+
+        servicesContainer.innerHTML =
+            "";
+
+
+        servicesBox.style.display =
+            "block";
+
+
+        let services;
+
+
+        try {
+
+            services =
+                await bluetoothServer.getPrimaryServices();
+
+        } catch (error) {
+
+            log(
+                "No se pudieron obtener los servicios: " +
+                error.message
+            );
+
+            servicesContainer.textContent =
+                "No se pudieron obtener los servicios.";
+
+            return;
+        }
+
+
+        if (!services.length) {
+
+            servicesContainer.textContent =
+                "No se encontraron servicios.";
+
+            log(
+                "⚠️ No se encontraron servicios primarios."
+            );
+
+            return;
+        }
+
+
+        log(
+            "Servicios encontrados: " +
+            services.length
+        );
+
+
+        for (const service of services) {
+
+            const serviceBlock =
+                document.createElement("div");
+
+
+            serviceBlock.style.cssText = `
+                margin-bottom:15px;
+                padding:12px;
+                border-radius:10px;
+                background:#252525;
+            `;
+
+
+            const serviceTitle =
+                document.createElement("div");
+
+
+            serviceTitle.innerHTML =
+                "<strong>Servicio:</strong> " +
+                service.uuid;
+
+
+            serviceBlock.appendChild(
+                serviceTitle
+            );
+
+
+            let characteristics = [];
+
+
+            try {
+
+                characteristics =
+                    await service.getCharacteristics();
+
+            } catch (error) {
+
+                log(
+                    "Error obteniendo características de " +
+                    service.uuid +
+                    ": " +
+                    error.message
+                );
+            }
+
+
+            log(
+                "Servicio " +
+                service.uuid +
+                " → " +
+                characteristics.length +
+                " características."
+            );
+
+
+            for (
+                const characteristic
+                of characteristics
+            ) {
+
+                const characteristicLine =
+                    document.createElement("div");
+
+
+                characteristicLine.style.cssText = `
+                    margin-top:8px;
+                    padding:8px;
+                    border-radius:8px;
+                    background:#111;
+                    font-size:12px;
+                    word-break:break-all;
+                `;
+
+
+                const properties =
+                    characteristic.properties;
+
+
+                characteristicLine.innerHTML =
+                    "<strong>Característica:</strong> " +
+                    characteristic.uuid +
+                    "<br>" +
+                    "<strong>Propiedades:</strong> " +
+                    Object.keys(properties)
+                        .filter(
+                            key => properties[key]
+                        )
+                        .join(", ");
+
+
+                serviceBlock.appendChild(
+                    characteristicLine
+                );
+
+
+                /*
+                 * Intentamos leer automáticamente
+                 * solamente características que tengan
+                 * permiso de lectura.
+                 */
+
+                if (
+                    properties.read
+                ) {
+
+                    try {
+
+                        const value =
+                            await characteristic.readValue();
+
+
+                        const bytes = [];
+
+
+                        for (
+                            let i = 0;
+                            i < value.byteLength;
+                            i++
+                        ) {
+
+                            bytes.push(
+                                value.getUint8(i)
+                            );
+                        }
+
+
+                        characteristicLine.innerHTML +=
+                            "<br><strong>Datos:</strong> " +
+                            bytes.join(" ");
+
+
+                        log(
+                            "Lectura " +
+                            characteristic.uuid +
+                            ": " +
+                            bytes.join(" ")
+                        );
+
+                    } catch (error) {
+
+                        log(
+                            "No se pudo leer " +
+                            characteristic.uuid +
+                            ": " +
+                            error.message
+                        );
+                    }
+                }
+            }
+
+
+            servicesContainer.appendChild(
+                serviceBlock
+            );
+        }
+    }
+
+
+    /* =====================================================
+       DESCONEXIÓN
+       ===================================================== */
+
+    function handleDisconnected() {
+
+        log(
+            "🔴 Smart Band desconectada."
+        );
+
+
+        setStatus(
+            "🔴 Smart Band desconectada",
+            "error"
+        );
+
+
+        connectBtn.disabled =
+            false;
+
+
+        connectBtn.textContent =
+            "🔗 Conectar Smart Band";
+
+
+        disconnectBtn.style.display =
+            "none";
+    }
+
+
+    /* =====================================================
+       DESCONECTAR MANUALMENTE
+       ===================================================== */
+
+    async function disconnectBand() {
+
+        try {
+
+            if (
+                bluetoothDevice &&
+                bluetoothDevice.gatt &&
+                bluetoothDevice.gatt.connected
+            ) {
+
+                bluetoothDevice.gatt.disconnect();
+
+                log(
+                    "Desconexión solicitada."
+                );
+            }
+
+        } catch (error) {
+
+            log(
+                "Error al desconectar: " +
+                error.message
+            );
+        }
+
+
+        bluetoothServer =
+            null;
+
+
+        disconnectBtn.style.display =
+            "none";
+
+
+        connectBtn.disabled =
+            false;
+
+
+        connectBtn.textContent =
+            "🔗 Conectar Smart Band";
+
+
+        setStatus(
+            "⚪ Estado: Desconectada",
+            "normal"
+        );
+    }
+
+
+    /* =====================================================
+       EVENTOS
+       ===================================================== */
+
+    connectBtn.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            connectBand();
+        }
+    );
+
+
+    disconnectBtn.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            disconnectBand();
+        }
+    );
+
+
+    /* =====================================================
+       INICIO
+       ===================================================== */
+
+    log(
+        "Inicializando módulo Smart Band F1 Plus..."
+    );
+
+
+    checkBluetooth();
+
+
+})();
+</script>
 </body>
 </html>
