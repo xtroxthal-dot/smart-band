@@ -3,24 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="RoXThal F1 Plus — aplicación oficial con laboratorio BLE integrado">
-<title>RoXThal F1 Plus</title>
+<meta name="theme-color" content="#111318">
+<title>RoXThal F1 Plus — Laboratorio</title>
 
 <style>
 :root{
-  --bg:#080d18;
-  --panel:#111827;
-  --panel2:#182338;
-  --line:#293852;
-  --text:#f4f7fb;
-  --muted:#9caac0;
-  --accent:#f5b400;
-  --good:#31d486;
-  --bad:#ff5d6c;
-  --blue:#4d9cff;
-  --orange:#ff9f43;
-  --radius:18px;
+  --bg:#0d0f12;
+  --panel:#15181d;
+  --panel2:#1b1f25;
+  --border:#30353d;
+  --text:#f2f4f7;
+  --muted:#9aa3ad;
+  --gold:#e0b44c;
+  --green:#35d07f;
+  --red:#ff5d68;
+  --blue:#4da3ff;
+  --orange:#ff9d42;
 }
 
 *{
@@ -30,14 +28,13 @@
 html,body{
   margin:0;
   padding:0;
-  min-height:100%;
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  padding-bottom:70px;
+  min-height:100vh;
 }
 
 button,
@@ -47,2464 +44,1338 @@ textarea{
 }
 
 button{
-  border:0;
-  border-radius:13px;
-  padding:13px 15px;
-  color:var(--text);
-  background:#27344d;
-  font-weight:700;
   cursor:pointer;
 }
 
-button:active{
-  transform:scale(.98);
-}
-
-button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-
-.primary{
-  background:var(--accent);
-  color:#111;
-}
-
-.good{
-  background:#17643f;
-}
-
-.danger{
-  background:#702733;
-}
-
-.blue{
-  background:#1e4f8d;
-}
-
-.ghost{
-  background:transparent;
-  border:1px solid var(--line);
-}
-
-.app{
-  width:100%;
-  max-width:950px;
-  margin:auto;
-}
-
-header{
+.top{
   position:sticky;
   top:0;
-  z-index:50;
-  background:rgba(8,13,24,.95);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-  padding:13px 15px;
+  z-index:20;
+  background:rgba(13,15,18,.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:12px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  overflow-x:auto;
 }
 
 .brand{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.brand h1{
-  margin:0;
-  font-size:19px;
-  letter-spacing:.5px;
-}
-
-.brand small{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.connection-status{
-  display:flex;
-  align-items:center;
+  font-weight:900;
+  color:var(--gold);
+  margin-right:auto;
   white-space:nowrap;
-  font-size:12px;
 }
 
-.status-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:var(--bad);
-  margin-right:6px;
+.nav button{
+  background:#20242a;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:8px 11px;
 }
 
-.status-dot.on{
-  background:var(--good);
-  box-shadow:0 0 8px rgba(49,212,134,.5);
-}
-
-nav{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  margin-top:12px;
-  scrollbar-width:none;
-}
-
-nav::-webkit-scrollbar{
-  display:none;
-}
-
-nav button{
-  flex:0 0 auto;
-  padding:9px 12px;
-  font-size:12px;
-}
-
-nav button.active{
-  background:var(--panel2);
-  outline:1px solid var(--accent);
+.nav button:hover{
+  border-color:var(--gold);
 }
 
 main{
-  padding:15px;
+  max-width:1200px;
+  margin:auto;
+  padding:18px 13px 60px;
 }
 
-.view{
-  display:none;
+h1,h2,h3{
+  margin-top:0;
 }
 
-.view.active{
-  display:block;
+h1{
+  font-size:clamp(25px,5vw,42px);
 }
 
-.hero{
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:14px;
-  background:linear-gradient(145deg,#172239,#101827);
+h2{
+  font-size:22px;
+  margin-bottom:12px;
 }
 
-.hero h2{
-  margin:0 0 6px;
-  font-size:27px;
+h3{
+  font-size:17px;
 }
 
-.hero p{
-  margin:0 0 17px;
-  color:var(--muted);
+p{
   line-height:1.5;
 }
 
-.card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:16px;
-  margin-bottom:14px;
-}
-
-.card h2,
-.card h3{
-  margin:0 0 10px;
-}
-
-.card p{
-  line-height:1.5;
-}
-
-.sub,
 .muted{
   color:var(--muted);
 }
 
-.actions{
+.hero{
+  padding:25px 0 15px;
+}
+
+.badge{
+  display:inline-block;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:5px 10px;
+  color:var(--gold);
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.status{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:12px 0;
+}
+
+.status-item{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px 11px;
+  font-size:13px;
+}
+
+.ok{
+  color:var(--green);
+}
+
+.error{
+  color:var(--red);
+}
+
+.warning{
+  color:var(--orange);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:14px;
+  min-width:0;
+}
+
+.card.full{
+  grid-column:1/-1;
+}
+
+.controls{
   display:flex;
   flex-wrap:wrap;
   gap:9px;
 }
 
-.actions button{
-  flex:1 1 145px;
+.btn{
+  border:1px solid var(--border);
+  background:#20242a;
+  color:var(--text);
+  padding:10px 13px;
+  border-radius:10px;
+  font-weight:700;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-bottom:14px;
+.btn:hover{
+  filter:brightness(1.12);
 }
 
-.grid3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
+.btn-gold{
+  background:#3a301d;
+  border-color:#705a25;
+  color:var(--gold);
 }
 
-.stat{
-  background:var(--panel2);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  min-width:0;
+.btn-green{
+  background:#173224;
+  border-color:#2d714a;
+  color:var(--green);
 }
 
-.stat span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
+.btn-red{
+  background:#351b1f;
+  border-color:#71333b;
+  color:#ff7881;
 }
 
-.stat b{
-  display:block;
-  margin-top:5px;
-  font-size:20px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:8px 0;
-  border-bottom:1px solid rgba(41,56,82,.55);
-}
-
-.row:last-child{
-  border-bottom:0;
-}
-
-.row span:last-child{
-  text-align:right;
-  word-break:break-word;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:999px;
-  background:#27344d;
-  font-size:11px;
-}
-
-.badge.good{
-  background:#143f2e;
-  color:#b9f5d6;
-}
-
-.badge.bad{
-  background:#4c1e27;
-  color:#ffd0d5;
-}
-
-label{
-  display:block;
-  margin:10px 0 5px;
-  color:var(--muted);
-  font-size:12px;
+.btn-blue{
+  background:#172b40;
+  border-color:#315f8b;
+  color:#72b7ff;
 }
 
 input,
 textarea{
   width:100%;
-  border:1px solid var(--line);
-  border-radius:11px;
-  background:#080e1b;
+  background:#0b0d10;
   color:var(--text);
-  padding:11px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:10px;
   outline:none;
 }
 
 input:focus,
 textarea:focus{
-  border-color:var(--accent);
+  border-color:var(--gold);
 }
 
 textarea{
-  min-height:100px;
+  min-height:80px;
   resize:vertical;
+  font-family:monospace;
+  text-transform:uppercase;
 }
 
-pre{
-  background:#060a12;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
+label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:6px;
+}
+
+.field{
+  margin-bottom:10px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+}
+
+.stat{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+}
+
+.stat-value{
+  font-size:23px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.log{
+  background:#080a0d;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+  max-height:330px;
   overflow:auto;
-  max-height:370px;
+  font-family:monospace;
+  font-size:12px;
   white-space:pre-wrap;
   word-break:break-word;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  font-size:11px;
-  line-height:1.5;
 }
 
 .packet{
-  background:#0d1525;
-  border:1px solid var(--line);
-  border-radius:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
   padding:10px;
-  margin:7px 0;
+  margin-bottom:8px;
+  background:#111419;
 }
 
-.packet b{
-  color:var(--accent);
+.packet-head{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:11px;
 }
 
 .hex{
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  letter-spacing:.35px;
+  margin-top:7px;
+  color:#f3d47c;
+  font-family:monospace;
+  word-break:break-all;
 }
 
-details.card{
-  padding:0;
-  overflow:hidden;
+.diff{
+  margin-top:7px;
+  color:#78bdff;
+  font-family:monospace;
 }
 
-details.card summary{
-  cursor:pointer;
-  padding:16px;
-  font-weight:800;
+.event{
+  border-left:3px solid var(--gold);
+  padding:7px 9px;
+  background:#17191e;
+  margin-bottom:6px;
+  border-radius:0 8px 8px 0;
+  font-size:12px;
 }
 
-details.card>div,
-details.card>p,
-details.card>label,
-details.card>input,
-details.card>textarea,
-details.card>pre{
-  margin-left:16px;
-  margin-right:16px;
+.tx-test{
+  border:1px solid #5b4820;
+  background:#17150e;
 }
 
-details.card>.actions{
-  margin-bottom:16px;
+.tx-result{
+  border:1px solid var(--blue);
+  background:#101821;
 }
 
-hr{
-  border:0;
-  border-top:1px solid var(--line);
-  margin:14px 0;
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
 }
 
-.toast{
-  position:fixed;
-  left:14px;
-  right:14px;
-  bottom:72px;
-  z-index:100;
-  display:none;
-  padding:13px;
-  border-radius:14px;
-  background:#172239;
-  border:1px solid var(--line);
-  box-shadow:0 8px 30px rgba(0,0,0,.35);
-  font-size:13px;
+th,td{
+  padding:7px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  vertical-align:top;
 }
 
-.toast.show{
-  display:block;
-}
-
-.bottom-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:60;
-  text-align:center;
-  padding:9px 12px;
-  background:rgba(8,13,24,.97);
-  border-top:1px solid var(--line);
+th{
   color:var(--muted);
-  font-size:10px;
+}
+
+.mono{
+  font-family:monospace;
 }
 
 .small{
   font-size:11px;
 }
 
-.success-text{
-  color:var(--good);
+.warning-box{
+  border:1px solid #6b5121;
+  background:#211b0d;
+  border-radius:10px;
+  padding:11px;
+  color:#e9c96d;
+  margin-bottom:12px;
 }
 
-.warning-text{
-  color:var(--orange);
+.success-box{
+  border:1px solid #276542;
+  background:#0f2118;
+  border-radius:10px;
+  padding:11px;
+  color:#73dda2;
 }
 
-.error-text{
-  color:var(--bad);
+.danger-box{
+  border:1px solid #71333b;
+  background:#241216;
+  border-radius:10px;
+  padding:11px;
+  color:#ff7a83;
 }
 
-@media(min-width:700px){
+.hidden{
+  display:none!important;
+}
 
-  main{
-    padding:22px;
-  }
+footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  padding:25px;
+}
 
+@media(max-width:750px){
   .grid{
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:1fr;
   }
 
-  .hero{
-    padding:28px;
+  .card.full{
+    grid-column:auto;
   }
 
+  .stats{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .brand{
+    display:none;
+  }
+
+  .nav{
+    justify-content:flex-start;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
-<header>
-
-  <div class="brand">
-
-    <div>
-      <h1>ROXTHAL F1 PLUS</h1>
-      <small>Aplicación oficial · BLE + Laboratorio integrado</small>
-    </div>
-
-    <div class="connection-status">
-      <span id="statusDot" class="status-dot"></span>
-      <span id="statusText">Desconectada</span>
-    </div>
-
-  </div>
-
-  <nav>
-
-    <button data-view="home" class="active">🏠 Inicio</button>
-
-    <button data-view="device">📱 Dispositivo</button>
-
-    <button data-view="health">❤️ Salud</button>
-
-    <button data-view="activity">🏃 Actividad</button>
-
-    <button data-view="sync">🔄 Sincronizar</button>
-
-    <button data-view="laboratory">🔬 Laboratorio</button>
-
+<header class="top">
+  <nav class="nav">
+    <div class="brand">RoXThal F1 Plus</div>
+    <button onclick="scrollToId('conexion')">📡 Dispositivo</button>
+    <button onclick="scrollToId('laboratorio')">🔬 Laboratorio</button>
+    <button onclick="scrollToId('tx')">📤 TX</button>
+    <button onclick="scrollToId('eventos')">⚡ Eventos</button>
+    <button onclick="scrollToId('diagnostico')">🛠️ Diagnóstico</button>
   </nav>
-
 </header>
-
 
 <main>
 
+<section class="hero">
+  <span class="badge">APLICACIÓN OFICIAL · BLE + LABORATORIO INTEGRADO</span>
 
-<!-- =====================================================
-     INICIO
-===================================================== -->
+  <h1>ROXTHAL F1 PLUS</h1>
 
-<section id="home" class="view active">
+  <p class="muted">
+    Laboratorio de investigación BLE para captura RX,
+    comparación estructural, eventos y pruebas TX controladas.
+  </p>
 
-  <div class="hero">
-
-    <h2>RoXThal F1 Plus</h2>
-
-    <p>
-      Aplicación BLE integrada para conectar la F1 Plus,
-      observar su comunicación y continuar investigando
-      su protocolo sin perder el laboratorio.
-    </p>
-
-    <div class="actions">
-
-      <button
-        id="connectBtn"
-        class="primary">
-        🔗 CONECTAR F1 PLUS
-      </button>
-
-      <button
-        id="disconnectBtn"
-        class="danger"
-        disabled>
-        ⛔ DESCONECTAR
-      </button>
-
-    </div>
-
+  <div class="warning-box">
+    ⚠️ <strong>SEGURIDAD EXPERIMENTAL:</strong>
+    no se transmite nada automáticamente al conectar.
+    El TX solamente se ejecuta mediante una acción manual.
   </div>
 
-
-  <div class="grid">
-
-    <div class="stat">
-      <span>Conexión</span>
-      <b id="homeConnection">OFF</b>
+  <div class="status">
+    <div class="status-item">
+      Estado:
+      <strong id="globalStatus" class="warning">DESCONECTADO</strong>
     </div>
 
-    <div class="stat">
-      <span>RX</span>
-      <b id="homeRx">0</b>
+    <div class="status-item">
+      Web Bluetooth:
+      <strong id="bluetoothStatus" class="warning">COMPROBANDO...</strong>
     </div>
 
-    <div class="stat">
-      <span>TX</span>
-      <b id="homeTx">0</b>
+    <div class="status-item">
+      Dispositivo:
+      <strong id="deviceName">—</strong>
     </div>
 
-    <div class="stat">
-      <span>Última RX</span>
-      <b id="homeLast">—</b>
+    <div class="status-item">
+      Notify:
+      <strong id="notifyStatus" class="warning">OFF</strong>
     </div>
+  </div>
+</section>
 
+
+<section id="conexion" class="card">
+
+<h2>📡 Conexión F1 Plus</h2>
+
+<div class="controls">
+  <button class="btn btn-blue" id="connectBtn">
+    🔗 CONECTAR F1 PLUS
+  </button>
+
+  <button class="btn btn-red" id="disconnectBtn">
+    ⛔ DESCONECTAR
+  </button>
+
+  <button class="btn" id="checkBtn">
+    🔎 COMPROBAR BLUETOOTH
+  </button>
+
+  <button class="btn" id="clearBtn">
+    🧹 LIMPIAR SESIÓN
+  </button>
+</div>
+
+<br>
+
+<div class="grid">
+
+  <div>
+    <label>Nombre</label>
+    <div class="status-item mono" id="deviceName2">—</div>
   </div>
 
-
-  <div class="card">
-
-    <h3>📡 Estado del sistema</h3>
-
-    <p
-      id="homeMessage"
-      class="sub">
-      Pulsa “Conectar F1 Plus” para comenzar.
-    </p>
-
+  <div>
+    <label>ID Bluetooth</label>
+    <div class="status-item mono" id="deviceId">—</div>
   </div>
 
-
-  <div class="card">
-
-    <h3>⚡ Acceso rápido</h3>
-
-    <div class="actions">
-
-      <button data-go="device">
-        📱 Mi dispositivo
-      </button>
-
-      <button data-go="sync">
-        🔄 Sincronización
-      </button>
-
-      <button data-go="laboratory">
-        🔬 Continuar investigación
-      </button>
-
+  <div>
+    <label>Servicio</label>
+    <div class="status-item mono">
+      6e400001-b5a3-f393-e0a9-e50e24dcca9e
     </div>
-
   </div>
 
-
-  <div class="card">
-
-    <h3>🛡️ Seguridad de funcionamiento</h3>
-
-    <p class="sub">
-      La conexión no envía comandos automáticamente.
-      El laboratorio permanece en modo pasivo hasta que
-      tú decidas realizar una prueba TX.
-    </p>
-
+  <div>
+    <label>WRITE</label>
+    <div class="status-item mono">
+      6e400002-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
   </div>
+
+  <div>
+    <label>NOTIFY / RX</label>
+    <div class="status-item mono">
+      6e400003-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
+  </div>
+
+  <div>
+    <label>Modo automático</label>
+    <div class="success-box">
+      AUTOMATIC TX = NO
+    </div>
+  </div>
+
+</div>
 
 </section>
 
 
+<section id="laboratorio">
 
-<!-- =====================================================
-     DISPOSITIVO
-===================================================== -->
+<div class="card">
 
-<section id="device" class="view">
+<h2>🔬 Laboratorio F1 Plus</h2>
 
-  <div class="card">
+<div class="stats">
 
-    <h2>📱 Mi F1 Plus</h2>
-
-    <div class="row">
-      <span>Nombre</span>
-      <span id="deviceName">—</span>
-    </div>
-
-    <div class="row">
-      <span>ID Bluetooth</span>
-      <span id="deviceId">—</span>
-    </div>
-
-    <div class="row">
-      <span>Estado GATT</span>
-      <span id="gattState">Desconectado</span>
-    </div>
-
-    <div class="row">
-      <span>RX / NOTIFY</span>
-      <span id="rxCharacteristic">—</span>
-    </div>
-
-    <div class="row">
-      <span>TX / WRITE</span>
-      <span id="txCharacteristic">—</span>
-    </div>
-
+  <div class="stat">
+    <div class="stat-label">TX</div>
+    <div class="stat-value" id="statTx">0</div>
   </div>
 
-
-  <div class="card">
-
-    <h3>📡 Servicios detectados</h3>
-
-    <div id="servicesInfo" class="sub">
-      Todavía no hay una conexión activa.
-    </div>
-
+  <div class="stat">
+    <div class="stat-label">RX</div>
+    <div class="stat-value" id="statRx">0</div>
   </div>
 
-
-  <div class="card">
-
-    <h3>🔎 Compatibilidad</h3>
-
-    <div id="compatInfo" class="sub">
-      Comprobando Web Bluetooth...
-    </div>
-
+  <div class="stat">
+    <div class="stat-label">Tipos RX</div>
+    <div class="stat-value" id="statTypes">0</div>
   </div>
+
+  <div class="stat">
+    <div class="stat-label">Longitudes</div>
+    <div class="stat-value" id="statLengths">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-label">Comparaciones</div>
+    <div class="stat-value" id="statComparisons">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-label">Bytes modificados</div>
+    <div class="stat-value" id="statModified">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-label">Transiciones</div>
+    <div class="stat-value" id="statTransitions">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-label">Correlaciones</div>
+    <div class="stat-value" id="statCorrelations">0</div>
+  </div>
+
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<section class="card">
+<h3>📊 Tipos RX</h3>
+<div id="typeStats" class="log">Sin datos.</div>
+</section>
+
+<section class="card">
+<h3>📏 Longitudes RX</h3>
+<div id="lengthStats" class="log">Sin datos.</div>
+</section>
+
+</div>
+
+
+<section class="card">
+<h3>📦 Capturas RX</h3>
+<div id="packetList">
+  <div class="muted">Todavía no hay paquetes RX.</div>
+</div>
+</section>
+
+
+<section class="card">
+<h3>🔎 Matriz de diferencias</h3>
+<div id="diffMatrix" class="log">
+Todavía no hay comparaciones.
+</div>
+</section>
+
+
+<section class="card">
+<h3>🔄 Transiciones detectadas</h3>
+<div id="transitionList" class="log">
+Todavía no hay transiciones.
+</div>
+</section>
 
 </section>
 
 
+<section id="tx" class="card tx-test">
 
-<!-- =====================================================
-     SALUD
-===================================================== -->
+<h2>📤 TX — Prueba controlada</h2>
 
-<section id="health" class="view">
+<div class="warning-box">
+  ⚠️ Esta sección NO transmite automáticamente.
+  Es necesario pulsar manualmente el botón de envío.
+</div>
 
-  <div class="card">
+<div class="field">
 
-    <h2>❤️ Salud</h2>
+<label for="txHex">HEX a enviar</label>
 
-    <p class="sub">
-      Los valores solamente aparecerán cuando el protocolo
-      permita identificarlos de forma fiable.
-    </p>
+<textarea
+  id="txHex"
+  spellcheck="false"
+  placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"></textarea>
 
-    <div class="grid">
+</div>
 
-      <div class="stat">
-        <span>Pulso</span>
-        <b id="heartRate">—</b>
-      </div>
+<div class="controls">
 
-      <div class="stat">
-        <span>Batería</span>
-        <b id="battery">—</b>
-      </div>
+<button class="btn btn-gold" id="sendTxBtn">
+  📤 ENVIAR TX
+</button>
 
-      <div class="stat">
-        <span>Sueño</span>
-        <b id="sleep">—</b>
-      </div>
+<button class="btn btn-blue" id="test91Btn">
+  🧪 PRUEBA 0x91
+</button>
 
-      <div class="stat">
-        <span>Protocolo</span>
-        <b id="healthProtocol">No identificado</b>
-      </div>
+<button class="btn" id="clearTxBtn">
+  🧹 LIMPIAR TX
+</button>
 
-    </div>
+</div>
 
-  </div>
+<br>
 
-
-  <div class="card">
-
-    <h3>🔬 Estado de investigación</h3>
-
-    <p class="sub">
-      El laboratorio interno permite identificar progresivamente
-      las tramas relacionadas con salud. No se muestran datos
-      inventados ni se asignan significados sin evidencia.
-    </p>
-
-  </div>
+<div class="status-item">
+  Último TX:
+  <span id="lastTx" class="mono">Sin TX.</span>
+</div>
 
 </section>
 
 
+<section class="card tx-result">
 
-<!-- =====================================================
-     ACTIVIDAD
-===================================================== -->
+<h2>🧪 Correlación TX → RX</h2>
 
-<section id="activity" class="view">
+<p class="muted">
+Esta tabla registra qué ocurrió después de cada transmisión manual.
+No supone que una trama sea una respuesta hasta observar la correlación temporal.
+</p>
 
-  <div class="card">
-
-    <h2>🏃 Actividad</h2>
-
-    <div class="grid">
-
-      <div class="stat">
-        <span>Pasos</span>
-        <b id="steps">—</b>
-      </div>
-
-      <div class="stat">
-        <span>Distancia</span>
-        <b id="distance">—</b>
-      </div>
-
-      <div class="stat">
-        <span>Calorías</span>
-        <b id="calories">—</b>
-      </div>
-
-      <div class="stat">
-        <span>Protocolo</span>
-        <b id="activityProtocol">No identificado</b>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h3>⌚ Funciones de la pulsera</h3>
-
-    <p class="sub">
-      Los controles reales se habilitarán a medida que
-      descubramos y validemos las órdenes del F1 Plus.
-    </p>
-
-  </div>
+<div id="txResults">
+  <div class="muted">Sin experimentos TX.</div>
+</div>
 
 </section>
 
 
+<section id="eventos" class="card">
 
-<!-- =====================================================
-     SINCRONIZACIÓN
-===================================================== -->
+<h2>⚡ Eventos físicos / manuales</h2>
 
-<section id="sync" class="view">
+<div class="controls">
 
-  <div class="card">
+<button class="btn" onclick="registerEvent('EVENTO MANUAL')">
+  EVENTO MANUAL
+</button>
 
-    <h2>🔄 Centro de sincronización</h2>
+<button class="btn" onclick="registerEvent('BOTÓN FÍSICO')">
+  BOTÓN FÍSICO
+</button>
 
-    <div class="row">
-      <span>Bluetooth</span>
-      <span id="syncBle" class="badge">OFF</span>
-    </div>
+<button class="btn" onclick="registerEvent('CARGA')">
+  CARGA
+</button>
 
-    <div class="row">
-      <span>RX / NOTIFY</span>
-      <span id="syncNotify" class="badge">OFF</span>
-    </div>
+<button class="btn" onclick="registerEvent('DESCONEXIÓN')">
+  DESCONEXIÓN
+</button>
 
-    <div class="row">
-      <span>TX / WRITE</span>
-      <span id="syncTx" class="badge">OFF</span>
-    </div>
+<button class="btn" onclick="registerEvent('FUNCIÓN')">
+  FUNCIÓN
+</button>
 
-    <div class="row">
-      <span>Última comunicación</span>
-      <span id="syncLast">—</span>
-    </div>
+<button class="btn btn-red" onclick="clearEvents()">
+  LIMPIAR EVENTOS
+</button>
 
-  </div>
+</div>
 
+<br>
 
-  <div class="card">
-
-    <h3>📥 Comunicación reciente</h3>
-
-    <pre id="syncRecent">No hay datos RX.</pre>
-
-  </div>
+<div id="eventList">
+  <div class="muted">Sin eventos registrados.</div>
+</div>
 
 </section>
 
 
+<section class="card">
 
-<!-- =====================================================
-     LABORATORIO
-===================================================== -->
+<h2>📋 Registro RX/TX</h2>
 
-<section id="laboratory" class="view">
+<div id="activityLog" class="log">
+Sistema preparado.
+</div>
 
+</section>
 
-  <div class="card">
 
-    <h2>🔬 Laboratorio F1 Plus</h2>
+<section id="diagnostico" class="card">
 
-    <p class="sub">
-      Motor de investigación integrado en la aplicación.
-      Permite continuar capturando RX, comparar paquetes,
-      registrar eventos y realizar pruebas TX controladas.
-    </p>
+<h2>🛠️ Diagnóstico</h2>
 
-    <p class="warning-text small">
-      ⚠️ No se transmite nada automáticamente al conectar.
-    </p>
+<div id="diagnosticLog" class="log">
+Inicializando módulo Smart Band F1 Plus...
+</div>
 
-  </div>
+</section>
 
 
-  <!-- ESTADÍSTICAS -->
+<section class="card">
 
-  <div class="grid3">
+<h2>💾 Exportación</h2>
 
-    <div class="stat">
-      <span>TX</span>
-      <b id="statTx">0</b>
-    </div>
+<div class="controls">
 
-    <div class="stat">
-      <span>RX</span>
-      <b id="statRx">0</b>
-    </div>
+<button class="btn btn-green" onclick="exportJSON()">
+  💾 EXPORTAR JSON
+</button>
 
-    <div class="stat">
-      <span>Tipos RX</span>
-      <b id="statTypes">0</b>
-    </div>
+<button class="btn" onclick="copySession()">
+  📋 COPIAR SESIÓN
+</button>
 
-    <div class="stat">
-      <span>Longitudes</span>
-      <b id="statLengths">0</b>
-    </div>
-
-    <div class="stat">
-      <span>Comparaciones</span>
-      <b id="statComparisons">0</b>
-    </div>
-
-    <div class="stat">
-      <span>Bytes modificados</span>
-      <b id="statChanges">0</b>
-    </div>
-
-    <div class="stat">
-      <span>Transiciones</span>
-      <b id="statTransitions">0</b>
-    </div>
-
-    <div class="stat">
-      <span>Eventos</span>
-      <b id="statEvents">0</b>
-    </div>
-
-    <div class="stat">
-      <span>Correlaciones</span>
-      <b id="statCorrelations">0</b>
-    </div>
-
-  </div>
-
-
-
-  <!-- BLE -->
-
-  <details class="card" open>
-
-    <summary>📡 Canal BLE</summary>
-
-    <div class="row">
-      <span>Servicio UART conocido</span>
-      <span class="small">
-        6e400001…
-      </span>
-    </div>
-
-    <div class="row">
-      <span>RX / NOTIFY</span>
-      <span id="labRx">—</span>
-    </div>
-
-    <div class="row">
-      <span>TX / WRITE</span>
-      <span id="labTx">—</span>
-    </div>
-
-    <div class="row">
-      <span>NOTIFY</span>
-      <span id="notifyState">OFF</span>
-    </div>
-
-  </details>
-
-
-
-  <!-- EVENTOS -->
-
-  <details class="card" open>
-
-    <summary>🧪 Eventos físicos</summary>
-
-    <div class="actions">
-
-      <button id="eventManual">
-        EVENTO MANUAL
-      </button>
-
-      <button id="eventButton">
-        BOTÓN FÍSICO
-      </button>
-
-      <button id="eventCharge">
-        CARGA
-      </button>
-
-      <button id="eventDisconnect">
-        DESCONEXIÓN
-      </button>
-
-      <button id="eventFunction">
-        FUNCIÓN
-      </button>
-
-      <button
-        id="clearEvents"
-        class="ghost">
-        LIMPIAR EVENTOS
-      </button>
-
-    </div>
-
-    <pre id="eventsLog">Sin eventos.</pre>
-
-  </details>
-
-
-
-  <!-- PROTOCOLO -->
-
-  <details class="card" open>
-
-    <summary>🧬 Análisis de protocolo</summary>
-
-    <div id="protocolSummary" class="sub">
-      Esperando RX...
-    </div>
-
-    <hr>
-
-    <div id="typeAnalysis"></div>
-
-    <hr>
-
-    <div id="lengthAnalysis"></div>
-
-    <hr>
-
-    <div id="transitionAnalysis"></div>
-
-  </details>
-
-
-
-  <!-- COMPARADOR -->
-
-  <details class="card" open>
-
-    <summary>🔎 Comparador diferencial</summary>
-
-    <p class="sub">
-      Las comparaciones automáticas se realizan contra
-      la trama anterior del mismo tipo y longitud.
-    </p>
-
-    <div id="comparisonOutput">
-      Sin comparaciones todavía.
-    </div>
-
-    <hr>
-
-    <div id="matrixOutput"></div>
-
-  </details>
-
-
-
-  <!-- RX -->
-
-  <details class="card" open>
-
-    <summary>📥 Capturas RX</summary>
-
-    <div class="actions">
-
-      <button
-        id="clearRx"
-        class="ghost">
-        🗑️ LIMPIAR RX
-      </button>
-
-      <button
-        id="exportJson"
-        class="blue">
-        ⬇️ JSON
-      </button>
-
-      <button id="exportHex">
-        ⬇️ HEX
-      </button>
-
-      <button id="copySummary">
-        📋 COPIAR RESUMEN
-      </button>
-
-    </div>
-
-    <div
-      id="rxList"
-      style="margin-top:10px">
-    </div>
-
-  </details>
-
-
-
-  <!-- TX -->
-
-  <details class="card">
-
-    <summary>🧪 TX controlado</summary>
-
-    <p class="sub">
-      Esta sección solo transmite cuando pulsas un botón.
-    </p>
-
-    <label for="txHex">
-      HEX a enviar
-    </label>
-
-    <input
-      id="txHex"
-      value="AB 00 05 FF 91 80 00 64"
-      autocomplete="off">
-
-    <div
-      class="actions"
-      style="margin-top:10px">
-
-      <button
-        id="sendTx"
-        class="primary">
-        ▶️ ENVIAR TX
-      </button>
-
-      <button id="send91Test">
-        🧪 PRUEBA 0x91
-      </button>
-
-    </div>
-
-    <pre id="txLog">Sin TX.</pre>
-
-  </details>
-
-
-
-  <!-- DIAGNÓSTICO -->
-
-  <details class="card">
-
-    <summary>🛠️ Diagnóstico</summary>
-
-    <div class="actions">
-
-      <button id="checkBle">
-        🔎 COMPROBAR BLUETOOTH
-      </button>
-
-      <button
-        id="clearDiag"
-        class="ghost">
-        LIMPIAR
-      </button>
-
-    </div>
-
-    <pre id="diagLog"></pre>
-
-  </details>
-
-
-
-  <!-- SESIÓN -->
-
-  <details class="card">
-
-    <summary>💾 Sesión de laboratorio</summary>
-
-    <div class="actions">
-
-      <button id="saveSession">
-        💾 GUARDAR
-      </button>
-
-      <button id="loadSession">
-        📂 RECUPERAR
-      </button>
-
-      <button
-        id="resetLab"
-        class="danger">
-        ♻️ REINICIAR
-      </button>
-
-    </div>
-
-    <p class="sub">
-      Los datos de investigación se almacenan localmente
-      en este navegador.
-    </p>
-
-  </details>
-
+</div>
 
 </section>
 
 </main>
 
-</div>
-
-
-<div id="toast" class="toast"></div>
-
-<div class="bottom-bar">
-  RoXThal F1 Plus · BLE · laboratorio integrado · transmisión manual únicamente
-</div>
-
+<footer>
+RoXThal F1 Plus Protocol Laboratory · BLE experimental
+</footer>
 
 
 <script>
 "use strict";
 
-/* =========================================================
-   ROXTHAL F1 PLUS
-   APLICACIÓN FINAL + LABORATORIO BLE
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
+/* ============================================================
+   CONFIGURACIÓN BLE
+   ============================================================ */
 
 const UUID_SERVICE =
-"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+  "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UUID_WRITE =
-"6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+  "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UUID_NOTIFY =
-"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+  "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
-const KNOWN_RX_TYPES =
-[
-  0x91,
-  0x92,
-  0x7D
-];
-
-const EVENT_WINDOW = 10000;
-
-const STORAGE_KEY =
-"roxthal_f1plus_final_lab_v2";
+/*
+  Ventanas de correlación:
+  300 ms = posible respuesta inmediata
+  3000 ms = respuesta secundaria / evento relacionado
+*/
+const IMMEDIATE_WINDOW = 300;
+const SECONDARY_WINDOW = 3000;
 
 
-/* =========================================================
+/* ============================================================
    ESTADO
-========================================================= */
+   ============================================================ */
 
-const state = {
+let device = null;
+let server = null;
+let service = null;
+let writeCharacteristic = null;
+let notifyCharacteristic = null;
 
-  device:null,
+let connected = false;
+let notifyEnabled = false;
 
-  server:null,
+let rxPackets = [];
+let txPackets = [];
+let comparisons = [];
+let transitions = [];
+let events = [];
+let txExperiments = [];
 
-  rxChar:null,
+let lastRxByTypeLength = {};
+let lastRxPacket = null;
+let pendingTx = null;
 
-  txChar:null,
 
-  notify:false,
+/* ============================================================
+   ESTADÍSTICAS
+   ============================================================ */
 
-  rx:[],
-
-  tx:[],
-
-  events:[],
-
-  comparisons:[],
-
-  transitions:[],
-
-  correlations:[],
-
-  types:{},
-
-  lengths:{},
-
-  matrix:{},
-
-  lastBySignature:{},
-
-  diagnostics:[],
-
-  lastRxAt:0,
-
-  lastType:null,
-
-  last91Byte7:null,
-
-  cycles:0
-
+const stats = {
+  tx: 0,
+  rx: 0,
+  comparisons: 0,
+  modifiedBytes: 0,
+  transitions: 0,
+  correlations: 0
 };
 
 
-/* =========================================================
+/* ============================================================
    UTILIDADES
-========================================================= */
+   ============================================================ */
 
-function $(id){
+function now(){
+  return new Date();
+}
+
+function timeString(date = new Date()){
+  return date.toLocaleTimeString("es-AR", {
+    hour12:false
+  });
+}
+
+function isoTime(date = new Date()){
+  return date.toISOString();
+}
+
+function hexByte(n){
+  return n.toString(16).padStart(2,"0").toUpperCase();
+}
+
+function bytesToHex(bytes){
+  return Array.from(bytes)
+    .map(hexByte)
+    .join(" ");
+}
+
+function hexToBytes(text){
+  const clean = String(text)
+    .replace(/0x/gi,"")
+    .replace(/[^0-9a-fA-F]/g," ");
+
+  const parts = clean
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  /*
+    También permitimos cadenas continuas:
+    AB0005FF91800050
+  */
+  if(parts.length === 1 && parts[0].length > 2){
+    const raw = parts[0];
+
+    if(raw.length % 2 !== 0){
+      throw new Error("HEX con cantidad impar de caracteres.");
+    }
+
+    const result = [];
+
+    for(let i=0;i<raw.length;i+=2){
+      result.push(parseInt(raw.slice(i,i+2),16));
+    }
+
+    return new Uint8Array(result);
+  }
+
+  const result = parts.map(x => {
+    if(!/^[0-9a-fA-F]{1,2}$/.test(x)){
+      throw new Error("HEX inválido: " + x);
+    }
+
+    return parseInt(x,16);
+  });
+
+  return new Uint8Array(result);
+}
+
+function getType(bytes){
+  /*
+    En las capturas observadas:
+    AB 00 05 FF 91 ...
+    AB 00 0D FF 92 ...
+    
+    El tipo está en byte 4.
+  */
+  if(bytes.length >= 5){
+    return "0x" + hexByte(bytes[4]);
+  }
+
+  return "DESCONOCIDO";
+}
+
+function getLength(bytes){
+  return bytes.length;
+}
+
+function sameBytes(a,b){
+  if(!a || !b || a.length !== b.length){
+    return false;
+  }
+
+  for(let i=0;i<a.length;i++){
+    if(a[i] !== b[i]){
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+/* ============================================================
+   UI
+   ============================================================ */
+
+function el(id){
   return document.getElementById(id);
 }
 
+function scrollToId(id){
+  const node = el(id);
 
-function timestamp(){
-  return Date.now();
-}
-
-
-function clock(ts){
-  return new Date(
-    ts || Date.now()
-  ).toLocaleTimeString(
-    "es-AR",
-    {
-      hour12:false
-    }
-  );
-}
-
-
-function toHex(bytes){
-
-  return Array.from(bytes)
-    .map(function(byte){
-
-      return byte
-        .toString(16)
-        .padStart(2,"0")
-        .toUpperCase();
-
-    })
-    .join(" ");
-
-}
-
-
-function escapeHTML(value){
-
-  return String(value)
-    .replace(/[&<>"']/g,function(c){
-
-      return {
-
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-
-      }[c];
-
+  if(node){
+    node.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
     });
-
+  }
 }
 
+function setGlobalStatus(text, cls){
+  const node = el("globalStatus");
 
-function showToast(message){
-
-  const toast =
-    $("toast");
-
-  toast.textContent =
-    message;
-
-  toast.classList.add("show");
-
-  clearTimeout(
-    showToast.timer
-  );
-
-  showToast.timer =
-    setTimeout(function(){
-
-      toast.classList.remove(
-        "show"
-      );
-
-    },2800);
-
+  node.textContent = text;
+  node.className = cls || "";
 }
 
+function log(message){
+  const line =
+    "[" + timeString() + "] " + message;
+
+  const box = el("activityLog");
+
+  box.textContent +=
+    (box.textContent ? "\n" : "") +
+    line;
+
+  box.scrollTop = box.scrollHeight;
+}
 
 function diagnostic(message){
-
   const line =
-    "[" + clock() + "] " + message;
+    "[" + timeString() + "] " + message;
 
-  state.diagnostics.push(line);
+  const box = el("diagnosticLog");
 
-  $("diagLog").textContent =
-    state.diagnostics
-      .slice(-150)
-      .join("\n");
+  box.textContent +=
+    (box.textContent ? "\n" : "") +
+    line;
 
+  box.scrollTop = box.scrollHeight;
 }
 
 
-function setConnectionStatus(
-  connected,
-  message
-){
-
-  $("statusDot")
-    .classList
-    .toggle(
-      "on",
-      connected
-    );
-
-  $("statusText").textContent =
-    message;
-
-  $("homeConnection").textContent =
-    connected ? "ON" : "OFF";
-
-  $("homeMessage").textContent =
-    message;
-
-  $("gattState").textContent =
-    connected
-      ? "Conectado"
-      : "Desconectado";
-
-  $("disconnectBtn").disabled =
-    !connected;
-
-  $("syncBle").textContent =
-    connected ? "ON" : "OFF";
-
-  $("syncBle").className =
-    "badge " +
-    (connected ? "good" : "");
-
-}
-
-
-/* =========================================================
-   HEX
-========================================================= */
-
-function parseHex(text){
-
-  const cleaned =
-    String(text)
-      .trim()
-      .replace(/0x/gi," ")
-      .replace(/[^0-9a-fA-F]/g," ");
-
-  const parts =
-    cleaned
-      .split(/\s+/)
-      .filter(Boolean);
-
-  if(!parts.length){
-
-    throw new Error(
-      "HEX vacío."
-    );
-
-  }
-
-  for(
-    let i=0;
-    i<parts.length;
-    i++
-  ){
-
-    if(
-      parts[i].length !== 2 ||
-      !/^[0-9a-fA-F]{2}$/.test(
-        parts[i]
-      )
-    ){
-
-      throw new Error(
-        "HEX inválido en byte " +
-        (i+1) +
-        "."
-      );
-
-    }
-
-  }
-
-  return new Uint8Array(
-    parts.map(function(part){
-
-      return parseInt(
-        part,
-        16
-      );
-
-    })
-  );
-
-}
-
-
-/* =========================================================
-   EXPORTACIÓN
-========================================================= */
-
-function downloadText(
-  filename,
-  text,
-  type
-){
-
-  const blob =
-    new Blob(
-      [text],
-      {
-        type:
-          type ||
-          "text/plain"
-      }
-    );
-
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-  link.href =
-    url;
-
-  link.download =
-    filename;
-
-  document.body.appendChild(
-    link
-  );
-
-  link.click();
-
-  link.remove();
-
-  setTimeout(
-    function(){
-
-      URL.revokeObjectURL(
-        url
-      );
-
-    },
-    500
-  );
-
-}
-
-
-/* =========================================================
-   PROPIEDADES BLE
-========================================================= */
-
-function properties(characteristic){
-
-  const props = [];
-
-  if(characteristic.properties.read)
-    props.push("read");
-
-  if(characteristic.properties.write)
-    props.push("write");
-
-  if(characteristic.properties.writeWithoutResponse)
-    props.push("writeWithoutResponse");
-
-  if(characteristic.properties.notify)
-    props.push("notify");
-
-  if(characteristic.properties.indicate)
-    props.push("indicate");
-
-  return props;
-
-}
-
-
-function isRX(characteristic){
-
-  return !!(
-    characteristic.properties.notify ||
-    characteristic.properties.indicate
-  );
-
-}
-
-
-function isTX(characteristic){
-
-  return !!(
-    characteristic.properties.write ||
-    characteristic.properties.writeWithoutResponse
-  );
-
-}
-
-
-/* =========================================================
-   TIPO DE TRAMA
-========================================================= */
-
-function getFrameType(bytes){
-
-  if(bytes.length > 4){
-
-    return bytes[4];
-
-  }
-
-  return null;
-
-}
-
-
-function getSignature(bytes){
-
-  const type =
-    getFrameType(bytes);
-
-  return (
-    type === null
-      ? "?"
-      : "0x" +
-        type
-          .toString(16)
-          .toUpperCase()
-  ) +
-  "|" +
-  bytes.length;
-
-}
-
-
-/* =========================================================
-   NAVEGACIÓN
-========================================================= */
-
-document
-.querySelectorAll(
-  "nav button[data-view]"
-)
-.forEach(function(button){
-
-  button.addEventListener(
-    "click",
-    function(){
-
-      showView(
-        button.dataset.view
-      );
-
-    }
-  );
-
-});
-
-
-document
-.querySelectorAll(
-  "[data-go]"
-)
-.forEach(function(button){
-
-  button.addEventListener(
-    "click",
-    function(){
-
-      showView(
-        button.dataset.go
-      );
-
-    }
-  );
-
-});
-
-
-function showView(id){
-
-  document
-  .querySelectorAll(".view")
-  .forEach(function(view){
-
-    view.classList.remove(
-      "active"
-    );
-
-  });
-
-
-  const target =
-    $(id);
-
-  if(target){
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-  .querySelectorAll(
-    "nav button[data-view]"
-  )
-  .forEach(function(button){
-
-    button.classList.toggle(
-      "active",
-      button.dataset.view === id
-    );
-
-  });
-
-}
-
-
-/* =========================================================
+/* ============================================================
    BLUETOOTH
-========================================================= */
+   ============================================================ */
 
 function checkBluetooth(){
 
-  diagnostic(
-    "Comprobando Web Bluetooth..."
-  );
+  const supported =
+    !!navigator.bluetooth;
 
+  el("bluetoothStatus").textContent =
+    supported ? "OK" : "NO DISPONIBLE";
 
-  if(!window.isSecureContext){
+  el("bluetoothStatus").className =
+    supported ? "ok" : "error";
 
-    $("compatInfo").innerHTML =
-      "❌ <b>Contexto no seguro.</b><br>" +
-      "Web Bluetooth necesita HTTPS " +
-      "o localhost.";
-
-    diagnostic(
-      "ERROR: contexto no seguro."
-    );
-
-    showToast(
-      "Web Bluetooth necesita HTTPS."
-    );
-
-    return false;
-
+  if(supported){
+    diagnostic("Web Bluetooth detectado correctamente.");
+  }else{
+    diagnostic("Web Bluetooth NO está disponible.");
   }
 
-
-  if(
-    !("bluetooth" in navigator)
-  ){
-
-    $("compatInfo").innerHTML =
-      "❌ Este navegador no ofrece Web Bluetooth.";
-
-    diagnostic(
-      "ERROR: navigator.bluetooth no disponible."
-    );
-
-    showToast(
-      "Web Bluetooth no está disponible."
-    );
-
-    return false;
-
-  }
-
-
-  $("compatInfo").innerHTML =
-    "✅ Web Bluetooth disponible.<br>" +
-    "Pulsa conectar para seleccionar la F1 Plus.";
-
-  diagnostic(
-    "OK: Web Bluetooth detectado."
-  );
-
-  return true;
-
+  return supported;
 }
 
 
-/* =========================================================
+/* ============================================================
    CONEXIÓN
-========================================================= */
+   ============================================================ */
 
 async function connect(){
 
-  if(!checkBluetooth()){
-
-    return;
-
-  }
-
-
   try{
 
-    diagnostic(
-      "Inicio del proceso de conexión."
-    );
-
-
-    diagnostic(
-      "Solicitando dispositivo BLE..."
-    );
-
-
-    /*
-      IMPORTANTE:
-
-      requestDevice() solamente se ejecuta
-      como consecuencia del botón.
-    */
-
-    const device =
-      await navigator.bluetooth.requestDevice({
-
-        acceptAllDevices:true,
-
-        optionalServices:[
-          UUID_SERVICE
-        ]
-
-      });
-
-
-    if(!device){
-
-      diagnostic(
-        "No se seleccionó dispositivo."
+    if(!checkBluetooth()){
+      throw new Error(
+        "Este navegador no dispone de Web Bluetooth."
       );
-
-      return;
-
     }
 
+    diagnostic("Inicio del proceso de conexión.");
+    diagnostic("⚠️ MODO PASIVO: no se enviará TX automáticamente.");
 
-    state.device =
-      device;
+    setGlobalStatus("BUSCANDO...", "warning");
 
+    diagnostic("Solicitando dispositivo BLE...");
 
-    $("deviceName").textContent =
-      device.name ||
-      "Sin nombre";
+    device = await navigator.bluetooth.requestDevice({
+      filters:[
+        {
+          name:"F1 Plus"
+        }
+      ],
+      optionalServices:[
+        UUID_SERVICE
+      ]
+    });
 
+    if(!device){
+      throw new Error("No se seleccionó dispositivo.");
+    }
 
-    $("deviceId").textContent =
-      device.id ||
-      "—";
+    el("deviceName").textContent =
+      device.name || "F1 Plus";
 
+    el("deviceName2").textContent =
+      device.name || "F1 Plus";
+
+    el("deviceId").textContent =
+      device.id || "—";
 
     diagnostic(
       "Dispositivo seleccionado: " +
-      (device.name || "Sin nombre")
+      (device.name || "F1 Plus")
     );
-
 
     diagnostic(
       "ID: " +
       (device.id || "—")
     );
 
-
     device.addEventListener(
       "gattserverdisconnected",
-      handleDisconnected
+      handleDisconnect
     );
 
+    setGlobalStatus("CONECTANDO...", "warning");
+
+    diagnostic("Conectando GATT...");
+
+    server = await device.gatt.connect();
+
+    connected = true;
+
+    diagnostic("GATT conectado.");
+    setGlobalStatus("CONECTADO", "ok");
+
+    service =
+      await server.getPrimaryService(UUID_SERVICE);
 
     diagnostic(
-      "Conectando GATT..."
+      "Servicio UART encontrado: " +
+      UUID_SERVICE
     );
 
+    writeCharacteristic =
+      await service.getCharacteristic(UUID_WRITE);
 
-    state.server =
-      await device.gatt.connect();
-
-
-    setConnectionStatus(
-      true,
-      "Conectada: " +
-      (device.name || "F1 Plus")
-    );
-
+    notifyCharacteristic =
+      await service.getCharacteristic(UUID_NOTIFY);
 
     diagnostic(
-      "GATT conectado correctamente."
+      "WRITE encontrado: " +
+      UUID_WRITE
     );
 
+    diagnostic(
+      "NOTIFY encontrado: " +
+      UUID_NOTIFY
+    );
 
-    await discoverServices();
+    await notifyCharacteristic.startNotifications();
 
+    notifyCharacteristic.addEventListener(
+      "characteristicvaluechanged",
+      handleNotification
+    );
 
-  }
-  catch(error){
+    notifyEnabled = true;
+
+    el("notifyStatus").textContent = "ON";
+    el("notifyStatus").className = "ok";
+
+    diagnostic("NOTIFY iniciado correctamente.");
+    diagnostic("Modo pasivo ACTIVE.");
+    diagnostic("Automatic TX on connect: NO.");
+
+    /*
+      IMPORTANTE:
+      No se llama ninguna función TX aquí.
+    */
+
+  }catch(error){
+
+    connected = false;
+
+    setGlobalStatus(
+      "ERROR",
+      "error"
+    );
 
     diagnostic(
-      "ERROR DE CONEXIÓN: " +
-      error.name +
-      " — " +
+      "❌ Error de conexión: " +
       error.message
     );
 
-
-    setConnectionStatus(
-      false,
-      "No se pudo conectar"
-    );
-
-
-    showToast(
-      "No se pudo conectar. Revisa Diagnóstico."
-    );
-
+    console.error(error);
   }
-
 }
 
 
-/* =========================================================
-   DESCUBRIMIENTO
-========================================================= */
-
-async function discoverServices(){
-
-  if(!state.server){
-
-    return;
-
-  }
-
-
-  state.rxChar = null;
-  state.txChar = null;
-  state.notify = false;
-
-
-  let services = [];
-
-
-  try{
-
-    services =
-      await state.server
-        .getPrimaryServices();
-
-
-    diagnostic(
-      "Servicios primarios encontrados: " +
-      services.length
-    );
-
-  }
-  catch(error){
-
-    diagnostic(
-      "ERROR obteniendo servicios: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  let html = "";
-
-
-  for(
-    const service of services
-  ){
-
-    html +=
-      "<div class='packet'>" +
-      "<b>" +
-      escapeHTML(service.uuid) +
-      "</b><br>";
-
-
-    try{
-
-      const characteristics =
-        await service.getCharacteristics();
-
-
-      for(
-        const characteristic
-        of characteristics
-      ){
-
-        const props =
-          properties(
-            characteristic
-          );
-
-
-        html +=
-          "<div class='small'>" +
-          escapeHTML(
-            characteristic.uuid
-          ) +
-          " [" +
-          escapeHTML(
-            props.join(", ")
-          ) +
-          "]</div>";
-
-
-        diagnostic(
-          "Característica " +
-          characteristic.uuid +
-          " · " +
-          props.join(", ")
-        );
-
-
-        /*
-          Preferimos las UUID conocidas.
-        */
-
-        if(
-          characteristic.uuid
-            .toLowerCase() ===
-          UUID_NOTIFY
-        ){
-
-          state.rxChar =
-            characteristic;
-
-        }
-        else if(
-          !state.rxChar &&
-          isRX(characteristic)
-        ){
-
-          state.rxChar =
-            characteristic;
-
-        }
-
-
-        if(
-          characteristic.uuid
-            .toLowerCase() ===
-          UUID_WRITE
-        ){
-
-          state.txChar =
-            characteristic;
-
-        }
-        else if(
-          !state.txChar &&
-          isTX(characteristic)
-        ){
-
-          state.txChar =
-            characteristic;
-
-        }
-
-      }
-
-
-    }
-    catch(error){
-
-      diagnostic(
-        "ERROR leyendo características de " +
-        service.uuid +
-        ": " +
-        error.message
-      );
-
-    }
-
-
-    html +=
-      "</div>";
-
-  }
-
-
-  $("servicesInfo").innerHTML =
-    html ||
-    "No se detectaron servicios.";
-
-
-  $("rxCharacteristic").textContent =
-    state.rxChar
-      ? state.rxChar.uuid
-      : "No disponible";
-
-
-  $("txCharacteristic").textContent =
-    state.txChar
-      ? state.txChar.uuid
-      : "No disponible";
-
-
-  $("labRx").textContent =
-    state.rxChar
-      ? state.rxChar.uuid
-      : "No disponible";
-
-
-  $("labTx").textContent =
-    state.txChar
-      ? state.txChar.uuid
-      : "No disponible";
-
-
-  $("syncTx").textContent =
-    state.txChar
-      ? "ON"
-      : "OFF";
-
-
-  $("syncTx").className =
-    "badge " +
-    (
-      state.txChar
-        ? "good"
-        : ""
-    );
-
-
-  /*
-    Activación RX.
-  */
-
-  if(state.rxChar){
-
-    try{
-
-      state.rxChar.addEventListener(
-        "characteristicvaluechanged",
-        handleRX
-      );
-
-
-      await state.rxChar.startNotifications();
-
-
-      state.notify = true;
-
-
-      $("notifyState").textContent =
-        "ON";
-
-
-      $("syncNotify").textContent =
-        "ON";
-
-
-      $("syncNotify").className =
-        "badge good";
-
-
-      diagnostic(
-        "NOTIFY iniciado correctamente."
-      );
-
-
-    }
-    catch(error){
-
-      diagnostic(
-        "ERROR iniciando NOTIFY: " +
-        error.message
-      );
-
-
-      $("notifyState").textContent =
-        "ERROR";
-
-
-    }
-
-  }
-  else{
-
-    diagnostic(
-      "AVISO: no se encontró RX NOTIFY/INDICATE."
-    );
-
-  }
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
+/* ============================================================
    DESCONEXIÓN
-========================================================= */
+   ============================================================ */
 
-function handleDisconnected(){
+function handleDisconnect(){
 
-  state.notify =
-    false;
+  connected = false;
+  notifyEnabled = false;
 
+  el("notifyStatus").textContent = "OFF";
+  el("notifyStatus").className = "warning";
 
-  setConnectionStatus(
-    false,
-    "Desconectada"
+  setGlobalStatus(
+    "DESCONECTADO",
+    "warning"
   );
 
+  diagnostic("GATT desconectado.");
 
-  $("notifyState").textContent =
-    "OFF";
-
-
-  $("syncNotify").textContent =
-    "OFF";
-
-
-  $("syncNotify").className =
-    "badge";
-
-
-  diagnostic(
-    "GATT desconectado."
+  registerEvent(
+    "DESCONEXIÓN"
   );
-
 }
-
 
 async function disconnect(){
 
   try{
 
-    if(state.rxChar){
-
-      try{
-
-        await state.rxChar
-          .stopNotifications();
-
-      }
-      catch(_){}
-
-    }
-
-
     if(
-      state.device &&
-      state.device.gatt &&
-      state.device.gatt.connected
+      notifyCharacteristic &&
+      notifyEnabled
     ){
 
-      state.device.gatt.disconnect();
+      try{
+        await notifyCharacteristic.stopNotifications();
+      }catch(e){}
 
+      notifyEnabled = false;
     }
 
-  }
-  finally{
+    if(device && device.gatt.connected){
+      device.gatt.disconnect();
+    }
 
-    handleDisconnected();
+  }catch(error){
 
-    showToast(
-      "F1 Plus desconectada."
+    diagnostic(
+      "Error durante desconexión: " +
+      error.message
     );
 
-  }
+  }finally{
 
+    connected = false;
+
+    el("notifyStatus").textContent = "OFF";
+    el("notifyStatus").className = "warning";
+
+    setGlobalStatus(
+      "DESCONECTADO",
+      "warning"
+    );
+  }
 }
 
 
-/* =========================================================
+/* ============================================================
    RX
-========================================================= */
+   ============================================================ */
 
-function handleRX(event){
+function handleNotification(event){
 
   const value =
     event.target.value;
-
 
   const bytes =
     new Uint8Array(
       value.buffer.slice(
         value.byteOffset,
-        value.byteOffset +
-        value.byteLength
+        value.byteOffset + value.byteLength
       )
     );
 
-
-  recordRX(bytes);
-
+  processRX(bytes);
 }
 
 
-/* =========================================================
-   REGISTRO RX
-========================================================= */
+function processRX(bytes){
 
-function recordRX(bytes){
-
-  const ts =
-    timestamp();
-
+  const timestamp = now();
 
   const type =
-    getFrameType(bytes);
+    getType(bytes);
 
+  const length =
+    getLength(bytes);
 
-  const item = {
+  const hex =
+    bytesToHex(bytes);
 
-    ts:ts,
-
-    hex:toHex(bytes),
-
+  const packet = {
+    id: rxPackets.length + 1,
+    timestamp: isoTime(timestamp),
+    time: timeString(timestamp),
+    type,
+    length,
     bytes:Array.from(bytes),
-
-    type:type,
-
-    length:bytes.length
-
+    hex
   };
 
+  rxPackets.push(packet);
 
-  state.rx.push(item);
-
-
-  state.lastRxAt =
-    ts;
-
-
-  const typeKey =
-    type === null
-      ? "?"
-      : "0x" +
-        type
-          .toString(16)
-          .toUpperCase();
-
-
-  state.types[typeKey] =
-    (state.types[typeKey] || 0) +
-    1;
-
-
-  state.lengths[bytes.length] =
-    (state.lengths[bytes.length] || 0) +
-    1;
-
+  stats.rx++;
 
   /*
-    Comparación:
-
-    únicamente misma firma:
-    mismo tipo + misma longitud.
+    Correlación con TX pendiente.
   */
+  correlateRXWithTX(packet);
 
-  const signature =
-    getSignature(bytes);
-
+  /*
+    Comparación contra última trama
+    del mismo tipo y longitud.
+  */
+  const key =
+    type + "|" + length;
 
   const previous =
-    state.lastBySignature[
-      signature
-    ];
-
+    lastRxByTypeLength[key];
 
   if(previous){
 
-    compareFrames(
-      previous,
-      item
-    );
-
-  }
-
-
-  state.lastBySignature[
-    signature
-  ] =
-    item;
-
-
-  /*
-    Transición de tipos.
-  */
-
-  if(
-    state.lastType !== null &&
-    state.lastType !== type
-  ){
-
-    state.transitions.push({
-
-      ts:ts,
-
-      kind:"tipo",
-
-      from:state.lastType,
-
-      to:type
-
-    });
-
-  }
-
-
-  state.lastType =
-    type;
-
-
-  /*
-    Detector 0x91 Byte 7.
-
-    El índice es cero-based.
-    En la trama conocida de 8 bytes,
-    Byte 7 es el último byte.
-  */
-
-  if(
-    type === 0x91 &&
-    bytes.length > 7
-  ){
-
-    const byte7 =
-      bytes[7];
-
-
-    if(
-      state.last91Byte7 !== null &&
-      state.last91Byte7 !== undefined &&
-      state.last91Byte7 !== byte7
-    ){
-
-      const transition = {
-
-        ts:ts,
-
-        type:"0x91",
-
-        kind:"Byte 7",
-
-        from:state.last91Byte7,
-
-        to:byte7
-
-      };
-
-
-      state.transitions.push(
-        transition
+    const comparison =
+      comparePackets(
+        previous,
+        packet
       );
 
+    comparisons.push(comparison);
 
-      const list =
-        state.transitions;
+    stats.comparisons++;
 
+    stats.modifiedBytes +=
+      comparison.changed.length;
 
-      if(list.length >= 2){
-
-        const previousTransition =
-          list[list.length - 2];
-
-
-        if(
-          previousTransition.kind ===
-            "Byte 7" &&
-
-          previousTransition.from ===
-            byte7 &&
-
-          previousTransition.to ===
-            state.last91Byte7
-        ){
-
-          state.cycles++;
-
-        }
-
-      }
-
-    }
-
-
-    state.last91Byte7 =
-      byte7;
-
+    renderDiffMatrix();
   }
 
+  lastRxByTypeLength[key] = packet;
 
   /*
-    Correlación con eventos.
+    Transición de tipo.
   */
+  if(
+    lastRxPacket &&
+    lastRxPacket.type !== type
+  ){
 
-  correlateRX(
-    item
+    const transition = {
+      timestamp:isoTime(timestamp),
+      time:timeString(timestamp),
+      from:lastRxPacket.type,
+      to:type,
+      fromHex:lastRxPacket.hex,
+      toHex:packet.hex
+    };
+
+    transitions.push(transition);
+
+    stats.transitions++;
+
+    renderTransitions();
+
+    log(
+      "TRANSICIÓN " +
+      lastRxPacket.type +
+      " → " +
+      type
+    );
+  }
+
+  lastRxPacket = packet;
+
+  log(
+    "RX " +
+    type +
+    " [" +
+    length +
+    " bytes] → " +
+    hex
   );
 
-
-  $("homeLast").textContent =
-    clock(ts);
-
-
-  $("syncLast").textContent =
-    clock(ts);
-
-
-  $("syncRecent").textContent =
-    item.hex;
-
-
-  renderAll();
-
+  renderPackets();
+  renderStats();
 }
 
 
-/* =========================================================
-   COMPARADOR
-========================================================= */
+/* ============================================================
+   COMPARACIÓN BYTE A BYTE
+   ============================================================ */
 
-function compareFrames(
-  a,
-  b
-){
+function comparePackets(a,b){
 
-  const changes = [];
+  const changed = [];
 
   const max =
     Math.max(
@@ -2512,1545 +1383,1100 @@ function compareFrames(
       b.bytes.length
     );
 
+  for(let i=0;i<max;i++){
 
-  for(
-    let index=0;
-    index<max;
-    index++
-  ){
+    const av =
+      a.bytes[i];
 
-    const oldValue =
-      a.bytes[index];
+    const bv =
+      b.bytes[i];
 
-    const newValue =
-      b.bytes[index];
+    if(av !== bv){
 
-
-    if(
-      oldValue !== newValue
-    ){
-
-      changes.push({
-
-        index:index,
-
-        old:
-          oldValue === undefined
+      changed.push({
+        index:i,
+        previous:
+          av === undefined
             ? null
-            : oldValue,
-
-        new:
-          newValue === undefined
+            : hexByte(av),
+        current:
+          bv === undefined
             ? null
-            : newValue
-
+            : hexByte(bv)
       });
-
-
-      state.matrix[index] =
-        (state.matrix[index] || 0) +
-        1;
-
     }
-
   }
 
-
-  state.comparisons.push({
-
-    ts:timestamp(),
-
-    signature:getSignature(
-      b.bytes
-    ),
-
-    from:a.hex,
-
-    to:b.hex,
-
-    changes:changes
-
-  });
-
+  return {
+    timestamp:b.timestamp,
+    time:b.time,
+    type:b.type,
+    length:b.length,
+    previousId:a.id,
+    currentId:b.id,
+    changed
+  };
 }
 
 
-/* =========================================================
-   EVENTOS
-========================================================= */
+/* ============================================================
+   CORRELACIÓN TX → RX
+   ============================================================ */
 
-function addEvent(kind){
+function correlateRXWithTX(packet){
 
-  const event = {
+  if(!pendingTx){
+    return;
+  }
 
-    ts:timestamp(),
+  const rxTime =
+    new Date(packet.timestamp).getTime();
 
-    kind:kind
+  const txTime =
+    pendingTx.timestampMs;
 
-  };
+  const delta =
+    rxTime - txTime;
 
+  /*
+    Solo asociamos RX posterior al TX.
+  */
+  if(delta < 0){
+    return;
+  }
 
-  state.events.push(
-    event
+  let classification = null;
+
+  if(delta <= IMMEDIATE_WINDOW){
+    classification =
+      "RESPUESTA INMEDIATA";
+  }
+  else if(delta <= SECONDARY_WINDOW){
+    classification =
+      "RX POSTERIOR / POSIBLE RESPUESTA";
+  }
+  else{
+    return;
+  }
+
+  /*
+    No sobrescribir una correlación ya establecida
+    por un RX posterior.
+  */
+  if(pendingTx.correlated){
+    return;
+  }
+
+  pendingTx.correlated = true;
+  pendingTx.rxId = packet.id;
+  pendingTx.rxHex = packet.hex;
+  pendingTx.rxType = packet.type;
+  pendingTx.deltaMs = delta;
+  pendingTx.classification = classification;
+
+  stats.correlations++;
+
+  const experiment =
+    txExperiments.find(
+      x => x.id === pendingTx.experimentId
+    );
+
+  if(experiment){
+
+    experiment.rx = {
+      packetId:packet.id,
+      timestamp:packet.timestamp,
+      time:packet.time,
+      type:packet.type,
+      hex:packet.hex,
+      deltaMs:delta,
+      classification
+    };
+
+  }
+
+  log(
+    "🔎 CORRELACIÓN TX → RX: " +
+    classification +
+    " · " +
+    delta +
+    " ms"
   );
 
+  renderTxResults();
+  renderStats();
+
+  /*
+    El TX ya obtuvo una correlación.
+    Lo dejamos cerrado.
+  */
+}
+
+
+/* ============================================================
+   TX MANUAL
+   ============================================================ */
+
+async function sendTX(hexText){
+
+  if(!connected ||
+     !writeCharacteristic){
+
+    alert(
+      "Primero conecta la F1 Plus."
+    );
+
+    return;
+  }
+
+  let bytes;
+
+  try{
+
+    bytes =
+      hexToBytes(hexText);
+
+  }catch(error){
+
+    alert(
+      "HEX inválido: " +
+      error.message
+    );
+
+    return;
+  }
+
+  if(bytes.length === 0){
+
+    alert(
+      "No hay bytes para enviar."
+    );
+
+    return;
+  }
+
+  /*
+    NUEVO EXPERIMENTO TX
+  */
+
+  const timestamp =
+    now();
+
+  const experiment = {
+    id:
+      txExperiments.length + 1,
+
+    timestamp:
+      isoTime(timestamp),
+
+    time:
+      timeString(timestamp),
+
+    hex:
+      bytesToHex(bytes),
+
+    bytes:
+      Array.from(bytes),
+
+    rx:null
+  };
+
+  txExperiments.push(
+    experiment
+  );
+
+  /*
+    Guardamos el TX pendiente.
+    El próximo RX posterior será correlacionado.
+  */
+
+  pendingTx = {
+    experimentId:
+      experiment.id,
+
+    timestampMs:
+      timestamp.getTime(),
+
+    timestamp:
+      isoTime(timestamp),
+
+    hex:
+      experiment.hex,
+
+    correlated:false
+  };
+
+  const txRecord = {
+    id:
+      txPackets.length + 1,
+
+    timestamp:
+      isoTime(timestamp),
+
+    time:
+      timeString(timestamp),
+
+    hex:
+      experiment.hex,
+
+    bytes:
+      Array.from(bytes)
+  };
+
+  txPackets.push(
+    txRecord
+  );
+
+  stats.tx++;
+
+  try{
+
+    await writeCharacteristic.writeValueWithoutResponse(
+      bytes
+    );
+
+  }catch(error){
+
+    /*
+      Algunos dispositivos/navegadores
+      pueden no exponer writeWithoutResponse.
+    */
+
+    try{
+
+      await writeCharacteristic.writeValue(
+        bytes
+      );
+
+    }catch(error2){
+
+      diagnostic(
+        "❌ Error TX: " +
+        error2.message
+      );
+
+      /*
+        No fingimos que el TX fue exitoso.
+      */
+
+      pendingTx = null;
+
+      return;
+    }
+  }
+
+  el("lastTx").textContent =
+    timeString(timestamp) +
+    " → " +
+    experiment.hex;
+
+  log(
+    "📤 TX MANUAL → " +
+    experiment.hex
+  );
+
+  diagnostic(
+    "TX enviado manualmente: " +
+    experiment.hex
+  );
+
+  renderTxResults();
+  renderStats();
+
+  /*
+    IMPORTANTE:
+    No mandamos ningún segundo paquete.
+    No repetimos el comando.
+  */
+}
+
+
+/* ============================================================
+   PRUEBA 0x91
+   ============================================================ */
+
+function test91(){
+
+  /*
+    Este es el formato observado en RX:
+    AB 00 05 FF 91 80 00 XX
+
+    NO afirmamos todavía que sea un comando válido.
+    Es simplemente una prueba controlada.
+  */
+
+  const value =
+    el("txHex").value.trim();
+
+  if(value){
+
+    sendTX(value);
+
+    return;
+  }
+
+  /*
+    Para la prueba inicial usamos el último valor
+    observado experimentalmente:
+    AB 00 05 FF 91 80 00 50
+  */
+
+  const test =
+    "AB 00 05 FF 91 80 00 50";
+
+  el("txHex").value =
+    test;
+
+  /*
+    No enviamos automáticamente desde esta función
+    salvo que el usuario pulse el botón PRUEBA 0x91.
+  */
+
+  sendTX(test);
+}
+
+
+/* ============================================================
+   RENDER ESTADÍSTICAS
+   ============================================================ */
+
+function renderStats(){
+
+  el("statTx").textContent =
+    stats.tx;
+
+  el("statRx").textContent =
+    stats.rx;
+
+  const types =
+    new Set(
+      rxPackets.map(
+        p => p.type
+      )
+    );
+
+  const lengths =
+    new Set(
+      rxPackets.map(
+        p => p.length
+      )
+    );
+
+  el("statTypes").textContent =
+    types.size;
+
+  el("statLengths").textContent =
+    lengths.size;
+
+  el("statComparisons").textContent =
+    stats.comparisons;
+
+  el("statModified").textContent =
+    stats.modifiedBytes;
+
+  el("statTransitions").textContent =
+    stats.transitions;
+
+  el("statCorrelations").textContent =
+    stats.correlations;
+
+  renderTypeStats();
+  renderLengthStats();
+}
+
+
+/* ============================================================
+   TIPO / LONGITUD
+   ============================================================ */
+
+function renderTypeStats(){
+
+  const map = {};
+
+  for(const p of rxPackets){
+
+    map[p.type] =
+      (map[p.type] || 0) + 1;
+  }
+
+  const lines =
+    Object.entries(map)
+      .sort()
+      .map(
+        ([type,count]) =>
+          type +
+          " → " +
+          count
+      );
+
+  el("typeStats").textContent =
+    lines.length
+      ? lines.join("\n")
+      : "Sin datos.";
+}
+
+function renderLengthStats(){
+
+  const map = {};
+
+  for(const p of rxPackets){
+
+    map[p.length] =
+      (map[p.length] || 0) + 1;
+  }
+
+  const lines =
+    Object.entries(map)
+      .sort(
+        (a,b) =>
+          Number(a[0]) -
+          Number(b[0])
+      )
+      .map(
+        ([length,count]) =>
+          length +
+          " bytes → " +
+          count
+      );
+
+  el("lengthStats").textContent =
+    lines.length
+      ? lines.join("\n")
+      : "Sin datos.";
+}
+
+
+/* ============================================================
+   CAPTURAS
+   ============================================================ */
+
+function renderPackets(){
+
+  const box =
+    el("packetList");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      '<div class="muted">Todavía no hay paquetes RX.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    rxPackets
+      .slice()
+      .reverse()
+      .map(p => {
+
+        return `
+        <div class="packet">
+
+          <div class="packet-head">
+            <span>#${p.id}</span>
+            <span>${p.time}</span>
+            <span>${p.type}</span>
+            <span>${p.length} bytes</span>
+          </div>
+
+          <div class="hex">
+            ${escapeHtml(p.hex)}
+          </div>
+
+        </div>
+        `;
+
+      })
+      .join("");
+}
+
+
+/* ============================================================
+   MATRIZ DE DIFERENCIAS
+   ============================================================ */
+
+function renderDiffMatrix(){
+
+  const box =
+    el("diffMatrix");
+
+  if(!comparisons.length){
+
+    box.textContent =
+      "Todavía no hay comparaciones.";
+
+    return;
+  }
+
+  const lines = [];
+
+  for(const c of comparisons){
+
+    lines.push(
+      c.time +
+      " · " +
+      c.type +
+      " · RX #" +
+      c.currentId
+    );
+
+    if(!c.changed.length){
+
+      lines.push(
+        "  SIN CAMBIOS"
+      );
+
+    }else{
+
+      for(const d of c.changed){
+
+        lines.push(
+          "  Byte " +
+          d.index +
+          ": " +
+          (d.previous ?? "--") +
+          " → " +
+          (d.current ?? "--")
+        );
+      }
+    }
+
+    lines.push("");
+  }
+
+  box.textContent =
+    lines.join("\n");
+}
+
+
+/* ============================================================
+   TRANSICIONES
+   ============================================================ */
+
+function renderTransitions(){
+
+  const box =
+    el("transitionList");
+
+  if(!transitions.length){
+
+    box.textContent =
+      "Todavía no hay transiciones.";
+
+    return;
+  }
+
+  box.textContent =
+    transitions
+      .map(t =>
+        t.time +
+        " · " +
+        t.from +
+        " → " +
+        t.to
+      )
+      .reverse()
+      .join("\n");
+}
+
+
+/* ============================================================
+   TX RESULTS
+   ============================================================ */
+
+function renderTxResults(){
+
+  const box =
+    el("txResults");
+
+  if(!txExperiments.length){
+
+    box.innerHTML =
+      '<div class="muted">Sin experimentos TX.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    txExperiments
+      .slice()
+      .reverse()
+      .map(x => {
+
+        let rxHtml =
+          '<span class="muted">Sin RX posterior dentro de la ventana.</span>';
+
+        if(x.rx){
+
+          rxHtml = `
+            <div class="success-box">
+
+              <strong>${escapeHtml(x.rx.classification)}</strong>
+
+              <br>
+
+              ΔT:
+              <span class="mono">
+                ${x.rx.deltaMs} ms
+              </span>
+
+              <br>
+
+              Tipo RX:
+              <span class="mono">
+                ${escapeHtml(x.rx.type)}
+              </span>
+
+              <br>
+
+              RX:
+              <span class="mono">
+                ${escapeHtml(x.rx.hex)}
+              </span>
+
+            </div>
+          `;
+        }
+
+        return `
+          <div class="packet">
+
+            <div class="packet-head">
+              <span>Experimento #${x.id}</span>
+              <span>${x.time}</span>
+            </div>
+
+            <div class="hex">
+              TX → ${escapeHtml(x.hex)}
+            </div>
+
+            <br>
+
+            ${rxHtml}
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+
+function registerEvent(type){
+
+  const event = {
+    id:
+      events.length + 1,
+
+    timestamp:
+      isoTime(),
+
+    time:
+      timeString(),
+
+    type
+  };
+
+  events.push(event);
+
+  /*
+    Correlación básica:
+    evento manual próximo a RX.
+  */
+
+  if(lastRxPacket){
+
+    const delta =
+      Date.now() -
+      new Date(
+        lastRxPacket.timestamp
+      ).getTime();
+
+    if(delta <= SECONDARY_WINDOW){
+
+      event.rxCorrelation = {
+        packetId:
+          lastRxPacket.id,
+
+        deltaMs:
+          delta,
+
+        type:
+          lastRxPacket.type
+      };
+    }
+  }
 
   renderEvents();
 
-
-  showToast(
-    "Evento registrado: " +
-    kind
+  log(
+    "⚡ EVENTO → " +
+    type
   );
-
-
-  renderAll();
-
 }
 
 
 function renderEvents(){
 
-  if(
-    !state.events.length
-  ){
+  const box =
+    el("eventList");
 
-    $("eventsLog").textContent =
-      "Sin eventos.";
+  if(!events.length){
+
+    box.innerHTML =
+      '<div class="muted">Sin eventos registrados.</div>';
 
     return;
-
   }
 
-
-  $("eventsLog").textContent =
-    state.events
-      .slice(-100)
-      .map(function(event){
-
-        return (
-          clock(event.ts) +
-          " | " +
-          event.kind
-        );
-
-      })
-      .join("\n");
-
-}
-
-
-/* =========================================================
-   CORRELACIÓN
-========================================================= */
-
-function correlateRX(item){
-
-  for(
-    const event of state.events
-  ){
-
-    const delta =
-      item.ts -
-      event.ts;
-
-
-    if(
-      Math.abs(delta) <=
-      EVENT_WINDOW
-    ){
-
-      const exists =
-        state.correlations.some(
-          function(correlation){
-
-            return (
-              correlation.rxTs ===
-                item.ts &&
-
-              correlation.eventTs ===
-                event.ts
-            );
-
-          }
-        );
-
-
-      if(!exists){
-
-        state.correlations.push({
-
-          rxTs:item.ts,
-
-          eventTs:event.ts,
-
-          type:item.type,
-
-          event:event.kind,
-
-          delta:delta
-
-        });
-
-      }
-
-    }
-
-  }
-
-}
-
-
-/* =========================================================
-   TX
-========================================================= */
-
-async function sendBytes(
-  bytes,
-  label
-){
-
-  if(!state.txChar){
-
-    throw new Error(
-      "No hay característica TX/WRITE disponible."
-    );
-
-  }
-
-
-  if(
-    !bytes ||
-    !bytes.length
-  ){
-
-    throw new Error(
-      "No hay bytes para enviar."
-    );
-
-  }
-
-
-  if(
-    state.txChar.properties
-      .writeWithoutResponse &&
-    typeof
-      state.txChar
-        .writeValueWithoutResponse ===
-      "function"
-  ){
-
-    await state.txChar
-      .writeValueWithoutResponse(
-        bytes
-      );
-
-  }
-  else if(
-    typeof
-      state.txChar.writeValue ===
-      "function"
-  ){
-
-    await state.txChar
-      .writeValue(
-        bytes
-      );
-
-  }
-  else{
-
-    throw new Error(
-      "La característica TX no permite escritura."
-    );
-
-  }
-
-
-  const item = {
-
-    ts:timestamp(),
-
-    hex:toHex(bytes),
-
-    label:
-      label ||
-      "TX"
-
-  };
-
-
-  state.tx.push(
-    item
-  );
-
-
-  renderTX();
-
-  renderAll();
-
-}
-
-
-async function sendManualTX(){
-
-  try{
-
-    const bytes =
-      parseHex(
-        $("txHex").value
-      );
-
-
-    await sendBytes(
-      bytes,
-      "MANUAL"
-    );
-
-
-    showToast(
-      "TX enviada."
-    );
-
-
-  }
-  catch(error){
-
-    diagnostic(
-      "ERROR TX: " +
-      error.message
-    );
-
-
-    showToast(
-      "TX no enviada: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-async function send91Test(){
-
-  try{
-
-    /*
-      Trama conocida durante
-      las pruebas anteriores.
-    */
-
-    const bytes =
-      parseHex(
-        "AB 00 05 FF 91 80 00 64"
-      );
-
-
-    await sendBytes(
-      bytes,
-      "PRUEBA 0x91"
-    );
-
-
-    showToast(
-      "Prueba 0x91 enviada."
-    );
-
-
-  }
-  catch(error){
-
-    diagnostic(
-      "ERROR prueba 0x91: " +
-      error.message
-    );
-
-
-    showToast(
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   RENDER TX
-========================================================= */
-
-function renderTX(){
-
-  if(
-    !state.tx.length
-  ){
-
-    $("txLog").textContent =
-      "Sin TX.";
-
-    return;
-
-  }
-
-
-  $("txLog").textContent =
-    state.tx
-      .slice(-100)
-      .map(function(item){
-
-        return (
-          clock(item.ts) +
-          " | " +
-          item.label +
-          " | " +
-          item.hex
-        );
-
-      })
-      .join("\n");
-
-}
-
-
-/* =========================================================
-   RENDER RX
-========================================================= */
-
-function renderRX(){
-
-  if(
-    !state.rx.length
-  ){
-
-    $("rxList").innerHTML =
-      "<div class='sub'>Sin capturas RX.</div>";
-
-    return;
-
-  }
-
-
-  $("rxList").innerHTML =
-    state.rx
+  box.innerHTML =
+    events
       .slice()
       .reverse()
-      .slice(0,150)
-      .map(function(packet){
+      .map(e => {
 
-        const type =
-          packet.type === null
-            ? "?"
-            : "0x" +
-              packet.type
-                .toString(16)
-                .toUpperCase();
+        let extra = "";
 
+        if(e.rxCorrelation){
 
-        return (
-          "<div class='packet'>" +
+          extra =
+            `<div class="small muted">
+              RX #${e.rxCorrelation.packetId}
+              · ${e.rxCorrelation.deltaMs} ms
+              · ${e.rxCorrelation.type}
+            </div>`;
+        }
 
-          "<b>" +
-          clock(packet.ts) +
-          "</b>" +
-
-          " · tipo " +
-          escapeHTML(type) +
-
-          " · " +
-          packet.length +
-          " bytes" +
-
-          "<br>" +
-
-          "<span class='hex'>" +
-          escapeHTML(packet.hex) +
-          "</span>" +
-
-          "</div>"
-        );
-
+        return `
+          <div class="event">
+            <strong>${escapeHtml(e.type)}</strong>
+            <div class="small muted">
+              ${escapeHtml(e.time)}
+            </div>
+            ${extra}
+          </div>
+        `;
       })
       .join("");
-
 }
 
 
-/* =========================================================
-   ANÁLISIS
-========================================================= */
+function clearEvents(){
 
-function renderProtocol(){
-
-  const types =
-    Object.entries(
-      state.types
-    )
-    .sort(function(a,b){
-
-      return b[1] - a[1];
-
-    });
-
-
-  const lengths =
-    Object.entries(
-      state.lengths
-    )
-    .sort(function(a,b){
-
-      return Number(a[0]) -
-             Number(b[0]);
-
-    });
-
-
-  $("protocolSummary").innerHTML =
-    state.rx.length
-      ? (
-        "RX = " +
-        state.rx.length +
-        " · tipos = " +
-        types.length +
-        " · longitudes = " +
-        lengths.length +
-        " · ciclos 0x91 = " +
-        state.cycles
-      )
-      : "Esperando RX...";
-
-
-  $("typeAnalysis").innerHTML =
-    "<b>Tipos RX detectados</b><br>" +
-
-    (
-      types.length
-        ? types.map(
-            function(item){
-
-              return (
-                escapeHTML(item[0]) +
-                " → " +
-                item[1]
-              );
-
-            }
-          ).join(" · ")
-
-        : "—"
-    );
-
-
-  $("lengthAnalysis").innerHTML =
-    "<b>Longitudes detectadas</b><br>" +
-
-    (
-      lengths.length
-        ? lengths.map(
-            function(item){
-
-              return (
-                item[0] +
-                " bytes → " +
-                item[1]
-              );
-
-            }
-          ).join(" · ")
-
-        : "—"
-    );
-
-
-  const transitions =
-    state.transitions
-      .slice(-30)
-      .map(function(item){
-
-        const from =
-          item.from === null ||
-          item.from === undefined
-            ? "?"
-            : "0x" +
-              Number(item.from)
-                .toString(16)
-                .toUpperCase();
-
-
-        const to =
-          item.to === null ||
-          item.to === undefined
-            ? "?"
-            : "0x" +
-              Number(item.to)
-                .toString(16)
-                .toUpperCase();
-
-
-        return (
-          clock(item.ts) +
-          " | " +
-          item.kind +
-          " | " +
-          from +
-          " → " +
-          to
-        );
-
-      })
-      .join("<br>");
-
-
-  $("transitionAnalysis").innerHTML =
-    "<b>Transiciones recientes</b><br>" +
-
-    (
-      transitions ||
-      "—"
-    ) +
-
-    "<br><br>" +
-
-    "<b>Hipótesis experimental</b><br>" +
-
-    "<span class='muted'>" +
-
-    "En las dos capturas conocidas, " +
-    "los bytes 2–3 coinciden con la " +
-    "longitud total de la trama. " +
-    "Esto se mantiene como hipótesis " +
-    "hasta obtener más evidencia." +
-
-    "</span>";
-
-}
-
-
-/* =========================================================
-   COMPARACIONES
-========================================================= */
-
-function renderComparisons(){
-
-  const list =
-    state.comparisons
-      .slice()
-      .reverse()
-      .slice(0,30);
-
-
-  $("comparisonOutput").innerHTML =
-    list.length
-
-      ? list.map(
-          function(comparison){
-
-            let text;
-
-
-            if(
-              comparison.changes.length
-            ){
-
-              text =
-                comparison.changes
-                  .map(
-                    function(change){
-
-                      const oldHex =
-                        change.old === null
-                          ? "—"
-                          : change.old
-                              .toString(16)
-                              .padStart(
-                                2,
-                                "0"
-                              )
-                              .toUpperCase();
-
-
-                      const newHex =
-                        change.new === null
-                          ? "—"
-                          : change.new
-                              .toString(16)
-                              .padStart(
-                                2,
-                                "0"
-                              )
-                              .toUpperCase();
-
-
-                      return (
-                        "Byte " +
-                        change.index +
-                        ": " +
-                        oldHex +
-                        " → " +
-                        newHex
-                      );
-
-                    }
-                  )
-                  .join(" · ");
-
-            }
-            else{
-
-              text =
-                "Sin bytes modificados.";
-
-            }
-
-
-            return (
-              "<div class='packet'>" +
-
-              "<b>" +
-              clock(comparison.ts) +
-              "</b>" +
-
-              " · " +
-              escapeHTML(
-                comparison.signature
-              ) +
-
-              "<br>" +
-
-              escapeHTML(text) +
-
-              "</div>"
-            );
-
-          }
-        ).join("")
-
-      : "Sin comparaciones todavía.";
-
-
-  const matrix =
-    Object.entries(
-      state.matrix
-    )
-    .sort(function(a,b){
-
-      return Number(a[0]) -
-             Number(b[0]);
-
-    });
-
-
-  $("matrixOutput").innerHTML =
-    matrix.length
-
-      ? (
-        "<b>Matriz de cambios por byte</b><br>" +
-
-        matrix.map(
-          function(item){
-
-            return (
-              "Byte " +
-              item[0] +
-              " → " +
-              item[1] +
-              " cambios"
-            );
-
-          }
-        ).join(" · ")
-      )
-
-      : (
-        "<span class='muted'>" +
-        "Sin cambios registrados." +
-        "</span>"
-      );
-
-}
-
-
-/* =========================================================
-   RENDER GENERAL
-========================================================= */
-
-function renderAll(){
-
-  $("homeRx").textContent =
-    state.rx.length;
-
-
-  $("homeTx").textContent =
-    state.tx.length;
-
-
-  $("statRx").textContent =
-    state.rx.length;
-
-
-  $("statTx").textContent =
-    state.tx.length;
-
-
-  $("statTypes").textContent =
-    Object.keys(
-      state.types
-    ).length;
-
-
-  $("statLengths").textContent =
-    Object.keys(
-      state.lengths
-    ).length;
-
-
-  $("statComparisons").textContent =
-    state.comparisons.length;
-
-
-  $("statChanges").textContent =
-    state.comparisons
-      .reduce(
-        function(total,item){
-
-          return total +
-            item.changes.length;
-
-        },
-        0
-      );
-
-
-  $("statTransitions").textContent =
-    state.transitions.length;
-
-
-  $("statEvents").textContent =
-    state.events.length;
-
-
-  $("statCorrelations").textContent =
-    state.correlations.length;
-
-
-  renderRX();
-
-  renderTX();
+  events = [];
 
   renderEvents();
 
-  renderProtocol();
-
-  renderComparisons();
-
+  log(
+    "Eventos limpiados."
+  );
 }
 
 
-/* =========================================================
-   RESUMEN
-========================================================= */
+/* ============================================================
+   LIMPIAR SESIÓN
+   ============================================================ */
 
-function createSummary(){
+function clearSession(){
 
-  const types =
-    Object.entries(
-      state.types
-    )
-    .map(function(item){
+  rxPackets = [];
+  txPackets = [];
+  comparisons = [];
+  transitions = [];
+  events = [];
+  txExperiments = [];
 
-      return (
-        item[0] +
-        "=" +
-        item[1]
-      );
+  lastRxByTypeLength = {};
+  lastRxPacket = null;
+  pendingTx = null;
 
-    })
-    .join(", ");
+  stats.tx = 0;
+  stats.rx = 0;
+  stats.comparisons = 0;
+  stats.modifiedBytes = 0;
+  stats.transitions = 0;
+  stats.correlations = 0;
 
+  el("activityLog").textContent =
+    "Sesión limpiada.";
 
-  const lengths =
-    Object.entries(
-      state.lengths
-    )
-    .map(function(item){
+  el("diagnosticLog").textContent =
+    "Sesión de laboratorio reiniciada.";
 
-      return (
-        item[0] +
-        "=" +
-        item[1]
-      );
+  el("lastTx").textContent =
+    "Sin TX.";
 
-    })
-    .join(", ");
-
-
-  const modified =
-    state.comparisons
-      .reduce(
-        function(total,item){
-
-          return total +
-            item.changes.length;
-
-        },
-        0
-      );
-
-
-  return [
-    "ROXTHAL F1 PLUS",
-    "LABORATORIO BLE",
-    "",
-    "RX: " +
-      state.rx.length,
-    "TX: " +
-      state.tx.length,
-    "TIPOS: " +
-      types,
-    "LONGITUDES: " +
-      lengths,
-    "COMPARACIONES: " +
-      state.comparisons.length,
-    "BYTES MODIFICADOS: " +
-      modified,
-    "TRANSICIONES: " +
-      state.transitions.length,
-    "EVENTOS: " +
-      state.events.length,
-    "CORRELACIONES: " +
-      state.correlations.length,
-    "CICLOS 0x91: " +
-      state.cycles
-  ].join("\n");
-
+  renderStats();
+  renderPackets();
+  renderDiffMatrix();
+  renderTransitions();
+  renderEvents();
+  renderTxResults();
 }
 
 
-/* =========================================================
-   PERSISTENCIA
-========================================================= */
+/* ============================================================
+   LIMPIAR TX
+   ============================================================ */
 
-function sessionData(){
+function clearTX(){
+
+  el("txHex").value = "";
+  el("lastTx").textContent =
+    "Sin TX.";
+
+  pendingTx = null;
+
+  log(
+    "Consola TX limpiada."
+  );
+}
+
+
+/* ============================================================
+   EXPORTACIÓN JSON
+   ============================================================ */
+
+function buildSession(){
 
   return {
+    application:
+      "RoXThal F1 Plus Protocol Laboratory",
 
-    version:2,
+    version:
+      "TX-RX-CORRELATION-1",
 
-    savedAt:timestamp(),
+    exportedAt:
+      isoTime(),
 
-    rx:state.rx,
+    device:{
+      name:
+        device?.name || null,
 
-    tx:state.tx,
+      id:
+        device?.id || null
+    },
 
-    events:state.events,
+    bluetooth:{
+      service:
+        UUID_SERVICE,
 
-    comparisons:state.comparisons,
+      write:
+        UUID_WRITE,
 
-    transitions:state.transitions,
+      notify:
+        UUID_NOTIFY
+    },
 
-    correlations:state.correlations,
+    safety:{
+      automaticTxOnConnect:
+        false,
 
-    types:state.types,
+      passiveMode:
+        true
+    },
 
-    lengths:state.lengths,
+    stats,
 
-    matrix:state.matrix,
+    rxPackets,
 
-    cycles:state.cycles,
+    txPackets,
 
-    last91Byte7:
-      state.last91Byte7
+    comparisons,
 
+    transitions,
+
+    events,
+
+    txExperiments
   };
-
 }
 
 
-function saveSession(){
+function exportJSON(){
 
-  try{
+  const data =
+    buildSession();
 
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(
-        sessionData()
-      )
-    );
-
-
-    showToast(
-      "Sesión guardada."
-    );
-
-
-    diagnostic(
-      "Sesión guardada en localStorage."
-    );
-
-  }
-  catch(error){
-
-    diagnostic(
-      "ERROR guardando sesión: " +
-      error.message
-    );
-
-
-    showToast(
-      "No se pudo guardar la sesión."
-    );
-
-  }
-
-}
-
-
-function loadSession(){
-
-  try{
-
-    const raw =
-      localStorage.getItem(
-        STORAGE_KEY
-      );
-
-
-    if(!raw){
-
-      showToast(
-        "No existe una sesión guardada."
-      );
-
-      return;
-
-    }
-
-
-    const data =
-      JSON.parse(raw);
-
-
-    state.rx =
-      data.rx || [];
-
-
-    state.tx =
-      data.tx || [];
-
-
-    state.events =
-      data.events || [];
-
-
-    state.comparisons =
-      data.comparisons || [];
-
-
-    state.transitions =
-      data.transitions || [];
-
-
-    state.correlations =
-      data.correlations || [];
-
-
-    state.types =
-      data.types || {};
-
-
-    state.lengths =
-      data.lengths || {};
-
-
-    state.matrix =
-      data.matrix || {};
-
-
-    state.cycles =
-      data.cycles || 0;
-
-
-    state.last91Byte7 =
-      data.last91Byte7;
-
-
-    state.lastBySignature =
-      {};
-
-
-    state.rx.forEach(
-      function(packet){
-
-        state.lastBySignature[
-          getSignature(
-            packet.bytes
-          )
-        ] =
-          packet;
-
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
       }
     );
 
+  const url =
+    URL.createObjectURL(blob);
 
-    renderAll();
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "roxthal-f1-plus-session-" +
+    Date.now() +
+    ".json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  log(
+    "Sesión exportada a JSON."
+  );
+}
 
 
-    showToast(
-      "Sesión recuperada."
+async function copySession(){
+
+  const text =
+    JSON.stringify(
+      buildSession(),
+      null,
+      2
     );
 
+  try{
 
-    diagnostic(
-      "Sesión recuperada."
+    await navigator.clipboard.writeText(
+      text
     );
 
-  }
-  catch(error){
+    alert(
+      "Sesión copiada al portapapeles."
+    );
 
-    diagnostic(
-      "ERROR recuperando sesión: " +
+  }catch(error){
+
+    alert(
+      "No se pudo copiar: " +
       error.message
     );
-
-
-    showToast(
-      "La sesión no es válida."
-    );
-
   }
-
 }
 
 
-/* =========================================================
-   REINICIO
-========================================================= */
+/* ============================================================
+   SEGURIDAD / ESCAPE HTML
+   ============================================================ */
 
-function resetLab(){
+function escapeHtml(value){
 
-  if(
-    !window.confirm(
-      "¿Reiniciar todos los datos del laboratorio?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  state.rx=[];
-  state.tx=[];
-  state.events=[];
-  state.comparisons=[];
-  state.transitions=[];
-  state.correlations=[];
-  state.types={};
-  state.lengths={};
-  state.matrix={};
-  state.lastBySignature={};
-  state.lastType=null;
-  state.last91Byte7=null;
-  state.cycles=0;
-
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
-
-  renderAll();
-
-
-  showToast(
-    "Laboratorio reiniciado."
-  );
-
-
-  diagnostic(
-    "Laboratorio reiniciado."
-  );
-
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
 
-/* =========================================================
-   LIMPIAR RX
-========================================================= */
-
-function clearRX(){
-
-  state.rx=[];
-
-  state.types={};
-
-  state.lengths={};
-
-  state.comparisons=[];
-
-  state.matrix={};
-
-  state.lastBySignature={};
-
-  state.lastType=null;
-
-  state.last91Byte7=null;
-
-  state.cycles=0;
-
-
-  renderAll();
-
-
-  showToast(
-    "RX y análisis reiniciados."
-  );
-
-}
-
-
-/* =========================================================
+/* ============================================================
    EVENT LISTENERS
-========================================================= */
-
-$("connectBtn")
-.addEventListener(
-  "click",
-  connect
-);
-
-
-$("disconnectBtn")
-.addEventListener(
-  "click",
-  disconnect
-);
-
-
-$("checkBle")
-.addEventListener(
-  "click",
-  checkBluetooth
-);
-
-
-$("clearDiag")
-.addEventListener(
-  "click",
-  function(){
-
-    state.diagnostics=[];
-
-    $("diagLog").textContent="";
-
-  }
-);
-
-
-$("eventManual")
-.addEventListener(
-  "click",
-  function(){
-
-    addEvent(
-      "EVENTO MANUAL"
-    );
-
-  }
-);
-
-
-$("eventButton")
-.addEventListener(
-  "click",
-  function(){
-
-    addEvent(
-      "BOTÓN FÍSICO"
-    );
-
-  }
-);
-
-
-$("eventCharge")
-.addEventListener(
-  "click",
-  function(){
-
-    addEvent(
-      "CARGA"
-    );
-
-  }
-);
-
-
-$("eventDisconnect")
-.addEventListener(
-  "click",
-  function(){
-
-    addEvent(
-      "DESCONEXIÓN"
-    );
-
-  }
-);
-
-
-$("eventFunction")
-.addEventListener(
-  "click",
-  function(){
-
-    addEvent(
-      "FUNCIÓN"
-    );
-
-  }
-);
-
-
-$("clearEvents")
-.addEventListener(
-  "click",
-  function(){
-
-    state.events=[];
-
-    renderEvents();
-
-    renderAll();
-
-  }
-);
-
-
-$("sendTx")
-.addEventListener(
-  "click",
-  sendManualTX
-);
-
-
-$("send91Test")
-.addEventListener(
-  "click",
-  send91Test
-);
-
-
-$("clearRx")
-.addEventListener(
-  "click",
-  clearRX
-);
-
-
-$("exportJson")
-.addEventListener(
-  "click",
-  function(){
-
-    downloadText(
-      "roxthal-f1plus-session.json",
-      JSON.stringify(
-        sessionData(),
-        null,
-        2
-      ),
-      "application/json"
-    );
-
-    showToast(
-      "JSON exportado."
-    );
-
-  }
-);
-
-
-$("exportHex")
-.addEventListener(
-  "click",
-  function(){
-
-    const text =
-      state.rx
-        .map(function(packet){
-
-          return (
-            clock(packet.ts) +
-            " | " +
-            packet.hex
-          );
-
-        })
-        .join("\n");
-
-
-    downloadText(
-      "roxthal-f1plus-rx.txt",
-      text,
-      "text/plain"
-    );
-
-
-    showToast(
-      "HEX exportado."
-    );
-
-  }
-);
-
-
-$("copySummary")
-.addEventListener(
-  "click",
-  async function(){
-
-    const summary =
-      createSummary();
-
-
-    try{
-
-      await navigator.clipboard
-        .writeText(
-          summary
-        );
-
-
-      showToast(
-        "Resumen copiado."
+   ============================================================ */
+
+el("connectBtn")
+  .addEventListener(
+    "click",
+    connect
+  );
+
+el("disconnectBtn")
+  .addEventListener(
+    "click",
+    disconnect
+  );
+
+el("checkBtn")
+  .addEventListener(
+    "click",
+    checkBluetooth
+  );
+
+el("clearBtn")
+  .addEventListener(
+    "click",
+    clearSession
+  );
+
+el("sendTxBtn")
+  .addEventListener(
+    "click",
+    () => {
+
+      sendTX(
+        el("txHex").value
       );
 
     }
-    catch(error){
+  );
 
-      diagnostic(
-        "ERROR copiando resumen: " +
-        error.message
-      );
+el("test91Btn")
+  .addEventListener(
+    "click",
+    test91
+  );
 
-
-      showToast(
-        "No se pudo copiar automáticamente."
-      );
-
-    }
-
-  }
-);
+el("clearTxBtn")
+  .addEventListener(
+    "click",
+    clearTX
+  );
 
 
-$("saveSession")
-.addEventListener(
-  "click",
-  saveSession
-);
-
-
-$("loadSession")
-.addEventListener(
-  "click",
-  loadSession
-);
-
-
-$("resetLab")
-.addEventListener(
-  "click",
-  resetLab
-);
-
-
-/* =========================================================
+/* ============================================================
    INICIALIZACIÓN
-========================================================= */
+   ============================================================ */
 
-if(
-  window.isSecureContext &&
-  ("bluetooth" in navigator)
-){
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-  $("compatInfo").innerHTML =
-    "✅ Web Bluetooth detectado.<br>" +
-    "Pulsa “Conectar F1 Plus” para comenzar.";
+    checkBluetooth();
 
-}
-else{
+    diagnostic(
+      "Motor de laboratorio F1 Plus inicializado."
+    );
 
-  $("compatInfo").innerHTML =
-    "⚠️ Web Bluetooth no está disponible " +
-    "en el entorno actual.";
+    diagnostic(
+      "Passive RX: ACTIVE."
+    );
 
-}
+    diagnostic(
+      "Automatic TX on connect: NO."
+    );
 
+    diagnostic(
+      "TX experimental: MANUAL ONLY."
+    );
 
-diagnostic(
-  "RoXThal F1 Plus inicializado."
+    renderStats();
+    renderPackets();
+    renderDiffMatrix();
+    renderTransitions();
+    renderEvents();
+    renderTxResults();
+
+  }
 );
 
-
-diagnostic(
-  "Modo seguro: " +
-  (
-    window.isSecureContext
-      ? "SÍ"
-      : "NO"
-  )
-);
-
-
-diagnostic(
-  "Web Bluetooth: " +
-  (
-    ("bluetooth" in navigator)
-      ? "SÍ"
-      : "NO"
-  )
-);
-
-
-diagnostic(
-  "Servicio UART conocido: " +
-  UUID_SERVICE
-);
-
-
-diagnostic(
-  "RX conocida: " +
-  UUID_NOTIFY
-);
-
-
-diagnostic(
-  "TX conocida: " +
-  UUID_WRITE
-);
-
-
-diagnostic(
-  "Modo pasivo: ACTIVO"
-);
-
-
-diagnostic(
-  "Transmisión automática al conectar: NO"
-);
-
-
-setConnectionStatus(
-  false,
-  "Desconectada"
-);
-
-
-renderAll();
-
-});
 </script>
 
 </body>
