@@ -1,9 +1,13 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0b0b0d">
-<title>RoXThal — F1 Plus Protocol Laboratory v3 Differential</title><style>
+
+<title>RoXThal — F1 Plus Protocol Laboratory v4</title>
+
+<style>
 :root{
   --bg:#0b0b0d;
   --panel:#151519;
@@ -19,9 +23,13 @@
   --orange:#ff9d4d;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
@@ -83,7 +91,9 @@ button{
   font-weight:bold;
 }
 
-button:hover{background:#303039}
+button:hover{
+  background:#303039;
+}
 
 button.primary{
   background:#185d3d;
@@ -172,19 +182,38 @@ pre,
 }
 
 .log{
-  max-height:330px;
+  max-height:360px;
   font-family:monospace;
   font-size:12px;
 }
 
-.packet{margin-bottom:10px}
+.packet{
+  margin-bottom:10px;
+}
 
-.rx{border-left:4px solid var(--green)}
-.tx{border-left:4px solid var(--blue)}
-.spont{border-left:4px solid var(--purple)}
-.echo{border-left:4px solid var(--yellow)}
-.response{border-left:4px solid var(--green)}
-.unknown{border-left:4px solid var(--orange)}
+.rx{
+  border-left:4px solid var(--green);
+}
+
+.tx{
+  border-left:4px solid var(--blue);
+}
+
+.spont{
+  border-left:4px solid var(--purple);
+}
+
+.echo{
+  border-left:4px solid var(--yellow);
+}
+
+.response{
+  border-left:4px solid var(--green);
+}
+
+.unknown{
+  border-left:4px solid var(--orange);
+}
 
 input[type=text]{
   width:100%;
@@ -212,7 +241,9 @@ td{
   vertical-align:top;
 }
 
-th{color:var(--muted)}
+th{
+  color:var(--muted);
+}
 
 .badge{
   display:inline-block;
@@ -223,11 +254,25 @@ th{color:var(--muted)}
   margin-left:5px;
 }
 
-.badge.green{color:var(--green)}
-.badge.yellow{color:var(--yellow)}
-.badge.purple{color:var(--purple)}
-.badge.blue{color:var(--blue)}
-.badge.orange{color:var(--orange)}
+.badge.green{
+  color:var(--green);
+}
+
+.badge.yellow{
+  color:var(--yellow);
+}
+
+.badge.purple{
+  color:var(--purple);
+}
+
+.badge.blue{
+  color:var(--blue);
+}
+
+.badge.orange{
+  color:var(--orange);
+}
 
 .byte-grid{
   display:grid;
@@ -255,38 +300,17 @@ th{color:var(--muted)}
   margin-top:4px;
 }
 
-.variable{border-color:#75611d}
-.constant{border-color:#245b43}
+.variable{
+  border-color:#75611d;
+}
+
+.constant{
+  border-color:#245b43;
+}
 
 .changed{
-  border-color:#9b8128;
-  background:#17150c;
-}
-
-.unchanged{
-  border-color:#245b43;
-  background:#0d1712;
-}
-
-.diff-old{
-  color:var(--red);
-  font-family:monospace;
-  font-weight:bold;
-}
-
-.diff-new{
-  color:var(--green);
-  font-family:monospace;
-  font-weight:bold;
-}
-
-.diff-arrow{
-  color:var(--muted);
-  padding:0 5px;
-}
-
-.diff-table td{
-  padding:9px;
+  border-color:var(--red);
+  background:#1b0d0d;
 }
 
 .info-box{
@@ -312,9 +336,34 @@ th{color:var(--muted)}
   background:#170d0d;
 }
 
-.diff-highlight{
-  border-color:#9b8128;
-  background:#17150c;
+.characteristic{
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#101014;
+  padding:12px;
+  margin:8px 0;
+}
+
+.characteristic.rxCandidate{
+  border-left:4px solid var(--green);
+}
+
+.characteristic.txCandidate{
+  border-left:4px solid var(--blue);
+}
+
+.characteristic.bothCandidate{
+  border-left:4px solid var(--purple);
+}
+
+.property{
+  display:inline-block;
+  border:1px solid #3b3b44;
+  border-radius:6px;
+  padding:4px 7px;
+  margin:3px 3px 3px 0;
+  font-family:monospace;
+  font-size:11px;
 }
 
 footer{
@@ -330,165 +379,604 @@ hr{
   margin:14px 0;
 }
 
-.code{font-family:monospace}
+.code{
+  font-family:monospace;
+}
+
+.highlight{
+  background:#392d0b;
+  border:1px solid #75611d;
+  padding:3px 5px;
+  border-radius:5px;
+  font-family:monospace;
+}
+
+.diff-old{
+  color:var(--red);
+  font-family:monospace;
+}
+
+.diff-new{
+  color:var(--green);
+  font-family:monospace;
+}
 
 @media(max-width:600px){
-  header h1{font-size:19px}
-  main{padding:10px}
-  .card{padding:12px}
+
+  header h1{
+    font-size:19px;
+  }
+
+  main{
+    padding:10px;
+  }
+
+  .card{
+    padding:12px;
+  }
+
   button{
     width:100%;
     margin:4px 0;
   }
+
 }
-</style></head><body><header>
-  <h1>🔬 RoXThal — Laboratorio F1 Plus v3</h1>
-  <p>Captura pasiva · análisis estructural · comparación diferencial automática · detección de patrones</p>
-</header><main><section class="card"><h2>📡 Conexión F1 Plus</h2><button id="connectBtn" class="primary">
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🔬 RoXThal — Laboratorio F1 Plus v4</h1>
+  <p>
+    Captura pasiva · análisis estructural · comparación diferencial automática · detección de patrones
+  </p>
+</header>
+
+<main>
+
+<!-- =====================================================
+     CONEXIÓN
+===================================================== -->
+
+<section class="card">
+
+<h2>📡 Conexión F1 Plus</h2>
+
+<button id="connectBtn" class="primary">
 🔗 CONECTAR F1 PLUS
-</button><button id="disconnectBtn" class="danger" disabled>
+</button>
+
+<button id="disconnectBtn" class="danger" disabled>
 ⛔ DESCONECTAR
-</button><button id="scanBtn">
+</button>
+
+<button id="scanBtn">
 🔎 COMPROBAR BLUETOOTH
-</button><div id="connectionStatus" class="status">
+</button>
+
+<div id="connectionStatus" class="status">
 ⚪ Desconectada
-</div><div id="deviceInfo" class="status">
+</div>
+
+<div id="deviceInfo" class="status">
 Sin dispositivo seleccionado.
-</div></section><section class="card"><h2>🔌 Canal BLE / UART</h2><div id="uartInfo">
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     DESCUBRIMIENTO BLE
+===================================================== -->
+
+<section class="card">
+
+<h2>🧬 Descubrimiento BLE automático</h2>
+
+<div class="status warning">
+
+<b class="yellow">
+⚠️ La v4 no presupone UUID de TX/RX.
+</b>
+
+<p>
+El laboratorio inspecciona las características reales del servicio
+y utiliza sus propiedades BLE para identificar las candidatas.
+</p>
+
+<p>
+<strong>NOTIFY</strong> → candidata RX<br>
+<strong>WRITE / WRITE WITHOUT RESPONSE</strong> → candidata TX
+</p>
+
+</div>
+
+<div id="bleDiscovery">
+
+<div class="small">
+Todavía no se ha realizado el descubrimiento.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     UART
+===================================================== -->
+
+<section class="card">
+
+<h2>🔌 Canal BLE / UART</h2>
+
+<div id="uartInfo">
 Aún no se ha preparado el canal.
-</div></section><section class="card"><h2>🧪 Estado del laboratorio</h2><div class="status success"><b class="green">
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MODO
+===================================================== -->
+
+<section class="card">
+
+<h2>🧪 Estado del laboratorio</h2>
+
+<div class="status success">
+
+<b class="green">
 🟢 MODO PASIVO ACTIVO
-</b><p>
+</b>
+
+<p>
 La aplicación <b>no envía ningún comando automáticamente</b>.
-</p><p>
-Todo RX recibido desde NOTIFY se captura y analiza.
-</p><p>
+</p>
+
+<p>
+Todo RX recibido mediante NOTIFY se captura y analiza.
+</p>
+
+<p>
 La aplicación no presupone que ningún byte sea un comando válido.
-</p></div><div class="status warning"><b class="yellow">
+</p>
+
+</div>
+
+<div class="status warning">
+
+<b class="yellow">
 ⚠️ IMPORTANTE
-</b><p>
+</b>
+
+<p>
 Los significados de los bytes se consideran
 <b>desconocidos</b> hasta disponer de suficientes capturas
 experimentales.
-</p></div></section><section class="card"><h2>📊 Estadísticas globales</h2><div class="grid"><div class="stat">
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ESTADÍSTICAS
+===================================================== -->
+
+<section class="card">
+
+<h2>📊 Estadísticas globales</h2>
+
+<div class="grid">
+
+<div class="stat">
 TX
 <b id="txCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 RX
 <b id="rxCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 RX espontáneos
 <b id="spontCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Respuestas
 <b id="responseCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Ecos
 <b id="echoCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Tipos RX
 <b id="typeCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Longitudes
 <b id="lengthCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Patrones
 <b id="patternCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Comparaciones
 <b id="comparisonCount">0</b>
-</div><div class="stat">
+</div>
+
+<div class="stat">
 Bytes modificados
 <b id="changedByteCount">0</b>
-</div></div></section><!-- =====================================================
-     NUEVO COMPARADOR DIFERENCIAL
-===================================================== --><section class="card"><h2>🔬 Comparador diferencial automático</h2><div class="status diff-highlight"><b class="yellow">
-🧪 ANÁLISIS BYTE POR BYTE
-</b><p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     COMPARADOR
+===================================================== -->
+
+<section class="card">
+
+<h2>🔬 Comparador diferencial automático</h2>
+
+<div class="info-box">
+
+<b>🧪 ANÁLISIS BYTE POR BYTE</b>
+
+<p>
 Cada nueva trama RX se compara automáticamente con la
-<b>trama anterior del mismo tipo y longitud</b>.
-</p><p>
+<strong>trama anterior del mismo tipo y longitud</strong>.
+</p>
+
+<p>
 Ejemplo:
 <code>0x91 / 8 bytes</code> solo se compara con otra
 <code>0x91 / 8 bytes</code>.
-</p><p class="small">
+</p>
+
+<p>
 Esto evita comparar tramas estructuralmente diferentes.
-Ningún significado funcional se asigna automáticamente.
-</p></div><div id="liveDifference"><div class="small">
+</p>
+
+<p>
+<strong>Ningún significado funcional se asigna automáticamente.</strong>
+</p>
+
+</div>
+
+<div id="comparison">
+
+<div class="small">
 Esperando dos tramas comparables.
-</div></div></section><!-- =====================================================
-     HISTORIAL DIFERENCIAL
-===================================================== --><section class="card"><h2>📚 Historial de diferencias</h2><div id="differenceHistory"><div class="small">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     HISTORIAL DE DIFERENCIAS
+===================================================== -->
+
+<section class="card">
+
+<h2>📚 Historial de diferencias</h2>
+
+<div id="comparisonHistory">
+
+<div class="small">
 Todavía no existen comparaciones.
-</div></div></section><!-- =====================================================
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
      MATRIZ DE CAMBIOS
-===================================================== --><section class="card"><h2>📊 Matriz de cambios por byte</h2><p class="small">
-Muestra cuántas veces ha cambiado cada posición dentro de
-cada tipo y longitud.
-</p><div id="changeMatrix"><div class="small">
+===================================================== -->
+
+<section class="card">
+
+<h2>📊 Matriz de cambios por byte</h2>
+
+<p class="small">
+Muestra cuántas veces ha cambiado cada posición dentro de cada
+tipo y longitud.
+</p>
+
+<div id="changeMatrix">
+
+<div class="small">
 Esperando datos comparables.
-</div></div></section><section class="card"><h2>🧬 Tipos de trama detectados</h2><div id="frameTypes">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TIPOS
+===================================================== -->
+
+<section class="card">
+
+<h2>🧬 Tipos de trama detectados</h2>
+
+<div id="frameTypes">
+
 <div class="small">
 Todavía no hay suficientes datos.
 </div>
-</div></section><section class="card"><h2>📏 Análisis de longitud</h2><div id="lengthAnalysis">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     LONGITUD
+===================================================== -->
+
+<section class="card">
+
+<h2>📏 Análisis de longitud</h2>
+
+<div id="lengthAnalysis">
+
 <div class="small">
 Esperando tramas.
 </div>
-</div></section><section class="card"><h2>🧩 Estructura de las tramas</h2><div id="structure">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ESTRUCTURA
+===================================================== -->
+
+<section class="card">
+
+<h2>🧩 Estructura de las tramas</h2>
+
+<div id="structure">
+
 <div class="small">
 Esperando RX.
 </div>
-</div></section><section class="card"><h2>🔎 Campos fijos y variables</h2><p class="small">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CAMPOS
+===================================================== -->
+
+<section class="card">
+
+<h2>🔎 Campos fijos y variables</h2>
+
+<p class="small">
 El laboratorio compara automáticamente todas las tramas de cada
-tipo y determina qué posiciones permanecen constantes y cuáles cambian.
-</p><div id="fieldAnalysis">
+tipo y longitud y determina qué posiciones permanecen constantes
+y cuáles cambian.
+</p>
+
+<div id="fieldAnalysis">
+
 <div class="small">
 Se necesitan más de una trama comparable.
 </div>
-</div></section><section class="card"><h2>📚 Análisis por tipo</h2><div id="typeAnalysis">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TIPOS INDIVIDUALES
+===================================================== -->
+
+<section class="card">
+
+<h2>📚 Análisis por tipo</h2>
+
+<div id="typeAnalysis">
+
 <div class="small">
 Esperando datos.
 </div>
-</div></section><section class="card"><h2>📈 Patrones y frecuencia</h2><div id="patterns">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PATRONES
+===================================================== -->
+
+<section class="card">
+
+<h2>📈 Patrones y frecuencia</h2>
+
+<div id="patterns">
+
 <div class="small">
 Todavía no hay RX.
 </div>
-</div></section><section class="card"><h2>⏱️ Intervalos temporales</h2><div id="timingAnalysis">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     INTERVALOS
+===================================================== -->
+
+<section class="card">
+
+<h2>⏱️ Intervalos temporales</h2>
+
+<div id="timingAnalysis">
+
 <div class="small">
 Esperando al menos dos RX.
 </div>
-</div></section><section class="card"><h2>🔬 Comparación acumulada</h2><div id="comparison">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     COMPARACIÓN ACUMULADA
+===================================================== -->
+
+<section class="card">
+
+<h2>🔬 Comparación acumulada</h2>
+
+<div id="accumulatedComparison">
+
 <div class="small">
 Esperando RX.
 </div>
-</div></section><section class="card"><h2>🧮 Hipótesis de checksum</h2><div class="status warning"><b class="yellow">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHECKSUM
+===================================================== -->
+
+<section class="card">
+
+<h2>🧮 Hipótesis de checksum</h2>
+
+<div class="status warning">
+
+<b class="yellow">
 ⚠️ No se declara ningún checksum como confirmado.
-</b><p>
+</b>
+
+<p>
 Se prueban solamente fórmulas simples para buscar coincidencias
 experimentales.
-</p></div><div id="checksum">
+</p>
+
+</div>
+
+<div id="checksum">
+
 <div class="small">
 Esperando tramas.
 </div>
-</div></section><section class="card"><h2>🔗 Secuencia de tipos</h2><div id="sequence">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SECUENCIA
+===================================================== -->
+
+<section class="card">
+
+<h2>🔗 Secuencia de tipos</h2>
+
+<div id="sequence">
+
 <div class="small">
 Todavía no hay secuencia.
 </div>
-</div></section><section class="card"><h2>📦 Capturas RX/TX</h2><button id="clearPacketsBtn" class="danger">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAQUETES
+===================================================== -->
+
+<section class="card">
+
+<h2>📦 Capturas RX/TX</h2>
+
+<button id="clearPacketsBtn" class="danger">
 🧹 LIMPIAR CAPTURAS
-</button><div id="packets">
+</button>
+
+<div id="packets">
+
 <div class="small">
 Todavía no hay paquetes.
 </div>
-</div></section><section class="card"><h2>📤 TX manual</h2><div class="status warning"><b class="yellow">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TX MANUAL
+===================================================== -->
+
+<section class="card">
+
+<h2>📤 TX manual</h2>
+
+<div class="status warning">
+
+<b class="yellow">
 ⚠️ TRANSMISIÓN MANUAL
-</b><p>
+</b>
+
+<p>
 Esta función NO se utiliza durante la captura pasiva.
-Solo está disponible si decides introducir una trama manualmente.
-</p><p>
+</p>
+
+<p>
+Solo estará disponible cuando se haya encontrado una
+característica con propiedad WRITE o WRITE WITHOUT RESPONSE.
+</p>
+
+<p>
 No se enviará nada por sí solo.
-</p></div><input
+</p>
+
+</div>
+
+<input
 id="hexInput"
 type="text"
 placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
@@ -496,43 +984,116 @@ placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
 
 <button id="sendBtn" class="blue" disabled>
 📤 ENVIAR HEX MANUAL
-</button><button id="clearInputBtn">
+</button>
+
+<button id="clearInputBtn">
 🧹 LIMPIAR
-</button></section><section class="card"><h2>🔗 Relaciones TX → RX</h2><div id="relations">
+</button>
+
+<div id="txCharacteristicInfo" class="small">
+TX todavía no identificado.
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     RELACIONES
+===================================================== -->
+
+<section class="card">
+
+<h2>🔗 Relaciones TX → RX</h2>
+
+<div id="relations">
+
 <div class="small">
 No existen relaciones todavía.
 </div>
-</div></section><section class="card"><h2>💾 Datos de investigación</h2><button id="exportBtn" class="yellow">
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     EXPORTACIÓN
+===================================================== -->
+
+<section class="card">
+
+<h2>💾 Datos de investigación</h2>
+
+<button id="exportBtn" class="yellow">
 💾 EXPORTAR ANÁLISIS JSON
-</button><button id="copyBtn">
+</button>
+
+<button id="copyBtn">
 📋 COPIAR RESUMEN
-</button><button id="exportHexBtn" class="purple">
+</button>
+
+<button id="exportHexBtn" class="purple">
 📄 EXPORTAR RX EN HEX
-</button></section><section class="card"><h2>🛠️ Diagnóstico</h2><div id="diagnostic" class="log">
+</button>
+
+</section>
+
+
+<!-- =====================================================
+     DIAGNÓSTICO
+===================================================== -->
+
+<section class="card">
+
+<h2>🛠️ Diagnóstico</h2>
+
+<div id="diagnostic" class="log">
 Sistema preparado.
-</div><button id="clearDiagnosticBtn" class="danger">
+</div>
+
+<button id="clearDiagnosticBtn" class="danger">
 🧹 LIMPIAR DIAGNÓSTICO
-</button></section></main><footer>
-RoXThal Art Design · F1 Plus Protocol Laboratory v3 Differential
-</footer><script>
+</button>
+
+</section>
+
+</main>
+
+<footer>
+RoXThal Art Design · F1 Plus Protocol Laboratory v4
+</footer>
+
+
+<script>
 
 "use strict";
 
+
 /* =========================================================
-   UUID CONOCIDOS
+   UUID DEL SERVICIO CONOCIDO
 ========================================================= */
 
 const UUID_SERVICE =
 "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
-const UUID_WRITE =
+
+/*
+   UUID conocidos anteriormente.
+
+   IMPORTANTE:
+   La v4 NO depende de ellos.
+   Se mantienen solamente como referencia.
+*/
+
+const KNOWN_WRITE_UUID =
 "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
-const UUID_NOTIFY =
-"6e400003-b5a3-f393-e0a9-e50e";
+const KNOWN_NOTIFY_UUID =
+"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+
 
 /* =========================================================
-   ESTADO
+   ESTADO BLE
 ========================================================= */
 
 let device = null;
@@ -542,7 +1103,14 @@ let service = null;
 let writeCharacteristic = null;
 let notifyCharacteristic = null;
 
+let discoveredCharacteristics = [];
+
 let connected = false;
+
+
+/* =========================================================
+   ESTADO DEL LABORATORIO
+========================================================= */
 
 let packets = [];
 let txPackets = [];
@@ -552,41 +1120,83 @@ let packetNumber = 0;
 
 let lastTx = null;
 
+let comparisons = [];
+
+let comparisonCount = 0;
+
+let changedByteCount = 0;
+
+
+/*
+   Guarda la última trama de cada combinación:
+
+   tipo + longitud
+
+   Ejemplo:
+
+   "91|8"
+   "92|16"
+*/
+
+const previousComparable = new Map();
+
+
+/*
+   Matriz acumulada de cambios.
+
+   key:
+
+   tipo|longitud
+
+   value:
+
+   {
+      comparisons: 0,
+      positions: {
+         0: cantidad,
+         1: cantidad,
+         ...
+      }
+   }
+*/
+
+const changeMatrix = new Map();
+
+
+/* =========================================================
+   VENTANAS TEMPORALES
+========================================================= */
+
 const IMMEDIATE_WINDOW = 300;
 const SECONDARY_WINDOW = 3000;
 
-/*
- * Historial diferencial.
- *
- * La clave es:
- *   TIPO|LONGITUD
- *
- * Ejemplo:
- *   91|8
- *   92|16
- */
-
-const differentialState = new Map();
-
-let differenceHistory = [];
 
 /* =========================================================
    DOM
 ========================================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
+
 
 /* =========================================================
    UTILIDADES
 ========================================================= */
 
 function nowTime(){
-  return new Date().toLocaleTimeString();
+
+  return new Date()
+    .toLocaleTimeString();
+
 }
 
+
 function timestamp(){
+
   return Date.now();
+
 }
+
 
 function hex(bytes){
 
@@ -600,11 +1210,14 @@ function hex(bytes){
 
 }
 
+
 function decimal(bytes){
 
-  return Array.from(bytes).join(" ");
+  return Array.from(bytes)
+    .join(" ");
 
 }
+
 
 function ascii(bytes){
 
@@ -618,6 +1231,7 @@ function ascii(bytes){
 
 }
 
+
 function sameBytes(a,b){
 
   if(!a || !b)
@@ -626,7 +1240,11 @@ function sameBytes(a,b){
   if(a.length !== b.length)
     return false;
 
-  for(let i=0;i<a.length;i++){
+  for(
+    let i=0;
+    i<a.length;
+    i++
+  ){
 
     if(a[i] !== b[i])
       return false;
@@ -634,12 +1252,20 @@ function sameBytes(a,b){
   }
 
   return true;
+
 }
+
 
 function fmt(v){
 
-  if(v === null || v === undefined)
+  if(
+    v === null ||
+    v === undefined
+  ){
+
     return "—";
+
+  }
 
   return v
     .toString(16)
@@ -647,6 +1273,7 @@ function fmt(v){
     .toUpperCase();
 
 }
+
 
 function escapeHTML(value){
 
@@ -659,25 +1286,35 @@ function escapeHTML(value){
 
 }
 
+
 function bytesFromHex(text){
 
   const clean =
     text.trim();
 
   if(!clean)
-    throw new Error("No se introdujeron bytes.");
+    throw new Error(
+      "No se introdujeron bytes."
+    );
 
   const parts =
     clean.split(/\s+/);
 
   const bytes = [];
 
-  for(const part of parts){
+  for(
+    const part
+    of parts
+  ){
 
-    if(!/^[0-9a-fA-F]{1,2}$/.test(part)){
+    if(
+      !/^[0-9a-fA-F]{1,2}$/
+        .test(part)
+    ){
 
       throw new Error(
-        "Byte hexadecimal inválido: " + part
+        "Byte hexadecimal inválido: " +
+        part
       );
 
     }
@@ -692,6 +1329,23 @@ function bytesFromHex(text){
 
 }
 
+
+function uuidShort(uuid){
+
+  if(!uuid)
+    return "—";
+
+  const s =
+    String(uuid);
+
+  if(s.length > 13)
+    return s.slice(0,8) + "…";
+
+  return s;
+
+}
+
+
 /* =========================================================
    DIAGNÓSTICO
 ========================================================= */
@@ -702,7 +1356,10 @@ function log(message){
     $("diagnostic");
 
   const line =
-    "[" + nowTime() + "] " + message;
+    "[" +
+    nowTime() +
+    "] " +
+    message;
 
   box.textContent +=
     (box.textContent ? "\n" : "") +
@@ -712,6 +1369,7 @@ function log(message){
     box.scrollHeight;
 
 }
+
 
 /* =========================================================
    BLUETOOTH
@@ -743,6 +1401,7 @@ function bluetoothCheck(){
 
 }
 
+
 /* =========================================================
    CONEXIÓN
 ========================================================= */
@@ -758,70 +1417,103 @@ async function connect(){
     log("INICIO DE CONEXIÓN");
     log("Solicitando dispositivo F1 Plus...");
 
+
+    /*
+       Solo usamos el servicio conocido.
+
+       No asumimos UUID de características.
+    */
+
     device =
       await navigator.bluetooth.requestDevice({
 
         filters:[
           {
             namePrefix:"F1"
-          },
-          {
-            namePrefix:"F1 Plus"
           }
         ],
 
         optionalServices:[
-          UUID_SERVICE,
-          "00001800-0000-1000-8000-00805f9b34fb",
-          "00001801-0000-1000-8000-00805f9b34fb"
+          UUID_SERVICE
         ]
 
       });
 
-    log("DISPOSITIVO ENCONTRADO");
+
+    log(
+      "✅ DISPOSITIVO ENCONTRADO"
+    );
+
 
     $("deviceInfo").innerHTML =
       "<b>Nombre:</b> " +
       escapeHTML(
-        device.name || "Sin nombre"
+        device.name ||
+        "Sin nombre"
       ) +
       "<br><b>ID:</b> " +
-      escapeHTML(device.id);
+      escapeHTML(
+        device.id
+      );
+
 
     log(
       "Nombre: " +
-      (device.name || "desconocido")
+      (
+        device.name ||
+        "desconocido"
+      )
     );
+
 
     log(
       "ID: " +
       device.id
     );
 
+
     device.addEventListener(
       "gattserverdisconnected",
       handleDisconnect
     );
 
-    log("Conectando GATT...");
+
+    log(
+      "Conectando GATT..."
+    );
+
 
     server =
       await device.gatt.connect();
 
+
     connected = true;
 
-    log("✅ GATT conectado.");
+
+    log(
+      "✅ GATT conectado."
+    );
+
 
     $("connectionStatus").innerHTML =
       "<span class='green'>🟢 Smart Band conectada</span>";
 
+
     $("disconnectBtn").disabled =
       false;
+
+
+    /*
+       Todavía NO habilitamos TX.
+       Primero hay que descubrir las características.
+    */
 
     $("sendBtn").disabled =
       true;
 
+
     await prepareUART();
+
 
   }catch(error){
 
@@ -839,111 +1531,578 @@ async function connect(){
 
 }
 
+
 /* =========================================================
-   UART
+   PREPARACIÓN / DESCUBRIMIENTO
 ========================================================= */
 
 async function prepareUART(){
 
   try{
 
-    log("Buscando servicio UART...");
+    log(
+      "Buscando servicio UART..."
+    );
+
 
     service =
       await server.getPrimaryService(
         UUID_SERVICE
       );
 
-    log("✅ Servicio UART encontrado.");
 
-    writeCharacteristic =
-      await service.getCharacteristic(
-        UUID_WRITE
-      );
-
-    log("✅ WRITE encontrado.");
-
-    notifyCharacteristic =
-      await service.getCharacteristic(
-        UUID_NOTIFY
-      );
-
-    log("✅ NOTIFY encontrado.");
-
-    notifyCharacteristic.addEventListener(
-      "characteristicvaluechanged",
-      handleNotification
+    log(
+      "✅ Servicio UART encontrado."
     );
 
-    await notifyCharacteristic.startNotifications();
 
-    log("✅ NOTIFY ACTIVADO.");
+    log(
+      "UUID servicio: " +
+      service.uuid
+    );
+
+
+    /*
+       AQUÍ ESTÁ EL CAMBIO PRINCIPAL DE LA V4.
+
+       Descubrimos TODAS las características.
+    */
+
+    log(
+      "Inspeccionando características..."
+    );
+
+
+    discoveredCharacteristics =
+      await service.getCharacteristics();
+
+
+    log(
+      "Características encontradas: " +
+      discoveredCharacteristics.length
+    );
+
+
+    if(
+      !discoveredCharacteristics.length
+    ){
+
+      throw new Error(
+        "El servicio no contiene características."
+      );
+
+    }
+
+
+    /*
+       Limpiamos referencias.
+    */
+
+    writeCharacteristic =
+      null;
+
+    notifyCharacteristic =
+      null;
+
+
+    /*
+       Clasificación automática.
+    */
+
+    for(
+      let i=0;
+      i<discoveredCharacteristics.length;
+      i++
+    ){
+
+      const characteristic =
+        discoveredCharacteristics[i];
+
+      const properties =
+        characteristic.properties;
+
+
+      const props =
+        [];
+
+
+      if(properties.read)
+        props.push("READ");
+
+      if(properties.write)
+        props.push("WRITE");
+
+      if(properties.writeWithoutResponse)
+        props.push("WRITE WITHOUT RESPONSE");
+
+      if(properties.notify)
+        props.push("NOTIFY");
+
+      if(properties.indicate)
+        props.push("INDICATE");
+
+
+      log(
+        "Característica #" +
+        (i+1) +
+        " | " +
+        characteristic.uuid
+      );
+
+
+      log(
+        "Propiedades: " +
+        (
+          props.length
+          ? props.join(", ")
+          : "NINGUNA RECONOCIDA"
+        )
+      );
+
+
+      /*
+         Selección RX.
+
+         Preferimos NOTIFY.
+      */
+
+      if(
+        !notifyCharacteristic &&
+        properties.notify
+      ){
+
+        notifyCharacteristic =
+          characteristic;
+
+        log(
+          "🟢 CANDIDATA RX seleccionada: " +
+          characteristic.uuid
+        );
+
+      }
+
+
+      /*
+         Selección TX.
+
+         Preferimos WRITE.
+         Si no existe, usamos WRITE WITHOUT RESPONSE.
+      */
+
+      if(
+        !writeCharacteristic &&
+        properties.write
+      ){
+
+        writeCharacteristic =
+          characteristic;
+
+        log(
+          "🔵 CANDIDATA TX seleccionada: " +
+          characteristic.uuid
+        );
+
+      }
+
+    }
+
+
+    /*
+       Si no encontramos WRITE,
+       buscamos WRITE WITHOUT RESPONSE.
+    */
+
+    if(!writeCharacteristic){
+
+      for(
+        const characteristic
+        of discoveredCharacteristics
+      ){
+
+        if(
+          characteristic
+            .properties
+            .writeWithoutResponse
+        ){
+
+          writeCharacteristic =
+            characteristic;
+
+          log(
+            "🔵 TX seleccionada mediante WRITE WITHOUT RESPONSE: " +
+            characteristic.uuid
+          );
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    renderBLEDiscovery();
+
+
+    /*
+       RX es imprescindible para el laboratorio pasivo.
+    */
+
+    if(!notifyCharacteristic){
+
+      log(
+        "❌ No se encontró ninguna característica NOTIFY."
+      );
+
+      $("uartInfo").innerHTML =
+        `
+        <div class="status danger-box">
+
+          <b class="red">
+          ❌ NO SE ENCONTRÓ NOTIFY
+          </b>
+
+          <p>
+          El servicio existe, pero ninguna de sus
+          características declara la propiedad NOTIFY.
+          </p>
+
+          <p>
+          Revisa el listado de características mostrado arriba.
+          </p>
+
+        </div>
+        `;
+
+      return;
+
+    }
+
+
+    /*
+       Activamos NOTIFY.
+    */
+
+    log(
+      "Activando NOTIFY..."
+    );
+
+
+    notifyCharacteristic
+      .addEventListener(
+        "characteristicvaluechanged",
+        handleNotification
+      );
+
+
+    await notifyCharacteristic
+      .startNotifications();
+
+
+    log(
+      "✅ NOTIFY ACTIVADO."
+    );
+
+
+    /*
+       UART listo.
+    */
 
     $("uartInfo").innerHTML = `
 
       <div class="status success">
 
         <b class="green">
-        🟢 UART PREPARADO
+        🟢 CAPTURA RX PREPARADA
         </b>
 
         <hr>
 
         <b>SERVICE</b><br>
+
         <span class="code">
-        ${UUID_SERVICE}
+        ${escapeHTML(service.uuid)}
         </span>
 
         <br><br>
 
-        <b>WRITE / TX</b><br>
+        <b>RX / NOTIFY</b><br>
+
         <span class="code">
-        ${UUID_WRITE}
+        ${escapeHTML(
+          notifyCharacteristic.uuid
+        )}
         </span>
 
         <br><br>
 
-        <b>NOTIFY / RX</b><br>
-        <span class="code">
-        ${UUID_NOTIFY}
+        <span class="green">
+        🟢 NOTIFY activo
         </span>
 
         <br><br>
 
-        <b class="green">
-        NOTIFY activo
-        </b>
+        <b>TX / WRITE</b><br>
+
+        <span class="code">
+        ${
+          writeCharacteristic
+          ? escapeHTML(
+              writeCharacteristic.uuid
+            )
+          : "No encontrada"
+        }
+        </span>
 
       </div>
+
     `;
 
-    $("sendBtn").disabled =
-      false;
 
-    log("Canal WRITE preparado.");
-    log("Canal NOTIFY preparado.");
+    if(writeCharacteristic){
+
+      $("sendBtn").disabled =
+        false;
+
+      $("txCharacteristicInfo")
+        .innerHTML =
+        `
+        <span class="blueText">
+        🔵 TX identificado:
+        </span>
+        <span class="code">
+        ${escapeHTML(
+          writeCharacteristic.uuid
+        )}
+        </span>
+        `;
+
+    }else{
+
+      $("sendBtn").disabled =
+        true;
+
+      $("txCharacteristicInfo")
+        .innerHTML =
+        `
+        <span class="yellow">
+        ⚠️ No se encontró característica WRITE.
+        RX pasivo continúa disponible.
+        </span>
+        `;
+
+    }
+
 
     log(
-      "🛑 NO se enviará ningún comando automáticamente."
+      "================================"
+    );
+
+    log(
+      "🟢 LABORATORIO PREPARADO"
+    );
+
+    log(
+      "RX automático: ACTIVO"
+    );
+
+    log(
+      "TX automático: DESACTIVADO"
     );
 
     log(
       "Esperando tráfico espontáneo..."
     );
 
+
   }catch(error){
+
+    console.error(error);
 
     log(
       "❌ ERROR PREPARANDO UART: " +
       error.message
     );
 
+
     $("uartInfo").innerHTML =
-      "<span class='red'>❌ No se pudo preparar UART.</span>";
+      `
+      <div class="status danger-box">
+
+        <b class="red">
+        ❌ NO SE PUDO PREPARAR UART
+        </b>
+
+        <p>
+        ${escapeHTML(
+          error.message
+        )}
+        </p>
+
+      </div>
+      `;
 
   }
 
 }
+
+
+/* =========================================================
+   MOSTRAR DESCUBRIMIENTO BLE
+========================================================= */
+
+function renderBLEDiscovery(){
+
+  const box =
+    $("bleDiscovery");
+
+
+  if(
+    !discoveredCharacteristics.length
+  ){
+
+    box.innerHTML =
+      "<div class='small'>No hay características.</div>";
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  discoveredCharacteristics
+    .forEach(
+      (characteristic,index) => {
+
+        const p =
+          characteristic.properties;
+
+
+        const props = [];
+
+
+        if(p.read)
+          props.push("READ");
+
+        if(p.write)
+          props.push("WRITE");
+
+        if(p.writeWithoutResponse)
+          props.push(
+            "WRITE WITHOUT RESPONSE"
+          );
+
+        if(p.notify)
+          props.push("NOTIFY");
+
+        if(p.indicate)
+          props.push("INDICATE");
+
+
+        let cls =
+          "characteristic";
+
+
+        if(p.notify && (
+          p.write ||
+          p.writeWithoutResponse
+        )){
+
+          cls +=
+            " bothCandidate";
+
+        }else if(p.notify){
+
+          cls +=
+            " rxCandidate";
+
+        }else if(
+          p.write ||
+          p.writeWithoutResponse
+        ){
+
+          cls +=
+            " txCandidate";
+
+        }
+
+
+        html += `
+
+          <div class="${cls}">
+
+            <b>
+            Característica #${index+1}
+            </b>
+
+            <br><br>
+
+            <span class="code">
+            ${escapeHTML(
+              characteristic.uuid
+            )}
+            </span>
+
+            <br><br>
+
+            <b>Propiedades:</b>
+
+            <br>
+
+            ${
+              props.length
+              ? props
+                  .map(
+                    prop =>
+                    `
+                    <span class="property">
+                    ${prop}
+                    </span>
+                    `
+                  )
+                  .join("")
+              : "Ninguna"
+            }
+
+            <br><br>
+
+            ${
+              p.notify
+              ? `
+                <span class="badge green">
+                🟢 CANDIDATA RX
+                </span>
+              `
+              : ""
+            }
+
+            ${
+              p.write ||
+              p.writeWithoutResponse
+              ? `
+                <span class="badge blue">
+                🔵 CANDIDATA TX
+                </span>
+              `
+              : ""
+            }
+
+          </div>
+
+        `;
+
+      }
+    );
+
+
+  box.innerHTML =
+    html;
+
+}
+
 
 /* =========================================================
    NOTIFY
@@ -951,24 +2110,50 @@ async function prepareUART(){
 
 function handleNotification(event){
 
-  const value =
-    event.target.value;
+  try{
 
-  const bytes =
-    new Uint8Array(
-      value.buffer.slice(
-        value.byteOffset,
-        value.byteOffset +
-        value.byteLength
-      )
+    const value =
+      event.target.value;
+
+
+    const bytes =
+      new Uint8Array(
+        value.buffer.slice(
+          value.byteOffset,
+          value.byteOffset +
+          value.byteLength
+        )
+      );
+
+
+    if(!bytes.length){
+
+      log(
+        "⚠️ NOTIFY recibido vacío."
+      );
+
+      return;
+
+    }
+
+
+    registerRX(bytes);
+
+
+  }catch(error){
+
+    log(
+      "❌ Error procesando NOTIFY: " +
+      error.message
     );
 
-  registerRX(bytes);
+  }
 
 }
 
+
 /* =========================================================
-   CLASIFICACIÓN
+   CLASIFICACIÓN RX
 ========================================================= */
 
 function classifyRX(bytes){
@@ -976,18 +2161,25 @@ function classifyRX(bytes){
   const t =
     timestamp();
 
+
   let type =
     "SPONTÁNEO";
+
 
   let relation =
     null;
 
+
   if(lastTx){
 
     const delta =
-      t - lastTx.timestamp;
+      t -
+      lastTx.timestamp;
 
-    if(delta <= IMMEDIATE_WINDOW){
+
+    if(
+      delta <= IMMEDIATE_WINDOW
+    ){
 
       type =
         "RESPUESTA PROBABLE";
@@ -995,7 +2187,9 @@ function classifyRX(bytes){
       relation =
         lastTx;
 
-    }else if(delta <= SECONDARY_WINDOW){
+    }else if(
+      delta <= SECONDARY_WINDOW
+    ){
 
       type =
         "RESPUESTA PROBABLE";
@@ -1007,9 +2201,13 @@ function classifyRX(bytes){
 
   }
 
+
   if(
     lastTx &&
-    sameBytes(bytes,lastTx.bytes)
+    sameBytes(
+      bytes,
+      lastTx.bytes
+    )
   ){
 
     type =
@@ -1020,6 +2218,7 @@ function classifyRX(bytes){
 
   }
 
+
   return {
     type,
     relation
@@ -1027,286 +2226,6 @@ function classifyRX(bytes){
 
 }
 
-/* =========================================================
-   CLAVE DIFERENCIAL
-========================================================= */
-
-function differentialKey(bytes){
-
-  return (
-    getFrameType(bytes) +
-    "|" +
-    bytes.length
-  );
-
-}
-
-/* =========================================================
-   COMPARACIÓN DIFERENCIAL
-========================================================= */
-
-function calculateDifferences(previous,current){
-
-  const max =
-    Math.max(
-      previous.length,
-      current.length
-    );
-
-  const differences = [];
-
-  for(let i=0;i<max;i++){
-
-    const oldValue =
-      previous[i];
-
-    const newValue =
-      current[i];
-
-    if(oldValue !== newValue){
-
-      differences.push({
-
-        index:i,
-
-        previous:
-          oldValue === undefined
-          ? null
-          : oldValue,
-
-        current:
-          newValue === undefined
-          ? null
-          : newValue
-
-      });
-
-    }
-
-  }
-
-  return differences;
-
-}
-
-/* =========================================================
-   REGISTRAR COMPARACIÓN DIFERENCIAL
-========================================================= */
-
-function processDifferential(packet){
-
-  const key =
-    differentialKey(packet.bytes);
-
-  let state =
-    differentialState.get(key);
-
-  if(!state){
-
-    state = {
-
-      type:
-        getFrameType(packet.bytes),
-
-      length:
-        packet.bytes.length,
-
-      count:
-        0,
-
-      comparisons:
-        0,
-
-      changedBytes:
-        0,
-
-      previous:
-        null,
-
-      lastPacket:
-        null,
-
-      byteStats:
-        Array.from(
-          {length:packet.bytes.length},
-          () => ({
-            comparisons:0,
-            changes:0,
-            values:new Set()
-          })
-        )
-
-    };
-
-    differentialState.set(
-      key,
-      state
-    );
-
-  }
-
-  state.count++;
-
-  const current =
-    packet.bytes.slice();
-
-  let differences = [];
-
-  if(state.previous){
-
-    differences =
-      calculateDifferences(
-        state.previous,
-        current
-      );
-
-    state.comparisons++;
-
-    differences.forEach(d => {
-
-      state.changedBytes++;
-
-      if(state.byteStats[d.index]){
-
-        state.byteStats[d.index].changes++;
-
-      }
-
-    });
-
-    for(
-      let i=0;
-      i<current.length;
-      i++
-    ){
-
-      if(state.byteStats[i]){
-
-        state.byteStats[i].comparisons++;
-
-        state.byteStats[i].values.add(
-          current[i]
-        );
-
-      }
-
-    }
-
-    const comparisonRecord = {
-
-      timestamp:
-        timestamp(),
-
-      time:
-        packet.time,
-
-      type:
-        state.type,
-
-      length:
-        state.length,
-
-      previousPacket:
-        state.lastPacket,
-
-      currentPacket:
-        packet.number,
-
-      previous:
-        state.previous.slice(),
-
-      current:
-        current.slice(),
-
-      differences:
-        differences
-
-    };
-
-    differenceHistory.push(
-      comparisonRecord
-    );
-
-    if(
-      differences.length
-    ){
-
-      log(
-        "🔬 DIFERENCIAL 0x" +
-        state.type +
-        "/" +
-        state.length +
-        " | " +
-        differences.length +
-        " byte(s) cambiado(s)."
-      );
-
-      differences.forEach(d => {
-
-        log(
-          "   Byte " +
-          d.index +
-          ": " +
-          fmt(d.previous) +
-          " → " +
-          fmt(d.current)
-        );
-
-      });
-
-    }else{
-
-      log(
-        "🟢 DIFERENCIAL 0x" +
-        state.type +
-        "/" +
-        state.length +
-        " | sin cambios."
-      );
-
-    }
-
-  }else{
-
-    /*
-     * Primera captura del grupo.
-     * No se compara porque todavía no existe referencia.
-     */
-
-    for(
-      let i=0;
-      i<current.length;
-      i++
-    ){
-
-      if(state.byteStats[i]){
-
-        state.byteStats[i].values.add(
-          current[i]
-        );
-
-      }
-
-    }
-
-    log(
-      "📌 Primera referencia almacenada para 0x" +
-      state.type +
-      "/" +
-      state.length
-    );
-
-  }
-
-  state.previous =
-    current;
-
-  state.lastPacket =
-    packet.number;
-
-  renderDifferentialAnalysis();
-
-}
 
 /* =========================================================
    REGISTRAR RX
@@ -1316,6 +2235,7 @@ function registerRX(bytes){
 
   const classification =
     classifyRX(bytes);
+
 
   const packet = {
 
@@ -1347,14 +2267,27 @@ function registerRX(bytes){
 
   };
 
+
   rxPackets.push(packet);
+
   packets.push(packet);
 
-  processDifferential(packet);
+
+  /*
+     COMPARACIÓN DIFERENCIAL AUTOMÁTICA
+  */
+
+  performAutomaticComparison(
+    packet
+  );
+
 
   updateAllAnalysis();
 
-  if(packet.type === "ECO"){
+
+  if(
+    packet.type === "ECO"
+  ){
 
     log(
       "🟡 RX ECO | " +
@@ -1384,486 +2317,260 @@ function registerRX(bytes){
 
 }
 
-/* =========================================================
-   RENDER DIFERENCIAL
-========================================================= */
-
-function renderDifferentialAnalysis(){
-
-  renderLiveDifference();
-
-  renderDifferenceHistory();
-
-  renderChangeMatrix();
-
-}
 
 /* =========================================================
-   ÚLTIMA COMPARACIÓN POR GRUPO
+   COMPARACIÓN AUTOMÁTICA
 ========================================================= */
 
-function getLatestComparisonForKey(key){
+function performAutomaticComparison(packet){
 
-  for(
-    let i=differenceHistory.length-1;
-    i>=0;
-    i--
-  ){
+  const bytes =
+    packet.bytes;
 
-    const d =
-      differenceHistory[i];
 
-    if(
-      d.type +
-      "|" +
-      d.length ===
-      key
-    ){
+  const type =
+    getFrameType(bytes);
 
-      return d;
 
-    }
+  const length =
+    bytes.length;
 
-  }
 
-  return null;
+  const key =
+    type +
+    "|" +
+    length;
 
-}
 
-/* =========================================================
-   LIVE DIFFERENCE
-========================================================= */
+  /*
+     Buscar la anterior del mismo
+     tipo + longitud.
+  */
 
-function renderLiveDifference(){
+  const previous =
+    previousComparable.get(key);
 
-  const box =
-    $("liveDifference");
 
-  if(!differenceHistory.length){
+  /*
+     La trama actual se convierte
+     en la nueva referencia.
+  */
 
-    box.innerHTML = `
+  previousComparable.set(
+    key,
+    packet
+  );
 
-      <div class="status">
 
-        <span class="small">
-        Esperando dos tramas del mismo tipo y longitud.
-        </span>
+  if(!previous){
 
-      </div>
-
-    `;
+    log(
+      "🔬 COMPARADOR: primera trama " +
+      "para 0x" +
+      type +
+      " / " +
+      length +
+      " bytes."
+    );
 
     return;
 
   }
 
-  const d =
-    differenceHistory[
-      differenceHistory.length-1
-    ];
 
-  let html = `
+  /*
+     Como ambas tienen la misma longitud,
+     la comparación es directa.
+  */
 
-    <div class="packet diff-highlight">
+  const differences = [];
 
-      <b>
-      ÚLTIMA COMPARACIÓN
-      </b>
 
-      <br><br>
+  for(
+    let i=0;
+    i<length;
+    i++
+  ){
 
-      <span class="badge blue">
-      0x${escapeHTML(d.type)}
-      </span>
+    const oldValue =
+      previous.bytes[i];
 
-      <span class="badge">
-      ${d.length} bytes
-      </span>
+    const newValue =
+      bytes[i];
 
-      <br><br>
 
-      <b>
-      Paquete anterior:
-      </b>
+    if(
+      oldValue !==
+      newValue
+    ){
 
-      #${d.previousPacket}
+      differences.push({
 
-      <br>
+        index:
+          i,
 
-      <span class="code">
-      ${hex(d.previous)}
-      </span>
+        oldValue:
+          oldValue,
 
-      <br><br>
+        newValue:
+          newValue
 
-      <b>
-      Paquete actual:
-      </b>
+      });
 
-      #${d.currentPacket}
+    }
 
-      <br>
+  }
 
-      <span class="code">
-      ${hex(d.current)}
-      </span>
 
-      <hr>
+  /*
+     Registrar estructura acumulada.
+  */
 
-      <b>
-      🔎 CAMBIOS DETECTADOS
-      </b>
+  if(
+    !changeMatrix.has(key)
+  ){
 
-      <br><br>
+    changeMatrix.set(
+      key,
+      {
+        comparisons:0,
+        positions:{}
+      }
+    );
 
-  `;
+  }
 
-  if(!d.differences.length){
 
-    html += `
+  const matrix =
+    changeMatrix.get(key);
 
-      <span class="green">
-      🟢 Ningún byte cambió.
-      </span>
 
-      <br><br>
+  matrix.comparisons++;
 
-      <span class="small">
-      Las dos tramas son idénticas.
-      </span>
 
-    `;
+  differences.forEach(d => {
+
+    if(
+      !matrix.positions[d.index]
+    ){
+
+      matrix.positions[d.index] =
+        0;
+
+    }
+
+    matrix.positions[d.index]++;
+
+  });
+
+
+  /*
+     Contador global.
+  */
+
+  comparisonCount++;
+
+
+  changedByteCount +=
+    differences.length;
+
+
+  const comparison = {
+
+    id:
+      comparisonCount,
+
+    type:
+      type,
+
+    length:
+      length,
+
+    previousPacket:
+      previous.number,
+
+    currentPacket:
+      packet.number,
+
+    previousTime:
+      previous.time,
+
+    currentTime:
+      packet.time,
+
+    previousBytes:
+      [...previous.bytes],
+
+    currentBytes:
+      [...bytes],
+
+    differences:
+      differences,
+
+    changedCount:
+      differences.length,
+
+    timestamp:
+      timestamp()
+
+  };
+
+
+  comparisons.push(
+    comparison
+  );
+
+
+  /*
+     Diagnóstico.
+  */
+
+  if(
+    differences.length
+  ){
+
+    log(
+      "🔬 COMPARACIÓN #" +
+      comparison.id +
+      " | 0x" +
+      type +
+      " / " +
+      length +
+      " bytes | " +
+      differences.length +
+      " byte(s) modificados."
+    );
+
+
+    differences.forEach(d => {
+
+      log(
+        "   BYTE " +
+        d.index +
+        ": " +
+        fmt(d.oldValue) +
+        " → " +
+        fmt(d.newValue)
+      );
+
+    });
 
   }else{
 
-    html += `
-
-      <table class="diff-table">
-
-        <thead>
-
-          <tr>
-            <th>Posición</th>
-            <th>Anterior</th>
-            <th>Nuevo</th>
-            <th>Estado</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-    `;
-
-    d.differences.forEach(diff => {
-
-      html += `
-
-        <tr>
-
-          <td>
-            <b>Byte ${diff.index}</b>
-          </td>
-
-          <td>
-            <span class="diff-old">
-            ${fmt(diff.previous)}
-            </span>
-          </td>
-
-          <td>
-            <span class="diff-new">
-            ${fmt(diff.current)}
-            </span>
-          </td>
-
-          <td>
-            <span class="yellow">
-            🔄 CAMBIÓ
-            </span>
-          </td>
-
-        </tr>
-
-      `;
-
-    });
-
-    html += `
-
-        </tbody>
-
-      </table>
-
-      <br>
-
-      <span class="yellow">
-      ${d.differences.length}
-      posición(es) modificada(s).
-      </span>
-
-    `;
+    log(
+      "🟢 COMPARACIÓN #" +
+      comparison.id +
+      " | 0x" +
+      type +
+      " / " +
+      length +
+      " bytes | TRAMAS IDÉNTICAS."
+    );
 
   }
-
-  html += `
-
-      <hr>
-
-      <span class="small">
-      Comparación estrictamente byte a byte.
-      No se atribuye significado funcional a los cambios.
-      </span>
-
-    </div>
-
-  `;
-
-  box.innerHTML =
-    html;
 
 }
 
-/* =========================================================
-   HISTORIAL DIFERENCIAL
-========================================================= */
-
-function renderDifferenceHistory(){
-
-  const box =
-    $("differenceHistory");
-
-  if(!differenceHistory.length){
-
-    box.innerHTML =
-      "<div class='small'>Todavía no existen comparaciones.</div>";
-
-    return;
-
-  }
-
-  let html = `
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Hora</th>
-          <th>Tipo</th>
-          <th>Anterior</th>
-          <th>Actual</th>
-          <th>Cambios</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-  `;
-
-  differenceHistory
-    .slice()
-    .reverse()
-    .slice(0,50)
-    .forEach(d => {
-
-      const changed =
-        d.differences.length;
-
-      html += `
-
-        <tr>
-
-          <td>
-          ${escapeHTML(d.time)}
-          </td>
-
-          <td>
-          <span class="badge blue">
-          0x${escapeHTML(d.type)}
-          </span>
-          </td>
-
-          <td>
-          #${d.previousPacket}
-          </td>
-
-          <td>
-          #${d.currentPacket}
-          </td>
-
-          <td>
-
-          ${
-            changed === 0
-            ? "<span class='green'>🟢 0</span>"
-            : "<span class='yellow'>🔄 " +
-              changed +
-              "</span>"
-          }
-
-          </td>
-
-        </tr>
-
-      `;
-
-    });
-
-  html += `
-
-      </tbody>
-
-    </table>
-
-  `;
-
-  box.innerHTML =
-    html;
-
-}
-
-/* =========================================================
-   MATRIZ DE CAMBIOS
-========================================================= */
-
-function renderChangeMatrix(){
-
-  const box =
-    $("changeMatrix");
-
-  if(!differentialState.size){
-
-    box.innerHTML =
-      "<div class='small'>Esperando datos comparables.</div>";
-
-    return;
-
-  }
-
-  let html = "";
-
-  differentialState.forEach(
-    (state,key) => {
-
-      if(state.comparisons < 1)
-        return;
-
-      html += `
-
-        <div class="packet">
-
-          <h3>
-          <span class="badge blue">
-          0x${state.type}
-          </span>
-
-          · ${state.length} bytes
-          </h3>
-
-          <div class="grid">
-
-            <div class="stat">
-              Comparaciones
-              <b>${state.comparisons}</b>
-            </div>
-
-            <div class="stat">
-              Cambios totales
-              <b>${state.changedBytes}</b>
-            </div>
-
-          </div>
-
-          <br>
-
-          <div class="byte-grid">
-
-      `;
-
-      state.byteStats.forEach(
-        (stat,index) => {
-
-          const changed =
-            stat.changes > 0;
-
-          const uniqueValues =
-            [...stat.values]
-              .map(v => fmt(v))
-              .join(" · ");
-
-          html += `
-
-            <div class="byte-cell ${
-              changed
-              ? "changed"
-              : "unchanged"
-            }">
-
-              <div class="index">
-              BYTE ${index}
-              </div>
-
-              <div class="value">
-
-              ${
-                changed
-                ? "🔄"
-                : "🔒"
-              }
-
-              </div>
-
-              <div class="small">
-
-              ${
-                changed
-                ? stat.changes +
-                  " cambio(s)"
-                : "sin cambios"
-              }
-
-              </div>
-
-              <div class="small code">
-
-              ${
-                uniqueValues ||
-                "—"
-              }
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      );
-
-      html += `
-
-          </div>
-
-        </div>
-
-      `;
-
-    }
-  );
-
-  if(!html){
-
-    html =
-      "<div class='small'>Aún no hay dos tramas comparables del mismo grupo.</div>";
-
-  }
-
-  box.innerHTML =
-    html;
-
-}
 
 /* =========================================================
    TX MANUAL
@@ -1874,12 +2581,13 @@ async function sendHex(){
   if(!writeCharacteristic){
 
     alert(
-      "El canal WRITE no está preparado."
+      "No existe una característica WRITE disponible."
     );
 
     return;
 
   }
+
 
   try{
 
@@ -1888,9 +2596,37 @@ async function sendHex(){
         $("hexInput").value
       );
 
-    await writeCharacteristic.writeValue(
-      bytes
-    );
+
+    /*
+       Elegir método según propiedades.
+    */
+
+    if(
+      writeCharacteristic
+        .properties
+        .write
+    ){
+
+      await writeCharacteristic
+        .writeValue(bytes);
+
+    }else if(
+      writeCharacteristic
+        .properties
+        .writeWithoutResponse
+    ){
+
+      await writeCharacteristic
+        .writeValueWithoutResponse(bytes);
+
+    }else{
+
+      throw new Error(
+        "La característica TX no permite escritura."
+      );
+
+    }
+
 
     const packet = {
 
@@ -1901,7 +2637,11 @@ async function sendHex(){
         "TX",
 
       transport:
-        "WRITE",
+        writeCharacteristic
+          .properties
+          .write
+          ? "WRITE"
+          : "WRITE WITHOUT RESPONSE",
 
       bytes:
         Array.from(bytes),
@@ -1914,21 +2654,27 @@ async function sendHex(){
 
     };
 
+
     txPackets.push(packet);
+
     packets.push(packet);
 
     lastTx =
       packet;
 
+
     $("hexInput").value =
       "";
 
+
     updateAllAnalysis();
+
 
     log(
       "📤 TX MANUAL ENVIADO | " +
       hex(bytes)
     );
+
 
   }catch(error){
 
@@ -1944,6 +2690,7 @@ async function sendHex(){
   }
 
 }
+
 
 /* =========================================================
    ACTUALIZACIÓN GLOBAL
@@ -1969,6 +2716,10 @@ function updateAllAnalysis(){
 
   renderComparison();
 
+  renderComparisonHistory();
+
+  renderChangeMatrix();
+
   renderChecksum();
 
   renderSequence();
@@ -1977,9 +2728,10 @@ function updateAllAnalysis(){
 
   renderRelations();
 
-  renderDifferentialAnalysis();
+  renderAccumulatedComparison();
 
 }
+
 
 /* =========================================================
    ESTADÍSTICAS
@@ -1990,13 +2742,17 @@ function updateStats(){
   $("txCount").textContent =
     txPackets.length;
 
+
   $("rxCount").textContent =
     rxPackets.length;
 
+
   $("spontCount").textContent =
     rxPackets.filter(
-      p => p.type === "SPONTÁNEO"
+      p =>
+        p.type === "SPONTÁNEO"
     ).length;
+
 
   $("responseCount").textContent =
     rxPackets.filter(
@@ -2005,56 +2761,65 @@ function updateStats(){
         "RESPUESTA PROBABLE"
     ).length;
 
+
   $("echoCount").textContent =
     rxPackets.filter(
-      p => p.type === "ECO"
+      p =>
+        p.type === "ECO"
     ).length;
+
 
   const types =
     new Set(
       rxPackets.map(
-        p => getFrameType(p.bytes)
+        p =>
+          getFrameType(p.bytes)
       )
     );
+
 
   const lengths =
     new Set(
       rxPackets.map(
-        p => p.bytes.length
+        p =>
+          p.bytes.length
       )
     );
+
 
   const patterns =
     new Set(
       rxPackets.map(
-        p => hex(p.bytes)
+        p =>
+          hex(p.bytes)
       )
     );
+
 
   $("typeCount").textContent =
     types.size;
 
+
   $("lengthCount").textContent =
     lengths.size;
+
 
   $("patternCount").textContent =
     patterns.size;
 
+
   $("comparisonCount").textContent =
-    differenceHistory.length;
+    comparisonCount;
+
 
   $("changedByteCount").textContent =
-    differenceHistory.reduce(
-      (total,d) =>
-        total +
-        d.differences.length,
-      0
-    );
+    changedByteCount;
 
 }
 
+
 /* =========================================================
-   TIPO DE TRAMA
+   TIPO
 ========================================================= */
 
 function getFrameType(bytes){
@@ -2066,10 +2831,12 @@ function getFrameType(bytes){
 
 }
 
+
 function renderFrameTypes(){
 
   const box =
     $("frameTypes");
+
 
   if(!rxPackets.length){
 
@@ -2080,20 +2847,25 @@ function renderFrameTypes(){
 
   }
 
+
   const map =
     new Map();
+
 
   rxPackets.forEach(p => {
 
     const type =
       getFrameType(p.bytes);
 
+
     if(!map.has(type))
       map.set(type,[]);
+
 
     map.get(type).push(p);
 
   });
+
 
   let html = `
 
@@ -2114,6 +2886,7 @@ function renderFrameTypes(){
 
   `;
 
+
   for(
     const [type,list]
     of map
@@ -2126,16 +2899,21 @@ function renderFrameTypes(){
         100
       ).toFixed(1);
 
+
     const lengths =
       [
         ...new Set(
           list.map(
-            p => p.bytes.length
+            p =>
+              p.bytes.length
           )
         )
       ]
-      .sort((a,b)=>a-b)
+      .sort(
+        (a,b)=>a-b
+      )
       .join(", ");
+
 
     html += `
 
@@ -2165,15 +2943,18 @@ function renderFrameTypes(){
 
   }
 
+
   html += `
       </tbody>
     </table>
   `;
 
+
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    LONGITUD
@@ -2184,6 +2965,7 @@ function renderLengthAnalysis(){
   const box =
     $("lengthAnalysis");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
@@ -2193,47 +2975,24 @@ function renderLengthAnalysis(){
 
   }
 
-  const map =
-    new Map();
-
-  rxPackets.forEach(p => {
-
-    const real =
-      p.bytes.length;
-
-    const declared =
-      p.bytes.length > 2
-      ? p.bytes[2]
-      : null;
-
-    const expected =
-      declared !== null
-      ? declared + 3
-      : null;
-
-    if(!map.has(real))
-      map.set(real,[]);
-
-    map.get(real).push({
-      packet:p,
-      declared,
-      expected
-    });
-
-  });
 
   let html = `
 
     <div class="info-box">
 
-      <b>
-      Regla observada:
-      </b>
+      <b>Regla observada:</b>
 
       <br><br>
 
       <span class="code">
       Byte 2 + 3 = longitud total
+      </span>
+
+      <br><br>
+
+      <span class="small">
+      Esta regla se presenta como observación experimental,
+      no como significado confirmado.
       </span>
 
     </div>
@@ -2245,6 +3004,7 @@ function renderLengthAnalysis(){
         <tr>
           <th>Longitud real</th>
           <th>Byte 2</th>
+          <th>Calculada</th>
           <th>Resultado</th>
           <th>Veces</th>
         </tr>
@@ -2255,69 +3015,111 @@ function renderLengthAnalysis(){
 
   `;
 
+
+  const map =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const real =
+      p.bytes.length;
+
+
+    if(!map.has(real))
+      map.set(real,[]);
+
+
+    map.get(real).push(p);
+
+  });
+
+
   for(
     const [real,list]
     of map
   ){
 
-    const examples =
-      list.slice(0,5);
+    const p =
+      list[0];
 
-    examples.forEach(item => {
 
-      let result =
-        "—";
+    const declared =
+      p.bytes.length > 2
+      ? p.bytes[2]
+      : null;
 
-      if(item.expected !== null){
 
-        result =
-          item.expected === real
-          ? "<span class='green'>🟢 COINCIDE</span>"
-          : "<span class='yellow'>🟡 NO COINCIDE</span>";
+    const expected =
+      declared !== null
+      ? declared + 3
+      : null;
 
-      }
 
-      html += `
+    let result =
+      "—";
 
-        <tr>
 
-          <td>
-            ${real}
-          </td>
+    if(expected !== null){
 
-          <td>
-            ${
-              item.declared !== null
-              ? fmt(item.declared)
-              : "—"
-            }
-          </td>
+      result =
+        expected === real
+        ? "<span class='green'>🟢 COINCIDE</span>"
+        : "<span class='yellow'>🟡 NO COINCIDE</span>";
 
-          <td>
-            ${result}
-          </td>
+    }
 
-          <td>
-            ${list.length}
-          </td>
 
-        </tr>
+    html += `
 
-      `;
+      <tr>
 
-    });
+        <td>
+        ${real}
+        </td>
+
+        <td>
+        ${
+          declared !== null
+          ? fmt(declared)
+          : "—"
+        }
+        </td>
+
+        <td>
+        ${
+          expected !== null
+          ? expected
+          : "—"
+        }
+        </td>
+
+        <td>
+        ${result}
+        </td>
+
+        <td>
+        ${list.length}
+        </td>
+
+      </tr>
+
+    `;
 
   }
+
 
   html += `
       </tbody>
     </table>
   `;
 
+
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    ESTRUCTURA
@@ -2328,6 +3130,7 @@ function renderStructure(){
   const box =
     $("structure");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
@@ -2337,38 +3140,47 @@ function renderStructure(){
 
   }
 
+
   const unique =
     new Map();
+
 
   rxPackets.forEach(p => {
 
     const key =
       hex(p.bytes);
 
+
     if(!unique.has(key))
       unique.set(key,p);
 
   });
 
+
   let html = "";
+
 
   unique.forEach(p => {
 
     const b =
       p.bytes;
 
+
     const declared =
       b.length > 2
       ? b[2]
       : null;
+
 
     const expected =
       declared !== null
       ? declared + 3
       : null;
 
+
     const lengthOK =
       expected === b.length;
+
 
     html += `
 
@@ -2392,8 +3204,8 @@ function renderStructure(){
             <td>
               ${
                 b[0] === 0xAB
-                ? "<span class='green'>Cabecera AB observada</span>"
-                : "No AB"
+                ? "<span class='green'>AB observado</span>"
+                : "Valor observado"
               }
             </td>
           </tr>
@@ -2406,7 +3218,7 @@ function renderStructure(){
               </span>
             </td>
             <td>
-              Campo aún desconocido
+              Campo no determinado.
             </td>
           </tr>
 
@@ -2418,7 +3230,7 @@ function renderStructure(){
               </span>
             </td>
             <td>
-              Longitud declarada
+              Valor observado relacionado con longitud.
             </td>
           </tr>
 
@@ -2430,7 +3242,7 @@ function renderStructure(){
               </span>
             </td>
             <td>
-              Campo observado
+              Valor observado.
             </td>
           </tr>
 
@@ -2442,7 +3254,7 @@ function renderStructure(){
               </span>
             </td>
             <td>
-              Tipo observado
+              Tipo utilizado para agrupar comparaciones.
             </td>
           </tr>
 
@@ -2465,6 +3277,7 @@ function renderStructure(){
         <br>
 
         <b>Comprobación:</b>
+
         ${
           expected === null
           ? "—"
@@ -2493,19 +3306,22 @@ function renderStructure(){
 
   });
 
+
   box.innerHTML =
     html;
 
 }
 
+
 /* =========================================================
-   CAMPOS FIJOS VARIABLES
+   CAMPOS FIJOS / VARIABLES
 ========================================================= */
 
 function renderFieldAnalysis(){
 
   const box =
     $("fieldAnalysis");
+
 
   if(rxPackets.length < 2){
 
@@ -2516,126 +3332,159 @@ function renderFieldAnalysis(){
 
   }
 
+
   const groups =
     new Map();
+
 
   rxPackets.forEach(p => {
 
     const type =
       getFrameType(p.bytes);
 
+
     const length =
       p.bytes.length;
 
+
     const key =
-      type + "|" + length;
+      type +
+      "|" +
+      length;
+
 
     if(!groups.has(key))
       groups.set(key,[]);
+
 
     groups.get(key).push(p);
 
   });
 
+
   let html = "";
 
-  groups.forEach((list,key) => {
 
-    if(list.length < 2)
-      return;
+  groups.forEach(
+    (list,key) => {
 
-    const max =
-      Math.max(
-        ...list.map(
-          p => p.bytes.length
-        )
-      );
+      if(list.length < 2)
+        return;
 
-    const [type,length] =
-      key.split("|");
 
-    html += `
+      const [
+        type,
+        length
+      ] =
+        key.split("|");
 
-      <div class="packet">
 
-        <h3>
-        Tipo 0x${type} · ${length} bytes
-        </h3>
-
-        <div class="byte-grid">
-    `;
-
-    for(let i=0;i<max;i++){
-
-      const values =
-        list
-          .map(
-            p => p.bytes[i]
+      const max =
+        Math.max(
+          ...list.map(
+            p =>
+              p.bytes.length
           )
-          .filter(
-            v => v !== undefined
-          );
+        );
 
-      const unique =
-        [...new Set(values)];
-
-      const isVariable =
-        unique.length > 1;
-
-      const valueText =
-        unique
-          .map(
-            v => fmt(v)
-          )
-          .join(" · ");
 
       html += `
 
-        <div class="byte-cell ${
-          isVariable
-          ? "variable"
-          : "constant"
-        }">
+        <div class="packet">
 
-          <div class="index">
-          BYTE ${i}
-          </div>
+          <h3>
+          Tipo 0x${type} · ${length} bytes
+          </h3>
 
-          <div class="value">
-          ${valueText || "—"}
-          </div>
+          <div class="byte-grid">
 
-          <div class="small">
+      `;
 
-          ${
+
+      for(
+        let i=0;
+        i<max;
+        i++
+      ){
+
+        const values =
+          list
+            .map(
+              p =>
+                p.bytes[i]
+            )
+            .filter(
+              v =>
+                v !== undefined
+            );
+
+
+        const unique =
+          [
+            ...new Set(values)
+          ];
+
+
+        const isVariable =
+          unique.length > 1;
+
+
+        html += `
+
+          <div class="byte-cell ${
             isVariable
-            ? "VARIABLE"
-            : "FIJO"
-          }
+            ? "variable"
+            : "constant"
+          }">
+
+            <div class="index">
+            BYTE ${i}
+            </div>
+
+            <div class="value">
+            ${
+              unique
+                .map(
+                  v =>
+                    fmt(v)
+                )
+                .join(" · ")
+            }
+            </div>
+
+            <div class="small">
+            ${
+              isVariable
+              ? "VARIABLE"
+              : "FIJO"
+            }
+            </div>
 
           </div>
+
+        `;
+
+      }
+
+
+      html += `
+
+          </div>
+
+          <br>
+
+          <span class="small">
+          ${list.length}
+          tramas comparadas dentro de este grupo.
+          </span>
 
         </div>
 
       `;
 
     }
+  );
 
-    html += `
-
-        </div>
-
-        <br>
-
-        <span class="small">
-        ${list.length} tramas comparadas.
-        </span>
-
-      </div>
-
-    `;
-
-  });
 
   if(!html){
 
@@ -2644,10 +3493,12 @@ function renderFieldAnalysis(){
 
   }
 
+
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    ANÁLISIS POR TIPO
@@ -2658,6 +3509,7 @@ function renderTypeAnalysis(){
   const box =
     $("typeAnalysis");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
@@ -2667,89 +3519,106 @@ function renderTypeAnalysis(){
 
   }
 
+
   const map =
     new Map();
+
 
   rxPackets.forEach(p => {
 
     const type =
       getFrameType(p.bytes);
 
+
     if(!map.has(type))
       map.set(type,[]);
+
 
     map.get(type).push(p);
 
   });
 
+
   let html = "";
 
-  map.forEach((list,type) => {
 
-    const lengths =
-      [
-        ...new Set(
-          list.map(
-            p => p.bytes.length
+  map.forEach(
+    (list,type) => {
+
+      const lengths =
+        [
+          ...new Set(
+            list.map(
+              p =>
+                p.bytes.length
+            )
           )
-        )
-      ]
-      .sort((a,b)=>a-b);
+        ]
+        .sort(
+          (a,b)=>a-b
+        );
 
-    const first =
-      list[0];
 
-    const last =
-      list[list.length-1];
+      const first =
+        list[0];
 
-    html += `
 
-      <div class="packet">
+      const last =
+        list[list.length-1];
 
-        <h3>
-        <span class="badge blue">
-        TIPO 0x${type}
-        </span>
-        </h3>
 
-        <b>Tramas:</b>
-        ${list.length}
+      html += `
 
-        <br>
+        <div class="packet">
 
-        <b>Longitudes:</b>
-        ${lengths.join(", ")} bytes
+          <h3>
+          <span class="badge blue">
+          TIPO 0x${type}
+          </span>
+          </h3>
 
-        <br>
+          <b>Tramas:</b>
+          ${list.length}
 
-        <b>Primera:</b>
-        ${first.time}
+          <br>
 
-        <br>
+          <b>Longitudes:</b>
+          ${lengths.join(", ")}
+          bytes
 
-        <b>Última:</b>
-        ${last.time}
+          <br>
 
-        <br><br>
+          <b>Primera:</b>
+          ${first.time}
 
-        <b>Ejemplos:</b>
+          <br>
 
-        <br>
+          <b>Última:</b>
+          ${last.time}
 
-        <span class="code">
-        ${hex(first.bytes)}
-        </span>
+          <br><br>
 
-      </div>
+          <b>Ejemplo:</b>
 
-    `;
+          <br>
 
-  });
+          <span class="code">
+          ${hex(first.bytes)}
+          </span>
+
+        </div>
+
+      `;
+
+    }
+  );
+
 
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    PATRONES
@@ -2760,6 +3629,7 @@ function renderPatterns(){
   const box =
     $("patterns");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
@@ -2769,20 +3639,25 @@ function renderPatterns(){
 
   }
 
+
   const map =
     new Map();
+
 
   rxPackets.forEach(p => {
 
     const key =
       hex(p.bytes);
 
+
     if(!map.has(key))
       map.set(key,[]);
+
 
     map.get(key).push(p);
 
   });
+
 
   let html = `
 
@@ -2803,6 +3678,7 @@ function renderPatterns(){
 
   `;
 
+
   for(
     const [key,list]
     of map
@@ -2815,18 +3691,21 @@ function renderPatterns(){
         100
       ).toFixed(1);
 
+
     html += `
 
       <tr>
 
         <td>
           <span class="code">
-          ${key}
+          ${escapeHTML(key)}
           </span>
         </td>
 
         <td>
-          0x${getFrameType(list[0].bytes)}
+          0x${getFrameType(
+            list[0].bytes
+          )}
         </td>
 
         <td>
@@ -2843,15 +3722,18 @@ function renderPatterns(){
 
   }
 
+
   html += `
       </tbody>
     </table>
   `;
 
+
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    TIMING
@@ -2862,6 +3744,7 @@ function renderTiming(){
   const box =
     $("timingAnalysis");
 
+
   if(rxPackets.length < 2){
 
     box.innerHTML =
@@ -2871,42 +3754,63 @@ function renderTiming(){
 
   }
 
+
   const diffs = [];
 
-  for(let i=1;i<rxPackets.length;i++){
+
+  for(
+    let i=1;
+    i<rxPackets.length;
+    i++
+  ){
 
     const diff =
       rxPackets[i].timestamp -
       rxPackets[i-1].timestamp;
 
+
     diffs.push({
-      ms:diff,
-      from:rxPackets[i-1],
-      to:rxPackets[i]
+
+      ms:
+        diff,
+
+      from:
+        rxPackets[i-1],
+
+      to:
+        rxPackets[i]
+
     });
 
   }
 
+
   const average =
     diffs.reduce(
-      (a,b)=>a+b.ms,
+      (a,b)=>
+        a+b.ms,
       0
     ) /
     diffs.length;
 
+
   const min =
     Math.min(
       ...diffs.map(
-        d => d.ms
+        d =>
+          d.ms
       )
     );
+
 
   const max =
     Math.max(
       ...diffs.map(
-        d => d.ms
+        d =>
+          d.ms
       )
     );
+
 
   let html = `
 
@@ -2914,17 +3818,23 @@ function renderTiming(){
 
       <div class="stat">
         Intervalo medio
-        <b>${(average/1000).toFixed(3)} s</b>
+        <b>
+        ${(average/1000).toFixed(3)} s
+        </b>
       </div>
 
       <div class="stat">
         Mínimo
-        <b>${(min/1000).toFixed(3)} s</b>
+        <b>
+        ${(min/1000).toFixed(3)} s
+        </b>
       </div>
 
       <div class="stat">
         Máximo
-        <b>${(max/1000).toFixed(3)} s</b>
+        <b>
+        ${(max/1000).toFixed(3)} s
+        </b>
       </div>
 
     </div>
@@ -2936,9 +3846,8 @@ function renderTiming(){
       <thead>
 
         <tr>
-          <th>#</th>
-          <th>Tipo anterior</th>
-          <th>Tipo siguiente</th>
+          <th>Anterior</th>
+          <th>Siguiente</th>
           <th>Intervalo</th>
         </tr>
 
@@ -2948,25 +3857,26 @@ function renderTiming(){
 
   `;
 
+
   diffs
     .slice(-30)
     .reverse()
-    .forEach((d,index) => {
+    .forEach(d => {
 
       html += `
 
         <tr>
 
           <td>
-          ${index+1}
+          0x${getFrameType(
+            d.from.bytes
+          )}
           </td>
 
           <td>
-          0x${getFrameType(d.from.bytes)}
-          </td>
-
-          <td>
-          0x${getFrameType(d.to.bytes)}
+          0x${getFrameType(
+            d.to.bytes
+          )}
           </td>
 
           <td>
@@ -2979,18 +3889,21 @@ function renderTiming(){
 
     });
 
+
   html += `
       </tbody>
     </table>
   `;
+
 
   box.innerHTML =
     html;
 
 }
 
+
 /* =========================================================
-   COMPARACIÓN ACUMULADA
+   ÚLTIMA COMPARACIÓN
 ========================================================= */
 
 function renderComparison(){
@@ -2998,7 +3911,402 @@ function renderComparison(){
   const box =
     $("comparison");
 
-  if(rxPackets.length < 2){
+
+  if(!comparisons.length){
+
+    box.innerHTML =
+      "<div class='small'>Esperando dos tramas comparables.</div>";
+
+    return;
+
+  }
+
+
+  const c =
+    comparisons[
+      comparisons.length-1
+    ];
+
+
+  let html = `
+
+    <div class="packet">
+
+      <h3>
+      🧪 COMPARACIÓN #${c.id}
+      </h3>
+
+      <b>Tipo:</b>
+      0x${c.type}
+
+      <br>
+
+      <b>Longitud:</b>
+      ${c.length} bytes
+
+      <br>
+
+      <b>Paquete anterior:</b>
+      #${c.previousPacket}
+
+      <br>
+
+      <b>Paquete nuevo:</b>
+      #${c.currentPacket}
+
+      <hr>
+
+      <b>A — anterior</b>
+
+      <br>
+
+      <span class="code">
+      ${hex(c.previousBytes)}
+      </span>
+
+      <br><br>
+
+      <b>B — nueva</b>
+
+      <br>
+
+      <span class="code">
+      ${hex(c.currentBytes)}
+      </span>
+
+      <hr>
+
+      <b>
+      🔎 CAMBIOS DETECTADOS:
+      ${c.changedCount}
+      </b>
+
+      <br><br>
+
+  `;
+
+
+  if(!c.differences.length){
+
+    html +=
+      `
+      <span class="green">
+      🟢 TRAMAS IDÉNTICAS
+      </span>
+      `;
+
+  }else{
+
+    c.differences.forEach(d => {
+
+      html += `
+
+        <div class="info-box">
+
+          <b>
+          BYTE ${d.index}
+          </b>
+
+          <br><br>
+
+          <span class="diff-old">
+          ${fmt(d.oldValue)}
+          </span>
+
+          →
+
+          <span class="diff-new">
+          ${fmt(d.newValue)}
+          </span>
+
+        </div>
+
+      `;
+
+    });
+
+  }
+
+
+  html += `
+
+      <hr>
+
+      <span class="small">
+      La diferencia demuestra únicamente que el valor cambió.
+      No asigna significado funcional al byte.
+      </span>
+
+    </div>
+
+  `;
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   HISTORIAL
+========================================================= */
+
+function renderComparisonHistory(){
+
+  const box =
+    $("comparisonHistory");
+
+
+  if(!comparisons.length){
+
+    box.innerHTML =
+      "<div class='small'>Todavía no existen comparaciones.</div>";
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  comparisons
+    .slice()
+    .reverse()
+    .slice(0,50)
+    .forEach(c => {
+
+      html += `
+
+        <div class="packet">
+
+          <b>
+          Comparación #${c.id}
+          </b>
+
+          ·
+
+          <span class="badge blue">
+          0x${c.type}
+          </span>
+
+          ·
+          ${c.length} bytes
+
+          <br><br>
+
+          Paquete
+          #${c.previousPacket}
+          →
+          #${c.currentPacket}
+
+          <br>
+
+          Cambios:
+          <strong>
+          ${c.changedCount}
+          </strong>
+
+          <br><br>
+
+          ${
+            c.changedCount
+            ? c.differences
+                .map(
+                  d =>
+                  `
+                  <span class="code">
+                  Byte ${d.index}:
+                  ${fmt(d.oldValue)}
+                  →
+                  ${fmt(d.newValue)}
+                  </span>
+                  <br>
+                  `
+                )
+                .join("")
+            : `
+              <span class="green">
+              🟢 Sin cambios
+              </span>
+            `
+          }
+
+        </div>
+
+      `;
+
+    });
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   MATRIZ DE CAMBIOS
+========================================================= */
+
+function renderChangeMatrix(){
+
+  const box =
+    $("changeMatrix");
+
+
+  if(!changeMatrix.size){
+
+    box.innerHTML =
+      "<div class='small'>Esperando datos comparables.</div>";
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  changeMatrix.forEach(
+    (matrix,key) => {
+
+      const [
+        type,
+        length
+      ] =
+        key.split("|");
+
+
+      const positions =
+        matrix.positions;
+
+
+      const sorted =
+        Object.keys(positions)
+          .map(Number)
+          .sort(
+            (a,b)=>a-b
+          );
+
+
+      html += `
+
+        <div class="packet">
+
+          <h3>
+          0x${type} / ${length} bytes
+          </h3>
+
+          <b>
+          Comparaciones:
+          ${matrix.comparisons}
+          </b>
+
+          <br><br>
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Byte</th>
+                <th>Cambios</th>
+                <th>Estado</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+      `;
+
+
+      if(!sorted.length){
+
+        html += `
+
+          <tr>
+
+            <td colspan="3">
+
+              <span class="green">
+              🟢 Ninguna posición ha cambiado.
+              </span>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }else{
+
+        sorted.forEach(index => {
+
+          const count =
+            positions[index];
+
+
+          html += `
+
+            <tr>
+
+              <td>
+              Byte ${index}
+              </td>
+
+              <td>
+              ${count}
+              </td>
+
+              <td>
+              <span class="yellow">
+              VARIABLE OBSERVADA
+              </span>
+              </td>
+
+            </tr>
+
+          `;
+
+        });
+
+      }
+
+
+      html += `
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      `;
+
+    }
+  );
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   COMPARACIÓN ACUMULADA
+========================================================= */
+
+function renderAccumulatedComparison(){
+
+  const box =
+    $("accumulatedComparison");
+
+
+  if(!comparisons.length){
 
     box.innerHTML =
       "<div class='small'>Esperando RX.</div>";
@@ -3007,113 +4315,147 @@ function renderComparison(){
 
   }
 
-  const a =
-    rxPackets[rxPackets.length-2];
 
-  const b =
-    rxPackets[rxPackets.length-1];
+  const grouped =
+    new Map();
 
-  const max =
-    Math.max(
-      a.bytes.length,
-      b.bytes.length
-    );
 
-  const differences = [];
+  comparisons.forEach(c => {
 
-  for(let i=0;i<max;i++){
+    const key =
+      c.type +
+      "|" +
+      c.length;
 
-    const av =
-      a.bytes[i];
 
-    const bv =
-      b.bytes[i];
+    if(!grouped.has(key))
+      grouped.set(
+        key,
+        []
+      );
 
-    if(av !== bv){
 
-      differences.push({
+    grouped.get(key).push(c);
 
-        index:i,
-        a:av,
-        b:bv
+  });
+
+
+  let html = "";
+
+
+  grouped.forEach(
+    (list,key) => {
+
+      const [
+        type,
+        length
+      ] =
+        key.split("|");
+
+
+      let totalChanges = 0;
+
+
+      const positions =
+        new Map();
+
+
+      list.forEach(c => {
+
+        totalChanges +=
+          c.changedCount;
+
+
+        c.differences
+          .forEach(d => {
+
+            positions.set(
+              d.index,
+              (
+                positions.get(d.index) ||
+                0
+              ) + 1
+            );
+
+          });
 
       });
 
-    }
-
-  }
-
-  let html = `
-
-    <div class="packet">
-
-      <b>A:</b>
-
-      <br>
-
-      <span class="code">
-      ${hex(a.bytes)}
-      </span>
-
-      <br><br>
-
-      <b>B:</b>
-
-      <br>
-
-      <span class="code">
-      ${hex(b.bytes)}
-      </span>
-
-      <hr>
-
-      <b>
-      🔎 DIFERENCIAS
-      </b>
-
-      <br><br>
-
-  `;
-
-  if(!differences.length){
-
-    html +=
-      "<span class='green'>🟢 Tramas idénticas.</span>";
-
-  }else{
-
-    differences.forEach(d => {
 
       html += `
 
-        Byte ${d.index}:
+        <div class="packet">
 
-        <span class="code">
-        ${fmt(d.a)}
-        </span>
+          <h3>
+          0x${type} / ${length} bytes
+          </h3>
 
-        →
+          <b>Comparaciones:</b>
+          ${list.length}
 
-        <span class="code">
-        ${fmt(d.b)}
-        </span>
+          <br>
 
-        <br>
+          <b>Total de cambios:</b>
+          ${totalChanges}
+
+          <br><br>
+
+          <b>Posiciones que han cambiado:</b>
+
+          <br><br>
 
       `;
 
-    });
 
-  }
+      if(!positions.size){
 
-  html += `
-    </div>
-  `;
+        html +=
+          `
+          <span class="green">
+          🟢 Ningún byte cambió en las comparaciones.
+          </span>
+          `;
+
+      }else{
+
+        const arr =
+          [...positions.entries()]
+            .sort(
+              (a,b)=>a[0]-b[0]
+            );
+
+
+        arr.forEach(
+          ([index,count]) => {
+
+            html += `
+
+              <span class="highlight">
+              Byte ${index}
+              · ${count} cambios
+              </span>
+
+            `;
+
+          }
+        );
+
+      }
+
+
+      html += `
+        </div>
+      `;
+
+    }
+  );
+
 
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    CHECKSUM
@@ -3124,13 +4466,19 @@ function checksumCandidates(bytes){
   if(bytes.length < 2)
     return [];
 
+
   const last =
-    bytes[bytes.length-1];
+    bytes[
+      bytes.length-1
+    ];
+
 
   const result = [];
 
+
   let sumAll =
     0;
+
 
   for(
     let i=0;
@@ -3139,10 +4487,14 @@ function checksumCandidates(bytes){
   ){
 
     sumAll =
-      (sumAll + bytes[i]) &
+      (
+        sumAll +
+        bytes[i]
+      ) &
       0xFF;
 
   }
+
 
   result.push({
 
@@ -3157,8 +4509,10 @@ function checksumCandidates(bytes){
 
   });
 
+
   let xorAll =
     0;
+
 
   for(
     let i=0;
@@ -3170,6 +4524,7 @@ function checksumCandidates(bytes){
       bytes[i];
 
   }
+
 
   result.push({
 
@@ -3184,8 +4539,10 @@ function checksumCandidates(bytes){
 
   });
 
+
   let sum1 =
     0;
+
 
   for(
     let i=1;
@@ -3194,10 +4551,14 @@ function checksumCandidates(bytes){
   ){
 
     sum1 =
-      (sum1 + bytes[i]) &
+      (
+        sum1 +
+        bytes[i]
+      ) &
       0xFF;
 
   }
+
 
   result.push({
 
@@ -3212,8 +4573,10 @@ function checksumCandidates(bytes){
 
   });
 
+
   let xor1 =
     0;
+
 
   for(
     let i=1;
@@ -3225,6 +4588,7 @@ function checksumCandidates(bytes){
       bytes[i];
 
   }
+
 
   result.push({
 
@@ -3239,14 +4603,17 @@ function checksumCandidates(bytes){
 
   });
 
+
   return result;
 
 }
+
 
 function renderChecksum(){
 
   const box =
     $("checksum");
+
 
   if(!rxPackets.length){
 
@@ -3257,7 +4624,9 @@ function renderChecksum(){
 
   }
 
+
   let html = "";
+
 
   rxPackets
     .slice()
@@ -3270,15 +4639,21 @@ function renderChecksum(){
           p.bytes
         );
 
+
       const last =
-        p.bytes[p.bytes.length-1];
+        p.bytes[
+          p.bytes.length-1
+        ];
+
 
       html += `
 
         <div class="packet">
 
           <b>
-          0x${getFrameType(p.bytes)}
+          0x${getFrameType(
+            p.bytes
+          )}
           </b>
 
           ·
@@ -3298,6 +4673,7 @@ function renderChecksum(){
           <br><br>
 
       `;
+
 
       candidates.forEach(c => {
 
@@ -3321,16 +4697,19 @@ function renderChecksum(){
 
       });
 
+
       html += `
         </div>
       `;
 
     });
 
+
   box.innerHTML =
     html;
 
 }
+
 
 /* =========================================================
    SECUENCIA
@@ -3341,6 +4720,7 @@ function renderSequence(){
   const box =
     $("sequence");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
@@ -3350,13 +4730,18 @@ function renderSequence(){
 
   }
 
+
   const sequence =
     rxPackets
       .map(
-        p => "0x" +
-        getFrameType(p.bytes)
+        p =>
+          "0x" +
+          getFrameType(
+            p.bytes
+          )
       )
       .join(" → ");
+
 
   box.innerHTML = `
 
@@ -3367,7 +4752,7 @@ function renderSequence(){
       <br><br>
 
       <span class="code">
-      ${sequence}
+      ${escapeHTML(sequence)}
       </span>
 
     </div>
@@ -3375,6 +4760,7 @@ function renderSequence(){
   `;
 
 }
+
 
 /* =========================================================
    PAQUETES
@@ -3385,6 +4771,7 @@ function renderPackets(){
   const box =
     $("packets");
 
+
   if(!packets.length){
 
     box.innerHTML =
@@ -3393,6 +4780,7 @@ function renderPackets(){
     return;
 
   }
+
 
   box.innerHTML =
     packets
@@ -3405,15 +4793,18 @@ function renderPackets(){
           ? "tx"
           : "rx";
 
+
         if(
           p.type === "SPONTÁNEO"
         )
           cls = "spont";
 
+
         if(
           p.type === "ECO"
         )
           cls = "echo";
+
 
         if(
           p.type ===
@@ -3421,8 +4812,6 @@ function renderPackets(){
         )
           cls = "response";
 
-        const h =
-          hex(p.bytes);
 
         return `
 
@@ -3443,14 +4832,20 @@ function renderPackets(){
             ${
               p.direction === "RX"
               ? " · NOTIFY"
-              : " · WRITE"
+              : " · " +
+                escapeHTML(
+                  p.transport ||
+                  "WRITE"
+                )
             }
 
             ${
               p.direction === "RX"
               ? `
                 <span class="badge blue">
-                TIPO 0x${getFrameType(p.bytes)}
+                TIPO 0x${getFrameType(
+                  p.bytes
+                )}
                 </span>
               `
               : ""
@@ -3460,7 +4855,9 @@ function renderPackets(){
               p.type
               ? `
                 <span class="badge">
-                ${p.type}
+                ${escapeHTML(
+                  p.type
+                )}
                 </span>
               `
               : ""
@@ -3473,7 +4870,7 @@ function renderPackets(){
             <br>
 
             <span class="code">
-            ${h}
+            ${hex(p.bytes)}
             </span>
 
             <br><br>
@@ -3486,7 +4883,9 @@ function renderPackets(){
 
             <b>ASCII:</b>
 
-            ${ascii(p.bytes)}
+            ${escapeHTML(
+              ascii(p.bytes)
+            )}
 
             <br><br>
 
@@ -3498,6 +4897,7 @@ function renderPackets(){
               p.relation
               ? `
                 <br>
+
                 <span class="green">
                 RX ← TX #${p.relation}
                 </span>
@@ -3514,6 +4914,7 @@ function renderPackets(){
 
 }
 
+
 /* =========================================================
    RELACIONES
 ========================================================= */
@@ -3523,10 +4924,13 @@ function renderRelations(){
   const box =
     $("relations");
 
+
   const related =
     rxPackets.filter(
-      p => p.relation
+      p =>
+        p.relation
     );
+
 
   if(!related.length){
 
@@ -3536,6 +4940,7 @@ function renderRelations(){
     return;
 
   }
+
 
   box.innerHTML =
     related
@@ -3549,6 +4954,7 @@ function renderRelations(){
               t.number ===
               rx.relation
           );
+
 
         return `
 
@@ -3587,7 +4993,9 @@ function renderRelations(){
             <br><br>
 
             <span class="green">
-            ${rx.type}
+            ${escapeHTML(
+              rx.type
+            )}
             </span>
 
           </div>
@@ -3598,6 +5006,7 @@ function renderRelations(){
       .join("");
 
 }
+
 
 /* =========================================================
    DESCONECTAR
@@ -3617,6 +5026,7 @@ function disconnect(){
 
     }
 
+
     if(
       device &&
       device.gatt &&
@@ -3629,44 +5039,68 @@ function disconnect(){
 
   }catch(e){}
 
+
   handleDisconnect();
 
 }
+
 
 function handleDisconnect(){
 
   connected =
     false;
 
+
   writeCharacteristic =
     null;
+
 
   notifyCharacteristic =
     null;
 
+
+  discoveredCharacteristics =
+    [];
+
+
   service =
     null;
+
 
   server =
     null;
 
+
   $("connectionStatus").innerHTML =
     "<span class='yellow'>⚪ Smart Band desconectada</span>";
+
 
   $("disconnectBtn").disabled =
     true;
 
+
   $("sendBtn").disabled =
     true;
 
+
   $("uartInfo").innerHTML =
     "Canal UART desconectado.";
+
+
+  $("txCharacteristicInfo").innerHTML =
+    "TX todavía no identificado.";
+
+
+  $("bleDiscovery").innerHTML =
+    "<div class='small'>Desconectado.</div>";
+
 
   log(
     "🔌 GATT desconectado."
   );
 
 }
+
 
 /* =========================================================
    LIMPIAR CAPTURAS
@@ -3684,97 +5118,81 @@ function clearPackets(){
 
   lastTx = null;
 
-  differentialState.clear();
+  comparisons = [];
 
-  differenceHistory = [];
+  comparisonCount = 0;
+
+  changedByteCount = 0;
+
+  previousComparable.clear();
+
+  changeMatrix.clear();
+
 
   updateAllAnalysis();
 
+
   log(
-    "🧹 Historial de capturas y análisis diferencial limpiado."
+    "🧹 Historial de capturas y comparaciones limpiado."
   );
 
 }
+
 
 /* =========================================================
    EXPORTACIÓN JSON
 ========================================================= */
 
-function serializeDifferentialState(){
+function buildExport(){
 
-  const result = {};
+  const typeMap = {};
 
-  differentialState.forEach(
-    (state,key) => {
 
-      result[key] = {
+  rxPackets.forEach(p => {
 
-        type:
-          state.type,
+    const type =
+      getFrameType(
+        p.bytes
+      );
 
-        length:
-          state.length,
 
-        count:
-          state.count,
+    if(!typeMap[type])
+      typeMap[type] = 0;
+
+
+    typeMap[type]++;
+
+  });
+
+
+  const matrixObject = {};
+
+
+  changeMatrix.forEach(
+    (value,key) => {
+
+      matrixObject[key] = {
 
         comparisons:
-          state.comparisons,
+          value.comparisons,
 
-        changedBytes:
-          state.changedBytes,
-
-        lastPacket:
-          state.lastPacket,
-
-        byteStats:
-          state.byteStats.map(stat => ({
-
-            comparisons:
-              stat.comparisons,
-
-            changes:
-              stat.changes,
-
-            values:
-              [...stat.values].map(
-                v => fmt(v)
-              )
-
-          }))
+        positions:
+          value.positions
 
       };
 
     }
   );
 
-  return result;
-
-}
-
-function buildExport(){
-
-  const typeMap = {};
-
-  rxPackets.forEach(p => {
-
-    const type =
-      getFrameType(p.bytes);
-
-    if(!typeMap[type])
-      typeMap[type] = 0;
-
-    typeMap[type]++;
-
-  });
 
   return JSON.stringify({
 
     application:
-      "RoXThal F1 Plus Protocol Laboratory v3 Differential",
+      "RoXThal F1 Plus Protocol Laboratory v4",
 
     exportDate:
       new Date().toISOString(),
+
 
     device:{
 
@@ -3790,18 +5208,37 @@ function buildExport(){
 
     },
 
+
     bluetooth:{
 
       service:
         UUID_SERVICE,
 
-      write:
-        UUID_WRITE,
+      discoveredCharacteristics:
+        discoveredCharacteristics.map(
+          c => ({
 
-      notify:
-        UUID_NOTIFY
+            uuid:
+              c.uuid,
+
+            properties:
+              c.properties
+
+          })
+        ),
+
+      selectedRX:
+        notifyCharacteristic
+        ? notifyCharacteristic.uuid
+        : null,
+
+      selectedTX:
+        writeCharacteristic
+        ? writeCharacteristic.uuid
+        : null
 
     },
+
 
     statistics:{
 
@@ -3813,7 +5250,8 @@ function buildExport(){
 
       spontaneous:
         rxPackets.filter(
-          p => p.type === "SPONTÁNEO"
+          p =>
+            p.type === "SPONTÁNEO"
         ).length,
 
       responses:
@@ -3825,53 +5263,51 @@ function buildExport(){
 
       echoes:
         rxPackets.filter(
-          p => p.type === "ECO"
+          p =>
+            p.type === "ECO"
         ).length,
 
       types:
         Object.keys(typeMap).length,
 
       comparisons:
-        differenceHistory.length,
+        comparisonCount,
 
       changedBytes:
-        differenceHistory.reduce(
-          (total,d) =>
-            total +
-            d.differences.length,
-          0
-        )
+        changedByteCount
 
     },
+
 
     detectedTypes:
       typeMap,
 
-    differentialState:
-      serializeDifferentialState(),
 
-    differenceHistory:
-      differenceHistory,
+    comparisons:
+      comparisons,
+
+
+    changeMatrix:
+      matrixObject,
+
 
     packets:
       packets,
 
+
     protocolObservations:{
 
       frameHeader:
-        "AB observado en las capturas disponibles",
+        "AB observado en las capturas disponibles.",
 
       byte2LengthHypothesis:
-        "Byte 2 + 3 parece coincidir con la longitud total en las capturas disponibles",
-
-      byte3:
-        "FF observado en las capturas disponibles",
-
-      differentialMethod:
-        "Cada trama se compara con la captura anterior del mismo tipo y longitud.",
+        "Byte 2 + 3 parece coincidir con la longitud total en las capturas disponibles.",
 
       warning:
-        "Los significados funcionales de los campos no están confirmados."
+        "Los significados funcionales de los campos no están confirmados.",
+
+      differentialMethod:
+        "Cada trama se compara con la trama anterior del mismo tipo y longitud."
 
     }
 
@@ -3879,10 +5315,12 @@ function buildExport(){
 
 }
 
+
 function exportAnalysis(){
 
   const content =
     buildExport();
+
 
   const blob =
     new Blob(
@@ -3893,21 +5331,29 @@ function exportAnalysis(){
       }
     );
 
+
   const url =
     URL.createObjectURL(blob);
+
 
   const a =
     document.createElement("a");
 
+
   a.href =
     url;
 
+
   a.download =
-    "F1-Plus-Laboratory-v3-" +
+    "F1-Plus-Laboratory-v4-" +
     new Date()
       .toISOString()
-      .replace(/[:.]/g,"-") +
+      .replace(
+        /[:.]/g,
+        "-"
+      ) +
     ".json";
+
 
   document.body.appendChild(a);
 
@@ -3915,13 +5361,16 @@ function exportAnalysis(){
 
   a.remove();
 
+
   URL.revokeObjectURL(url);
 
+
   log(
-    "💾 Análisis JSON con diferencias exportado."
+    "💾 Análisis JSON exportado."
   );
 
 }
+
 
 /* =========================================================
    EXPORTAR HEX
@@ -3939,15 +5388,22 @@ function exportHex(){
 
   }
 
+
   const lines =
     rxPackets.map(p =>
+
       `${p.time} | ` +
-      `TIPO 0x${getFrameType(p.bytes)} | ` +
+      `TIPO 0x${getFrameType(
+        p.bytes
+      )} | ` +
       hex(p.bytes)
+
     );
+
 
   const content =
     lines.join("\n");
+
 
   const blob =
     new Blob(
@@ -3958,21 +5414,29 @@ function exportHex(){
       }
     );
 
+
   const url =
     URL.createObjectURL(blob);
+
 
   const a =
     document.createElement("a");
 
+
   a.href =
     url;
 
+
   a.download =
-    "F1-Plus-RX-" +
+    "F1-Plus-RX-v4-" +
     new Date()
       .toISOString()
-      .replace(/[:.]/g,"-") +
+      .replace(
+        /[:.]/g,
+        "-"
+      ) +
     ".txt";
+
 
   document.body.appendChild(a);
 
@@ -3980,13 +5444,16 @@ function exportHex(){
 
   a.remove();
 
+
   URL.revokeObjectURL(url);
+
 
   log(
     "📄 RX exportados en HEX."
   );
 
 }
+
 
 /* =========================================================
    COPIAR RESUMEN
@@ -3997,58 +5464,34 @@ async function copySummary(){
   const types =
     new Set(
       rxPackets.map(
-        p => getFrameType(p.bytes)
+        p =>
+          getFrameType(
+            p.bytes
+          )
       )
     );
+
 
   const lengths =
     new Set(
       rxPackets.map(
-        p => p.bytes.length
+        p =>
+          p.bytes.length
       )
     );
 
-  const totalChanges =
-    differenceHistory.reduce(
-      (total,d) =>
-        total +
-        d.differences.length,
-      0
-    );
 
-  let latestDifference =
-    "N/A";
+  const lastComparison =
+    comparisons.length
+    ? comparisons[
+        comparisons.length-1
+      ]
+    : null;
 
-  if(differenceHistory.length){
-
-    const d =
-      differenceHistory[
-        differenceHistory.length-1
-      ];
-
-    if(!d.differences.length){
-
-      latestDifference =
-        "Sin cambios";
-
-    }else{
-
-      latestDifference =
-        d.differences
-          .map(diff =>
-            `Byte ${diff.index}: ` +
-            `${fmt(diff.previous)} -> ` +
-            `${fmt(diff.current)}`
-          )
-          .join(" | ");
-
-    }
-
-  }
 
   const text = `
 
-RoXThal F1 Plus Protocol Laboratory v3
+RoXThal F1 Plus Protocol Laboratory v4
 
 DEVICE:
 ${device ? device.name : "N/A"}
@@ -4063,27 +5506,61 @@ TX:
 ${txPackets.length}
 
 TIPOS RX:
-${[...types].map(t=>"0x"+t).join(", ") || "N/A"}
+${
+  [...types]
+    .map(
+      t =>
+        "0x" + t
+    )
+    .join(", ")
+  ||
+  "N/A"
+}
 
 LONGITUDES:
-${[...lengths].join(", ") || "N/A"}
+${
+  [...lengths]
+    .join(", ")
+  ||
+  "N/A"
+}
 
-COMPARACIONES DIFERENCIALES:
-${differenceHistory.length}
+COMPARACIONES:
+${comparisonCount}
 
-CAMBIOS DE BYTES:
-${totalChanges}
+BYTES MODIFICADOS:
+${changedByteCount}
 
 ÚLTIMA COMPARACIÓN:
-${latestDifference}
+${
+  lastComparison
+  ? (
+      "#" +
+      lastComparison.id +
+      " | 0x" +
+      lastComparison.type +
+      " / " +
+      lastComparison.length +
+      " bytes | " +
+      lastComparison.changedCount +
+      " cambios"
+    )
+  : "N/A"
+}
 
 TRAMAS RX:
 
-${rxPackets.map(p =>
-  `${p.time} | ` +
-  `0x${getFrameType(p.bytes)} | ` +
-  hex(p.bytes)
-).join("\n")}
+${
+  rxPackets
+    .map(p =>
+      `${p.time} | ` +
+      `0x${getFrameType(
+        p.bytes
+      )} | ` +
+      hex(p.bytes)
+    )
+    .join("\n")
+}
 
 OBSERVACIÓN:
 Byte 2 + 3 coincide con la longitud total
@@ -4098,15 +5575,17 @@ como confirmado sin más evidencia.
 
 `;
 
+
   try{
 
-    await navigator.clipboard.writeText(
-      text
-    );
+    await navigator.clipboard
+      .writeText(text);
+
 
     log(
-      "📋 Resumen diferencial copiado."
+      "📋 Resumen copiado."
     );
+
 
   }catch(e){
 
@@ -4115,6 +5594,7 @@ como confirmado sin más evidencia.
   }
 
 }
+
 
 /* =========================================================
    EVENTOS
@@ -4126,11 +5606,13 @@ $("connectBtn")
     connect
   );
 
+
 $("disconnectBtn")
   .addEventListener(
     "click",
     disconnect
   );
+
 
 $("scanBtn")
   .addEventListener(
@@ -4138,11 +5620,13 @@ $("scanBtn")
     bluetoothCheck
   );
 
+
 $("sendBtn")
   .addEventListener(
     "click",
     sendHex
   );
+
 
 $("clearInputBtn")
   .addEventListener(
@@ -4155,11 +5639,13 @@ $("clearInputBtn")
     }
   );
 
+
 $("clearPacketsBtn")
   .addEventListener(
     "click",
     clearPackets
   );
+
 
 $("clearDiagnosticBtn")
   .addEventListener(
@@ -4172,11 +5658,13 @@ $("clearDiagnosticBtn")
     }
   );
 
+
 $("exportBtn")
   .addEventListener(
     "click",
     exportAnalysis
   );
+
 
 $("exportHexBtn")
   .addEventListener(
@@ -4184,11 +5672,13 @@ $("exportHexBtn")
     exportHex
   );
 
+
 $("copyBtn")
   .addEventListener(
     "click",
     copySummary
   );
+
 
 $("hexInput")
   .addEventListener(
@@ -4201,6 +5691,7 @@ $("hexInput")
     }
   );
 
+
 /* =========================================================
    INICIO
 ========================================================= */
@@ -4208,19 +5699,19 @@ $("hexInput")
 bluetoothCheck();
 
 log(
-  "Inicializando Laboratorio F1 Plus v3 Differential..."
+  "Inicializando Laboratorio F1 Plus v4..."
+);
+
+log(
+  "Descubrimiento automático de características BLE preparado."
+);
+
+log(
+  "No se presupone UUID de TX/RX."
 );
 
 log(
   "Modo PASIVO activo."
-);
-
-log(
-  "Comparador diferencial automático preparado."
-);
-
-log(
-  "Comparación por TIPO + LONGITUD."
 );
 
 log(
@@ -4232,5 +5723,6 @@ log(
 );
 
 </script>
+
 </body>
 </html>
