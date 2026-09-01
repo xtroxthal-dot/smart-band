@@ -2,597 +2,913 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#10131a">
-<title>RoXThal — F1 Plus Protocol Laboratory v9</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>RoXThal — F1 Plus Laboratory V8</title>
 
 <style>
-:root{
-  --bg:#0b0e13;
-  --panel:#121720;
-  --panel2:#171d27;
-  --line:#293241;
-  --txt:#edf2f7;
-  --muted:#98a4b3;
-  --ok:#35d07f;
-  --warn:#ffbf4d;
-  --bad:#ff6374;
-  --accent:#66aaff
-}
-
-*{
-  box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  background:linear-gradient(180deg,#090c11,#111722);
-  color:var(--txt);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
+  background:#080808;
+  color:#eee;
+  font-family:Arial,Helvetica,sans-serif;
 }
+
+header{
+  padding:20px 14px;
+  background:linear-gradient(135deg,#111,#1d1d1d);
+  border-bottom:1px solid #333;
+}
+
+h1{margin:0 0 6px;font-size:23px}
+h2{margin:0 0 14px;font-size:18px}
+h3{margin:14px 0 8px;font-size:15px}
 
 main{
   max-width:1100px;
   margin:auto;
-  padding:14px
+  padding:12px;
 }
 
-header{
-  padding:8px 2px 14px
-}
-
-h1{
-  font-size:22px;
-  margin:0 0 4px
-}
-
-h2{
-  font-size:16px;
-  margin:0 0 12px
-}
-
-h3{
-  font-size:14px;
-  margin:0 0 8px
-}
-
-.sub{
-  color:var(--muted);
-  font-size:12px
-}
-
-section{
-  background:var(--panel);
-  border:1px solid var(--line);
+.card{
+  background:#111;
+  border:1px solid #292929;
   border-radius:14px;
   padding:14px;
-  margin:10px 0;
-  box-shadow:0 8px 30px #0003
-}
-
-.row{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center
-}
-
-.grow{
-  flex:1
-}
-
-button,
-input,
-textarea,
-select{
-  font:inherit;
-  color:var(--txt);
-  background:#0d1219;
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:10px
+  margin-bottom:14px;
+  box-shadow:0 4px 18px #0008;
 }
 
 button{
+  border:0;
+  border-radius:10px;
+  padding:12px 14px;
+  margin:4px;
+  background:#292929;
+  color:white;
+  font-weight:bold;
   cursor:pointer;
-  background:#182130
 }
 
-button:hover{
-  filter:brightness(1.15)
+button:active{
+  transform:scale(.98);
 }
 
-button.primary{
-  background:#245a9b;
-  border-color:#397bc8
-}
-
-button.danger{
-  background:#54212a;
-  border-color:#8e3342
-}
+button.primary{background:#176b3a}
+button.danger{background:#8d2020}
+button.blue{background:#164d83}
+button.gold{background:#765817}
+button.purple{background:#603b91}
 
 button:disabled{
   opacity:.45;
-  cursor:not-allowed
+  cursor:not-allowed;
 }
 
 .status{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 10px;
-  border-radius:999px;
-  background:#0d1219;
-  border:1px solid var(--line);
-  font-size:12px
+  padding:10px;
+  border-radius:9px;
+  background:#181818;
+  margin-top:8px;
 }
 
-.dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--bad)
-}
+.ok{color:#56e58b}
+.warn{color:#ffd45a}
+.bad{color:#ff6666}
+.info{color:#65b9ff}
 
-.dot.ok{
-  background:var(--ok)
-}
-
-.dot.warn{
-  background:var(--warn)
+.mono{
+  font-family:Consolas,monospace;
+  word-break:break-all;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-  gap:8px
+  grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
+  gap:8px;
 }
 
-.card{
-  background:var(--panel2);
-  border:1px solid var(--line);
+.stat{
+  background:#181818;
   border-radius:10px;
-  padding:10px
+  padding:12px;
+  text-align:center;
 }
 
-.num{
-  font-size:21px;
-  font-weight:700
-}
-
-.label{
-  font-size:11px;
-  color:var(--muted)
-}
-
-pre{
-  white-space:pre-wrap;
-  word-break:break-word;
-  margin:0
-}
-
-.mono{
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:12px
-}
-
-.log{
-  height:180px;
-  overflow:auto;
-  background:#090c11;
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:9px
-}
-
-.packet-list{
-  max-height:390px;
-  overflow:auto
-}
-
-.packet{
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:9px;
-  margin:7px 0;
-  background:#0d1219
-}
-
-.rx{
-  border-left:4px solid var(--ok)
-}
-
-.tx{
-  border-left:4px solid var(--accent)
-}
-
-.event{
-  border-left:4px solid var(--warn)
-}
-
-.hex{
-  color:#d9e7ff;
-  letter-spacing:.3px
-}
-
-.small{
-  font-size:11px;
-  color:var(--muted)
-}
-
-.tag{
-  display:inline-block;
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:3px 7px;
-  font-size:10px;
-  margin:2px
-}
-
-.diff{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:7px
-}
-
-.diff .changed{
-  border-color:var(--warn)
-}
-
-.oktext{
-  color:var(--ok)
-}
-
-.warntext{
-  color:var(--warn)
-}
-
-.badtext{
-  color:var(--bad)
+.stat b{
+  display:block;
+  font-size:23px;
+  margin-bottom:3px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  font-size:12px
+  font-size:13px;
 }
 
-td,
-th{
-  border-bottom:1px solid var(--line);
-  padding:7px;
+th,td{
+  padding:8px 6px;
+  border-bottom:1px solid #292929;
   text-align:left;
-  vertical-align:top
+  vertical-align:top;
+}
+
+th{color:#aaa}
+
+pre{
+  white-space:pre-wrap;
+  word-break:break-word;
+  background:#090909;
+  border-radius:9px;
+  padding:10px;
+  max-height:300px;
+  overflow:auto;
+}
+
+input,select,textarea{
+  width:100%;
+  background:#0b0b0b;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:9px;
+  padding:10px;
+  margin:5px 0;
 }
 
 textarea{
-  width:100%;
   min-height:80px;
-  resize:vertical
+  resize:vertical;
 }
 
-.note{
+.packet{
+  border:1px solid #292929;
+  border-radius:10px;
+  padding:10px;
+  margin:7px 0;
+  background:#0c0c0c;
+}
+
+.small{
+  font-size:12px;
+  color:#aaa;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:7px;
+  background:#242424;
+  margin:2px;
   font-size:11px;
-  color:var(--muted);
-  line-height:1.45
 }
 
-footer{
-  color:var(--muted);
-  font-size:10px;
-  text-align:center;
-  padding:18px
+hr{
+  border:0;
+  border-top:1px solid #292929;
+  margin:14px 0;
+}
+
+.testBox{
+  border:1px solid #3b3150;
+  background:#100c16;
+  border-radius:12px;
+  padding:12px;
+  margin-top:10px;
+}
+
+.testResult{
+  border-left:4px solid #765817;
+  padding:10px;
+  background:#15120d;
+  border-radius:8px;
+  margin:8px 0;
+}
+
+.testSuccess{
+  border-left-color:#176b3a;
+  background:#0d1711;
+}
+
+.testFail{
+  border-left-color:#8d2020;
+  background:#170d0d;
+}
+
+.characteristic{
+  border:1px solid #292929;
+  border-radius:10px;
+  padding:12px;
+  margin:8px 0;
+  background:#0c0c0c;
+}
+
+.uuid{
+  font-family:Consolas,monospace;
+  font-size:12px;
+  word-break:break-all;
+}
+
+.sectionTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.notice{
+  border-left:4px solid #164d83;
+  padding:10px;
+  background:#0d1218;
+  border-radius:8px;
+}
+
+.warning{
+  border-left:4px solid #765817;
+  padding:10px;
+  background:#17130c;
+  border-radius:8px;
+}
+
+.dangerBox{
+  border-left:4px solid #8d2020;
+  padding:10px;
+  background:#170d0d;
+  border-radius:8px;
+}
+
+@media(max-width:600px){
+  button{
+    width:100%;
+    margin:4px 0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<main>
-
 <header>
-
-<h1>
-🔬 RoXThal — F1 Plus Protocol Laboratory v9
-</h1>
-
-<div class="sub">
-Captura BLE · análisis estructural · comparación automática ·
-correlación de acciones · WearFit/NUS · sin modificación de firmware
+<h1>🔬 RoXThal — Laboratorio F1 Plus V8</h1>
+<div class="small">
+Captura pasiva · análisis estructural · transiciones · eventos · correlación · pruebas controladas · BLE UART
 </div>
-
 </header>
 
+<main>
 
-<section>
+<!-- =========================================================
+CONEXIÓN
+========================================================= -->
+
+<section class="card">
 
 <h2>📡 Conexión F1 Plus</h2>
 
-<div class="row">
-
-<button id="connect" class="primary">
+<button class="primary" id="connectBtn">
 🔗 CONECTAR F1 PLUS
 </button>
 
-<button id="disconnect" class="danger" disabled>
+<button class="danger" id="disconnectBtn" disabled>
 ⛔ DESCONECTAR
 </button>
 
-<button id="check">
+<button class="blue" id="bluetoothBtn">
 🔎 COMPROBAR BLUETOOTH
 </button>
 
-<span class="status">
-<span id="dot" class="dot"></span>
-<span id="connText">Desconectada</span>
+<div id="connectionStatus" class="status">
+🔴 Desconectado
+</div>
+
+<div id="deviceInfo" class="small"></div>
+
+</section>
+
+
+<!-- =========================================================
+DESCUBRIMIENTO
+========================================================= -->
+
+<section class="card">
+
+<h2>🧬 Descubrimiento BLE automático</h2>
+
+<div class="notice">
+La aplicación inspecciona las características reales del servicio.
+<br><br>
+<b>NOTIFY / INDICATE = RX</b>
+<br>
+<b>WRITE / WRITE WITHOUT RESPONSE = TX</b>
+<br><br>
+No se presupone automáticamente el significado de los bytes.
+</div>
+
+<div id="characteristics">
+<div class="small">
+Aún no se ha realizado el descubrimiento.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+CANAL BLE
+========================================================= -->
+
+<section class="card">
+
+<h2>🔌 Canal BLE / UART</h2>
+
+<table>
+
+<tr>
+<th>SERVICE</th>
+<td class="mono" id="serviceUUID">—</td>
+</tr>
+
+<tr>
+<th>RX / NOTIFY</th>
+<td class="mono" id="rxUUID">—</td>
+</tr>
+
+<tr>
+<th>TX / WRITE</th>
+<td class="mono" id="txUUID">—</td>
+</tr>
+
+<tr>
+<th>NOTIFY</th>
+<td id="notifyStatus">🔴 NO activo</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<!-- =========================================================
+ESTADO
+========================================================= -->
+
+<section class="card">
+
+<h2>🧪 Estado del laboratorio</h2>
+
+<div class="status">
+
+🟢 <b>MODO PASIVO ACTIVO</b>
+
+<br><br>
+
+<span class="small">
+La F1 Plus puede transmitir datos espontáneamente.
+La aplicación NO envía comandos automáticamente.
+Las transmisiones solamente se realizan desde
+<b>PRUEBAS CONTROLADAS</b> o desde TX manual avanzada.
 </span>
 
 </div>
 
-<div id="deviceInfo" class="note" style="margin-top:10px">
-Sin dispositivo conectado.
-</div>
-
 </section>
 
 
-<section>
+<!-- =========================================================
+ESTADÍSTICAS
+========================================================= -->
 
-<h2>🧭 Exploración GATT</h2>
+<section class="card">
+
+<h2>📊 Estadísticas globales</h2>
 
 <div class="grid">
 
-<div class="card">
-<div class="label">SERVICIO</div>
-<div id="svc" class="mono">—</div>
+<div class="stat">
+<b id="statTX">0</b>
+TX
 </div>
 
-<div class="card">
-<div class="label">WRITE</div>
-<div id="wr" class="mono">—</div>
+<div class="stat">
+<b id="statRX">0</b>
+RX
 </div>
 
-<div class="card">
-<div class="label">NOTIFY</div>
-<div id="nt" class="mono">—</div>
+<div class="stat">
+<b id="statTypes">0</b>
+Tipos RX
 </div>
 
-<div class="card">
-<div class="label">OTROS SERVICIOS</div>
-<div id="other" class="num">0</div>
+<div class="stat">
+<b id="statLengths">0</b>
+Longitudes
 </div>
 
+<div class="stat">
+<b id="statComparisons">0</b>
+Comparaciones
 </div>
 
-<div class="note" style="margin-top:8px">
+<div class="stat">
+<b id="statChanges">0</b>
+Bytes modificados
+</div>
 
-NUS estándar:
+<div class="stat">
+<b id="statTransitions">0</b>
+Transiciones
+</div>
 
-6e400001 = servicio
+<div class="stat">
+<b id="statEvents">0</b>
+Eventos
+</div>
 
-6e400002 = escritura
+<div class="stat">
+<b id="statCorrelations">0</b>
+Correlaciones
+</div>
 
-6e400003 = notificación
-
-También se busca automáticamente el par propietario:
-
-FEA2 = escritura
-
-FEA1 = notificación.
+<div class="stat">
+<b id="statCycles">0</b>
+Ciclos
+</div>
 
 </div>
 
 </section>
 
 
-<section>
+<!-- =========================================================
+EVENTOS
+========================================================= -->
 
-<h2>🎯 Correlación de acciones</h2>
+<section class="card">
 
-<div class="row">
+<h2>🔘 Registro de eventos físicos</h2>
+
+<button onclick="markEvent('Evento manual')">
+🫀 EVENTO MANUAL
+</button>
+
+<button onclick="markEvent('Botón físico')">
+🔘 BOTÓN FÍSICO
+</button>
+
+<button onclick="markEvent('Carga')">
+🔋 CARGA
+</button>
+
+<button onclick="markEvent('Desconexión')">
+🔌 DESCONEXIÓN
+</button>
+
+<button onclick="markEvent('Función abierta/cerrada')">
+📱 FUNCIÓN
+</button>
+
+<button class="gold" onclick="clearEvents()">
+🧹 LIMPIAR EVENTOS
+</button>
+
+<div class="small">
+Cada evento queda registrado con hora exacta.
+Se buscan RX dentro de ±10 segundos.
+</div>
+
+<div id="events">
+<div class="small">No hay eventos.</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+TRANSICIONES
+========================================================= -->
+
+<section class="card">
+
+<h2>🔄 Transiciones detectadas</h2>
+
+<div class="small">
+Se registran cambios de bytes entre tramas del mismo tipo y longitud.
+</div>
+
+<div id="transitions">
+<div class="small">
+Todavía no se han observado transiciones.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+CICLOS
+========================================================= -->
+
+<section class="card">
+
+<h2>🔁 Ciclos observados</h2>
+
+<div class="small">
+Seguimiento específico de 0x91 Byte 7.
+Se consideran ciclos cuando una secuencia vuelve al valor anterior.
+Ejemplo: 50 → 64 → 50.
+</div>
+
+<div id="cycles">
+<div class="small">
+Aún no hay ciclos detectados.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+CORRELACIÓN
+========================================================= -->
+
+<section class="card">
+
+<h2>🔗 Correlación evento ↔ RX</h2>
+
+<div class="small">
+Ventana de correlación: ±10 segundos.
+Una correlación temporal NO demuestra causalidad.
+</div>
+
+<div id="correlations">
+<div class="small">
+Todavía no hay correlaciones.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+COMPARADOR
+========================================================= -->
+
+<section class="card">
+
+<h2>🔬 Comparador diferencial automático</h2>
+
+<div class="small">
+Cada trama se compara únicamente con la anterior del mismo tipo y longitud.
+</div>
+
+<div id="latestComparison">
+<div class="small">
+Todavía no hay comparación.
+</div>
+</div>
+
+<h3>📚 Historial</h3>
+
+<div id="comparisonHistory">
+<div class="small">
+Sin comparaciones.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+MATRIZ
+========================================================= -->
+
+<section class="card">
+
+<h2>📊 Matriz de cambios por byte</h2>
+
+<div id="byteMatrix">
+<div class="small">
+Sin datos.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+TIPOS
+========================================================= -->
+
+<section class="card">
+
+<h2>🧬 Tipos de trama detectados</h2>
+
+<div id="frameTypes">
+<div class="small">
+Sin datos.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+LONGITUD
+========================================================= -->
+
+<section class="card">
+
+<h2>📏 Análisis de longitud</h2>
+
+<div class="small">
+Hipótesis experimental:
+Byte 2 + 3 = longitud total.
+No se considera significado confirmado.
+</div>
+
+<div id="lengthAnalysis">
+<div class="small">
+Sin datos.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+PATRONES
+========================================================= -->
+
+<section class="card">
+
+<h2>📈 Patrones y frecuencia</h2>
+
+<div id="patterns">
+<div class="small">
+Sin datos.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+INTERVALOS
+========================================================= -->
+
+<section class="card">
+
+<h2>⏱️ Intervalos temporales</h2>
+
+<div id="intervals">
+<div class="small">
+Sin intervalos.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+CAPTURAS
+========================================================= -->
+
+<section class="card">
+
+<h2>📦 Capturas RX</h2>
+
+<button class="gold" onclick="clearCaptures()">
+🧹 LIMPIAR CAPTURAS
+</button>
+
+<button class="blue" onclick="exportJSON()">
+💾 EXPORTAR ANÁLISIS JSON
+</button>
+
+<button class="blue" onclick="exportHEX()">
+📄 EXPORTAR RX EN HEX
+</button>
+
+<button onclick="copySummary()">
+📋 COPIAR RESUMEN
+</button>
+
+<div id="captures">
+<div class="small">
+Sin capturas.
+</div>
+</div>
+
+</section>
+
+
+<!-- =========================================================
+PRUEBAS CONTROLADAS
+========================================================= -->
+
+<section class="card">
+
+<div class="sectionTitle">
+
+<h2>🧪 PRUEBAS CONTROLADAS — F1 PLUS</h2>
+
+<span class="badge">
+TX CONTROLADO
+</span>
+
+</div>
+
+<div class="dangerBox">
+
+⚠️ <b>ESTE ES EL ÚNICO APARTADO DEL LABORATORIO DE PRUEBAS QUE TRANSMITE AUTOMÁTICAMENTE AL PULSAR EL BOTÓN.</b>
+
+<br><br>
+
+No existe ningún comando automático al conectar.
+No se ejecuta ninguna prueba sin pulsación manual.
+
+</div>
+
+
+<h3>1️⃣ Preparación</h3>
+
+<div class="small">
+Conecta la F1 Plus y verifica que TX esté disponible.
+Después introduce una trama HEX y ejecuta una prueba.
+</div>
+
+<div class="grid">
+
+<div class="stat">
+<b id="testTXCount">0</b>
+TX realizadas
+</div>
+
+<div class="stat">
+<b id="testRXCount">0</b>
+RX posteriores
+</div>
+
+<div class="stat">
+<b id="testResponseCount">0</b>
+Posibles respuestas
+</div>
+
+<div class="stat">
+<b id="testNoResponseCount">0</b>
+Sin respuesta
+</div>
+
+</div>
+
+
+<h3>2️⃣ Trama HEX</h3>
+
+<textarea
+id="testHex"
+placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"></textarea>
+
+<button class="blue" onclick="validateTestHEX()">
+🔎 VALIDAR HEX
+</button>
+
+<div id="hexValidation" class="small">
+Introduce una trama HEX para validarla.
+</div>
+
+
+<h3>3️⃣ Ventana de observación</h3>
+
+<label class="small">
+Milisegundos posteriores a TX
+</label>
 
 <input
-id="actionName"
-class="grow"
-placeholder="Ej.: levantar brazo / abrir menú / cambiar pantalla"
->
+id="testWindow"
+type="number"
+min="100"
+max="30000"
+step="100"
+value="3000">
+
 
 <button
-id="markAction"
 class="primary"
-disabled
->
-📍 MARCAR ACCIÓN
+id="runTestBtn"
+onclick="runControlledTest()"
+disabled>
+🧪 EJECUTAR PRUEBA
 </button>
 
-<button
-id="clearBaseline"
-disabled
->
-🧹 LIMPIAR BASELINE
+
+<h3>4️⃣ Resultado de la prueba</h3>
+
+<div id="testResult">
+<div class="small">
+No se ha ejecutado ninguna prueba.
+</div>
+</div>
+
+
+<h3>📚 Historial de pruebas</h3>
+
+<div id="testHistory">
+<div class="small">
+Sin pruebas.
+</div>
+</div>
+
+<button class="gold" onclick="clearTests()">
+🧹 LIMPIAR PRUEBAS
 </button>
 
-</div>
-
-<div
-id="actionState"
-class="note"
-style="margin-top:8px"
->
-Conecta la pulsera y marca una acción justo antes de realizarla.
-</div>
+<button class="blue" onclick="exportTests()">
+💾 EXPORTAR PRUEBAS
+</button>
 
 </section>
 
 
-<section>
+<!-- =========================================================
+TX AVANZADA
+========================================================= -->
 
-<h2>📊 Estadísticas</h2>
+<section class="card">
 
-<div class="grid">
+<h2>📤 TX manual avanzada</h2>
 
-<div class="card">
-<div id="txN" class="num">0</div>
-<div class="label">TX</div>
-</div>
+<div class="warning">
 
-<div class="card">
-<div id="rxN" class="num">0</div>
-<div class="label">RX</div>
-</div>
+⚠️ TX manual independiente del análisis pasivo.
 
-<div class="card">
-<div id="spN" class="num">0</div>
-<div class="label">RX ESPONTÁNEOS</div>
-</div>
+<br><br>
 
-<div class="card">
-<div id="respN" class="num">0</div>
-<div class="label">PROBABLES RESPUESTAS</div>
-</div>
-
-<div class="card">
-<div id="echoN" class="num">0</div>
-<div class="label">ECOS</div>
-</div>
-
-<div class="card">
-<div id="typesN" class="num">0</div>
-<div class="label">TIPOS RX</div>
-</div>
-
-<div class="card">
-<div id="lenN" class="num">0</div>
-<div class="label">LONGITUDES</div>
-</div>
-
-<div class="card">
-<div id="cmpN" class="num">0</div>
-<div class="label">COMPARACIONES</div>
-</div>
-
-</div>
-
-</section>
-
-
-<section>
-
-<h2>🧩 Análisis de estructura</h2>
-
-<div id="structure" class="note">
-Aún no hay suficientes tramas.
-</div>
-
-</section>
-
-
-<section>
-
-<h2>⚖️ Comparación automática</h2>
-
-<div id="comparison" class="note">
-
-Cuando existan dos RX comparables,
-aquí se mostrará byte por byte qué cambió.
-
-</div>
-
-</section>
-
-
-<section>
-
-<h2>🧪 Consola HEX manual</h2>
-
-<div class="note" style="margin-bottom:8px">
-
-⚠️ No se envían comandos automáticamente.
-
-Esta consola solo transmite cuando pulsas el botón.
+Esta sección no se ejecuta automáticamente.
+La transmisión requiere pulsar manualmente el botón.
 
 </div>
 
 <textarea
-id="hexInput"
-placeholder="Ej.: AB 00 05 FF 91 80 00 64"
-></textarea>
-
-<div class="row" style="margin-top:8px">
-
-<select id="writeMode">
-
-<option value="without">
-writeWithoutResponse
-</option>
-
-<option value="with">
-write
-</option>
-
-</select>
+id="txInput"
+placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"></textarea>
 
 <button
-id="sendHex"
 class="primary"
+id="txBtn"
 disabled
->
-📤 ENVIAR HEX
+onclick="sendTX()">
+
+📤 ENVIAR HEX MANUAL
+
 </button>
 
+<div id="txStatus" class="small"></div>
+
+</section>
+
+
+<!-- =========================================================
+DIAGNÓSTICO
+========================================================= -->
+
+<section class="card">
+
+<h2>🛠️ Diagnóstico</h2>
+
+<button class="gold" onclick="clearDiagnostics()">
+🧹 LIMPIAR DIAGNÓSTICO
+</button>
+
+<pre id="diagnostics"></pre>
+
+</section>
+
+
+<!-- =========================================================
+CONTROL DE SESIÓN
+========================================================= -->
+
+<section class="card">
+
+<h2>⚙️ Control de sesión</h2>
+
+<div class="small">
+Los datos se mantienen durante la sesión del navegador.
+Puedes guardar una copia local del laboratorio.
 </div>
 
-</section>
-
-
-<section>
-
-<h2>📝 Eventos y diagnóstico</h2>
-
-<div
-id="log"
-class="log mono"
-></div>
-
-</section>
-
-
-<section>
-
-<h2>📦 Capturas</h2>
-
-<div class="row">
-
-<button id="exportJson">
-💾 EXPORTAR JSON
+<button class="blue" onclick="saveSession()">
+💾 GUARDAR SESIÓN
 </button>
 
-<button
-id="clearPackets"
-class="danger"
->
-🗑️ BORRAR CAPTURAS
+<button class="danger" onclick="resetLaboratory()">
+🗑️ REINICIAR LABORATORIO
 </button>
 
-</div>
-
-<div
-id="packets"
-class="packet-list"
-style="margin-top:8px"
-></div>
-
 </section>
-
-
-<footer>
-
-RoXThal F1 Plus Laboratory ·
-análisis BLE no invasivo ·
-no reprograma ni actualiza firmware.
-
-</footer>
 
 </main>
 
@@ -601,1586 +917,4028 @@ no reprograma ni actualiza firmware.
 
 'use strict';
 
+/* ============================================================
+   CONFIGURACIÓN
+============================================================ */
 
-/* =========================================================
-   UUID
-========================================================= */
-
-const UUIDS = {
-
-NUS_SERVICE:
-'6e400001-b5a3-f393-e0a9-e50e24dcca9e',
-
-NUS_WRITE:
-'6e400002-b5a3-f393-e0a9-e50e24dcca9e',
-
-NUS_NOTIFY:
-'6e400003-b5a3-f393-e0a9-e50e24dcca9e',
-
-FEA2:
-'0000fea2-0000-1000-8000-00805f9b34fb',
-
-FEA1:
-'0000fea1-0000-1000-8000-00805f9b34fb'
-
-};
+const UART_SERVICE =
+'6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 
 
-const IMMEDIATE_WINDOW = 300;
-
-const SECONDARY_WINDOW = 3000;
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
+/* ============================================================
+   ESTADO BLE
+============================================================ */
 
 let device = null;
-
 let server = null;
+let service = null;
 
-let writeChar = null;
+let rxCharacteristic = null;
+let txCharacteristic = null;
 
-let notifyChar = null;
+
+/* ============================================================
+   DATOS
+============================================================ */
 
 let packets = [];
+let comparisons = [];
+let transitions = [];
+let events = [];
+let correlations = [];
 
-let rxPackets = [];
+let tests = [];
 
-let txPackets = [];
+let previousByKey = {};
 
-let lastTx = null;
-
-let lastRx = null;
-
-let baseline = null;
-
-let pendingAction = null;
-
-
-let stats = {
-
-tx:0,
-
-rx:0,
-
-sp:0,
-
-resp:0,
-
-echo:0,
-
-cmp:0,
-
-types:new Set(),
-
-lens:new Set()
-
-};
+let totalTX = 0;
+let sequence = 0;
+let testSequence = 0;
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+/* ============================================================
+   UTILIDADES
+============================================================ */
 
-const $ = id =>
-document.getElementById(id);
+function now(){
+  return new Date();
+}
 
+function timestamp(){
+  return Date.now();
+}
 
-function log(msg,type=''){
+function timeString(date = now()){
 
-const t =
-new Date().toLocaleTimeString();
-
-const el =
-$('log');
-
-el.innerHTML +=
-`<div>${esc(`[${t}] ${msg}`)}</div>`;
-
-el.scrollTop =
-el.scrollHeight;
-
+  return date.toLocaleTimeString(
+    'es-AR',
+    {
+      hour12:false
+    }
+  );
 }
 
 
-function esc(s){
+function log(message){
 
-return String(s).replace(
-/[&<>"]/g,
-c => ({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;'
-}[c])
-);
+  const box =
+    document.getElementById('diagnostics');
 
+  box.textContent +=
+    '[' +
+    timeString() +
+    '] ' +
+    message +
+    '\n';
+
+  box.scrollTop =
+    box.scrollHeight;
 }
 
 
 function hex(bytes){
 
-return [...bytes]
-.map(
-x =>
-x.toString(16)
-.padStart(2,'0')
-.toUpperCase()
-)
-.join(' ');
-
+  return Array.from(bytes)
+    .map(
+      x =>
+        x.toString(16)
+        .padStart(2,'0')
+        .toUpperCase()
+    )
+    .join(' ');
 }
 
 
-function parseHex(s){
+function decimal(bytes){
 
-const clean =
-s
-.replace(/0x/gi,'')
-.replace(/[^0-9a-fA-F]/g,' ');
+  return Array.from(bytes).join(' ');
+}
 
-const parts =
-clean
-.trim()
-.split(/\s+/)
-.filter(Boolean);
 
-if(parts.length===1 &&
-parts[0].length>2){
+function ascii(bytes){
 
-if(parts[0].length%2)
-throw Error(
-'HEX con número impar de dígitos'
+  return Array.from(bytes)
+    .map(
+      x =>
+        x >= 32 && x <= 126
+        ? String.fromCharCode(x)
+        : '.'
+    )
+    .join('');
+}
+
+
+function frameType(bytes){
+
+  return bytes.length > 4
+    ? '0x' +
+      bytes[4]
+      .toString(16)
+      .padStart(2,'0')
+      .toUpperCase()
+    : '—';
+}
+
+
+function keyFor(bytes){
+
+  return frameType(bytes) +
+    '/' +
+    bytes.length;
+}
+
+
+function byteHex(n){
+
+  return n
+    .toString(16)
+    .padStart(2,'0')
+    .toUpperCase();
+}
+
+
+function escapeHTML(str){
+
+  return String(str)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
+}
+
+
+/* ============================================================
+   PROPIEDADES BLE
+   ESTA ES LA CORRECCIÓN PRINCIPAL DE V7
+============================================================ */
+
+function getCharacteristicProperties(characteristic){
+
+  const p =
+    characteristic.properties || {};
+
+  const properties = [];
+
+  if(p.broadcast)
+    properties.push('BROADCAST');
+
+  if(p.read)
+    properties.push('READ');
+
+  if(p.writeWithoutResponse)
+    properties.push('WRITE WITHOUT RESPONSE');
+
+  if(p.write)
+    properties.push('WRITE');
+
+  if(p.notify)
+    properties.push('NOTIFY');
+
+  if(p.indicate)
+    properties.push('INDICATE');
+
+  if(p.authenticatedSignedWrites)
+    properties.push('AUTHENTICATED SIGNED WRITES');
+
+  return properties;
+}
+
+
+function hasRXProperty(characteristic){
+
+  const p =
+    characteristic.properties || {};
+
+  return !!(
+    p.notify ||
+    p.indicate
+  );
+}
+
+
+function hasTXProperty(characteristic){
+
+  const p =
+    characteristic.properties || {};
+
+  return !!(
+    p.write ||
+    p.writeWithoutResponse
+  );
+}
+
+
+/* ============================================================
+   BLUETOOTH
+============================================================ */
+
+document
+.getElementById('bluetoothBtn')
+.addEventListener(
+  'click',
+  checkBluetooth
 );
 
-return new Uint8Array(
-parts[0]
-.match(/../g)
-.map(x=>parseInt(x,16))
-);
 
-}
+async function checkBluetooth(){
 
-return new Uint8Array(
-parts.map(x=>{
+  if(!navigator.bluetooth){
 
-if(x.length!==2)
-throw Error(
-'Cada byte debe tener 2 dígitos'
-);
+    setConnection(
+      '🔴 Web Bluetooth no está disponible en este navegador.',
+      'bad'
+    );
 
-return parseInt(x,16);
+    log(
+      '❌ Web Bluetooth NO disponible.'
+    );
 
-})
-);
+    return;
+  }
 
-}
+  setConnection(
+    '🟢 Web Bluetooth detectado correctamente.',
+    'ok'
+  );
 
-
-function now(){
-
-return performance.now();
-
+  log(
+    '🟢 Web Bluetooth detectado correctamente.'
+  );
 }
 
 
-function setConn(ok){
-
-$('dot').className =
-'dot '+(ok?'ok':'');
-
-$('connText').textContent =
-ok
-?'F1 Plus conectada'
-:'Desconectada';
-
-$('connect').disabled =
-ok;
-
-$('disconnect').disabled =
-!ok;
-
-$('markAction').disabled =
-!ok;
-
-$('clearBaseline').disabled =
-!ok;
-
-$('sendHex').disabled =
-!ok;
-
-}
-
-
-function updateStats(){
-
-const values={
-
-txN:stats.tx,
-
-rxN:stats.rx,
-
-spN:stats.sp,
-
-respN:stats.resp,
-
-echoN:stats.echo,
-
-typesN:stats.types.size,
-
-lenN:stats.lens.size,
-
-cmpN:stats.cmp
-
-};
-
-for(
-const [id,val]
-of Object.entries(values)
+function setConnection(
+  text,
+  cls=''
 ){
 
-$(id).textContent=val;
+  const el =
+    document.getElementById(
+      'connectionStatus'
+    );
 
-}
+  el.className =
+    'status ' + cls;
 
-}
-
-
-/* =========================================================
-   ESTRUCTURA
-========================================================= */
-
-function structural(bytes){
-
-const a=[...bytes];
-
-const out=[];
-
-
-if(a.length>=4)
-out.push(
-`<span class="tag">
-LEN=${a.length}
-</span>`
-);
-
-
-if(a[0]===0xAB)
-out.push(
-'<span class="tag">HEADER AB</span>'
-);
-
-
-if(a.length>2)
-out.push(
-`<span class="tag">
-B2=${a[2].toString(16).padStart(2,'0').toUpperCase()}
-</span>`
-);
-
-
-if(a.length>3)
-out.push(
-`<span class="tag">
-B3=${a[3].toString(16).padStart(2,'0').toUpperCase()}
-</span>`
-);
-
-
-if(a.length>4)
-out.push(
-`<span class="tag">
-TYPE=0x${a[4].toString(16).padStart(2,'0').toUpperCase()}
-</span>`
-);
-
-
-if(a.length>5)
-out.push(
-`<span class="tag">
-CMD=0x${a[5].toString(16).padStart(2,'0').toUpperCase()}
-</span>`
-);
-
-
-return out.join(' ');
-
+  el.textContent =
+    text;
 }
 
 
-/* =========================================================
-   CLASIFICACIÓN RX
-========================================================= */
-
-function classifyRx(bytes,t){
-
-let kind='espontáneo';
-
-
-if(lastTx){
-
-const dt =
-t-lastTx.t;
-
-const same =
-arraysEqual(
-bytes,
-lastTx.bytes
-);
-
-
-if(same){
-
-kind='eco';
-
-stats.echo++;
-
-}
-
-else if(
-dt<=IMMEDIATE_WINDOW
-){
-
-kind='respuesta probable';
-
-stats.resp++;
-
-}
-
-else if(
-dt<=SECONDARY_WINDOW
-){
-
-kind='respuesta secundaria';
-
-stats.resp++;
-
-}
-
-}
-
-
-if(pendingAction){
-
-pendingAction.rx.push({
-
-bytes:[...bytes],
-
-t
-
-});
-
-}
-
-
-return kind;
-
-}
-
-
-function arraysEqual(a,b){
-
-return a.length===b.length &&
-a.every(
-(v,i)=>v===b[i]
-);
-
-}
-
-
-/* =========================================================
-   REGISTRO DE PAQUETES
-========================================================= */
-
-function addPacket(
-dir,
-bytes,
-meta={}
-){
-
-const t=now();
-
-
-const item={
-
-id:crypto.randomUUID(),
-
-time:new Date().toISOString(),
-
-dir,
-
-bytes:[...bytes],
-
-meta
-
-};
-
-
-packets.push(item);
-
-
-if(dir==='RX'){
-
-rxPackets.push(item);
-
-stats.rx++;
-
-stats.types.add(
-bytes[4]??-1
-);
-
-stats.lens.add(
-bytes.length
-);
-
-
-item.meta.classification =
-classifyRx(bytes,t);
-
-
-if(
-item.meta.classification===
-'espontáneo'
-){
-
-stats.sp++;
-
-}
-
-
-lastRx={
-
-t,
-
-bytes:[...bytes]
-
-};
-
-
-updateComparison();
-
-updateStructure(bytes);
-
-}
-
-
-else{
-
-txPackets.push(item);
-
-stats.tx++;
-
-lastTx={
-
-t,
-
-bytes:[...bytes]
-
-};
-
-}
-
-
-updateStats();
-
-renderPackets();
-
-}
-
-
-/* =========================================================
-   ESTRUCTURA ACTUAL
-========================================================= */
-
-function updateStructure(bytes){
-
-$('structure').innerHTML=`
-
-<div class="mono hex">
-${esc(hex(bytes))}
-</div>
-
-<div style="margin-top:8px">
-${structural(bytes)}
-</div>
-
-<div class="note" style="margin-top:8px">
-
-Posiciones:
-
-${bytes.map(
-(b,i)=>
-`B${i}=${b.toString(16)
-.padStart(2,'0')
-.toUpperCase()}`
-).join(' · ')}
-
-</div>
-
-`;
-
-}
-
-
-/* =========================================================
-   COMPARACIÓN
-========================================================= */
-
-function compare(a,b){
-
-const n =
-Math.max(
-a.length,
-b.length
-);
-
-const diffs=[];
-
-
-for(
-let i=0;
-i<n;
-i++
-){
-
-const x=a[i];
-
-const y=b[i];
-
-
-if(x!==y){
-
-diffs.push({
-
-i,
-
-a:x,
-
-b:y
-
-});
-
-}
-
-}
-
-
-return {
-
-sameLength:
-a.length===b.length,
-
-diffs
-
-};
-
-}
-
-
-function updateComparison(){
-
-if(rxPackets.length<2)
-return;
-
-
-const a =
-rxPackets[
-rxPackets.length-2
-];
-
-const b =
-rxPackets[
-rxPackets.length-1
-];
-
-
-const c =
-compare(
-a.bytes,
-b.bytes
-);
-
-
-stats.cmp++;
-
-
-const cards =
-c.diffs
-.map(
-d=>`
-
-<div class="card changed">
-
-<b>B${d.i}</b>
-
-<br>
-
-<span class="warntext">
-
-${
-d.a===undefined
-?'--'
-:d.a
-.toString(16)
-.padStart(2,'0')
-.toUpperCase()
-}
-
-→
-
-${
-d.b===undefined
-?'--'
-:d.b
-.toString(16)
-.padStart(2,'0')
-.toUpperCase()
-}
-
-</span>
-
-</div>
-
-`
-)
-.join('');
-
-
-$('comparison').innerHTML=`
-
-<div class="mono">
-
-A:
-${esc(hex(a.bytes))}
-
-<br>
-
-B:
-${esc(hex(b.bytes))}
-
-</div>
-
-
-<div style="margin-top:8px">
-
-${
-c.diffs.length
-?
-`<b>${c.diffs.length}
-byte(s) modificados</b>`
-:
-'<b class="oktext">
-Sin diferencias
-</b>'
-}
-
-</div>
-
-
-<div
-class="diff"
-style="margin-top:8px"
->
-
-${
-cards ||
-'<div class="card">
-Las dos tramas son idénticas.
-</div>'
-}
-
-</div>
-
-
-<div
-class="note"
-style="margin-top:8px"
->
-
-Longitud:
-
-${a.bytes.length}
-
-→
-
-${b.bytes.length}.
-
-Comparación #
-
-${stats.cmp}.
-
-</div>
-
-`;
-
-
-updateStats();
-
-}
-
-
-/* =========================================================
-   RENDER PAQUETES
-========================================================= */
-
-function renderPackets(){
-
-$('packets').innerHTML =
-
-packets
-.slice()
-.reverse()
-.map(p=>{
-
-const label =
-p.dir==='RX'
-?
-(
-p.meta.classification ||
-'RX'
-)
-:
-'TX';
-
-
-return `
-
-<div class="packet ${
-p.dir==='RX'
-?'rx'
-:'tx'
-}">
-
-<div>
-
-<b>${p.dir}</b>
-
-·
-
-${new Date(
-p.time
-).toLocaleTimeString()}
-
-·
-
-<span class="tag">
-${esc(label)}
-</span>
-
-</div>
-
-
-<div
-class="mono hex"
-style="margin-top:5px"
->
-
-${esc(hex(p.bytes))}
-
-</div>
-
-
-<div class="small">
-
-${esc(
-p.meta.action||''
-)}
-
-</div>
-
-</div>
-
-`;
-
-})
-.join('');
-
-}
-
-
-/* =========================================================
-   ACCIONES
-========================================================= */
-
-function markAction(){
-
-const name =
-$('actionName')
-.value
-.trim() ||
-'Acción sin nombre';
-
-
-pendingAction={
-
-name,
-
-t:now(),
-
-rx:[]
-
-};
-
-
-baseline =
-lastRx
-?
-{
-bytes:[...lastRx.bytes],
-
-time:lastRx.t
-}
-:
-null;
-
-
-$('actionState').innerHTML=
-
-`
-
-📍 Acción
-
-<b>${esc(name)}</b>
-
-marcada.
-
-Realízala ahora en la pulsera.
-
-Se analizarán las RX posteriores.
-
-`;
-
-
-log(
-`ACCION: ${name}${
-baseline
-?' · baseline RX disponible'
-:' · sin baseline RX'
-}`,
-'event'
-);
-
-
-setTimeout(
-()=>finishAction(pendingAction),
-SECONDARY_WINDOW
-);
-
-}
-
-
-function finishAction(ref){
-
-if(
-pendingAction!==ref
-)
-return;
-
-
-const rx=ref.rx;
-
-
-if(rx.length){
-
-const newest =
-rx[
-rx.length-1
-]
-.bytes;
-
-
-$('actionState').innerHTML=
-
-`
-
-✅ Acción
-
-<b>${esc(ref.name)}</b>:
-
-${rx.length}
-
-RX correlacionadas.
-
-Última:
-
-<span class="mono">
-
-${esc(hex(newest))}
-
-</span>
-
-`;
-
-}
-
-else{
-
-$('actionState').innerHTML=
-
-`
-
-⚠️ Acción
-
-<b>${esc(ref.name)}</b>:
-
-no se detectó RX durante
-
-${SECONDARY_WINDOW}
-
-ms.
-
-`;
-
-}
-
-
-packets
-.filter(
-p=>
-p.time &&
-p.dir==='RX'
-)
-.slice(-rx.length)
-.forEach(
-p=>{
-p.meta.action=
-ref.name;
-}
-);
-
-
-renderPackets();
-
-pendingAction=null;
-
-}
-
-
-/* =========================================================
+/* ============================================================
    CONEXIÓN
-========================================================= */
+============================================================ */
+
+document
+.getElementById('connectBtn')
+.addEventListener(
+  'click',
+  connect
+);
+
 
 async function connect(){
 
-if(!navigator.bluetooth){
+  try{
 
-log(
-'Web Bluetooth no está disponible en este navegador.'
-);
+    if(!navigator.bluetooth){
 
-return;
+      throw new Error(
+        'Web Bluetooth no está disponible.'
+      );
+    }
+
+
+    resetBLEReferences();
+
+
+    log(
+      '=============================='
+    );
+
+    log(
+      'INICIO DE CONEXIÓN'
+    );
+
+    log(
+      'Solicitando F1 Plus...'
+    );
+
+
+    device =
+      await navigator.bluetooth.requestDevice({
+
+        filters:[
+          {
+            name:'F1 Plus'
+          }
+        ],
+
+        optionalServices:[
+          UART_SERVICE
+        ]
+
+      });
+
+
+    log(
+      '✅ DISPOSITIVO ENCONTRADO'
+    );
+
+    log(
+      'Nombre: ' +
+      (
+        device.name ||
+        'desconocido'
+      )
+    );
+
+    log(
+      'ID: ' +
+      device.id
+    );
+
+
+    document
+    .getElementById(
+      'deviceInfo'
+    )
+    .innerHTML =
+      '<b>Nombre:</b> ' +
+      escapeHTML(
+        device.name ||
+        'desconocido'
+      ) +
+      '<br><b>ID:</b> ' +
+      escapeHTML(
+        device.id
+      );
+
+
+    device.addEventListener(
+      'gattserverdisconnected',
+      onDisconnected
+    );
+
+
+    log(
+      'Conectando GATT...'
+    );
+
+
+    server =
+      await device.gatt.connect();
+
+
+    log(
+      '✅ GATT conectado.'
+    );
+
+
+    service =
+      await server.getPrimaryService(
+        UART_SERVICE
+      );
+
+
+    log(
+      '✅ Servicio UART encontrado.'
+    );
+
+
+    document
+    .getElementById(
+      'serviceUUID'
+    )
+    .textContent =
+      service.uuid;
+
+
+    await discoverCharacteristics();
+
+
+    setConnection(
+      '🟢 Smart Band conectada',
+      'ok'
+    );
+
+
+    document
+    .getElementById(
+      'connectBtn'
+    )
+    .disabled = true;
+
+
+    document
+    .getElementById(
+      'disconnectBtn'
+    )
+    .disabled = false;
+
+
+    log(
+      '================================'
+    );
+
+    log(
+      '🟢 LABORATORIO PREPARADO'
+    );
+
+    log(
+      'RX automático: ' +
+      (
+        rxCharacteristic
+        ? 'ACTIVO'
+        : 'NO DISPONIBLE'
+      )
+    );
+
+    log(
+      'TX automático: DESACTIVADO'
+    );
+
+    log(
+      'Pruebas controladas: ' +
+      (
+        txCharacteristic
+        ? 'DISPONIBLES'
+        : 'NO DISPONIBLES'
+      )
+    );
+
+
+    updateTestButton();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    setConnection(
+      '❌ No se pudo conectar: ' +
+      error.message,
+      'bad'
+    );
+
+    log(
+      '❌ ERROR: ' +
+      error.message
+    );
+
+  }
 
 }
 
 
-try{
+/* ============================================================
+   DESCUBRIMIENTO
+============================================================ */
 
-log(
-'Abriendo selector Bluetooth...'
-);
+async function discoverCharacteristics(){
+
+  const container =
+    document.getElementById(
+      'characteristics'
+    );
+
+  container.innerHTML = '';
 
 
-device =
-await navigator.bluetooth.requestDevice({
+  rxCharacteristic = null;
+  txCharacteristic = null;
 
-filters:[
-{
-name:'F1 Plus'
+
+  const chars =
+    await service.getCharacteristics();
+
+
+  log(
+    'Características encontradas: ' +
+    chars.length
+  );
+
+
+  chars.forEach(
+    (c,index)=>{
+
+      const properties =
+        getCharacteristicProperties(c);
+
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
+      div.className =
+        'characteristic';
+
+
+      let html =
+        '<b>Característica #' +
+        (index + 1) +
+        '</b><br><br>' +
+
+        '<span class="uuid">' +
+        escapeHTML(c.uuid) +
+        '</span><br><br>' +
+
+        '<b>Propiedades:</b> ';
+
+
+      if(properties.length){
+
+        html +=
+          properties
+          .map(
+            p =>
+              '<span class="badge">' +
+              escapeHTML(p) +
+              '</span>'
+          )
+          .join(' ');
+
+      }else{
+
+        html +=
+          '<span class="warn">' +
+          'NINGUNA DETECTADA' +
+          '</span>';
+      }
+
+
+      /* RX */
+
+      if(hasRXProperty(c)){
+
+        if(!rxCharacteristic){
+
+          rxCharacteristic = c;
+
+          html +=
+            '<br><br>' +
+            '<span class="ok">' +
+            '🟢 CANDIDATA RX' +
+            '</span>';
+
+          log(
+            '🟢 CANDIDATA RX seleccionada: ' +
+            c.uuid +
+            ' | ' +
+            properties.join(', ')
+          );
+
+        }
+
+      }
+
+
+      /* TX */
+
+      if(hasTXProperty(c)){
+
+        if(!txCharacteristic){
+
+          txCharacteristic = c;
+
+          html +=
+            '<br><br>' +
+            '<span class="info">' +
+            '🔵 CANDIDATA TX' +
+            '</span>';
+
+          log(
+            '🔵 CANDIDATA TX seleccionada: ' +
+            c.uuid +
+            ' | ' +
+            properties.join(', ')
+          );
+
+        }
+
+      }
+
+
+      div.innerHTML =
+        html;
+
+
+      container.appendChild(
+        div
+      );
+
+    }
+  );
+
+
+  /* RX */
+
+  if(rxCharacteristic){
+
+    document
+    .getElementById(
+      'rxUUID'
+    )
+    .textContent =
+      rxCharacteristic.uuid;
+
+
+    log(
+      'Activando NOTIFY / INDICATE...'
+    );
+
+
+    try{
+
+      await rxCharacteristic
+        .startNotifications();
+
+
+      rxCharacteristic.addEventListener(
+        'characteristicvaluechanged',
+        handleRX
+      );
+
+
+      document
+      .getElementById(
+        'notifyStatus'
+      )
+      .innerHTML =
+        '<span class="ok">' +
+        '🟢 NOTIFY / INDICATE activo' +
+        '</span>';
+
+
+      log(
+        '✅ RX NOTIFY / INDICATE ACTIVADO.'
+      );
+
+    }
+    catch(error){
+
+      document
+      .getElementById(
+        'notifyStatus'
+      )
+      .innerHTML =
+        '<span class="bad">' +
+        '🔴 ERROR' +
+        '</span>';
+
+
+      log(
+        '❌ Error activando RX: ' +
+        error.message
+      );
+
+    }
+
+  }
+  else{
+
+    log(
+      '⚠️ No se encontró RX NOTIFY/INDICATE.'
+    );
+
+  }
+
+
+  /* TX */
+
+  if(txCharacteristic){
+
+    document
+    .getElementById(
+      'txUUID'
+    )
+    .textContent =
+      txCharacteristic.uuid;
+
+
+    document
+    .getElementById(
+      'txBtn'
+    )
+    .disabled = false;
+
+
+    log(
+      '🔵 TX disponible.'
+    );
+
+  }
+  else{
+
+    log(
+      '⚠️ No se encontró característica TX.'
+    );
+
+  }
+
+
+  updateTestButton();
+
 }
-],
-
-optionalServices:[
-
-UUIDS.NUS_SERVICE,
-
-UUIDS.FEA1,
-
-UUIDS.FEA2,
-
-'1800',
-
-'1801',
-
-'180A'
-
-]
-
-});
 
 
-device.addEventListener(
-'gattserverdisconnected',
-onDisconnected
-);
+/* ============================================================
+   RX
+============================================================ */
+
+function handleRX(event){
+
+  try{
+
+    const value =
+      event.target.value;
 
 
-server =
-await device.gatt.connect();
+    const bytes =
+      new Uint8Array(
+        value.buffer.slice(
+          value.byteOffset,
+          value.byteOffset +
+          value.byteLength
+        )
+      );
 
 
-$('deviceInfo').innerHTML=
+    processRX(bytes);
 
-`
+  }
+  catch(error){
 
-<b>Nombre:</b>
+    log(
+      '❌ ERROR procesando RX: ' +
+      error.message
+    );
 
-${esc(
-device.name||
-'desconocido'
-)}
+  }
 
-·
+}
 
-<b>ID:</b>
 
-${esc(
-device.id||
-'—'
-)}
+function processRX(bytes){
 
+  const t =
+    timestamp();
+
+
+  const packet = {
+
+    id:
+      ++sequence,
+
+    time:
+      t,
+
+    date:
+      new Date(t),
+
+    bytes:
+      Array.from(bytes),
+
+    hex:
+      hex(bytes),
+
+    type:
+      frameType(bytes),
+
+    length:
+      bytes.length,
+
+    decimal:
+      decimal(bytes),
+
+    ascii:
+      ascii(bytes)
+
+  };
+
+
+  packets.push(packet);
+
+
+  log(
+    '🟣 RX | ' +
+    packet.hex
+  );
+
+
+  analyzePacket(packet);
+
+
+  /*
+   * Si existe una prueba activa,
+   * la RX queda asociada a ella.
+   */
+
+  registerRXForActiveTest(packet);
+
+
+  renderAll();
+
+}
+
+
+/* ============================================================
+   ANÁLISIS
+============================================================ */
+
+function analyzePacket(packet){
+
+  const key =
+    packet.type +
+    '/' +
+    packet.length;
+
+
+  const previous =
+    previousByKey[key];
+
+
+  if(previous){
+
+    comparePackets(
+      previous,
+      packet
+    );
+
+  }
+  else{
+
+    log(
+      '🔬 COMPARADOR: primera trama para ' +
+      key
+    );
+
+  }
+
+
+  previousByKey[key] =
+    packet;
+
+
+  correlatePacket(packet);
+
+}
+
+
+/* ============================================================
+   COMPARADOR
+============================================================ */
+
+function comparePackets(a,b){
+
+  const changes = [];
+
+
+  const max =
+    Math.min(
+      a.bytes.length,
+      b.bytes.length
+    );
+
+
+  for(
+    let i=0;
+    i<max;
+    i++
+  ){
+
+    if(
+      a.bytes[i] !==
+      b.bytes[i]
+    ){
+
+      changes.push({
+
+        byte:i,
+
+        from:a.bytes[i],
+
+        to:b.bytes[i]
+
+      });
+
+    }
+
+  }
+
+
+  const comparison = {
+
+    id:
+      comparisons.length + 1,
+
+    time:
+      b.time,
+
+    type:
+      b.type,
+
+    length:
+      b.length,
+
+    previous:
+      a.hex,
+
+    current:
+      b.hex,
+
+    changes
+
+  };
+
+
+  comparisons.push(
+    comparison
+  );
+
+
+  if(changes.length){
+
+    changes.forEach(
+      ch => {
+
+        transitions.push({
+
+          time:b.time,
+
+          type:b.type,
+
+          byte:ch.byte,
+
+          from:ch.from,
+
+          to:ch.to,
+
+          delta:
+            b.time -
+            a.time
+
+        });
+
+
+        log(
+          'BYTE ' +
+          ch.byte +
+          ': ' +
+          byteHex(ch.from) +
+          ' → ' +
+          byteHex(ch.to)
+        );
+
+      }
+    );
+
+
+    log(
+      '🔬 COMPARACIÓN #' +
+      comparison.id +
+      ' | ' +
+      b.type +
+      ' / ' +
+      b.length +
+      ' bytes | ' +
+      changes.length +
+      ' byte(s) modificados.'
+    );
+
+  }
+  else{
+
+    log(
+      '🟢 COMPARACIÓN #' +
+      comparison.id +
+      ' | ' +
+      b.type +
+      ' / ' +
+      b.length +
+      ' bytes | TRAMAS IDÉNTICAS.'
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   EVENTOS
+============================================================ */
+
+function markEvent(type){
+
+  const event = {
+
+    id:
+      events.length + 1,
+
+    time:
+      timestamp(),
+
+    type
+
+  };
+
+
+  events.push(
+    event
+  );
+
+
+  log(
+    '🟡 EVENTO MARCADO | ' +
+    type
+  );
+
+
+  correlateEvent(
+    event
+  );
+
+
+  renderAll();
+
+}
+
+
+function clearEvents(){
+
+  events = [];
+
+  correlations = [];
+
+  log(
+    '🧹 Eventos y correlaciones reiniciados.'
+  );
+
+  renderAll();
+
+}
+
+
+/* ============================================================
+   CORRELACIÓN
+============================================================ */
+
+function correlateEvent(event){
+
+  const WINDOW =
+    10000;
+
+
+  packets.forEach(
+    packet => {
+
+      const delta =
+        packet.time -
+        event.time;
+
+
+      if(
+        Math.abs(delta) <=
+        WINDOW
+      ){
+
+        addCorrelation(
+          event,
+          packet
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+function correlatePacket(packet){
+
+  const WINDOW =
+    10000;
+
+
+  events.forEach(
+    event => {
+
+      const delta =
+        packet.time -
+        event.time;
+
+
+      if(
+        Math.abs(delta) <=
+        WINDOW
+      ){
+
+        addCorrelation(
+          event,
+          packet
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+function addCorrelation(
+  event,
+  packet
+){
+
+  const exists =
+    correlations.some(
+      c =>
+        c.eventId === event.id &&
+        c.packetId === packet.id
+    );
+
+
+  if(exists)
+    return;
+
+
+  correlations.push({
+
+    eventId:
+      event.id,
+
+    eventType:
+      event.type,
+
+    eventTime:
+      event.time,
+
+    packetId:
+      packet.id,
+
+    packetType:
+      packet.type,
+
+    packetTime:
+      packet.time,
+
+    delta:
+      packet.time -
+      event.time,
+
+    hex:
+      packet.hex
+
+  });
+
+}
+
+
+/* ============================================================
+   RENDER
+============================================================ */
+
+function renderAll(){
+
+  updateStats();
+
+  renderEvents();
+
+  renderTransitions();
+
+  renderCycles();
+
+  renderCorrelations();
+
+  renderComparisons();
+
+  renderMatrix();
+
+  renderTypes();
+
+  renderLengths();
+
+  renderPatterns();
+
+  renderIntervals();
+
+  renderCaptures();
+
+  renderTests();
+
+}
+
+
+/* ============================================================
+   ESTADÍSTICAS
+============================================================ */
+
+function updateStats(){
+
+  const types =
+    new Set(
+      packets.map(
+        p => p.type
+      )
+    );
+
+
+  const lengths =
+    new Set(
+      packets.map(
+        p => p.length
+      )
+    );
+
+
+  const changes =
+    comparisons.reduce(
+      (
+        sum,
+        c
+      ) =>
+        sum +
+        c.changes.length,
+      0
+    );
+
+
+  const cycles =
+    transitions.filter(
+      t =>
+        t.type === '0x91' &&
+        t.byte === 7
+    ).length;
+
+
+  document
+  .getElementById(
+    'statTX'
+  )
+  .textContent =
+    totalTX;
+
+
+  document
+  .getElementById(
+    'statRX'
+  )
+  .textContent =
+    packets.length;
+
+
+  document
+  .getElementById(
+    'statTypes'
+  )
+  .textContent =
+    types.size;
+
+
+  document
+  .getElementById(
+    'statLengths'
+  )
+  .textContent =
+    lengths.size;
+
+
+  document
+  .getElementById(
+    'statComparisons'
+  )
+  .textContent =
+    comparisons.length;
+
+
+  document
+  .getElementById(
+    'statChanges'
+  )
+  .textContent =
+    changes;
+
+
+  document
+  .getElementById(
+    'statTransitions'
+  )
+  .textContent =
+    transitions.length;
+
+
+  document
+  .getElementById(
+    'statEvents'
+  )
+  .textContent =
+    events.length;
+
+
+  document
+  .getElementById(
+    'statCorrelations'
+  )
+  .textContent =
+    correlations.length;
+
+
+  document
+  .getElementById(
+    'statCycles'
+  )
+  .textContent =
+    cycles;
+
+}
+
+
+/* ============================================================
+   EVENTOS RENDER
+============================================================ */
+
+function renderEvents(){
+
+  const el =
+    document.getElementById(
+      'events'
+    );
+
+
+  if(!events.length){
+
+    el.innerHTML =
+      '<div class="small">No hay eventos.</div>';
+
+    return;
+
+  }
+
+
+  el.innerHTML =
+    events
+    .slice()
+    .reverse()
+    .map(
+      e =>
+        '<div class="packet">' +
+        timeString(
+          new Date(e.time)
+        ) +
+        ' <b>' +
+        escapeHTML(e.type) +
+        '</b>' +
+        '</div>'
+    )
+    .join('');
+
+}
+
+
+/* ============================================================
+   TRANSICIONES
+============================================================ */
+
+function renderTransitions(){
+
+  const el =
+    document.getElementById(
+      'transitions'
+    );
+
+
+  if(!transitions.length){
+
+    el.innerHTML =
+      '<div class="small">' +
+      'Todavía no se han observado transiciones.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  el.innerHTML =
+    transitions
+    .slice()
+    .reverse()
+    .map(
+      t =>
+        '<div class="packet">' +
+        timeString(
+          new Date(t.time)
+        ) +
+        ' <b>' +
+        t.type +
+        '</b>' +
+        ' · Byte ' +
+        t.byte +
+        ' · ' +
+        byteHex(t.from) +
+        ' → ' +
+        byteHex(t.to) +
+        ' · Δ ' +
+        (t.delta / 1000)
+        .toFixed(3) +
+        ' s' +
+        '</div>'
+    )
+    .join('');
+
+}
+
+
+/* ============================================================
+   CICLOS
+============================================================ */
+
+function renderCycles(){
+
+  const el =
+    document.getElementById(
+      'cycles'
+    );
+
+
+  const list =
+    transitions.filter(
+      t =>
+        t.type === '0x91' &&
+        t.byte === 7
+    );
+
+
+  if(!list.length){
+
+    el.innerHTML =
+      '<div class="small">' +
+      'Aún no hay ciclos detectados.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  let html =
+    '<table>' +
+    '<tr>' +
+    '<th>#</th>' +
+    '<th>Transición</th>' +
+    '<th>Intervalo</th>' +
+    '</tr>';
+
+
+  list.forEach(
+    (t,i) => {
+
+      html +=
+        '<tr>' +
+        '<td>' +
+        (i + 1) +
+        '</td>' +
+        '<td>' +
+        byteHex(t.from) +
+        ' → ' +
+        byteHex(t.to) +
+        '</td>' +
+        '<td>' +
+        (t.delta / 1000)
+        .toFixed(3) +
+        ' s' +
+        '</td>' +
+        '</tr>';
+
+    }
+  );
+
+
+  html +=
+    '</table>';
+
+
+  el.innerHTML =
+    html;
+
+}
+
+
+/* ============================================================
+   CORRELACIONES
+============================================================ */
+
+function renderCorrelations(){
+
+  const el =
+    document.getElementById(
+      'correlations'
+    );
+
+
+  if(!correlations.length){
+
+    el.innerHTML =
+      '<div class="small">' +
+      'Todavía no hay correlaciones.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>Evento</th>' +
+    '<th>RX</th>' +
+    '<th>Δ tiempo</th>' +
+    '<th>HEX</th>' +
+    '</tr>' +
+
+    correlations
+    .slice()
+    .reverse()
+    .map(
+      c =>
+        '<tr>' +
+        '<td>' +
+        escapeHTML(c.eventType) +
+        '</td>' +
+        '<td>' +
+        c.packetType +
+        '</td>' +
+        '<td>' +
+        (
+          c.delta >= 0
+          ? '+'
+          : ''
+        ) +
+        (c.delta / 1000)
+        .toFixed(3) +
+        ' s</td>' +
+        '<td class="mono">' +
+        escapeHTML(c.hex) +
+        '</td>' +
+        '</tr>'
+    )
+    .join('') +
+
+    '</table>';
+
+}
+
+
+/* ============================================================
+   COMPARACIONES
+============================================================ */
+
+function renderComparisons(){
+
+  const latest =
+    document.getElementById(
+      'latestComparison'
+    );
+
+
+  if(!comparisons.length){
+
+    latest.innerHTML =
+      '<div class="small">' +
+      'Todavía no hay comparación.' +
+      '</div>';
+
+  }
+  else{
+
+    const c =
+      comparisons[
+        comparisons.length - 1
+      ];
+
+
+    latest.innerHTML =
+      '<div class="packet">' +
+
+      '<b>Comparación #' +
+      c.id +
+      '</b><br>' +
+
+      c.type +
+      ' / ' +
+      c.length +
+      ' bytes' +
+
+      '<hr>' +
+
+      '<div class="mono">' +
+      escapeHTML(
+        c.previous
+      ) +
+      '</div>' +
+
+      '↓<br>' +
+
+      '<div class="mono">' +
+      escapeHTML(
+        c.current
+      ) +
+      '</div>' +
+
+      '<hr>' +
+
+      (
+        c.changes.length
+
+        ?
+
+        '<span class="warn">' +
+        c.changes.length +
+        ' byte(s) modificados' +
+        '</span>'
+
+        :
+
+        '<span class="ok">' +
+        '🟢 TRAMAS IDÉNTICAS' +
+        '</span>'
+      ) +
+
+      '</div>';
+
+  }
+
+
+  const history =
+    document.getElementById(
+      'comparisonHistory'
+    );
+
+
+  if(!comparisons.length){
+
+    history.innerHTML =
+      '<div class="small">' +
+      'Sin comparaciones.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  history.innerHTML =
+    comparisons
+    .slice()
+    .reverse()
+    .map(
+      c =>
+        '<div class="packet">' +
+        '<b>#' +
+        c.id +
+        '</b> · ' +
+        c.type +
+        ' / ' +
+        c.length +
+        ' bytes · cambios: ' +
+        c.changes.length +
+        '</div>'
+    )
+    .join('');
+
+}
+
+
+/* ============================================================
+   MATRIZ
+============================================================ */
+
+function renderMatrix(){
+
+  const el =
+    document.getElementById(
+      'byteMatrix'
+    );
+
+
+  const groups = {};
+
+
+  packets.forEach(
+    p => {
+
+      const key =
+        p.type +
+        '/' +
+        p.length;
+
+
+      if(!groups[key]){
+
+        groups[key] = [];
+
+        for(
+          let i=0;
+          i<p.length;
+          i++
+        ){
+
+          groups[key][i] = {
+
+            values:
+              new Set(),
+
+            changes:
+              0
+
+          };
+
+        }
+
+      }
+
+
+      p.bytes.forEach(
+        (v,i) => {
+
+          groups[key][i]
+            .values
+            .add(v);
+
+        }
+      );
+
+    }
+  );
+
+
+  transitions.forEach(
+    t => {
+
+      const matching =
+        packets.find(
+          p =>
+            p.type === t.type &&
+            p.time >= t.time
+        );
+
+
+      if(!matching)
+        return;
+
+
+      const key =
+        t.type +
+        '/' +
+        matching.length;
+
+
+      if(
+        groups[key] &&
+        groups[key][t.byte]
+      ){
+
+        groups[key][t.byte]
+          .changes++;
+
+      }
+
+    }
+  );
+
+
+  let html = '';
+
+
+  Object.keys(groups)
+  .forEach(
+    key => {
+
+      html +=
+        '<h3>' +
+        escapeHTML(key) +
+        '</h3>' +
+
+        '<table>' +
+
+        '<tr>' +
+        '<th>Byte</th>' +
+        '<th>Cambios</th>' +
+        '<th>Valores observados</th>' +
+        '<th>Estado</th>' +
+        '</tr>';
+
+
+      groups[key]
+      .forEach(
+        (g,i) => {
+
+          const values =
+            Array.from(
+              g.values
+            )
+            .map(
+              byteHex
+            )
+            .join(' · ');
+
+
+          html +=
+            '<tr>' +
+
+            '<td>' +
+            i +
+            '</td>' +
+
+            '<td>' +
+            g.changes +
+            '</td>' +
+
+            '<td class="mono">' +
+            values +
+            '</td>' +
+
+            '<td>' +
+
+            (
+              g.values.size > 1
+
+              ?
+
+              '<span class="warn">' +
+              'VARIABLE OBSERVADA' +
+              '</span>'
+
+              :
+
+              '<span class="ok">' +
+              'FIJO' +
+              '</span>'
+            ) +
+
+            '</td>' +
+
+            '</tr>';
+
+        }
+      );
+
+
+      html +=
+        '</table>';
+
+    }
+  );
+
+
+  el.innerHTML =
+    html ||
+    '<div class="small">Sin datos.</div>';
+
+}
+
+
+/* ============================================================
+   TIPOS
+============================================================ */
+
+function renderTypes(){
+
+  const el =
+    document.getElementById(
+      'frameTypes'
+    );
+
+
+  if(!packets.length){
+
+    el.innerHTML =
+      '<div class="small">Sin datos.</div>';
+
+    return;
+
+  }
+
+
+  const map = {};
+
+
+  packets.forEach(
+    p => {
+
+      if(!map[p.type]){
+
+        map[p.type] = {
+
+          count:0,
+
+          lengths:
+            new Set()
+
+        };
+
+      }
+
+
+      map[p.type].count++;
+
+
+      map[p.type]
+        .lengths
+        .add(p.length);
+
+    }
+  );
+
+
+  el.innerHTML =
+    '<table>' +
+
+    '<tr>' +
+    '<th>Tipo</th>' +
+    '<th>Tramas</th>' +
+    '<th>% RX</th>' +
+    '<th>Longitudes</th>' +
+    '</tr>' +
+
+    Object.keys(map)
+    .map(
+      type => {
+
+        const x =
+          map[type];
+
+
+        return (
+          '<tr>' +
+
+          '<td>' +
+          type +
+          '</td>' +
+
+          '<td>' +
+          x.count +
+          '</td>' +
+
+          '<td>' +
+          (
+            x.count /
+            packets.length *
+            100
+          )
+          .toFixed(1) +
+          '%</td>' +
+
+          '<td>' +
+          Array.from(
+            x.lengths
+          )
+          .join(', ') +
+          ' bytes</td>' +
+
+          '</tr>'
+        );
+
+      }
+    )
+    .join('') +
+
+    '</table>';
+
+}
+
+
+/* ============================================================
+   LONGITUD
+============================================================ */
+
+function renderLengths(){
+
+  const el =
+    document.getElementById(
+      'lengthAnalysis'
+    );
+
+
+  if(!packets.length){
+
+    el.innerHTML =
+      '<div class="small">Sin datos.</div>';
+
+    return;
+
+  }
+
+
+  const map = {};
+
+
+  packets.forEach(
+    p => {
+
+      if(!map[p.length]){
+
+        map[p.length] = {
+
+          byte2:null,
+
+          count:0
+
+        };
+
+      }
+
+
+      map[p.length]
+        .count++;
+
+
+      if(p.bytes.length >= 3){
+
+        map[p.length]
+          .byte2 =
+          p.bytes[2];
+
+      }
+
+    }
+  );
+
+
+  el.innerHTML =
+    '<table>' +
+
+    '<tr>' +
+    '<th>Longitud real</th>' +
+    '<th>Byte 2</th>' +
+    '<th>Calculada</th>' +
+    '<th>Resultado</th>' +
+    '<th>Veces</th>' +
+    '</tr>' +
+
+    Object.keys(map)
+    .map(
+      length => {
+
+        const x =
+          map[length];
+
+
+        const calculated =
+          x.byte2 !== null
+          ? x.byte2 + 3
+          : null;
+
+
+        const match =
+          calculated ===
+          Number(length);
+
+
+        return (
+          '<tr>' +
+
+          '<td>' +
+          length +
+          '</td>' +
+
+          '<td>' +
+          (
+            x.byte2 !== null
+            ? byteHex(x.byte2)
+            : '—'
+          ) +
+          '</td>' +
+
+          '<td>' +
+          (
+            calculated !== null
+            ? calculated
+            : '—'
+          ) +
+          '</td>' +
+
+          '<td>' +
+
+          (
+            match
+
+            ?
+
+            '<span class="ok">' +
+            '🟢 COINCIDE' +
+            '</span>'
+
+            :
+
+            '<span class="warn">' +
+            '⚠️ NO COINCIDE' +
+            '</span>'
+          ) +
+
+          '</td>' +
+
+          '<td>' +
+          x.count +
+          '</td>' +
+
+          '</tr>'
+        );
+
+      }
+    )
+    .join('') +
+
+    '</table>';
+
+}
+
+
+/* ============================================================
+   PATRONES
+============================================================ */
+
+function renderPatterns(){
+
+  const el =
+    document.getElementById(
+      'patterns'
+    );
+
+
+  if(!packets.length){
+
+    el.innerHTML =
+      '<div class="small">Sin datos.</div>';
+
+    return;
+
+  }
+
+
+  const map = {};
+
+
+  packets.forEach(
+    p => {
+
+      if(!map[p.hex]){
+
+        map[p.hex] = {
+
+          type:p.type,
+
+          count:0
+
+        };
+
+      }
+
+
+      map[p.hex]
+        .count++;
+
+    }
+  );
+
+
+  const rows =
+    Object.entries(map)
+    .sort(
+      (a,b) =>
+        b[1].count -
+        a[1].count
+    );
+
+
+  el.innerHTML =
+    '<table>' +
+
+    '<tr>' +
+    '<th>Patrón HEX</th>' +
+    '<th>Tipo</th>' +
+    '<th>Veces</th>' +
+    '<th>%</th>' +
+    '</tr>' +
+
+    rows.map(
+      ([pattern,x]) =>
+        '<tr>' +
+
+        '<td class="mono">' +
+        escapeHTML(pattern) +
+        '</td>' +
+
+        '<td>' +
+        x.type +
+        '</td>' +
+
+        '<td>' +
+        x.count +
+        '</td>' +
+
+        '<td>' +
+        (
+          x.count /
+          packets.length *
+          100
+        )
+        .toFixed(1) +
+        '%</td>' +
+
+        '</tr>'
+    )
+    .join('') +
+
+    '</table>';
+
+}
+
+
+/* ============================================================
+   INTERVALOS
+============================================================ */
+
+function renderIntervals(){
+
+  const el =
+    document.getElementById(
+      'intervals'
+    );
+
+
+  if(packets.length < 2){
+
+    el.innerHTML =
+      '<div class="small">' +
+      'Sin intervalos.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  const rows = [];
+
+
+  for(
+    let i=1;
+    i<packets.length;
+    i++
+  ){
+
+    rows.push({
+
+      type:
+        packets[i].type,
+
+      delta:
+        packets[i].time -
+        packets[i-1].time
+
+    });
+
+  }
+
+
+  el.innerHTML =
+    '<table>' +
+
+    '<tr>' +
+    '<th>RX</th>' +
+    '<th>Intervalo</th>' +
+    '</tr>' +
+
+    rows
+    .slice()
+    .reverse()
+    .map(
+      x =>
+        '<tr>' +
+
+        '<td>' +
+        x.type +
+        '</td>' +
+
+        '<td>' +
+        (
+          x.delta /
+          1000
+        )
+        .toFixed(3) +
+        ' s</td>' +
+
+        '</tr>'
+    )
+    .join('') +
+
+    '</table>';
+
+}
+
+
+/* ============================================================
+   CAPTURAS
+============================================================ */
+
+function renderCaptures(){
+
+  const el =
+    document.getElementById(
+      'captures'
+    );
+
+
+  if(!packets.length){
+
+    el.innerHTML =
+      '<div class="small">' +
+      'Sin capturas.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  el.innerHTML =
+    packets
+    .slice()
+    .reverse()
+    .map(
+      p =>
+        '<div class="packet">' +
+
+        '<b>📥 PAQUETE #' +
+        p.id +
+        '</b> · RX<br>' +
+
+        timeString(p.date) +
+        ' · Tipo ' +
+        p.type +
+        ' · ' +
+        p.length +
+        ' bytes' +
+
+        '<hr>' +
+
+        '<div class="mono">' +
+        escapeHTML(p.hex) +
+        '</div>' +
+
+        '<div class="small">' +
+
+        'DECIMAL: ' +
+        escapeHTML(p.decimal) +
+
+        '<br>' +
+
+        'ASCII: ' +
+        escapeHTML(p.ascii) +
+
+        '</div>' +
+
+        '</div>'
+    )
+    .join('');
+
+}
+
+
+/* ============================================================
+   VALIDACIÓN HEX
+============================================================ */
+
+function parseHEX(input){
+
+  const clean =
+    input
+    .trim()
+    .replace(/0x/gi,'')
+    .replace(/[^0-9a-fA-F]/g,'');
+
+
+  if(!clean){
+
+    throw new Error(
+      'No se encontró HEX.'
+    );
+
+  }
+
+
+  if(
+    clean.length % 2 !== 0
+  ){
+
+    throw new Error(
+      'La cantidad de dígitos HEX debe ser par.'
+    );
+
+  }
+
+
+  const parts =
+    clean.match(/.{2}/g);
+
+
+  const values =
+    parts.map(
+      x =>
+        parseInt(x,16)
+    );
+
+
+  if(
+    values.some(
+      Number.isNaN
+    )
+  ){
+
+    throw new Error(
+      'HEX inválido.'
+    );
+
+  }
+
+
+  return new Uint8Array(
+    values
+  );
+
+}
+
+
+function validateTestHEX(){
+
+  const input =
+    document
+    .getElementById(
+      'testHex'
+    )
+    .value;
+
+
+  const result =
+    document.getElementById(
+      'hexValidation'
+    );
+
+
+  try{
+
+    const bytes =
+      parseHEX(input);
+
+
+    result.innerHTML =
+      '<span class="ok">' +
+      '🟢 HEX válido — ' +
+      bytes.length +
+      ' bytes' +
+      '</span>' +
+      '<br>' +
+      '<span class="mono">' +
+      escapeHTML(
+        hex(bytes)
+      ) +
+      '</span>';
+
+
+    updateTestButton();
+
+
+    return true;
+
+  }
+  catch(error){
+
+    result.innerHTML =
+      '<span class="bad">' +
+      '❌ ' +
+      escapeHTML(
+        error.message
+      ) +
+      '</span>';
+
+
+    updateTestButton();
+
+
+    return false;
+
+  }
+
+}
+
+
+/* ============================================================
+   BOTÓN PRUEBA
+============================================================ */
+
+function updateTestButton(){
+
+  const btn =
+    document.getElementById(
+      'runTestBtn'
+    );
+
+
+  let validHEX =
+    false;
+
+
+  try{
+
+    const input =
+      document
+      .getElementById(
+        'testHex'
+      )
+      .value
+      .trim();
+
+
+    if(input){
+
+      parseHEX(input);
+
+      validHEX = true;
+
+    }
+
+  }
+  catch(e){
+
+    validHEX = false;
+
+  }
+
+
+  btn.disabled =
+    !(
+      txCharacteristic &&
+      validHEX
+    );
+
+}
+
+
+/* ============================================================
+   PRUEBA CONTROLADA
+============================================================ */
+
+let activeTest = null;
+
+
+async function runControlledTest(){
+
+  if(!txCharacteristic){
+
+    alert(
+      'No existe TX disponible.'
+    );
+
+    return;
+
+  }
+
+
+  const input =
+    document
+    .getElementById(
+      'testHex'
+    )
+    .value;
+
+
+  let bytes;
+
+
+  try{
+
+    bytes =
+      parseHEX(input);
+
+  }
+  catch(error){
+
+    alert(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  let windowMs =
+    Number(
+      document
+      .getElementById(
+        'testWindow'
+      )
+      .value
+    );
+
+
+  if(
+    !Number.isFinite(windowMs) ||
+    windowMs < 100
+  ){
+
+    windowMs = 3000;
+
+  }
+
+
+  if(windowMs > 30000){
+
+    windowMs = 30000;
+
+  }
+
+
+  const test = {
+
+    id:
+      ++testSequence,
+
+    startedAt:
+      timestamp(),
+
+    txHex:
+      hex(bytes),
+
+    txBytes:
+      Array.from(bytes),
+
+    windowMs,
+
+    rx:[],
+
+    status:
+      'EJECUTANDO'
+
+  };
+
+
+  tests.push(test);
+
+
+  activeTest = test;
+
+
+  renderTests();
+
+
+  log(
+    '🧪 PRUEBA #' +
+    test.id +
+    ' INICIADA'
+  );
+
+
+  log(
+    '📤 TEST TX | ' +
+    test.txHex
+  );
+
+
+  try{
+
+    await writeCharacteristic(
+      bytes
+    );
+
+
+    totalTX++;
+
+
+    test.txSentAt =
+      timestamp();
+
+
+    test.txConfirmed =
+      true;
+
+
+    /*
+     * Espera controlada.
+     */
+
+    await sleep(
+      windowMs
+    );
+
+
+    test.rx =
+      test.rx || [];
+
+
+    test.rxCount =
+      test.rx.length;
+
+
+    if(test.rx.length){
+
+      test.status =
+        'RESPUESTA_RX';
+
+    }
+    else{
+
+      test.status =
+        'SIN_RESPUESTA';
+
+    }
+
+
+    test.finishedAt =
+      timestamp();
+
+
+    test.duration =
+      test.finishedAt -
+      test.startedAt;
+
+
+    log(
+      test.rx.length
+      ? '🟢 PRUEBA #' +
+        test.id +
+        ' FINALIZADA: RX detectado.'
+      : '🟡 PRUEBA #' +
+        test.id +
+        ' FINALIZADA: sin RX dentro de la ventana.'
+    );
+
+
+  }
+  catch(error){
+
+    test.status =
+      'ERROR';
+
+
+    test.error =
+      error.message;
+
+
+    log(
+      '❌ PRUEBA #' +
+      test.id +
+      ' ERROR: ' +
+      error.message
+    );
+
+  }
+
+
+  activeTest = null;
+
+
+  renderAll();
+
+}
+
+
+function registerRXForActiveTest(packet){
+
+  if(!activeTest)
+    return;
+
+
+  if(
+    !activeTest.txSentAt
+  )
+    return;
+
+
+  const delta =
+    packet.time -
+    activeTest.txSentAt;
+
+
+  if(
+    delta < 0
+  )
+    return;
+
+
+  if(
+    delta <=
+    activeTest.windowMs
+  ){
+
+    activeTest.rx.push({
+
+      packetId:
+        packet.id,
+
+      time:
+        packet.time,
+
+      delta,
+
+      type:
+        packet.type,
+
+      length:
+        packet.length,
+
+      hex:
+        packet.hex
+
+    });
+
+
+    log(
+      '🧪 RX asociado a prueba #' +
+      activeTest.id +
+      ' | +' +
+      delta +
+      ' ms | ' +
+      packet.hex
+    );
+
+
+    renderTests();
+
+  }
+
+}
+
+
+/* ============================================================
+   ESCRITURA BLE
+============================================================ */
+
+async function writeCharacteristic(
+  bytes
+){
+
+  if(!txCharacteristic){
+
+    throw new Error(
+      'TX no disponible.'
+    );
+
+  }
+
+
+  const p =
+    txCharacteristic.properties || {};
+
+
+  if(
+    p.writeWithoutResponse
+  ){
+
+    await txCharacteristic
+      .writeValueWithoutResponse(
+        bytes
+      );
+
+    return;
+
+  }
+
+
+  if(p.write){
+
+    await txCharacteristic
+      .writeValue(
+        bytes
+      );
+
+    return;
+
+  }
+
+
+  throw new Error(
+    'La característica TX no permite escritura.'
+  );
+
+}
+
+
+/* ============================================================
+   TX MANUAL
+============================================================ */
+
+async function sendTX(){
+
+  if(!txCharacteristic){
+
+    alert(
+      'No existe una característica TX disponible.'
+    );
+
+    return;
+
+  }
+
+
+  const input =
+    document
+    .getElementById(
+      'txInput'
+    )
+    .value
+    .trim();
+
+
+  if(!input){
+
+    alert(
+      'Introduce una trama HEX.'
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const bytes =
+      parseHEX(input);
+
+
+    await writeCharacteristic(
+      bytes
+    );
+
+
+    totalTX++;
+
+
+    document
+    .getElementById(
+      'txStatus'
+    )
+    .innerHTML =
+      '<span class="ok">' +
+      '🟢 TX enviado: ' +
+      escapeHTML(
+        hex(bytes)
+      ) +
+      '</span>';
+
+
+    log(
+      '📤 TX MANUAL | ' +
+      hex(bytes)
+    );
+
+
+    renderAll();
+
+  }
+  catch(error){
+
+    document
+    .getElementById(
+      'txStatus'
+    )
+    .innerHTML =
+      '<span class="bad">' +
+      '❌ Error TX: ' +
+      escapeHTML(
+        error.message
+      ) +
+      '</span>';
+
+
+    log(
+      '❌ ERROR TX: ' +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   TEST RENDER
+============================================================ */
+
+function renderTests(){
+
+  const countTX =
+    tests.length;
+
+
+  const countRX =
+    tests.reduce(
+      (sum,t) =>
+        sum +
+        (
+          t.rx
+          ? t.rx.length
+          : 0
+        ),
+      0
+    );
+
+
+  const responses =
+    tests.filter(
+      t =>
+        t.status ===
+        'RESPUESTA_RX'
+    ).length;
+
+
+  const noResponses =
+    tests.filter(
+      t =>
+        t.status ===
+        'SIN_RESPUESTA'
+    ).length;
+
+
+  document
+  .getElementById(
+    'testTXCount'
+  )
+  .textContent =
+    countTX;
+
+
+  document
+  .getElementById(
+    'testRXCount'
+  )
+  .textContent =
+    countRX;
+
+
+  document
+  .getElementById(
+    'testResponseCount'
+  )
+  .textContent =
+    responses;
+
+
+  document
+  .getElementById(
+    'testNoResponseCount'
+  )
+  .textContent =
+    noResponses;
+
+
+  const result =
+    document.getElementById(
+      'testResult'
+    );
+
+
+  if(!tests.length){
+
+    result.innerHTML =
+      '<div class="small">' +
+      'No se ha ejecutado ninguna prueba.' +
+      '</div>';
+
+  }
+  else{
+
+    const t =
+      tests[
+        tests.length - 1
+      ];
+
+
+    let html =
+      '<div class="testResult ' +
+      (
+        t.status ===
+        'RESPUESTA_RX'
+        ? 'testSuccess'
+        : ''
+      ) +
+      '">' +
+
+      '<b>Prueba #' +
+      t.id +
+      '</b><br><br>' +
+
+      'TX:<br>' +
+
+      '<span class="mono">' +
+      escapeHTML(
+        t.txHex
+      ) +
+      '</span><br><br>' +
+
+      'Ventana: ' +
+      t.windowMs +
+      ' ms<br>' +
+
+      'Estado: <b>' +
+      escapeHTML(
+        t.status
+      ) +
+      '</b><br><br>';
+
+
+    if(t.rx && t.rx.length){
+
+      html +=
+        '<b>RX posteriores:</b>';
+
+
+      t.rx.forEach(
+        r => {
+
+          html +=
+            '<div class="packet">' +
+
+            '+' +
+            r.delta +
+            ' ms · ' +
+            r.type +
+
+            '<br>' +
+
+            '<span class="mono">' +
+            escapeHTML(
+              r.hex
+            ) +
+            '</span>' +
+
+            '</div>';
+
+        }
+      );
+
+    }
+    else if(
+      t.status ===
+      'SIN_RESPUESTA'
+    ){
+
+      html +=
+        '<span class="warn">' +
+        '⚠️ No apareció RX dentro de la ventana de observación.' +
+        '</span>';
+
+    }
+
+
+    if(t.error){
+
+      html +=
+        '<br><span class="bad">' +
+        escapeHTML(
+          t.error
+        ) +
+        '</span>';
+
+    }
+
+
+    html +=
+      '</div>';
+
+
+    result.innerHTML =
+      html;
+
+  }
+
+
+  const history =
+    document.getElementById(
+      'testHistory'
+    );
+
+
+  if(!tests.length){
+
+    history.innerHTML =
+      '<div class="small">' +
+      'Sin pruebas.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  history.innerHTML =
+    tests
+    .slice()
+    .reverse()
+    .map(
+      t =>
+        '<div class="packet">' +
+
+        '<b>Prueba #' +
+        t.id +
+        '</b> · ' +
+
+        escapeHTML(
+          t.status
+        ) +
+
+        '<br>' +
+
+        '<span class="mono">' +
+        escapeHTML(
+          t.txHex
+        ) +
+        '</span>' +
+
+        '<br>' +
+
+        'RX posteriores: ' +
+        (
+          t.rx
+          ? t.rx.length
+          : 0
+        ) +
+
+        '</div>'
+    )
+    .join('');
+
+}
+
+
+/* ============================================================
+   LIMPIAR TESTS
+============================================================ */
+
+function clearTests(){
+
+  tests = [];
+
+  activeTest = null;
+
+  testSequence = 0;
+
+  log(
+    '🧹 Historial de pruebas reiniciado.'
+  );
+
+
+  renderTests();
+
+}
+
+
+/* ============================================================
+   EXPORTAR TESTS
+============================================================ */
+
+function exportTests(){
+
+  const data = {
+
+    laboratory:
+      'RoXThal F1 Plus Laboratory V8',
+
+    generatedAt:
+      new Date().toISOString(),
+
+    tests
+
+  };
+
+
+  downloadFile(
+    JSON.stringify(
+      data,
+      null,
+      2
+    ),
+    'roxthal-f1plus-v8-tests.json',
+    'application/json'
+  );
+
+}
+
+
+/* ============================================================
+   LIMPIEZAS
+============================================================ */
+
+function clearCaptures(){
+
+  packets = [];
+
+  comparisons = [];
+
+  transitions = [];
+
+  correlations = [];
+
+  previousByKey = {};
+
+  sequence = 0;
+
+
+  log(
+    '🧹 Capturas y análisis reiniciados.'
+  );
+
+
+  renderAll();
+
+}
+
+
+function clearDiagnostics(){
+
+  document
+  .getElementById(
+    'diagnostics'
+  )
+  .textContent = '';
+
+
+  log(
+    'Diagnóstico reiniciado.'
+  );
+
+}
+
+
+/* ============================================================
+   EXPORTAR JSON
+============================================================ */
+
+function exportJSON(){
+
+  const data = {
+
+    laboratory:
+      'RoXThal F1 Plus Protocol Laboratory V8',
+
+    generatedAt:
+      new Date().toISOString(),
+
+    device:{
+
+      name:
+        device?.name ||
+        null,
+
+      id:
+        device?.id ||
+        null
+
+    },
+
+    BLE:{
+
+      service:
+        UART_SERVICE,
+
+      rx:
+        rxCharacteristic?.uuid ||
+        null,
+
+      tx:
+        txCharacteristic?.uuid ||
+        null
+
+    },
+
+    statistics:{
+
+      tx:
+        totalTX,
+
+      rx:
+        packets.length,
+
+      comparisons:
+        comparisons.length,
+
+      transitions:
+        transitions.length,
+
+      events:
+        events.length,
+
+      correlations:
+        correlations.length,
+
+      tests:
+        tests.length
+
+    },
+
+    packets,
+
+    comparisons,
+
+    transitions,
+
+    events,
+
+    correlations,
+
+    tests,
+
+    diagnostics:
+      document
+      .getElementById(
+        'diagnostics'
+      )
+      .textContent
+
+  };
+
+
+  downloadFile(
+    JSON.stringify(
+      data,
+      null,
+      2
+    ),
+    'roxthal-f1plus-v8-analysis.json',
+    'application/json'
+  );
+
+}
+
+
+/* ============================================================
+   EXPORTAR HEX
+============================================================ */
+
+function exportHEX(){
+
+  const text =
+    packets
+    .map(
+      p =>
+        timeString(p.date) +
+        ' | ' +
+        p.type +
+        ' | ' +
+        p.length +
+        ' bytes | ' +
+        p.hex
+    )
+    .join('\n');
+
+
+  downloadFile(
+    text,
+    'roxthal-f1plus-v8-rx.txt',
+    'text/plain'
+  );
+
+}
+
+
+/* ============================================================
+   COPIAR RESUMEN
+============================================================ */
+
+async function copySummary(){
+
+  const text =
+`RoXThal F1 Plus Laboratory V8
+
+RX: ${packets.length}
+TX: ${totalTX}
+Tipos: ${new Set(packets.map(p=>p.type)).size}
+Longitudes: ${new Set(packets.map(p=>p.length)).size}
+Comparaciones: ${comparisons.length}
+Transiciones: ${transitions.length}
+Eventos: ${events.length}
+Correlaciones: ${correlations.length}
+Pruebas: ${tests.length}
+
+Capturas:
+
+${packets.map(p=>p.hex).join('\n')}
 `;
 
 
-await discover(server);
+  try{
+
+    await navigator
+      .clipboard
+      .writeText(text);
 
 
-setConn(true);
+    log(
+      '📋 Resumen copiado al portapapeles.'
+    );
 
+  }
+  catch(error){
 
-log(
-'GATT conectado. Captura pasiva activa.'
-);
+    log(
+      '❌ No se pudo copiar el resumen: ' +
+      error.message
+    );
 
-
-}
-
-catch(e){
-
-log(
-'❌ '+e.message
-);
-
-setConn(false);
-
-}
+  }
 
 }
 
 
-/* =========================================================
-   DESCUBRIMIENTO GATT
-========================================================= */
+/* ============================================================
+   SESIÓN
+============================================================ */
 
-async function discover(s){
+function saveSession(){
 
-const services =
-await s.getPrimaryServices();
+  const data = {
+
+    version:
+      'V8',
+
+    savedAt:
+      new Date().toISOString(),
+
+    packets,
+
+    comparisons,
+
+    transitions,
+
+    events,
+
+    correlations,
+
+    tests,
+
+    totalTX,
+
+    diagnostics:
+      document
+      .getElementById(
+        'diagnostics'
+      )
+      .textContent
+
+  };
 
 
-$('other').textContent =
-services.length;
+  try{
+
+    localStorage.setItem(
+      'roxthal_f1plus_v8_session',
+      JSON.stringify(data)
+    );
 
 
-let found=[];
+    log(
+      '💾 Sesión guardada localmente.'
+    );
 
 
-for(
-const service
-of services
+    alert(
+      'Sesión guardada correctamente.'
+    );
+
+  }
+  catch(error){
+
+    log(
+      '❌ Error guardando sesión: ' +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   CARGAR SESIÓN
+============================================================ */
+
+function loadSession(){
+
+  try{
+
+    const raw =
+      localStorage.getItem(
+        'roxthal_f1plus_v8_session'
+      );
+
+
+    if(!raw)
+      return;
+
+
+    const data =
+      JSON.parse(raw);
+
+
+    packets =
+      data.packets || [];
+
+
+    comparisons =
+      data.comparisons || [];
+
+
+    transitions =
+      data.transitions || [];
+
+
+    events =
+      data.events || [];
+
+
+    correlations =
+      data.correlations || [];
+
+
+    tests =
+      data.tests || [];
+
+
+    totalTX =
+      data.totalTX || 0;
+
+
+    sequence =
+      packets.length
+      ? Math.max(
+          ...packets.map(
+            p => p.id
+          )
+        )
+      : 0;
+
+
+    testSequence =
+      tests.length
+      ? Math.max(
+          ...tests.map(
+            t => t.id
+          )
+        )
+      : 0;
+
+
+    /*
+     * Reconstruir último paquete
+     * por tipo/longitud.
+     */
+
+    previousByKey = {};
+
+
+    packets.forEach(
+      p => {
+
+        previousByKey[
+          p.type +
+          '/' +
+          p.length
+        ] = p;
+
+      }
+    );
+
+
+    renderAll();
+
+
+    log(
+      '💾 Sesión local restaurada.'
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   REINICIAR
+============================================================ */
+
+function resetLaboratory(){
+
+  const ok =
+    confirm(
+      '¿Reiniciar completamente el laboratorio? Se borrarán las capturas, eventos, análisis y pruebas de esta sesión.'
+    );
+
+
+  if(!ok)
+    return;
+
+
+  packets = [];
+
+  comparisons = [];
+
+  transitions = [];
+
+  events = [];
+
+  correlations = [];
+
+  tests = [];
+
+  previousByKey = {};
+
+  totalTX = 0;
+
+  sequence = 0;
+
+  testSequence = 0;
+
+  activeTest = null;
+
+
+  try{
+
+    localStorage.removeItem(
+      'roxthal_f1plus_v8_session'
+    );
+
+  }
+  catch(e){}
+
+
+  renderAll();
+
+
+  log(
+    '🗑️ Laboratorio reiniciado.'
+  );
+
+}
+
+
+/* ============================================================
+   DESCARGA
+============================================================ */
+
+function downloadFile(
+  content,
+  filename,
+  type
 ){
 
-const sid =
-service.uuid.toLowerCase();
+  const blob =
+    new Blob(
+      [content],
+      {type}
+    );
 
 
-let chars=[];
+  const url =
+    URL.createObjectURL(
+      blob
+    );
 
 
-try{
-
-chars =
-await service.getCharacteristics();
-
-}
-
-catch(e){
-
-continue;
-
-}
+  const a =
+    document.createElement(
+      'a'
+    );
 
 
-for(
-const ch
-of chars
-){
-
-const props =
-ch.properties;
+  a.href =
+    url;
 
 
-if(
-props.notify ||
-props.indicate
-){
+  a.download =
+    filename;
 
-if(
-!notifyChar ||
-sid===UUIDS.NUS_SERVICE ||
-ch.uuid===UUIDS.FEA1
-){
 
-notifyChar=ch;
+  document.body.appendChild(
+    a
+  );
 
-found.push(
-`NOTIFY ${ch.uuid}`
-);
 
-}
+  a.click();
+
+
+  a.remove();
+
+
+  setTimeout(
+    () =>
+      URL.revokeObjectURL(url),
+    1000
+  );
 
 }
 
 
-if(
-props.write ||
-props.writeWithoutResponse
-){
+/* ============================================================
+   SLEEP
+============================================================ */
 
-if(
-!writeChar ||
-sid===UUIDS.NUS_SERVICE ||
-ch.uuid===UUIDS.FEA2
-){
+function sleep(ms){
 
-writeChar=ch;
-
-found.push(
-`WRITE ${ch.uuid}`
-);
-
-}
-
-}
-
-}
+  return new Promise(
+    resolve =>
+      setTimeout(
+        resolve,
+        ms
+      )
+  );
 
 }
 
 
-if(!notifyChar){
-
-throw Error(
-'No se encontró característica de notificación.'
-);
-
-}
-
-
-if(!writeChar){
-
-log(
-'⚠️ No se encontró característica de escritura; modo solo captura.'
-);
-
-}
-
-
-await notifyChar.startNotifications();
-
-
-notifyChar.addEventListener(
-'characteristicvaluechanged',
-onNotify
-);
-
-
-$('svc').textContent =
-notifyChar.service.uuid;
-
-
-$('wr').textContent =
-writeChar
-?
-writeChar.uuid
-:
-'—';
-
-
-$('nt').textContent =
-notifyChar.uuid;
-
-
-log(
-'Servicios descubiertos: '+
-found.join(' | ')
-);
-
-}
-
-
-/* =========================================================
-   NOTIFICACIÓN RX
-========================================================= */
-
-function onNotify(ev){
-
-const v =
-ev.target.value;
-
-
-const bytes =
-new Uint8Array(
-v.buffer.slice(
-v.byteOffset,
-v.byteOffset+
-v.byteLength
-)
-);
-
-
-addPacket(
-'RX',
-bytes,
-{
-characteristic:
-ev.target.uuid
-}
-);
-
-}
-
-
-/* =========================================================
+/* ============================================================
    DESCONEXIÓN
-========================================================= */
+============================================================ */
+
+document
+.getElementById(
+  'disconnectBtn'
+)
+.addEventListener(
+  'click',
+  disconnect
+);
+
+
+async function disconnect(){
+
+  try{
+
+    if(rxCharacteristic){
+
+      try{
+
+        await rxCharacteristic
+          .stopNotifications();
+
+      }
+      catch(e){}
+
+    }
+
+
+    if(
+      device &&
+      device.gatt &&
+      device.gatt.connected
+    ){
+
+      device.gatt.disconnect();
+
+    }
+
+  }
+  finally{
+
+    onDisconnected();
+
+  }
+
+}
+
 
 function onDisconnected(){
 
-log(
-'🔴 GATT desconectado.'
-);
-
-setConn(false);
-
-writeChar=null;
-
-notifyChar=null;
-
-}
+  setConnection(
+    '🔴 Desconectado',
+    'bad'
+  );
 
 
-function disconnect(){
-
-try{
-
-if(
-device?.gatt?.connected
-){
-
-device.gatt.disconnect();
-
-}
-
-}
-catch(e){}
-
-}
+  document
+  .getElementById(
+    'connectBtn'
+  )
+  .disabled = false;
 
 
-/* =========================================================
-   TX HEX MANUAL
-========================================================= */
-
-async function sendHex(){
-
-if(!writeChar)
-return;
+  document
+  .getElementById(
+    'disconnectBtn'
+  )
+  .disabled = true;
 
 
-try{
-
-const bytes =
-parseHex(
-$('hexInput').value
-);
-
-
-if(!bytes.length)
-throw Error(
-'No hay bytes.'
-);
+  document
+  .getElementById(
+    'notifyStatus'
+  )
+  .innerHTML =
+    '🔴 NO activo';
 
 
-if(
-$('writeMode').value==='without' &&
-writeChar.properties
-.writeWithoutResponse
-){
+  document
+  .getElementById(
+    'rxUUID'
+  )
+  .textContent =
+    '—';
 
-await writeChar
-.writeValueWithoutResponse(
-bytes
-);
 
-}
+  document
+  .getElementById(
+    'txUUID'
+  )
+  .textContent =
+    '—';
 
-else if(
-writeChar.properties.write
-){
 
-await writeChar
-.writeValueWithResponse(
-bytes
-);
+  document
+  .getElementById(
+    'txBtn'
+  )
+  .disabled = true;
 
-}
 
-else{
+  log(
+    '🔴 GATT desconectado.'
+  );
 
-throw Error(
-'La característica no admite el modo seleccionado.'
-);
+
+  rxCharacteristic = null;
+
+  txCharacteristic = null;
+
+
+  updateTestButton();
 
 }
 
 
-addPacket(
-'TX',
-bytes,
-{
-mode:
-$('writeMode').value
-}
-);
+function resetBLEReferences(){
 
+  rxCharacteristic = null;
 
-log(
-`TX manual: ${hex(bytes)}`
-);
+  txCharacteristic = null;
 
+  server = null;
 
-}
-catch(e){
-
-log(
-'❌ TX: '+e.message
-);
-
-}
+  service = null;
 
 }
 
 
-/* =========================================================
-   EXPORTACIÓN
-========================================================= */
+/* ============================================================
+   EVENTOS DE UI
+============================================================ */
 
-function exportJson(){
-
-const data={
-
-app:
-'RoXThal F1 Plus Protocol Laboratory v9',
-
-generated:
-new Date().toISOString(),
-
-device:
-device
-?
-{
-name:device.name,
-id:device.id
-}
-:
-null,
-
-uuids:
-UUIDS,
-
-stats:
-{
-...stats,
-
-types:[
-...stats.types
-],
-
-lens:[
-...stats.lens
-]
-
-},
-
-packets
-
-};
-
-
-const blob =
-new Blob(
-[
-JSON.stringify(
-data,
-null,
-2
+document
+.getElementById(
+  'testHex'
 )
-],
-{
-type:
-'application/json'
-}
+.addEventListener(
+  'input',
+  updateTestButton
 );
 
 
-const a =
-document.createElement('a');
-
-
-a.href =
-URL.createObjectURL(blob);
-
-
-a.download =
-'roxthal-f1plus-capture.json';
-
-
-a.click();
-
-
-setTimeout(
-()=>{
-URL.revokeObjectURL(
-a.href
-);
-},
-1000
-);
-
-}
-
-
-/* =========================================================
-   BORRAR
-========================================================= */
-
-function clearPackets(){
-
-packets=[];
-
-rxPackets=[];
-
-txPackets=[];
-
-lastTx=null;
-
-lastRx=null;
-
-baseline=null;
-
-
-stats={
-
-tx:0,
-
-rx:0,
-
-sp:0,
-
-resp:0,
-
-echo:0,
-
-cmp:0,
-
-types:new Set(),
-
-lens:new Set()
-
-};
-
-
-updateStats();
-
-renderPackets();
-
-
-$('comparison').textContent =
-'Cuando existan dos RX comparables, aquí se mostrará byte por byte qué cambió.';
-
-
-$('structure').textContent =
-'Aún no hay suficientes tramas.';
-
-}
-
-
-/* =========================================================
-   EVENTOS UI
-========================================================= */
-
-$('connect').onclick =
-connect;
-
-
-$('disconnect').onclick =
-disconnect;
-
-
-$('check').onclick =
-()=>{
-
-log(
-navigator.bluetooth
-?
-'🟢 Web Bluetooth disponible.'
-:
-'🔴 Web Bluetooth no disponible.'
-);
-
-};
-
-
-$('markAction').onclick =
-markAction;
-
-
-$('clearBaseline').onclick =
-()=>{
-
-baseline=null;
-
-log(
-'Baseline limpiado.'
-);
-
-};
-
-
-$('sendHex').onclick =
-sendHex;
-
-
-$('exportJson').onclick =
-exportJson;
-
-
-$('clearPackets').onclick =
-clearPackets;
-
-
-/* =========================================================
+/* ============================================================
    INICIO
-========================================================= */
-
-setConn(false);
-
-updateStats();
+============================================================ */
 
 log(
-'Laboratorio listo. No se envían comandos automáticamente.'
+  'Sistema preparado.'
 );
+
+log(
+  'RoXThal Art Design · F1 Plus Protocol Laboratory V8'
+);
+
+log(
+  'Modo pasivo: ACTIVO'
+);
+
+log(
+  'TX automático: DESACTIVADO'
+);
+
+checkBluetooth();
+
+loadSession();
+
+renderAll();
 
 </script>
 
