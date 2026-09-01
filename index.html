@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#080808">
-<title>Smart Band F1 Plus - RoXThal Art Design</title>
+<title>RoXThal Art Design - F1 Plus</title>
 
 <style>
 *{box-sizing:border-box}
@@ -12,14 +12,9 @@
 html,body{
     margin:0;
     padding:0;
-    min-height:100%;
     background:#080808;
     color:#fff;
     font-family:Arial,Helvetica,sans-serif
-}
-
-body{
-    min-height:100vh
 }
 
 .container{
@@ -35,18 +30,17 @@ body{
 }
 
 .logo{
-    font-size:52px;
-    margin-bottom:8px
+    font-size:52px
 }
 
 .title{
-    margin:0;
+    margin:8px 0 0;
     font-size:28px
 }
 
 .subtitle{
-    margin-top:8px;
-    color:#aaa
+    color:#aaa;
+    margin-top:8px
 }
 
 .card{
@@ -62,9 +56,9 @@ body{
     border-radius:12px;
     padding:14px;
     text-align:center;
-    margin-bottom:15px;
     color:#ffd54a;
-    font-weight:bold
+    font-weight:bold;
+    margin-bottom:15px
 }
 
 button{
@@ -72,15 +66,25 @@ button{
     border:0;
     border-radius:14px;
     padding:16px;
+    margin-top:10px;
     font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:10px
+    font-weight:bold
 }
 
 #connectBtn{
     background:#e0b400;
     color:#111
+}
+
+#listenBtn{
+    background:#16834a;
+    color:#fff
+}
+
+#stopBtn{
+    background:#333;
+    color:#fff;
+    display:none
 }
 
 #disconnectBtn{
@@ -89,14 +93,14 @@ button{
     display:none
 }
 
-#testBtn{
+.clear{
     background:#292929;
-    color:#fff
+    color:#fff;
+    font-size:14px
 }
 
 button:disabled{
-    opacity:.5;
-    cursor:not-allowed
+    opacity:.5
 }
 
 .status{
@@ -107,18 +111,18 @@ button:disabled{
     text-align:center
 }
 
-.status.success{
-    background:#123d20;
+.success{
+    background:#123d20!important;
     color:#7cff9b
 }
 
-.status.error{
-    background:#431515;
+.error{
+    background:#431515!important;
     color:#ff8f8f
 }
 
-.status.warning{
-    background:#403715;
+.warning{
+    background:#403715!important;
     color:#ffe477
 }
 
@@ -140,40 +144,32 @@ button:disabled{
     word-break:break-word
 }
 
-.service{
-    background:#202020;
-    border-radius:14px;
-    padding:14px;
-    margin-top:12px;
-    word-break:break-word
-}
-
-.service-title{
-    color:#ffd54a;
-    font-weight:bold
-}
-
 .characteristic{
     background:#101010;
     border-radius:10px;
-    padding:11px;
+    padding:12px;
     margin-top:10px;
-    word-break:break-word;
-    font-size:13px
+    word-break:break-word
 }
 
 .property{
     display:inline-block;
+    background:#333;
     padding:4px 7px;
     margin:4px 3px 0 0;
     border-radius:6px;
-    background:#333;
-    color:#ddd
+    font-size:12px
 }
 
-.data{
-    margin-top:8px;
-    color:#8fe3ff;
+.packet{
+    background:#050505;
+    border-left:3px solid #ffd54a;
+    border-radius:9px;
+    padding:12px;
+    margin-top:10px;
+    font-family:monospace;
+    font-size:12px;
+    line-height:1.6;
     word-break:break-word
 }
 
@@ -181,8 +177,7 @@ button:disabled{
     background:#050505;
     border-radius:12px;
     padding:14px;
-    min-height:190px;
-    max-height:380px;
+    max-height:400px;
     overflow-y:auto;
     white-space:pre-wrap;
     word-break:break-word;
@@ -192,29 +187,11 @@ button:disabled{
     color:#ccc
 }
 
-.clear{
-    background:#292929;
-    color:#fff;
-    font-size:14px
-}
-
 .footer{
     text-align:center;
     color:#666;
     font-size:12px;
     margin-top:25px
-}
-
-.ok{
-    color:#7cff9b
-}
-
-.warn{
-    color:#ffe477
-}
-
-.err{
-    color:#ff8f8f
 }
 </style>
 </head>
@@ -225,18 +202,10 @@ button:disabled{
 
 <header class="header">
     <div class="logo">⌚</div>
-
-    <h1 class="title">
-        Smart Band F1 Plus
-    </h1>
-
-    <div class="subtitle">
-        RoXThal Art Design
-    </div>
+    <h1 class="title">Smart Band F1 Plus</h1>
+    <div class="subtitle">RoXThal Art Design</div>
 </header>
 
-
-<!-- CONEXIÓN -->
 
 <section class="card">
 
@@ -244,16 +213,20 @@ button:disabled{
         🔵 Comprobando Bluetooth...
     </div>
 
-    <button id="connectBtn" type="button">
+    <button id="connectBtn">
         🔗 Conectar Smart Band
     </button>
 
-    <button id="disconnectBtn" type="button">
-        ❌ Desconectar Smart Band
+    <button id="listenBtn" disabled>
+        📡 Escuchar F1 Plus
     </button>
 
-    <button id="testBtn" type="button">
-        🧪 Comprobar Bluetooth
+    <button id="stopBtn">
+        ⏹️ Detener escucha
+    </button>
+
+    <button id="disconnectBtn">
+        ❌ Desconectar Smart Band
     </button>
 
     <div id="status" class="status">
@@ -263,12 +236,10 @@ button:disabled{
 </section>
 
 
-<!-- DISPOSITIVO -->
-
 <section id="deviceInfo" class="card info">
 
     <h2 class="section-title">
-        📱 Dispositivo detectado
+        📱 Dispositivo
     </h2>
 
     <div id="deviceName" class="info-row">
@@ -279,29 +250,56 @@ button:disabled{
         ID: —
     </div>
 
-    <div id="deviceGatt" class="info-row">
+    <div id="gattStatus" class="info-row">
         GATT: —
     </div>
 
 </section>
 
 
-<!-- SERVICIOS -->
-
-<section id="servicesBox" class="card info">
+<section id="uartInfo" class="card info">
 
     <h2 class="section-title">
-        🔧 Servicios Bluetooth
+        📡 Canal de comunicación F1 Plus
     </h2>
 
-    <div id="services">
-        Esperando conexión...
+    <div class="info-row">
+        Servicio UART:
+        <br>
+        6e400001-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
+
+    <div class="info-row">
+        WRITE:
+        <br>
+        6e400002-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
+
+    <div class="info-row">
+        NOTIFY:
+        <br>
+        6e400003-b5a3-f393-e0a9-e50e24dcca9e
     </div>
 
 </section>
 
 
-<!-- DIAGNÓSTICO -->
+<section id="packetsBox" class="card info">
+
+    <h2 class="section-title">
+        📦 Datos recibidos
+    </h2>
+
+    <div id="packetCount" class="info-row">
+        Paquetes recibidos: 0
+    </div>
+
+    <div id="packets">
+        Esperando datos...
+    </div>
+
+</section>
+
 
 <section class="card">
 
@@ -309,9 +307,11 @@ button:disabled{
         🛠️ Diagnóstico F1 Plus
     </h2>
 
-    <div id="log" class="log">Sistema preparado.</div>
+    <div id="log" class="log">
+Sistema preparado.
+    </div>
 
-    <button id="clearBtn" class="clear" type="button">
+    <button id="clearBtn" class="clear">
         🧹 Limpiar diagnóstico
     </button>
 
@@ -319,7 +319,7 @@ button:disabled{
 
 
 <div class="footer">
-    RoXThal Art Design · Smart Band F1 Plus
+RoXThal Art Design · Smart Band F1 Plus
 </div>
 
 </div>
@@ -330,69 +330,99 @@ button:disabled{
 "use strict";
 
 
-/* =========================================================
+/* =====================================================
    VARIABLES
-========================================================= */
+===================================================== */
 
 let bluetoothDevice = null;
 let bluetoothServer = null;
 
+let uartService = null;
+let writeCharacteristic = null;
+let notifyCharacteristic = null;
 
-/* =========================================================
+let notificationActive = false;
+let packetCounter = 0;
+
+
+/* =====================================================
+   UUID F1 PLUS
+===================================================== */
+
+const UART_SERVICE =
+"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+
+const UART_WRITE =
+"6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+
+const UART_NOTIFY =
+"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+
+
+/* =====================================================
    ELEMENTOS
-========================================================= */
-
-const connectBtn =
-    document.getElementById("connectBtn");
-
-const disconnectBtn =
-    document.getElementById("disconnectBtn");
-
-const testBtn =
-    document.getElementById("testBtn");
-
-const clearBtn =
-    document.getElementById("clearBtn");
+===================================================== */
 
 const compatibility =
-    document.getElementById("compatibility");
+document.getElementById("compatibility");
+
+const connectBtn =
+document.getElementById("connectBtn");
+
+const listenBtn =
+document.getElementById("listenBtn");
+
+const stopBtn =
+document.getElementById("stopBtn");
+
+const disconnectBtn =
+document.getElementById("disconnectBtn");
 
 const status =
-    document.getElementById("status");
+document.getElementById("status");
 
 const deviceInfo =
-    document.getElementById("deviceInfo");
+document.getElementById("deviceInfo");
 
 const deviceName =
-    document.getElementById("deviceName");
+document.getElementById("deviceName");
 
 const deviceId =
-    document.getElementById("deviceId");
+document.getElementById("deviceId");
 
-const deviceGatt =
-    document.getElementById("deviceGatt");
+const gattStatus =
+document.getElementById("gattStatus");
 
-const servicesBox =
-    document.getElementById("servicesBox");
+const uartInfo =
+document.getElementById("uartInfo");
 
-const services =
-    document.getElementById("services");
+const packetsBox =
+document.getElementById("packetsBox");
+
+const packets =
+document.getElementById("packets");
+
+const packetCount =
+document.getElementById("packetCount");
 
 const logBox =
-    document.getElementById("log");
+document.getElementById("log");
+
+const clearBtn =
+document.getElementById("clearBtn");
 
 
-/* =========================================================
+/* =====================================================
    LOG
-========================================================= */
+===================================================== */
 
 function log(message){
 
     const time =
-        new Date().toLocaleTimeString();
+    new Date().toLocaleTimeString();
 
     const line =
-        "[" + time + "] " + message;
+    "[" + time + "] " + message;
 
     console.log(line);
 
@@ -400,28 +430,26 @@ function log(message){
         logBox.textContent.trim()
         === "Sistema preparado."
     ){
-        logBox.textContent = "";
+        logBox.textContent="";
     }
 
     logBox.textContent +=
-        line + "\n";
+    line + "\n";
 
     logBox.scrollTop =
-        logBox.scrollHeight;
+    logBox.scrollHeight;
 }
 
 
-/* =========================================================
+/* =====================================================
    ESTADO
-========================================================= */
+===================================================== */
 
 function setStatus(message,type){
 
-    status.textContent =
-        message;
+    status.textContent=message;
 
-    status.className =
-        "status";
+    status.className="status";
 
     if(type){
         status.classList.add(type);
@@ -429,1122 +457,755 @@ function setStatus(message,type){
 }
 
 
-/* =========================================================
+/* =====================================================
    BLUETOOTH
-========================================================= */
+===================================================== */
 
 async function checkBluetooth(){
 
-    log(
-        "Comprobando Web Bluetooth..."
-    );
+    log("Comprobando Web Bluetooth...");
 
-    if(
-        !navigator.bluetooth
-    ){
+    if(!navigator.bluetooth){
 
         compatibility.textContent =
-            "❌ Web Bluetooth no disponible";
+        "❌ Web Bluetooth no disponible";
 
-        compatibility.className =
-            "compatibility";
-
-        compatibility.classList.add(
-            "error"
-        );
-
-        connectBtn.disabled =
-            true;
+        connectBtn.disabled=true;
 
         log(
-            "ERROR: navigator.bluetooth no existe."
+        "ERROR: navigator.bluetooth no existe."
         );
 
         return false;
     }
-
-
-    let available = true;
-
-
-    if(
-        typeof navigator.bluetooth.getAvailability
-        === "function"
-    ){
-
-        try{
-
-            available =
-                await navigator.bluetooth
-                    .getAvailability();
-
-        }catch(error){
-
-            log(
-                "No se pudo consultar disponibilidad: "
-                + error.message
-            );
-        }
-    }
-
-
-    if(!available){
-
-        compatibility.textContent =
-            "⚠️ Bluetooth no está disponible";
-
-        compatibility.className =
-            "compatibility warning";
-
-        connectBtn.disabled =
-            true;
-
-        log(
-            "El navegador informa que Bluetooth no está disponible."
-        );
-
-        return false;
-    }
-
 
     compatibility.textContent =
-        "✅ Web Bluetooth disponible";
+    "✅ Web Bluetooth disponible";
 
-    compatibility.className =
-        "compatibility";
-
-    connectBtn.disabled =
-        false;
+    connectBtn.disabled=false;
 
     log(
-        "Web Bluetooth detectado correctamente."
+    "Web Bluetooth detectado correctamente."
     );
 
     return true;
 }
 
 
-/* =========================================================
-   SERVICIOS QUE AUTORIZAMOS
-========================================================= */
-
-/*
-   Con acceptAllDevices=true, Web Bluetooth necesita que
-   los servicios consultables estén declarados en
-   optionalServices.
-
-   Incluimos servicios estándar habituales en pulseras
-   inteligentes.
-
-   También incluimos UUIDs genéricos de 128 bits que
-   posteriormente podemos ampliar si el diagnóstico
-   encuentra información adicional.
-*/
-
-const OPTIONAL_SERVICES = [
-
-    /* Battery */
-    "battery_service",
-
-    /* Device Information */
-    "device_information",
-
-    /* Heart Rate */
-    "heart_rate",
-
-    /* Health Thermometer */
-    "health_thermometer",
-
-    /* Blood Pressure */
-    "blood_pressure",
-
-    /* Pulse Oximeter */
-    "pulse_oximeter",
-
-    /* Human Interface Device */
-    "human_interface_device",
-
-    /* Current Time */
-    "current_time",
-
-    /* Immediate Alert */
-    "immediate_alert",
-
-    /* Link Loss */
-    "link_loss",
-
-    /* Tx Power */
-    "tx_power",
-
-    /* Generic Access */
-    "generic_access",
-
-    /* Generic Attribute */
-    "generic_attribute",
-
-    /*
-     * UUIDs propietarios frecuentes en dispositivos
-     * BLE. Se pueden ampliar posteriormente cuando
-     * tengamos información de la F1 Plus.
-     */
-
-    "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
-    "0000fee0-0000-1000-8000-00805f9b34fb",
-    "0000fee1-0000-1000-8000-00805f9b34fb"
-
-];
-
-
-/* =========================================================
-   CONECTAR
-========================================================= */
+/* =====================================================
+   CONEXIÓN
+===================================================== */
 
 async function connectBand(){
 
-    log(
-        "================================"
-    );
-
-    log(
-        "Inicio del proceso de conexión."
-    );
-
-
-    const bluetoothOK =
-        await checkBluetooth();
-
-
-    if(!bluetoothOK){
+    if(!await checkBluetooth()){
 
         setStatus(
-            "❌ Bluetooth Web no disponible",
-            "error"
+        "❌ Bluetooth Web no disponible",
+        "error"
         );
 
         return;
     }
 
+    connectBtn.disabled=true;
 
-    connectBtn.disabled =
-        true;
-
-    connectBtn.textContent =
-        "🔍 Buscando Smart Band...";
-
+    connectBtn.textContent=
+    "🔍 Buscando Smart Band...";
 
     setStatus(
-        "🔵 Abriendo selector Bluetooth...",
-        "warning"
+    "🔵 Abriendo selector Bluetooth...",
+    "warning"
     );
 
+    log(
+    "================================"
+    );
+
+    log(
+    "Inicio del proceso de conexión."
+    );
 
     try{
 
-        log(
-            "Solicitando dispositivo Bluetooth."
-        );
-
-
-        log(
-            "Preparando permisos de servicios..."
-        );
-
-
-        /*
-         * IMPORTANTE:
-         *
-         * No usamos filtros por nombre.
-         *
-         * Así mantenemos la capacidad de encontrar
-         * la misma F1 Plus que ya detectamos.
-         */
-
         bluetoothDevice =
-            await navigator.bluetooth.requestDevice({
+        await navigator.bluetooth.requestDevice({
 
-                acceptAllDevices: true,
+            acceptAllDevices:true,
 
-                optionalServices:
-                    OPTIONAL_SERVICES
+            optionalServices:[
 
-            });
+                UART_SERVICE,
 
+                "battery_service",
 
-        if(!bluetoothDevice){
+                "device_information",
 
-            throw new Error(
-                "No se recibió ningún dispositivo."
-            );
-        }
+                "heart_rate",
 
+                "blood_pressure",
 
-        log(
-            "================================"
-        );
+                "pulse_oximeter",
 
-        log(
-            "DISPOSITIVO ENCONTRADO"
-        );
+                "00001800-0000-1000-8000-00805f9b34fb",
 
+                "00001801-0000-1000-8000-00805f9b34fb"
 
-        log(
-            "Nombre: "
-            +
-            (
-                bluetoothDevice.name
-                ||
-                "Sin nombre"
-            )
-        );
+            ]
+
+        });
 
 
         log(
-            "ID: "
-            +
-            (
-                bluetoothDevice.id
-                ||
-                "No disponible"
-            )
+        "DISPOSITIVO ENCONTRADO"
+        );
+
+        log(
+        "Nombre: "
+        +
+        (
+        bluetoothDevice.name
+        ||
+        "Sin nombre"
+        )
+        );
+
+        log(
+        "ID: "
+        +
+        bluetoothDevice.id
         );
 
 
-        deviceName.textContent =
-            "Nombre: "
-            +
-            (
-                bluetoothDevice.name
-                ||
-                "Sin nombre"
-            );
+        deviceName.textContent=
+        "Nombre: "
+        +
+        (
+        bluetoothDevice.name
+        ||
+        "Sin nombre"
+        );
 
 
-        deviceId.textContent =
-            "ID: "
-            +
-            (
-                bluetoothDevice.id
-                ||
-                "No disponible"
-            );
+        deviceId.textContent=
+        "ID: "
+        +
+        bluetoothDevice.id;
 
 
-        deviceGatt.textContent =
-            "GATT: conectando...";
-
-
-        deviceInfo.style.display =
-            "block";
+        deviceInfo.style.display=
+        "block";
 
 
         bluetoothDevice.addEventListener(
-            "gattserverdisconnected",
-            handleDisconnected
+        "gattserverdisconnected",
+        handleDisconnected
         );
 
 
-        connectBtn.textContent =
-            "🔄 Conectando...";
-
-
-        setStatus(
-            "🔄 Conectando con "
-            +
-            (
-                bluetoothDevice.name
-                ||
-                "F1 Plus"
-            )
-            +
-            "...",
-            "warning"
-        );
-
-
-        if(
-            !bluetoothDevice.gatt
-        ){
+        if(!bluetoothDevice.gatt){
 
             throw new Error(
-                "El dispositivo no dispone de GATT."
+            "El dispositivo no proporciona GATT."
             );
         }
 
 
         log(
-            "Intentando conexión GATT..."
+        "Intentando conexión GATT..."
         );
 
 
         bluetoothServer =
-            await bluetoothDevice.gatt.connect();
+        await bluetoothDevice.gatt.connect();
 
 
         if(
-            !bluetoothServer
-            ||
-            !bluetoothServer.connected
+        !bluetoothServer.connected
         ){
 
             throw new Error(
-                "GATT no quedó conectado."
+            "GATT no quedó conectado."
             );
         }
 
 
         log(
-            "✅ CONEXIÓN GATT ESTABLECIDA."
+        "✅ CONEXIÓN GATT ESTABLECIDA."
         );
 
 
-        deviceGatt.textContent =
-            "GATT: 🟢 Conectado";
+        gattStatus.textContent=
+        "GATT: 🟢 Conectado";
 
 
         setStatus(
-            "🟢 Smart Band conectada",
-            "success"
+        "🟢 Smart Band conectada",
+        "success"
         );
 
 
-        connectBtn.textContent =
-            "🟢 Smart Band conectada";
+        connectBtn.textContent=
+        "🟢 Smart Band conectada";
 
 
-        disconnectBtn.style.display =
-            "block";
-
-
-        /*
-         * Ahora buscamos servicios.
-         */
-
-        await discoverServices();
-
-
-    }catch(error){
-
-        console.error(
-            "Bluetooth:",
-            error
-        );
-
-
-        log(
-            "❌ ERROR DE BLUETOOTH"
-        );
-
-
-        log(
-            "Tipo: "
-            +
-            (
-                error.name
-                ||
-                "desconocido"
-            )
-        );
-
-
-        log(
-            "Mensaje: "
-            +
-            (
-                error.message
-                ||
-                String(error)
-            )
-        );
-
-
-        if(
-            error.name ===
-            "NotFoundError"
-        ){
-
-            setStatus(
-                "⚪ Selección cancelada",
-                "warning"
-            );
-
-            log(
-                "El selector Bluetooth fue cancelado."
-            );
-
-        }else{
-
-            setStatus(
-                "❌ No se pudo conectar",
-                "error"
-            );
-        }
-
-
-        connectBtn.disabled =
-            false;
-
-        connectBtn.textContent =
-            "🔗 Conectar Smart Band";
-    }
-}
-
-
-/* =========================================================
-   DESCUBRIR SERVICIOS
-========================================================= */
-
-async function discoverServices(){
-
-    if(
-        !bluetoothServer
-        ||
-        !bluetoothServer.connected
-    ){
-
-        log(
-            "❌ No hay conexión GATT activa."
-        );
-
-        return;
-    }
-
-
-    log(
-        "================================"
-    );
-
-    log(
-        "BUSCANDO SERVICIOS GATT..."
-    );
-
-
-    servicesBox.style.display =
+        disconnectBtn.style.display=
         "block";
 
 
-    services.innerHTML =
-        "";
+        uartInfo.style.display=
+        "block";
 
 
-    let primaryServices = [];
+        log(
+        "Buscando servicio UART de F1 Plus..."
+        );
 
 
-    try{
+        await prepareUART();
 
-        primaryServices =
-            await bluetoothServer
-                .getPrimaryServices();
 
     }catch(error){
 
         log(
-            "❌ Error obteniendo servicios: "
-            +
-            error.message
-        );
-
-
-        services.innerHTML =
-            "<div class='service'>" +
-            "<span class='err'>" +
-            "❌ No se pudieron consultar los servicios." +
-            "</span><br><br>" +
-            "La conexión GATT existe, pero el navegador " +
-            "no ha autorizado ningún servicio accesible " +
-            "de la pulsera." +
-            "</div>";
-
-
-        return;
-    }
-
-
-    log(
-        "Servicios encontrados: "
+        "❌ ERROR: "
         +
-        primaryServices.length
-    );
-
-
-    if(
-        primaryServices.length === 0
-    ){
-
-        services.innerHTML =
-            "<div class='service'>" +
-            "⚠️ La F1 Plus no devolvió servicios primarios." +
-            "</div>";
-
-        return;
-    }
-
-
-    for(
-        const service
-        of primaryServices
-    ){
-
-        await inspectService(
-            service
+        error.name
         );
+
+        log(
+        error.message
+        );
+
+
+        setStatus(
+        "❌ No se pudo conectar",
+        "error"
+        );
+
+
+        connectBtn.disabled=false;
+
+        connectBtn.textContent=
+        "🔗 Conectar Smart Band";
     }
-
-
-    log(
-        "================================"
-    );
-
-    log(
-        "FINALIZÓ EL DESCUBRIMIENTO GATT."
-    );
 }
 
 
-/* =========================================================
-   INSPECCIONAR SERVICIO
-========================================================= */
+/* =====================================================
+   PREPARAR UART
+===================================================== */
 
-async function inspectService(service){
-
-    log(
-        "--------------------------------"
-    );
-
-    log(
-        "SERVICIO: "
-        +
-        service.uuid
-    );
-
-
-    const serviceElement =
-        document.createElement("div");
-
-    serviceElement.className =
-        "service";
-
-
-    const title =
-        document.createElement("div");
-
-    title.className =
-        "service-title";
-
-    title.textContent =
-        "🔧 Servicio: "
-        +
-        service.uuid;
-
-    serviceElement.appendChild(
-        title
-    );
-
-
-    let characteristics = [];
-
+async function prepareUART(){
 
     try{
 
-        characteristics =
-            await service
-                .getCharacteristics();
+        uartService =
+        await bluetoothServer
+        .getPrimaryService(
+        UART_SERVICE
+        );
+
+
+        log(
+        "✅ Servicio UART encontrado."
+        );
+
+
+        writeCharacteristic =
+        await uartService
+        .getCharacteristic(
+        UART_WRITE
+        );
+
+
+        log(
+        "✅ Característica WRITE encontrada."
+        );
+
+
+        notifyCharacteristic =
+        await uartService
+        .getCharacteristic(
+        UART_NOTIFY
+        );
+
+
+        log(
+        "✅ Característica NOTIFY encontrada."
+        );
+
+
+        listenBtn.disabled=false;
+
+
+        setStatus(
+        "🟢 F1 Plus lista para escuchar",
+        "success"
+        );
+
+
+        log(
+        "Canal de comunicación preparado."
+        );
+
+
+        log(
+        "NO se enviará ningún comando."
+        );
+
+
+        log(
+        "Esperando datos de la pulsera."
+        );
+
 
     }catch(error){
 
         log(
-            "⚠️ No se pudieron obtener características: "
-            +
-            error.message
+        "❌ Error preparando UART: "
+        +
+        error.message
         );
 
 
-        const errorElement =
-            document.createElement("div");
-
-        errorElement.className =
-            "err";
-
-        errorElement.style.marginTop =
-            "8px";
-
-        errorElement.textContent =
-            "No se pudieron consultar las características.";
-
-        serviceElement.appendChild(
-            errorElement
+        setStatus(
+        "⚠️ Conectada, pero UART no disponible",
+        "warning"
         );
+    }
+}
 
-        services.appendChild(
-            serviceElement
+
+/* =====================================================
+   INICIAR NOTIFICACIONES
+===================================================== */
+
+async function startListening(){
+
+    if(!notifyCharacteristic){
+
+        log(
+        "❌ Característica NOTIFY no disponible."
         );
 
         return;
     }
 
 
-    log(
-        "Características encontradas: "
+    if(notificationActive){
+
+        log(
+        "Las notificaciones ya están activas."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        log(
+        "Activando notificaciones..."
+        );
+
+
+        notifyCharacteristic.addEventListener(
+        "characteristicvaluechanged",
+        handleNotification
+        );
+
+
+        await notifyCharacteristic
+        .startNotifications();
+
+
+        notificationActive=true;
+
+
+        listenBtn.style.display="none";
+
+        stopBtn.style.display="block";
+
+
+        setStatus(
+        "📡 Escuchando F1 Plus...",
+        "success"
+        );
+
+
+        packetsBox.style.display=
+        "block";
+
+
+        log(
+        "✅ NOTIFY ACTIVADO."
+        );
+
+
+        log(
+        "Esperando paquetes de la F1 Plus..."
+        );
+
+
+    }catch(error){
+
+        log(
+        "❌ No se pudieron activar notificaciones: "
         +
-        characteristics.length
+        error.message
+        );
+    }
+}
+
+
+/* =====================================================
+   DETENER NOTIFICACIONES
+===================================================== */
+
+async function stopListening(){
+
+    if(!notifyCharacteristic){
+
+        return;
+    }
+
+
+    try{
+
+        if(notificationActive){
+
+            await notifyCharacteristic
+            .stopNotifications();
+
+            notifyCharacteristic
+            .removeEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+            );
+        }
+
+    }catch(error){
+
+        log(
+        "⚠️ Error deteniendo notificaciones: "
+        +
+        error.message
+        );
+    }
+
+
+    notificationActive=false;
+
+    listenBtn.style.display="block";
+
+    stopBtn.style.display="none";
+
+
+    setStatus(
+    "🟢 F1 Plus conectada",
+    "success"
     );
+
+
+    log(
+    "Notificaciones detenidas."
+    );
+}
+
+
+/* =====================================================
+   RECIBIR PAQUETE
+===================================================== */
+
+function handleNotification(event){
+
+    const value =
+    event.target.value;
+
+
+    const bytes=[];
 
 
     for(
-        const characteristic
-        of characteristics
+    let i=0;
+    i<value.byteLength;
+    i++
     ){
 
-        await inspectCharacteristic(
-            characteristic,
-            serviceElement
+        bytes.push(
+        value.getUint8(i)
         );
     }
 
 
-    services.appendChild(
-        serviceElement
-    );
-}
+    packetCounter++;
 
 
-/* =========================================================
-   INSPECCIONAR CARACTERÍSTICA
-========================================================= */
+    const hex =
+    bytes
+    .map(
+    byte =>
+    byte
+    .toString(16)
+    .padStart(2,"0")
+    .toUpperCase()
+    )
+    .join(" ");
 
-async function inspectCharacteristic(
-    characteristic,
-    parent
-){
 
-    const properties =
-        characteristic.properties || {};
+    let ascii="";
 
 
-    const propertyNames =
-        Object.keys(properties)
-            .filter(
-                key =>
-                    properties[key] === true
-            );
+    for(
+    const byte of bytes
+    ){
+
+        if(
+        byte >= 32 &&
+        byte <= 126
+        ){
+
+            ascii +=
+            String.fromCharCode(byte);
+
+        }else{
+
+            ascii += ".";
+        }
+    }
 
 
     log(
-        "Característica: "
-        +
-        characteristic.uuid
-        +
-        " | "
-        +
-        propertyNames.join(", ")
+    "📦 PAQUETE #"
+    +
+    packetCounter
+    +
+    " | "
+    +
+    bytes.length
+    +
+    " bytes"
     );
 
 
-    const element =
-        document.createElement("div");
-
-    element.className =
-        "characteristic";
-
-
-    const title =
-        document.createElement("div");
-
-    title.innerHTML =
-        "<strong>Característica:</strong><br>"
-        +
-        characteristic.uuid;
-
-    element.appendChild(
-        title
+    log(
+    "HEX: "
+    +
+    (
+    hex || "—"
+    )
     );
 
 
-    const propertyContainer =
-        document.createElement("div");
-
-    propertyNames.forEach(
-        property => {
-
-            const badge =
-                document.createElement("span");
-
-            badge.className =
-                "property";
-
-            badge.textContent =
-                property;
-
-            propertyContainer.appendChild(
-                badge
-            );
-        }
+    log(
+    "ASCII: "
+    +
+    (
+    ascii || "—"
+    )
     );
 
 
-    element.appendChild(
-        propertyContainer
-    );
+    packetCount.textContent=
+    "Paquetes recibidos: "
+    +
+    packetCounter;
 
-
-    /*
-     * READ
-     */
 
     if(
-        properties.read
+    packets.textContent.trim()
+    ===
+    "Esperando datos..."
     ){
 
-        try{
-
-            log(
-                "Intentando lectura: "
-                +
-                characteristic.uuid
-            );
-
-
-            const value =
-                await characteristic
-                    .readValue();
-
-
-            const bytes = [];
-
-            for(
-                let i = 0;
-                i < value.byteLength;
-                i++
-            ){
-
-                bytes.push(
-                    value.getUint8(i)
-                );
-            }
-
-
-            const hex =
-                bytes
-                    .map(
-                        byte =>
-                            byte
-                                .toString(16)
-                                .padStart(
-                                    2,
-                                    "0"
-                                )
-                                .toUpperCase()
-                    )
-                    .join(" ");
-
-
-            log(
-                "DATOS: "
-                +
-                (
-                    bytes.length
-                        ? bytes.join(" ")
-                        : "sin datos"
-                )
-            );
-
-
-            log(
-                "HEX: "
-                +
-                (
-                    hex || "—"
-                )
-            );
-
-
-            const data =
-                document.createElement("div");
-
-            data.className =
-                "data";
-
-            data.innerHTML =
-                "<strong>READ:</strong> "
-                +
-                (
-                    bytes.length
-                        ? bytes.join(" ")
-                        : "sin datos"
-                )
-                +
-                "<br>" +
-                "<strong>HEX:</strong> "
-                +
-                (
-                    hex || "—"
-                );
-
-
-            element.appendChild(
-                data
-            );
-
-
-        }catch(error){
-
-            log(
-                "⚠️ Lectura no disponible: "
-                +
-                error.message
-            );
-
-
-            const errorElement =
-                document.createElement("div");
-
-            errorElement.className =
-                "warn";
-
-            errorElement.style.marginTop =
-                "8px";
-
-            errorElement.textContent =
-                "READ no disponible: "
-                +
-                error.message;
-
-            element.appendChild(
-                errorElement
-            );
-        }
+        packets.innerHTML="";
     }
 
 
-    /*
-     * NOTIFY / INDICATE
-     *
-     * NO activamos notificaciones todavía.
-     *
-     * Solo informamos que existen.
-     */
-
-    if(
-        properties.notify ||
-        properties.indicate
-    ){
-
-        const notifyInfo =
-            document.createElement("div");
-
-        notifyInfo.className =
-            "data";
-
-        notifyInfo.textContent =
-            "📡 Esta característica permite notificaciones. " +
-            "No se activa todavía para evitar enviar cambios " +
-            "a la pulsera sin conocer su protocolo.";
-
-        element.appendChild(
-            notifyInfo
-        );
-    }
+    const packet =
+    document.createElement("div");
 
 
-    /*
-     * WRITE
-     *
-     * NO escribimos nada todavía.
-     */
-
-    if(
-        properties.write ||
-        properties.writeWithoutResponse
-    ){
-
-        const writeInfo =
-            document.createElement("div");
-
-        writeInfo.className =
-            "data";
-
-        writeInfo.textContent =
-            "✍️ Esta característica permite escritura. " +
-            "No se enviarán comandos hasta identificar " +
-            "el protocolo de la F1 Plus.";
-
-        element.appendChild(
-            writeInfo
-        );
-    }
+    packet.className=
+    "packet";
 
 
-    parent.appendChild(
-        element
+    packet.innerHTML=
+    "<strong>📦 Paquete #"
+    +
+    packetCounter
+    +
+    "</strong><br>" +
+
+    "<strong>Bytes:</strong> "
+    +
+    bytes.length
+    +
+    "<br>" +
+
+    "<strong>HEX:</strong> "
+    +
+    (
+    hex || "—"
+    )
+    +
+    "<br>" +
+
+    "<strong>ASCII:</strong> "
+    +
+    (
+    ascii || "—"
     );
+
+
+    packets.prepend(packet);
 }
 
 
-/* =========================================================
+/* =====================================================
    DESCONEXIÓN
-========================================================= */
+===================================================== */
 
 function handleDisconnected(){
 
     log(
-        "================================"
+    "================================"
     );
 
     log(
-        "🔴 SMART BAND DESCONECTADA."
+    "🔴 SMART BAND DESCONECTADA."
     );
+
+
+    notificationActive=false;
+
+    bluetoothServer=null;
+
+    uartService=null;
+
+    writeCharacteristic=null;
+
+    notifyCharacteristic=null;
 
 
     setStatus(
-        "🔴 Smart Band desconectada",
-        "error"
+    "🔴 Smart Band desconectada",
+    "error"
     );
 
 
-    deviceGatt.textContent =
-        "GATT: 🔴 Desconectado";
+    gattStatus.textContent=
+    "GATT: 🔴 Desconectado";
 
 
-    connectBtn.disabled =
-        false;
+    connectBtn.disabled=false;
 
-    connectBtn.textContent =
-        "🔗 Conectar Smart Band";
-
-
-    disconnectBtn.style.display =
-        "none";
+    connectBtn.textContent=
+    "🔗 Conectar Smart Band";
 
 
-    bluetoothServer =
-        null;
+    listenBtn.disabled=true;
+
+    listenBtn.style.display=
+    "block";
+
+
+    stopBtn.style.display=
+    "none";
+
+
+    disconnectBtn.style.display=
+    "none";
 }
 
 
-/* =========================================================
-   DESCONEXIÓN MANUAL
-========================================================= */
+/* =====================================================
+   DESCONECTAR
+===================================================== */
 
-function disconnectBand(){
+async function disconnectBand(){
 
-    log(
-        "Solicitando desconexión..."
-    );
+    await stopListening();
 
 
-    try{
+    if(
+    bluetoothDevice &&
+    bluetoothDevice.gatt &&
+    bluetoothDevice.gatt.connected
+    ){
 
-        if(
-            bluetoothDevice
-            &&
-            bluetoothDevice.gatt
-            &&
-            bluetoothDevice.gatt.connected
-        ){
-
-            bluetoothDevice.gatt.disconnect();
-
-            log(
-                "Desconexión GATT ejecutada."
-            );
-        }
-
-    }catch(error){
-
-        log(
-            "Error desconectando: "
-            +
-            error.message
-        );
+        bluetoothDevice.gatt.disconnect();
     }
 
-
-    bluetoothServer =
-        null;
-
-
-    handleDisconnected();
+    bluetoothServer=null;
 }
 
 
-/* =========================================================
-   LIMPIAR DIAGNÓSTICO
-========================================================= */
+/* =====================================================
+   LIMPIAR
+===================================================== */
 
 function clearLog(){
 
-    logBox.textContent =
-        "Sistema preparado.";
+    logBox.textContent=
+    "Sistema preparado.";
 
     log(
-        "Diagnóstico limpiado."
+    "Diagnóstico limpiado."
     );
 }
 
 
-/* =========================================================
+/* =====================================================
    EVENTOS
-========================================================= */
+===================================================== */
 
 connectBtn.addEventListener(
-    "click",
-    function(event){
+"click",
+connectBand
+);
 
-        event.preventDefault();
 
-        connectBand();
-    }
+listenBtn.addEventListener(
+"click",
+startListening
+);
+
+
+stopBtn.addEventListener(
+"click",
+stopListening
 );
 
 
 disconnectBtn.addEventListener(
-    "click",
-    function(event){
-
-        event.preventDefault();
-
-        disconnectBand();
-    }
-);
-
-
-testBtn.addEventListener(
-    "click",
-    function(event){
-
-        event.preventDefault();
-
-        checkBluetooth();
-    }
+"click",
+disconnectBand
 );
 
 
 clearBtn.addEventListener(
-    "click",
-    function(event){
-
-        event.preventDefault();
-
-        clearLog();
-    }
+"click",
+clearLog
 );
 
 
-/* =========================================================
+/* =====================================================
    INICIO
-========================================================= */
+===================================================== */
 
 window.addEventListener(
-    "load",
-    function(){
+"load",
+function(){
 
-        log(
-            "Inicializando módulo Smart Band F1 Plus..."
-        );
+    log(
+    "Inicializando módulo Smart Band F1 Plus..."
+    );
 
-        checkBluetooth();
+    checkBluetooth();
 
-    }
-);
+});
 
 </script>
 
