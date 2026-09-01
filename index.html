@@ -2,180 +2,137 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>RoXThal — Laboratorio F1 Plus v5</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>RoXThal — F1 Plus Laboratory V6</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
- margin:0;
- background:#080b10;
- color:#e9eef5;
- font-family:Arial,Helvetica,sans-serif;
+  margin:0;
+  background:#080808;
+  color:#eee;
+  font-family:Arial,Helvetica,sans-serif;
 }
-
 header{
- padding:18px;
- background:#101722;
- border-bottom:1px solid #293544;
+  padding:20px 14px;
+  background:linear-gradient(135deg,#111,#1d1d1d);
+  border-bottom:1px solid #333;
 }
-
-h1{margin:0;font-size:21px}
-h2{font-size:17px;margin:0 0 12px}
-h3{font-size:14px}
-
-main{
- max-width:1100px;
- margin:auto;
- padding:12px;
+h1{margin:0 0 6px;font-size:23px}
+h2{
+  margin:0 0 14px;
+  font-size:18px;
+  color:#fff;
 }
-
+h3{
+  margin:14px 0 8px;
+  font-size:15px;
+}
+main{max-width:1100px;margin:auto;padding:12px}
 .card{
- background:#121923;
- border:1px solid #293544;
- border-radius:14px;
- padding:14px;
- margin-bottom:12px;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:14px;
+  box-shadow:0 4px 18px #0008;
 }
-
 button{
- background:#192535;
- color:white;
- border:1px solid #394b60;
- border-radius:9px;
- padding:11px 14px;
- margin:3px;
- font-weight:bold;
+  border:0;
+  border-radius:10px;
+  padding:12px 14px;
+  margin:4px;
+  background:#292929;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
-
-button:disabled{
- opacity:.45;
-}
-
-.green{background:#123a27;border-color:#23784b}
-.red{background:#39171b;border-color:#8a3943}
-.blue{background:#102c45;border-color:#286a9e}
-.yellow{background:#3b2e0d;border-color:#8c7020}
-.purple{background:#2d1d43;border-color:#704aa0}
-
+button:active{transform:scale(.98)}
+button.primary{background:#176b3a}
+button.danger{background:#8d2020}
+button.blue{background:#164d83}
+button.gold{background:#765817}
+button:disabled{opacity:.45}
 .status{
- display:inline-block;
- padding:7px 10px;
- border-radius:20px;
- background:#17212d;
- border:1px solid #344252;
- font-size:12px;
+  padding:10px;
+  border-radius:9px;
+  background:#181818;
+  margin-top:8px;
 }
-
-.dot{
- display:inline-block;
- width:9px;
- height:9px;
- border-radius:50%;
- background:#657181;
- margin-right:6px;
-}
-
-.dot.green{
- background:#35d07f;
- box-shadow:0 0 10px #35d07f;
-}
-
-.grid{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
- gap:8px;
-}
-
-.stat{
- background:#0d141c;
- border:1px solid #263342;
- border-radius:10px;
- padding:10px;
-}
-
-.stat b{
- display:block;
- font-size:20px;
-}
-
-.stat span{
- color:#8998a8;
- font-size:11px;
-}
-
+.ok{color:#56e58b}
+.warn{color:#ffd45a}
+.bad{color:#ff6666}
 .mono{
- font-family:monospace;
+  font-family:Consolas,monospace;
+  word-break:break-all;
 }
-
-pre{
- background:#070b10;
- border:1px solid #263342;
- border-radius:10px;
- padding:10px;
- white-space:pre-wrap;
- word-break:break-word;
- max-height:320px;
- overflow:auto;
- font-size:11px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
+  gap:8px;
 }
-
+.stat{
+  background:#181818;
+  border-radius:10px;
+  padding:12px;
+  text-align:center;
+}
+.stat b{
+  display:block;
+  font-size:23px;
+  margin-bottom:3px;
+}
 table{
- width:100%;
- border-collapse:collapse;
- font-size:12px;
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
 }
-
 th,td{
- padding:8px;
- border-bottom:1px solid #27323e;
- text-align:left;
+  padding:8px 6px;
+  border-bottom:1px solid #292929;
+  text-align:left;
 }
-
-th{
- color:#8795a5;
+th{color:#aaa}
+pre{
+  white-space:pre-wrap;
+  word-break:break-word;
+  background:#090909;
+  border-radius:9px;
+  padding:10px;
+  max-height:280px;
+  overflow:auto;
 }
-
-input{
- width:100%;
- padding:11px;
- background:#090e14;
- color:white;
- border:1px solid #344252;
- border-radius:8px;
+input,select,textarea{
+  width:100%;
+  background:#0b0b0b;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:9px;
+  padding:10px;
+  margin:5px 0;
 }
-
-.row{
- display:flex;
- flex-wrap:wrap;
- gap:6px;
+textarea{min-height:80px}
+.packet{
+  border:1px solid #292929;
+  border-radius:10px;
+  padding:10px;
+  margin:7px 0;
+  background:#0c0c0c;
 }
-
-.row>*{
- flex:1 1 160px;
+.small{font-size:12px;color:#aaa}
+.badge{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:7px;
+  background:#242424;
+  margin:2px;
+  font-size:11px;
 }
-
-.small{
- color:#91a0af;
- font-size:11px;
-}
-
-.ok{color:#35d07f}
-.warn{color:#ffd166}
-.bad{color:#ff626c}
-
-.event{
- padding:8px;
- border-bottom:1px solid #26313c;
- font-size:11px;
-}
-
-footer{
- text-align:center;
- color:#697787;
- padding:20px;
- font-size:11px;
+hr{
+  border:0;
+  border-top:1px solid #292929;
+  margin:14px 0;
 }
 </style>
 </head>
@@ -183,230 +140,137 @@ footer{
 <body>
 
 <header>
-<h1>🔬 RoXThal — Laboratorio F1 Plus v5</h1>
-<div class="small">
-Captura pasiva · análisis estructural · transiciones · eventos · correlación temporal
-</div>
+  <h1>🔬 RoXThal — Laboratorio F1 Plus V6</h1>
+  <div class="small">
+    Captura pasiva · análisis estructural · transiciones · eventos · correlación · laboratorio BLE
+  </div>
 </header>
 
 <main>
 
-<!-- CONEXIÓN -->
-
 <section class="card">
-
 <h2>📡 Conexión F1 Plus</h2>
 
-<button id="connectBtn" class="green">
-🔗 CONECTAR F1 PLUS
-</button>
+<button class="primary" id="connectBtn">🔗 CONECTAR F1 PLUS</button>
+<button class="danger" id="disconnectBtn" disabled>⛔ DESCONECTAR</button>
+<button class="blue" id="bluetoothBtn">🔎 COMPROBAR BLUETOOTH</button>
 
-<button id="disconnectBtn" class="red" disabled>
-⛔ DESCONECTAR
-</button>
-
-<button id="bluetoothBtn" class="blue">
-🔎 COMPROBAR BLUETOOTH
-</button>
-
-<p>
-<span class="status">
-<span id="statusDot" class="dot"></span>
-<span id="statusText">Desconectado</span>
-</span>
-</p>
-
-<div id="deviceInfo" class="small">
-Sin dispositivo conectado.
+<div id="connectionStatus" class="status">
+  🔴 Desconectado
 </div>
 
+<div id="deviceInfo" class="small"></div>
 </section>
 
 
-<!-- DESCUBRIMIENTO -->
-
 <section class="card">
-
 <h2>🧬 Descubrimiento BLE automático</h2>
 
 <div class="small">
 La aplicación inspecciona las características reales del servicio.
-NOTIFY = RX.
-WRITE / WRITE WITHOUT RESPONSE = TX.
-No se presupone automáticamente el significado de ningún byte.
+NOTIFY se utiliza como RX.
+WRITE / WRITE WITHOUT RESPONSE se utiliza como TX.
+No se envían comandos automáticamente.
 </div>
 
-<div id="characteristics" style="margin-top:12px"></div>
-
+<div id="characteristics"></div>
 </section>
 
 
-<!-- CANAL -->
-
 <section class="card">
-
 <h2>🔌 Canal BLE / UART</h2>
 
-<div class="grid">
-
-<div class="stat">
-<span>SERVICE</span>
-<b id="serviceUUID" class="mono" style="font-size:11px">—</b>
-</div>
-
-<div class="stat">
-<span>RX / NOTIFY</span>
-<b id="rxUUID" class="mono" style="font-size:11px">—</b>
-</div>
-
-<div class="stat">
-<span>TX / WRITE</span>
-<b id="txUUID" class="mono" style="font-size:11px">—</b>
-</div>
-
-</div>
-
-<p id="notifyStatus" class="small">
-🔴 NOTIFY no activo
-</p>
-
+<table>
+<tr><th>SERVICE</th><td id="serviceUUID">—</td></tr>
+<tr><th>RX / NOTIFY</th><td id="rxUUID">—</td></tr>
+<tr><th>TX / WRITE</th><td id="txUUID">—</td></tr>
+<tr><th>NOTIFY</th><td id="notifyStatus">🔴 NO activo</td></tr>
+</table>
 </section>
 
 
-<!-- ESTADO -->
-
 <section class="card">
-
 <h2>🧪 Estado del laboratorio</h2>
 
-<p>
-<span class="status">
-<span class="dot green"></span>
-MODO PASIVO ACTIVO
-</span>
-</p>
-
-<div class="small">
-La F1 Plus puede transmitir datos espontáneamente.
-La aplicación NO envía comandos automáticamente.
+<div class="status">
+  🟢 <b>MODO PASIVO ACTIVO</b>
+  <br>
+  <span class="small">
+  La F1 Plus puede transmitir datos espontáneamente.
+  La aplicación NO envía comandos automáticamente.
+  </span>
 </div>
-
 </section>
 
 
-<!-- ESTADÍSTICAS -->
-
 <section class="card">
-
 <h2>📊 Estadísticas globales</h2>
 
 <div class="grid">
-
-<div class="stat"><b id="statTX">0</b><span>TX</span></div>
-<div class="stat"><b id="statRX">0</b><span>RX</span></div>
-<div class="stat"><b id="statTypes">0</b><span>Tipos RX</span></div>
-<div class="stat"><b id="statLengths">0</b><span>Longitudes</span></div>
-<div class="stat"><b id="statComparisons">0</b><span>Comparaciones</span></div>
-<div class="stat"><b id="statChanges">0</b><span>Bytes modificados</span></div>
-<div class="stat"><b id="statTransitions">0</b><span>Transiciones</span></div>
-<div class="stat"><b id="statEvents">0</b><span>Eventos</span></div>
-<div class="stat"><b id="statCorrelations">0</b><span>Correlaciones</span></div>
-<div class="stat"><b id="statCycles">0</b><span>Ciclos</span></div>
-
+<div class="stat"><b id="statTX">0</b>TX</div>
+<div class="stat"><b id="statRX">0</b>RX</div>
+<div class="stat"><b id="statTypes">0</b>Tipos RX</div>
+<div class="stat"><b id="statLengths">0</b>Longitudes</div>
+<div class="stat"><b id="statComparisons">0</b>Comparaciones</div>
+<div class="stat"><b id="statChanges">0</b>Bytes modificados</div>
+<div class="stat"><b id="statTransitions">0</b>Transiciones</div>
+<div class="stat"><b id="statEvents">0</b>Eventos</div>
+<div class="stat"><b id="statCorrelations">0</b>Correlaciones</div>
+<div class="stat"><b id="statCycles">0</b>Ciclos</div>
 </div>
-
 </section>
 
 
-<!-- EVENTOS -->
-
 <section class="card">
-
 <h2>🔘 Registro de eventos físicos</h2>
 
-<div class="row">
+<button onclick="markEvent('Evento manual')">🫀 EVENTO MANUAL</button>
+<button onclick="markEvent('Botón físico')">🔘 BOTÓN FÍSICO</button>
+<button onclick="markEvent('Carga')">🔋 CARGA</button>
+<button onclick="markEvent('Desconexión')">🔌 DESCONEXIÓN</button>
+<button onclick="markEvent('Función abierta/cerrada')">📱 FUNCIÓN</button>
 
-<button class="yellow" onclick="markEvent('Evento manual')">
-🫀 EVENTO MANUAL
-</button>
+<button class="gold" onclick="clearEvents()">🧹 LIMPIAR EVENTOS</button>
 
-<button onclick="markEvent('Botón físico pulsado')">
-🔘 BOTÓN FÍSICO
-</button>
-
-<button onclick="markEvent('Carga')">
-🔋 CARGA
-</button>
-
-<button onclick="markEvent('Desconexión física')">
-🔌 DESCONEXIÓN
-</button>
-
-<button onclick="markEvent('Función abierta/cerrada')">
-📱 FUNCIÓN
-</button>
-
-</div>
-
-<div class="row" style="margin-top:8px">
-
-<input id="customEvent"
-placeholder="Escribir otro evento...">
-
-<button onclick="markCustomEvent()">
-➕ MARCAR EVENTO
-</button>
-
-</div>
-
-<p class="small">
+<div class="small">
 Cada evento queda registrado con hora exacta.
 Se buscan RX dentro de una ventana de ±10 segundos.
-</p>
+</div>
 
-<div id="eventList"></div>
-
+<div id="events">
+<div class="small">No hay eventos.</div>
+</div>
 </section>
 
 
-<!-- TRANSICIONES -->
-
 <section class="card">
-
 <h2>🔄 Transiciones detectadas</h2>
 
 <div class="small">
 Se registran cambios de bytes entre tramas del mismo tipo y longitud.
 </div>
 
-<div id="transitionList">
-Todavía no hay transiciones.
+<div id="transitions">
+<div class="small">Todavía no se han observado transiciones.</div>
 </div>
-
 </section>
 
 
-<!-- CICLOS -->
-
 <section class="card">
-
 <h2>🔁 Ciclos observados</h2>
 
 <div class="small">
 Seguimiento específico de las transiciones de 0x91 Byte 7.
+También se registran cambios de dirección.
 </div>
 
-<div id="cycleList">
-Todavía no hay ciclos.
+<div id="cycles">
+<div class="small">Aún no hay ciclos detectados.</div>
 </div>
-
 </section>
 
 
-<!-- CORRELACIÓN -->
-
 <section class="card">
-
 <h2>🔗 Correlación evento ↔ RX</h2>
 
 <div class="small">
@@ -414,17 +278,13 @@ Ventana de correlación: ±10 segundos.
 Un resultado de correlación no implica causalidad.
 </div>
 
-<div id="correlationList">
-Todavía no hay correlaciones.
+<div id="correlations">
+<div class="small">Todavía no hay correlaciones.</div>
 </div>
-
 </section>
 
 
-<!-- COMPARADOR -->
-
 <section class="card">
-
 <h2>🔬 Comparador diferencial automático</h2>
 
 <div class="small">
@@ -432,48 +292,34 @@ Cada trama se compara exclusivamente con la anterior del mismo tipo y longitud.
 </div>
 
 <div id="latestComparison">
-Sin comparación.
+<div class="small">Todavía no hay comparación.</div>
 </div>
 
 <h3>📚 Historial</h3>
-
-<div id="comparisonList">
-Sin comparaciones.
+<div id="comparisonHistory">
+<div class="small">Sin comparaciones.</div>
 </div>
-
 </section>
 
 
-<!-- MATRIZ -->
-
 <section class="card">
-
 <h2>📊 Matriz de cambios por byte</h2>
-
-<div id="matrix">
-Sin datos.
+<div id="byteMatrix">
+<div class="small">Sin datos.</div>
 </div>
-
 </section>
 
 
-<!-- TIPOS -->
-
 <section class="card">
-
 <h2>🧬 Tipos de trama detectados</h2>
 
-<div id="typesTable">
-Sin datos.
+<div id="frameTypes">
+<div class="small">Sin datos.</div>
 </div>
-
 </section>
 
 
-<!-- LONGITUD -->
-
 <section class="card">
-
 <h2>📏 Análisis de longitud</h2>
 
 <div class="small">
@@ -482,2644 +328,1919 @@ Byte 2 + 3 = longitud total.
 No se considera significado confirmado.
 </div>
 
-<div id="lengthTable">
-Sin datos.
+<div id="lengthAnalysis">
+<div class="small">Sin datos.</div>
 </div>
-
 </section>
 
 
-<!-- PATRONES -->
-
 <section class="card">
-
 <h2>📈 Patrones y frecuencia</h2>
 
-<div id="patternTable">
-Sin datos.
+<div id="patterns">
+<div class="small">Sin datos.</div>
 </div>
-
 </section>
 
 
-<!-- INTERVALOS -->
-
 <section class="card">
-
 <h2>⏱️ Intervalos temporales</h2>
 
-<div id="intervalTable">
-Sin datos.
+<div id="intervals">
+<div class="small">Sin intervalos.</div>
 </div>
-
 </section>
 
 
-<!-- CAPTURAS -->
-
 <section class="card">
-
 <h2>📦 Capturas RX</h2>
 
-<button class="red" onclick="clearCaptures()">
-🧹 LIMPIAR CAPTURAS
-</button>
+<button class="gold" onclick="clearCaptures()">🧹 LIMPIAR CAPTURAS</button>
+<button class="blue" onclick="exportJSON()">💾 EXPORTAR ANÁLISIS JSON</button>
+<button class="blue" onclick="exportHEX()">📄 EXPORTAR RX EN HEX</button>
+<button onclick="copySummary()">📋 COPIAR RESUMEN</button>
 
-<button onclick="exportJSON()">
-💾 EXPORTAR ANÁLISIS JSON
-</button>
-
-<button onclick="exportHEX()">
-📄 EXPORTAR RX EN HEX
-</button>
-
-<button onclick="copySummary()">
-📋 COPIAR RESUMEN
-</button>
-
-<div id="packetList" style="margin-top:12px">
-Sin capturas.
+<div id="captures">
+<div class="small">Sin capturas.</div>
 </div>
-
 </section>
 
 
-<!-- TX -->
-
 <section class="card">
-
 <h2>📤 TX manual</h2>
 
-<div class="small">
+<div class="status warn">
 ⚠️ TX NO se ejecuta automáticamente.
-Solo se permite una transmisión manual cuando existe una característica WRITE.
+Solo se permite transmisión manual cuando existe una característica WRITE.
 </div>
 
-<div class="row" style="margin-top:10px">
+<textarea id="txInput"
+placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"></textarea>
 
-<input id="txInput"
-placeholder="AB 00 05 FF 91 80 00 64">
-
-<button id="txButton" class="purple" disabled>
+<button class="primary" id="txBtn" disabled onclick="sendTX()">
 📤 ENVIAR HEX MANUAL
 </button>
 
-</div>
-
+<div id="txStatus" class="small"></div>
 </section>
 
 
-<!-- DIAGNÓSTICO -->
-
 <section class="card">
-
 <h2>🛠️ Diagnóstico</h2>
 
-<button class="red" onclick="clearDiagnostic()">
-🧹 LIMPIAR DIAGNÓSTICO
-</button>
+<button class="gold" onclick="clearDiagnostics()">🧹 LIMPIAR DIAGNÓSTICO</button>
 
-<pre id="diagnostic"></pre>
-
+<pre id="diagnostics"></pre>
 </section>
 
 </main>
 
-<footer>
-RoXThal Art Design · F1 Plus Protocol Laboratory v5
-</footer>
-
 
 <script>
 
-"use strict";
+'use strict';
 
-
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
+/* ============================================================
+   CONFIGURACIÓN BLE
+============================================================ */
 
 const UART_SERVICE =
-"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-
-
-/* =========================================================
-   VARIABLES BLE
-========================================================= */
+'6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 
 let device = null;
 let server = null;
 let service = null;
-
 let rxCharacteristic = null;
 let txCharacteristic = null;
 
 
-/* =========================================================
+/* ============================================================
    DATOS DEL LABORATORIO
-========================================================= */
+============================================================ */
 
 let packets = [];
-
 let comparisons = [];
-
 let transitions = [];
-
 let events = [];
-
 let correlations = [];
 
-let typeData = {};
+let previousByKey = {};
 
-let patternData = {};
+let totalTX = 0;
 
-let matrixData = {};
-
-let lastByGroup = {};
-
-let lastRXTime = null;
-
-let txCount = 0;
-
-let comparisonCount = 0;
-
-let modifiedBytes = 0;
-
-let cycleCount = 0;
+let sequence = 0;
 
 
-/* =========================================================
+/* ============================================================
    UTILIDADES
-========================================================= */
+============================================================ */
 
-function $(id){
- return document.getElementById(id);
+function now(){
+  return new Date();
 }
 
-
-function timeNow(){
-
- return new Date();
-
+function timeString(date = now()){
+  return date.toLocaleTimeString('es-AR',{
+    hour12:false
+  });
 }
 
-
-function timeString(date){
-
- return date.toLocaleTimeString(
-  "es-AR",
-  {
-   hour12:false
-  }
- );
-
+function timestamp(){
+  return Date.now();
 }
-
-
-function escapeHTML(value){
-
- return String(value)
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;")
- .replace(/'/g,"&#039;");
-
-}
-
-
-function bytesToHex(bytes){
-
- return Array.from(bytes)
- .map(
-  b=>b.toString(16)
-  .padStart(2,"0")
-  .toUpperCase()
- )
- .join(" ");
-
-}
-
-
-function bytesToDecimal(bytes){
-
- return Array.from(bytes)
- .join(" ");
-
-}
-
-
-function bytesToASCII(bytes){
-
- return Array.from(bytes)
- .map(
-  b =>
-  b >= 32 && b <= 126
-  ? String.fromCharCode(b)
-  : "."
- )
- .join("");
-
-}
-
-
-function typeOfPacket(bytes){
-
- if(bytes.length < 5){
-
-  return null;
-
- }
-
- return bytes[4];
-
-}
-
-
-function groupOfPacket(bytes){
-
- const type = typeOfPacket(bytes);
-
- return (
-  "0x" +
-  (type === null
-   ? "??"
-   : type.toString(16).padStart(2,"0").toUpperCase())
-  +
-  " / " +
-  bytes.length +
-  " bytes"
- );
-
-}
-
 
 function log(message){
 
- const box = $("diagnostic");
+  const box =
+    document.getElementById('diagnostics');
 
- box.textContent +=
- "[" + timeString(timeNow()) + "] "
- + message
- + "\n";
+  box.textContent +=
+    '[' + timeString() + '] ' + message + '\n';
 
- box.scrollTop = box.scrollHeight;
+  box.scrollTop = box.scrollHeight;
+}
 
+function hex(bytes){
+
+  return Array.from(bytes)
+    .map(x=>x.toString(16).padStart(2,'0').toUpperCase())
+    .join(' ');
+}
+
+function decimal(bytes){
+
+  return Array.from(bytes).join(' ');
+}
+
+function ascii(bytes){
+
+  return Array.from(bytes)
+    .map(x =>
+      x >= 32 && x <= 126
+      ? String.fromCharCode(x)
+      : '.'
+    )
+    .join('');
+}
+
+function frameType(bytes){
+
+  return bytes.length > 4
+    ? '0x' + bytes[4].toString(16).padStart(2,'0').toUpperCase()
+    : '—';
+}
+
+function keyFor(bytes){
+
+  return frameType(bytes) + '/' + bytes.length;
+}
+
+function escapeHTML(str){
+
+  return String(str)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
 }
 
 
-function clearDiagnostic(){
-
- $("diagnostic").textContent="";
-
- log("Sistema preparado.");
-
-}
-
-
-/* =========================================================
+/* ============================================================
    BLUETOOTH
-========================================================= */
+============================================================ */
+
+document
+.getElementById('bluetoothBtn')
+.addEventListener('click',checkBluetooth);
 
 async function checkBluetooth(){
 
- if(!("bluetooth" in navigator)){
+  if(!navigator.bluetooth){
 
-  log("❌ Web Bluetooth no está disponible.");
+    setConnection(
+      '🔴 Web Bluetooth no está disponible en este navegador.',
+      'bad'
+    );
 
-  return false;
+    log('❌ Web Bluetooth NO disponible.');
+    return;
+  }
 
- }
+  setConnection(
+    '🟢 Web Bluetooth detectado correctamente.',
+    'ok'
+  );
 
- log("Web Bluetooth detectado correctamente.");
-
- return true;
-
+  log('Web Bluetooth detectado correctamente.');
 }
 
 
-/* =========================================================
+function setConnection(text, cls=''){
+
+  const el =
+    document.getElementById('connectionStatus');
+
+  el.className = 'status ' + cls;
+  el.textContent = text;
+}
+
+
+/* ============================================================
    CONEXIÓN
-========================================================= */
+============================================================ */
 
-async function connectF1Plus(){
+document
+.getElementById('connectBtn')
+.addEventListener('click',connect);
 
- if(!(await checkBluetooth())){
+async function connect(){
 
-  return;
+  try{
 
- }
+    if(!navigator.bluetooth){
 
- try{
-
-  log("==============================");
-  log("INICIO DE CONEXIÓN");
-  log("Solicitando dispositivo F1 Plus...");
-
-
-  device =
-  await navigator.bluetooth.requestDevice({
-
-   filters:[
-    {
-     name:"F1 Plus"
+      throw new Error(
+        'Web Bluetooth no está disponible.'
+      );
     }
-   ],
 
-   optionalServices:[
-    UART_SERVICE
-   ]
+    log('==============================');
+    log('INICIO DE CONEXIÓN');
+    log('Solicitando dispositivo F1 Plus...');
 
-  });
+    device =
+      await navigator.bluetooth.requestDevice({
+        filters:[
+          {name:'F1 Plus'}
+        ],
+        optionalServices:[
+          UART_SERVICE
+        ]
+      });
 
+    log('✅ DISPOSITIVO ENCONTRADO');
+    log('Nombre: ' + (device.name || 'desconocido'));
+    log('ID: ' + device.id);
 
-  if(!device){
+    document.getElementById('deviceInfo').innerHTML =
+      '<b>Nombre:</b> ' +
+      escapeHTML(device.name || 'desconocido') +
+      '<br><b>ID:</b> ' +
+      escapeHTML(device.id);
 
-   log("❌ No se seleccionó dispositivo.");
+    device.addEventListener(
+      'gattserverdisconnected',
+      onDisconnected
+    );
 
-   return;
+    log('Conectando GATT...');
 
+    server =
+      await device.gatt.connect();
+
+    log('✅ GATT conectado.');
+
+    service =
+      await server.getPrimaryService(
+        UART_SERVICE
+      );
+
+    log('Buscando características UART...');
+
+    document.getElementById('serviceUUID')
+      .textContent = UART_SERVICE;
+
+    await discoverCharacteristics();
+
+    setConnection(
+      '🟢 Smart Band conectada',
+      'ok'
+    );
+
+    document.getElementById('connectBtn')
+      .disabled = true;
+
+    document.getElementById('disconnectBtn')
+      .disabled = false;
+
+    log('================================');
+    log('🟢 LABORATORIO PREPARADO');
+    log('RX automático: ACTIVO');
+    log('TX automático: DESACTIVADO');
+    log('Esperando tráfico espontáneo...');
+
+  }catch(error){
+
+    console.error(error);
+
+    setConnection(
+      '❌ No se pudo conectar: ' + error.message,
+      'bad'
+    );
+
+    log('❌ ERROR: ' + error.message);
   }
+}
 
 
-  $("deviceInfo").innerHTML =
-  "<b>Nombre:</b> "
-  + escapeHTML(device.name || "desconocido")
-  + "<br><b>ID:</b> "
-  + escapeHTML(device.id || "desconocido");
+/* ============================================================
+   DESCUBRIMIENTO
+============================================================ */
 
+async function discoverCharacteristics(){
 
-  log("✅ DISPOSITIVO ENCONTRADO");
+  const container =
+    document.getElementById('characteristics');
 
-  log(
-   "Nombre: "
-   + (device.name || "desconocido")
-  );
+  container.innerHTML = '';
 
-  log(
-   "ID: "
-   + (device.id || "desconocido")
-  );
+  const chars =
+    await service.getCharacteristics();
 
+  chars.forEach((c,index)=>{
 
-  device.addEventListener(
-   "gattserverdisconnected",
-   handleDisconnect
-  );
+    const props =
+      Array.from(c.properties)
+      .map(x=>x.toUpperCase());
 
+    const div =
+      document.createElement('div');
 
-  log("Conectando GATT...");
+    div.className = 'packet';
 
+    div.innerHTML =
+      '<b>Característica #' + (index+1) +
+      '</b><br>' +
+      '<span class="mono">' +
+      escapeHTML(c.uuid) +
+      '</span><br>' +
+      'Propiedades: ' +
+      escapeHTML(props.join(', '));
 
-  server =
-  await device.gatt.connect();
+    container.appendChild(div);
 
+    if(
+      props.includes('NOTIFY') ||
+      props.includes('INDICATE')
+    ){
 
-  log("✅ GATT conectado.");
+      if(!rxCharacteristic){
 
-  log("Buscando servicio UART...");
+        rxCharacteristic = c;
 
+        div.innerHTML +=
+          '<br><span class="ok">🟢 CANDIDATA RX</span>';
 
-  service =
-  await server.getPrimaryService(
-   UART_SERVICE
-  );
+        log(
+          '🟢 CANDIDATA RX seleccionada: ' +
+          c.uuid
+        );
+      }
+    }
 
+    if(
+      props.includes('WRITE') ||
+      props.includes('WRITEWITHOUTRESPONSE')
+    ){
 
-  $("serviceUUID").textContent =
-  service.uuid;
+      if(!txCharacteristic){
 
+        txCharacteristic = c;
 
-  log("✅ Servicio UART encontrado.");
+        div.innerHTML +=
+          '<br><span class="ok">🔵 CANDIDATA TX</span>';
 
-  log(
-   "UUID servicio: "
-   + service.uuid
-  );
-
-
-  const characteristics =
-  await service.getCharacteristics();
-
-
-  displayCharacteristics(
-   characteristics
-  );
-
-
-  rxCharacteristic =
-  characteristics.find(
-   c =>
-   c.properties.notify ||
-   c.properties.indicate
-  );
-
-
-  txCharacteristic =
-  characteristics.find(
-   c =>
-   c.properties.write ||
-   c.properties.writeWithoutResponse
-  );
+        log(
+          '🔵 CANDIDATA TX seleccionada: ' +
+          c.uuid
+        );
+      }
+    }
+  });
 
 
   if(rxCharacteristic){
 
-   $("rxUUID").textContent =
-   rxCharacteristic.uuid;
+    document.getElementById('rxUUID')
+      .textContent =
+      rxCharacteristic.uuid;
 
-   log(
-    "🟢 CANDIDATA RX seleccionada: "
-    + rxCharacteristic.uuid
-   );
+    log('Activando NOTIFY...');
 
+    try{
 
-   rxCharacteristic.addEventListener(
-    "characteristicvaluechanged",
-    receiveRX
-   );
+      await rxCharacteristic.startNotifications();
 
+      rxCharacteristic.addEventListener(
+        'characteristicvaluechanged',
+        handleRX
+      );
 
-   log("Activando NOTIFY...");
+      document.getElementById('notifyStatus')
+        .innerHTML =
+        '<span class="ok">🟢 NOTIFY activo</span>';
 
+      log('✅ NOTIFY ACTIVADO.');
 
-   await rxCharacteristic.startNotifications();
+    }catch(error){
 
+      log(
+        '❌ Error activando NOTIFY: ' +
+        error.message
+      );
+    }
 
-   $("notifyStatus").textContent =
-   "🟢 NOTIFY activo";
+  }else{
 
-
-   log("✅ NOTIFY ACTIVADO.");
-
-  }
-  else{
-
-   log(
-    "⚠️ No se encontró característica NOTIFY."
-   );
-
+    log('⚠️ No se encontró característica NOTIFY.');
   }
 
 
   if(txCharacteristic){
 
-   $("txUUID").textContent =
-   txCharacteristic.uuid;
+    document.getElementById('txUUID')
+      .textContent =
+      txCharacteristic.uuid;
 
-   log(
-    "🔵 CANDIDATA TX seleccionada: "
-    + txCharacteristic.uuid
-   );
+    document.getElementById('txBtn')
+      .disabled = false;
 
+  }else{
+
+    log('⚠️ No se encontró característica WRITE.');
   }
-  else{
-
-   log(
-    "⚠️ No se encontró característica WRITE."
-   );
-
-  }
-
-
-  setConnectionState(true);
-
-
-  log("================================");
-  log("🟢 LABORATORIO PREPARADO");
-  log("RX automático: ACTIVO");
-  log("TX automático: DESACTIVADO");
-  log("Esperando tráfico espontáneo...");
-
-
- }
- catch(error){
-
-  log(
-   "❌ ERROR: "
-   + (error.message || error)
-  );
-
-  setConnectionState(false);
-
- }
-
 }
 
 
-/* =========================================================
-   MOSTRAR CARACTERÍSTICAS
-========================================================= */
-
-function displayCharacteristics(chars){
-
- let html="";
-
- chars.forEach(
-  (c,index)=>{
-
-   let properties=[];
-
-   if(c.properties.read)
-   properties.push("READ");
-
-   if(c.properties.write)
-   properties.push("WRITE");
-
-   if(c.properties.writeWithoutResponse)
-   properties.push("WRITE WITHOUT RESPONSE");
-
-   if(c.properties.notify)
-   properties.push("NOTIFY");
-
-   if(c.properties.indicate)
-   properties.push("INDICATE");
-
-
-   let rx =
-   c.properties.notify ||
-   c.properties.indicate;
-
-   let tx =
-   c.properties.write ||
-   c.properties.writeWithoutResponse;
-
-
-   html +=
-
-   '<div class="stat" style="margin-bottom:8px">'
-
-   + "<span>Característica #"
-   + (index+1)
-   + "</span>"
-
-   + '<b class="mono" style="font-size:11px">'
-   + escapeHTML(c.uuid)
-   + "</b>"
-
-   + '<div class="small">'
-   + "Propiedades: "
-   + escapeHTML(properties.join(", "))
-   + "</div>"
-
-   + '<div class="small">'
-   + (rx ? "🟢 CANDIDATA RX " : "")
-   + (tx ? "🔵 CANDIDATA TX" : "")
-   + "</div>"
-
-   + "</div>";
-
-  }
- );
-
-
- $("characteristics").innerHTML =
- html || "Sin características.";
-
-}
-
-
-/* =========================================================
-   ESTADO CONEXIÓN
-========================================================= */
-
-function setConnectionState(connected){
-
- if(connected){
-
-  $("statusDot").className =
-  "dot green";
-
-  $("statusText").textContent =
-  "Smart Band conectada";
-
-  $("connectBtn").disabled=true;
-
-  $("disconnectBtn").disabled=false;
-
- }
- else{
-
-  $("statusDot").className =
-  "dot";
-
-  $("statusText").textContent =
-  "Desconectado";
-
-  $("connectBtn").disabled=false;
-
-  $("disconnectBtn").disabled=true;
-
- }
-
- $("txButton").disabled =
- !connected || !txCharacteristic;
-
-}
-
-
-/* =========================================================
-   DESCONEXIÓN
-========================================================= */
-
-function handleDisconnect(){
-
- log("🔴 GATT desconectado.");
-
- $("notifyStatus").textContent =
- "🔴 NOTIFY no activo";
-
- setConnectionState(false);
-
-}
-
-
-/* =========================================================
+/* ============================================================
    RX
-========================================================= */
+============================================================ */
 
-function receiveRX(event){
+function handleRX(event){
 
- const value =
- event.target.value;
+  const value =
+    event.target.value;
 
+  const bytes =
+    new Uint8Array(
+      value.buffer.slice(
+        value.byteOffset,
+        value.byteOffset + value.byteLength
+      )
+    );
 
- const bytes =
- new Uint8Array(
-  value.buffer.slice(
-   value.byteOffset,
-   value.byteOffset + value.byteLength
-  )
- );
-
-
- const now =
- timeNow();
-
-
- const packet={
-
-  id:packets.length+1,
-
-  time:now.toISOString(),
-
-  displayTime:timeString(now),
-
-  hex:bytesToHex(bytes),
-
-  decimal:bytesToDecimal(bytes),
-
-  ascii:bytesToASCII(bytes),
-
-  type:typeOfPacket(bytes),
-
-  length:bytes.length,
-
-  spontaneous:true,
-
-  interval:
-  lastRXTime
-  ? (now-lastRXTime)/1000
-  : null
-
- };
-
-
- lastRXTime=now;
-
-
- packets.push(packet);
-
-
- if(packets.length>500){
-
-  packets.shift();
-
- }
-
-
- registerType(packet);
-
- registerPattern(packet);
-
-
- const comparison =
- comparePacket(packet);
-
-
- if(comparison){
-
-  packet.comparison =
-  comparison.id;
-
- }
-
-
- correlatePacketWithEvents(packet);
-
-
- log(
-  "🟣 RX ESPONTÁNEO | "
-  + packet.hex
- );
-
-
- renderAll();
-
+  processRX(bytes);
 }
 
 
-/* =========================================================
-   TIPOS
-========================================================= */
+function processRX(bytes){
 
-function registerType(packet){
+  const t = timestamp();
 
- const key =
- "0x"
- + (
-  packet.type === null
-  ? "??"
-  : packet.type
-   .toString(16)
-   .padStart(2,"0")
-   .toUpperCase()
- );
+  const packet = {
 
+    id: ++sequence,
 
- if(!typeData[key]){
+    time:t,
 
-  typeData[key]={
+    date:new Date(t),
 
-   count:0,
+    bytes:Array.from(bytes),
 
-   lengths:{},
+    hex:hex(bytes),
 
-   first:packet.time,
+    type:frameType(bytes),
 
-   last:packet.time
+    length:bytes.length,
+
+    decimal:decimal(bytes),
+
+    ascii:ascii(bytes)
 
   };
 
- }
+  packets.push(packet);
 
+  log(
+    '🟣 RX ESPONTÁNEO | ' +
+    packet.hex
+  );
 
- typeData[key].count++;
+  analyzePacket(packet);
 
- typeData[key].last=
- packet.time;
-
-
- const length=
- String(packet.length);
-
-
- typeData[key].lengths[length]=
- (typeData[key].lengths[length] || 0)+1;
-
+  renderAll();
 }
 
 
-/* =========================================================
-   PATRONES
-========================================================= */
+/* ============================================================
+   ANÁLISIS
+============================================================ */
 
-function registerPattern(packet){
+function analyzePacket(packet){
 
- patternData[packet.hex]=
- (patternData[packet.hex] || 0)+1;
+  const key =
+    packet.type + '/' + packet.length;
 
-}
+  const previous =
+    previousByKey[key];
 
+  if(previous){
 
-/* =========================================================
-   COMPARADOR
-========================================================= */
-
-function comparePacket(packet){
-
- const key =
- groupOfPacket(
-  hexToBytes(packet.hex)
- );
-
-
- const previous =
- lastByGroup[key];
-
-
- lastByGroup[key]=
- packet.hex;
-
-
- if(!previous){
-
-  log(
-   "🔬 COMPARADOR: primera trama para "
-   + key
-  );
-
-  return null;
-
- }
-
-
- const oldBytes =
- hexToBytes(previous);
-
- const newBytes =
- hexToBytes(packet.hex);
-
-
- const differences=[];
-
-
- for(
-  let i=0;
-  i<newBytes.length;
-  i++
- ){
-
-  if(
-   oldBytes[i] !==
-   newBytes[i]
-  ){
-
-   differences.push({
-
-    index:i,
-
-    from:oldBytes[i],
-
-    to:newBytes[i]
-
-   });
-
-  }
-
- }
-
-
- comparisonCount++;
-
- modifiedBytes +=
- differences.length;
-
-
- const comparison={
-
-  id:comparisonCount,
-
-  time:packet.time,
-
-  key:key,
-
-  type:packet.type,
-
-  length:packet.length,
-
-  previous:previous,
-
-  current:packet.hex,
-
-  differences:differences
-
- };
-
-
- comparisons.unshift(
-  comparison
- );
-
-
- if(comparisons.length>300){
-
-  comparisons.pop();
-
- }
-
-
- updateMatrix(
-  packet,
-  differences
- );
-
-
- if(differences.length){
-
-  log(
-   "🔬 COMPARACIÓN #"
-   + comparison.id
-   + " | "
-   + key
-   + " | "
-   + differences.length
-   + " byte(s) modificados."
-  );
-
-
-  differences.forEach(
-   d=>{
+    comparePackets(previous,packet);
+  }else{
 
     log(
-     "   BYTE "
-     + d.index
-     + ": "
-     + hexByte(d.from)
-     + " → "
-     + hexByte(d.to)
+      '🔬 COMPARADOR: primera trama para ' +
+      key
+    );
+  }
+
+  previousByKey[key] = packet;
+
+  correlatePacket(packet);
+}
+
+
+/* ============================================================
+   COMPARADOR
+============================================================ */
+
+function comparePackets(a,b){
+
+  const changes = [];
+
+  const max =
+    Math.min(
+      a.bytes.length,
+      b.bytes.length
     );
 
-   }
-  );
+  for(let i=0;i<max;i++){
+
+    if(a.bytes[i] !== b.bytes[i]){
+
+      changes.push({
+
+        byte:i,
+
+        from:a.bytes[i],
+
+        to:b.bytes[i]
+      });
+    }
+  }
+
+  const comparison = {
+
+    id:comparisons.length+1,
+
+    time:b.time,
+
+    type:b.type,
+
+    length:b.length,
+
+    previous:a.hex,
+
+    current:b.hex,
+
+    changes
+
+  };
+
+  comparisons.push(comparison);
+
+  if(changes.length){
+
+    changes.forEach(ch=>{
+
+      transitions.push({
+
+        time:b.time,
+
+        type:b.type,
+
+        byte:ch.byte,
+
+        from:ch.from,
+
+        to:ch.to,
+
+        delta:b.time-a.time
+      });
+
+      log(
+        'BYTE ' +
+        ch.byte +
+        ': ' +
+        byteHex(ch.from) +
+        ' → ' +
+        byteHex(ch.to)
+      );
+    });
+
+    log(
+      '🔬 COMPARACIÓN #' +
+      comparison.id +
+      ' | ' +
+      b.type +
+      ' / ' +
+      b.length +
+      ' bytes | ' +
+      changes.length +
+      ' byte(s) modificados.'
+    );
+
+  }else{
+
+    log(
+      '🟢 COMPARACIÓN #' +
+      comparison.id +
+      ' | ' +
+      b.type +
+      ' / ' +
+      b.length +
+      ' bytes | TRAMAS IDÉNTICAS.'
+    );
+  }
+}
 
 
-  registerTransitions(
-   comparison
-  );
+function byteHex(n){
 
- }
- else{
+  return n
+    .toString(16)
+    .padStart(2,'0')
+    .toUpperCase();
+}
+
+
+/* ============================================================
+   EVENTOS
+============================================================ */
+
+function markEvent(type){
+
+  const event = {
+
+    id:events.length+1,
+
+    time:timestamp(),
+
+    type
+  };
+
+  events.push(event);
 
   log(
-   "🟢 COMPARACIÓN #"
-   + comparison.id
-   + " | "
-   + key
-   + " | TRAMAS IDÉNTICAS."
+    '🟡 EVENTO MARCADO | ' +
+    type
   );
 
- }
+  correlateEvent(event);
 
-
- return comparison;
-
+  renderAll();
 }
 
 
-/* =========================================================
-   HEX
-========================================================= */
+function clearEvents(){
 
-function hexByte(value){
+  events = [];
+  correlations = [];
 
- return value
- .toString(16)
- .padStart(2,"0")
- .toUpperCase();
+  log('🧹 Eventos y correlaciones reiniciados.');
 
+  renderAll();
 }
 
 
-function hexToBytes(text){
-
- if(!text){
-
-  return new Uint8Array();
-
- }
-
- return new Uint8Array(
-  text
-  .trim()
-  .split(/\s+/)
-  .filter(Boolean)
-  .map(
-   x=>parseInt(x,16)
-  )
- );
-
-}
-
-
-/* =========================================================
-   MATRIZ
-========================================================= */
-
-function updateMatrix(
- packet,
- differences
-){
-
- const key =
- groupOfPacket(
-  hexToBytes(packet.hex)
- );
-
-
- if(!matrixData[key]){
-
-  matrixData[key]=
-  Array.from(
-   {length:packet.length},
-   ()=>({
-    changes:0,
-    values:{}
-   })
-  );
-
- }
-
-
- const bytes =
- hexToBytes(packet.hex);
-
-
- bytes.forEach(
-  (value,index)=>{
-
-   matrixData[key][index]
-   .values[hexByte(value)]=true;
-
-  }
- );
-
-
- differences.forEach(
-  d=>{
-
-   matrixData[key][d.index]
-   .changes++;
-
-  }
- );
-
-}
-
-
-/* =========================================================
-   TRANSICIONES
-========================================================= */
-
-function registerTransitions(
- comparison
-){
-
- comparison.differences.forEach(
-  d=>{
-
-   const transition={
-
-    id:transitions.length+1,
-
-    time:comparison.time,
-
-    type:comparison.type,
-
-    length:comparison.length,
-
-    index:d.index,
-
-    from:d.from,
-
-    to:d.to,
-
-    interval:null
-
-   };
-
-
-   const previous =
-   transitions.find(
-    t =>
-    t.type === transition.type &&
-    t.length === transition.length &&
-    t.index === transition.index
-   );
-
-
-   if(previous){
-
-    transition.interval =
-    (
-     Date.parse(transition.time)
-     -
-     Date.parse(previous.time)
-    ) / 1000;
-
-   }
-
-
-   transitions.unshift(
-    transition
-   );
-
-
-   /*
-      CICLO ESPECÍFICO 0x91 BYTE 7
-   */
-
-   if(
-    transition.type === 0x91 &&
-    transition.index === 7
-   ){
-
-    cycleCount++;
-
-   }
-
-  }
- );
-
-
- if(transitions.length>300){
-
-  transitions.length=300;
-
- }
-
-}
-
-
-/* =========================================================
-   EVENTOS
-========================================================= */
-
-function markEvent(name){
-
- const event={
-
-  id:events.length+1,
-
-  name:name,
-
-  time:timeNow().toISOString(),
-
-  displayTime:timeString(timeNow())
-
- };
-
-
- events.unshift(event);
-
-
- log(
-  "🟡 EVENTO MARCADO | "
-  + name
- );
-
-
- correlateRecentEvent(event);
-
- renderAll();
-
-}
-
-
-function markCustomEvent(){
-
- const input=
- $("customEvent");
-
- const text=
- input.value.trim();
-
-
- if(!text){
-
-  return;
-
- }
-
-
- markEvent(text);
-
- input.value="";
-
-}
-
-
-/* =========================================================
+/* ============================================================
    CORRELACIÓN
-========================================================= */
+============================================================ */
 
-function correlatePacketWithEvents(packet){
+function correlateEvent(event){
 
- events.forEach(
-  event=>{
+  const WINDOW = 10000;
 
-   const delta =
-   (
-    Date.parse(packet.time)
-    -
-    Date.parse(event.time)
-   ) / 1000;
+  packets.forEach(packet=>{
+
+    const delta =
+      packet.time - event.time;
+
+    if(Math.abs(delta) <= WINDOW){
+
+      addCorrelation(event,packet);
+    }
+  });
+}
 
 
-   if(
-    Math.abs(delta)<=10
-   ){
+function correlatePacket(packet){
 
-    addCorrelation(
-     event,
-     packet,
-     delta
+  const WINDOW = 10000;
+
+  events.forEach(event=>{
+
+    const delta =
+      packet.time - event.time;
+
+    if(Math.abs(delta) <= WINDOW){
+
+      addCorrelation(event,packet);
+    }
+  });
+}
+
+
+function addCorrelation(event,packet){
+
+  const exists =
+    correlations.some(c =>
+      c.eventId === event.id &&
+      c.packetId === packet.id
     );
 
-   }
+  if(exists)return;
 
-  }
- );
+  correlations.push({
 
+    eventId:event.id,
+
+    eventType:event.type,
+
+    eventTime:event.time,
+
+    packetId:packet.id,
+
+    packetType:packet.type,
+
+    packetTime:packet.time,
+
+    delta:packet.time-event.time,
+
+    hex:packet.hex
+  });
 }
 
 
-function correlateRecentEvent(event){
-
- packets.forEach(
-  packet=>{
-
-   const delta =
-   (
-    Date.parse(packet.time)
-    -
-    Date.parse(event.time)
-   ) / 1000;
-
-
-   if(
-    Math.abs(delta)<=10
-   ){
-
-    addCorrelation(
-     event,
-     packet,
-     delta
-    );
-
-   }
-
-  }
- );
-
-}
-
-
-function addCorrelation(
- event,
- packet,
- delta
-){
-
- const exists =
- correlations.some(
-  c =>
-  c.eventId === event.id &&
-  c.packetId === packet.id
- );
-
-
- if(exists){
-
-  return;
-
- }
-
-
- correlations.unshift({
-
-  eventId:event.id,
-
-  packetId:packet.id,
-
-  event:event.name,
-
-  packetHex:packet.hex,
-
-  type:packet.type,
-
-  delta:delta,
-
-  time:packet.time
-
- });
-
-
- if(correlations.length>300){
-
-  correlations.pop();
-
- }
-
-}
-
-
-/* =========================================================
+/* ============================================================
    RENDER GENERAL
-========================================================= */
+============================================================ */
 
 function renderAll(){
 
- updateStats();
+  updateStats();
 
- renderEvents();
+  renderEvents();
 
- renderTransitions();
+  renderTransitions();
 
- renderCycles();
+  renderCycles();
 
- renderCorrelations();
+  renderCorrelations();
 
- renderLatestComparison();
+  renderComparisons();
 
- renderComparisonHistory();
+  renderMatrix();
 
- renderMatrix();
+  renderTypes();
 
- renderTypes();
+  renderLengths();
 
- renderLengths();
+  renderPatterns();
 
- renderPatterns();
+  renderIntervals();
 
- renderIntervals();
-
- renderPackets();
-
+  renderCaptures();
 }
 
 
-/* =========================================================
+/* ============================================================
    ESTADÍSTICAS
-========================================================= */
+============================================================ */
 
 function updateStats(){
 
- $("statTX").textContent=
- txCount;
+  const types =
+    new Set(
+      packets.map(p=>p.type)
+    );
 
- $("statRX").textContent=
- packets.length;
+  const lengths =
+    new Set(
+      packets.map(p=>p.length)
+    );
 
- $("statTypes").textContent=
- Object.keys(typeData).length;
+  const changes =
+    comparisons.reduce(
+      (sum,c)=>sum+c.changes.length,
+      0
+    );
 
- $("statLengths").textContent=
- new Set(
-  packets.map(p=>p.length)
- ).size;
+  const cycles =
+    transitions.filter(t =>
+      t.type === '0x91' &&
+      t.byte === 7
+    ).length;
 
- $("statComparisons").textContent=
- comparisonCount;
+  document.getElementById('statTX')
+    .textContent = totalTX;
 
- $("statChanges").textContent=
- modifiedBytes;
+  document.getElementById('statRX')
+    .textContent = packets.length;
 
- $("statTransitions").textContent=
- transitions.length;
+  document.getElementById('statTypes')
+    .textContent = types.size;
 
- $("statEvents").textContent=
- events.length;
+  document.getElementById('statLengths')
+    .textContent = lengths.size;
 
- $("statCorrelations").textContent=
- correlations.length;
+  document.getElementById('statComparisons')
+    .textContent = comparisons.length;
 
- $("statCycles").textContent=
- cycleCount;
+  document.getElementById('statChanges')
+    .textContent = changes;
 
+  document.getElementById('statTransitions')
+    .textContent = transitions.length;
+
+  document.getElementById('statEvents')
+    .textContent = events.length;
+
+  document.getElementById('statCorrelations')
+    .textContent = correlations.length;
+
+  document.getElementById('statCycles')
+    .textContent = cycles;
 }
 
 
-/* =========================================================
-   EVENTOS UI
-========================================================= */
+/* ============================================================
+   EVENTOS
+============================================================ */
 
 function renderEvents(){
 
- if(!events.length){
+  const el =
+    document.getElementById('events');
 
-  $("eventList").innerHTML=
-  '<div class="small">No hay eventos.</div>';
+  if(!events.length){
 
-  return;
+    el.innerHTML =
+      '<div class="small">No hay eventos.</div>';
 
- }
+    return;
+  }
 
-
- $("eventList").innerHTML=
- events.slice(0,30)
- .map(
-  e =>
-  '<div class="event">'
-  + '<span class="small">'
-  + escapeHTML(e.displayTime)
-  + '</span> '
-  + '<b>'
-  + escapeHTML(e.name)
-  + '</b>'
-  + '</div>'
- )
- .join("");
-
+  el.innerHTML =
+    events
+      .slice()
+      .reverse()
+      .map(e =>
+        '<div class="packet">' +
+        timeString(new Date(e.time)) +
+        ' <b>' +
+        escapeHTML(e.type) +
+        '</b>' +
+        '</div>'
+      )
+      .join('');
 }
 
 
-/* =========================================================
-   TRANSICIONES UI
-========================================================= */
+/* ============================================================
+   TRANSICIONES
+============================================================ */
 
 function renderTransitions(){
 
- if(!transitions.length){
+  const el =
+    document.getElementById('transitions');
 
-  $("transitionList").innerHTML=
-  '<div class="small">Todavía no se han observado transiciones.</div>';
+  if(!transitions.length){
 
-  return;
+    el.innerHTML =
+      '<div class="small">' +
+      'Todavía no se han observado transiciones.' +
+      '</div>';
 
- }
+    return;
+  }
 
-
- $("transitionList").innerHTML=
- transitions.slice(0,40)
- .map(
-  t =>
-
-  '<div class="event">'
-
-  + '<span class="small">'
-  + escapeHTML(
-   new Date(t.time)
-   .toLocaleTimeString(
-    "es-AR",
-    {hour12:false}
-   )
-  )
-  + '</span> '
-
-  + '<b>0x'
-  + t.type.toString(16).toUpperCase()
-  + '</b>'
-
-  + ' · Byte '
-  + t.index
-
-  + ' · '
-
-  + '<span class="bad">'
-  + hexByte(t.from)
-  + ' → '
-  + hexByte(t.to)
-  + '</span>'
-
-  + (
-   t.interval !== null
-   ? ' · Δ '
-   + t.interval.toFixed(3)
-   + ' s'
-   : ''
-  )
-
-  + '</div>'
-
- )
- .join("");
-
+  el.innerHTML =
+    transitions
+      .slice()
+      .reverse()
+      .map(t =>
+        '<div class="packet">' +
+        timeString(new Date(t.time)) +
+        ' <b>' + t.type + '</b>' +
+        ' · Byte ' + t.byte +
+        ' · ' +
+        byteHex(t.from) +
+        ' → ' +
+        byteHex(t.to) +
+        ' · Δ ' +
+        (t.delta/1000).toFixed(3) +
+        ' s' +
+        '</div>'
+      )
+      .join('');
 }
 
 
-/* =========================================================
+/* ============================================================
    CICLOS
-========================================================= */
+============================================================ */
 
 function renderCycles(){
 
- const list =
- transitions.filter(
-  t =>
-  t.type === 0x91 &&
-  t.index === 7
- );
+  const el =
+    document.getElementById('cycles');
 
+  const list =
+    transitions.filter(t =>
+      t.type === '0x91' &&
+      t.byte === 7
+    );
 
- if(!list.length){
+  if(!list.length){
 
-  $("cycleList").innerHTML=
-  '<div class="small">Aún no hay ciclos detectados.</div>';
+    el.innerHTML =
+      '<div class="small">Aún no hay ciclos detectados.</div>';
 
-  return;
+    return;
+  }
 
- }
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>#</th>' +
+    '<th>Transición</th>' +
+    '<th>Intervalo</th>' +
+    '</tr>' +
 
+    list.map((t,i)=>{
 
- $("cycleList").innerHTML=
+      return '<tr>' +
+        '<td>' + (i+1) + '</td>' +
+        '<td>' +
+        byteHex(t.from) +
+        ' → ' +
+        byteHex(t.to) +
+        '</td>' +
+        '<td>' +
+        (t.delta/1000).toFixed(3) +
+        ' s' +
+        '</td>' +
+        '</tr>';
 
- '<table>'
- + '<tr>'
- + '<th>#</th>'
- + '<th>Transición</th>'
- + '<th>Intervalo</th>'
- + '</tr>'
+    }).join('') +
 
- + list.slice(0,30)
- .map(
-  (t,i)=>
-  '<tr>'
-  + '<td>'
-  + (i+1)
-  + '</td>'
-  + '<td class="mono">'
-  + hexByte(t.from)
-  + ' → '
-  + hexByte(t.to)
-  + '</td>'
-  + '<td>'
-  + (
-   t.interval !== null
-   ? t.interval.toFixed(3)+" s"
-   : "—"
-  )
-  + '</td>'
-  + '</tr>'
- )
- .join("")
-
- + '</table>';
-
+    '</table>';
 }
 
 
-/* =========================================================
-   CORRELACIONES UI
-========================================================= */
+/* ============================================================
+   CORRELACIONES
+============================================================ */
 
 function renderCorrelations(){
 
- if(!correlations.length){
+  const el =
+    document.getElementById('correlations');
 
-  $("correlationList").innerHTML=
-  '<div class="small">Todavía no hay correlaciones.</div>';
+  if(!correlations.length){
 
-  return;
+    el.innerHTML =
+      '<div class="small">' +
+      'Todavía no hay correlaciones.' +
+      '</div>';
 
- }
+    return;
+  }
 
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>Evento</th>' +
+    '<th>RX</th>' +
+    '<th>Δ tiempo</th>' +
+    '<th>HEX</th>' +
+    '</tr>' +
 
- $("correlationList").innerHTML=
+    correlations
+      .slice()
+      .reverse()
+      .map(c =>
+        '<tr>' +
+        '<td>' +
+        escapeHTML(c.eventType) +
+        '</td>' +
+        '<td>' +
+        c.packetType +
+        '</td>' +
+        '<td>' +
+        (c.delta >= 0 ? '+' : '') +
+        (c.delta/1000).toFixed(3) +
+        ' s</td>' +
+        '<td class="mono">' +
+        escapeHTML(c.hex) +
+        '</td>' +
+        '</tr>'
+      )
+      .join('') +
 
- '<table>'
- + '<tr>'
- + '<th>Evento</th>'
- + '<th>RX</th>'
- + '<th>Δ tiempo</th>'
- + '<th>HEX</th>'
- + '</tr>'
-
- + correlations.slice(0,50)
- .map(
-  c=>
-  '<tr>'
-  + '<td>'
-  + escapeHTML(c.event)
-  + '</td>'
-  + '<td>0x'
-  + (
-   c.type === null
-   ? "??"
-   : c.type.toString(16).toUpperCase()
-  )
-  + '</td>'
-  + '<td>'
-  + (
-   c.delta>=0
-   ? "+"
-   : ""
-  )
-  + c.delta.toFixed(3)
-  + ' s</td>'
-  + '<td class="mono">'
-  + escapeHTML(c.packetHex)
-  + '</td>'
-  + '</tr>'
- )
- .join("")
-
- + '</table>';
-
+    '</table>';
 }
 
 
-/* =========================================================
-   ÚLTIMA COMPARACIÓN
-========================================================= */
+/* ============================================================
+   COMPARACIONES
+============================================================ */
 
-function renderLatestComparison(){
+function renderComparisons(){
 
- if(!comparisons.length){
+  const latest =
+    document.getElementById('latestComparison');
 
-  $("latestComparison").innerHTML=
-  '<div class="small">Todavía no hay comparación.</div>';
+  if(!comparisons.length){
 
-  return;
+    latest.innerHTML =
+      '<div class="small">Todavía no hay comparación.</div>';
 
- }
+  }else{
 
+    const c =
+      comparisons[comparisons.length-1];
 
- const c=
- comparisons[0];
-
-
- let diffHTML;
-
-
- if(c.differences.length){
-
-  diffHTML=
-  c.differences
-  .map(
-   d=>
-   '<span class="bad">'
-   + 'Byte '
-   + d.index
-   + ': '
-   + hexByte(d.from)
-   + ' → '
-   + hexByte(d.to)
-   + '</span>'
-  )
-  .join("<br>");
-
- }
- else{
-
-  diffHTML=
-  '<span class="ok">🟢 TRAMAS IDÉNTICAS</span>';
-
- }
+    latest.innerHTML =
+      '<div class="packet">' +
+      '<b>Comparación #' + c.id + '</b><br>' +
+      c.type + ' / ' +
+      c.length + ' bytes' +
+      '<hr>' +
+      '<div class="mono">' +
+      escapeHTML(c.previous) +
+      '</div>' +
+      '↓<br>' +
+      '<div class="mono">' +
+      escapeHTML(c.current) +
+      '</div>' +
+      '<hr>' +
+      (
+        c.changes.length
+        ? '<span class="warn">' +
+          c.changes.length +
+          ' byte(s) modificados</span>'
+        : '<span class="ok">🟢 TRAMAS IDÉNTICAS</span>'
+      ) +
+      '</div>';
+  }
 
 
- $("latestComparison").innerHTML=
+  const history =
+    document.getElementById('comparisonHistory');
 
- '<div class="stat">'
+  if(!comparisons.length){
 
- + '<b>Comparación #'
- + c.id
- + '</b>'
+    history.innerHTML =
+      '<div class="small">Sin comparaciones.</div>';
 
- + '<div class="small">'
- + c.key
- + '</div>'
+    return;
+  }
 
- + '<p class="mono">'
- + escapeHTML(c.previous)
- + '<br>↓<br>'
- + escapeHTML(c.current)
- + '</p>'
-
- + diffHTML
-
- + '</div>';
-
+  history.innerHTML =
+    comparisons
+      .slice()
+      .reverse()
+      .map(c =>
+        '<div class="packet">' +
+        '<b>#' + c.id + '</b> · ' +
+        c.type + ' / ' +
+        c.length +
+        ' bytes · cambios: ' +
+        c.changes.length +
+        '</div>'
+      )
+      .join('');
 }
 
 
-/* =========================================================
-   HISTORIAL COMPARACIONES
-========================================================= */
-
-function renderComparisonHistory(){
-
- if(!comparisons.length){
-
-  $("comparisonList").innerHTML=
-  '<div class="small">Sin comparaciones.</div>';
-
-  return;
-
- }
-
-
- $("comparisonList").innerHTML=
- comparisons.slice(0,50)
- .map(
-  c=>
-  '<div class="event">'
-  + '<b>#'
-  + c.id
-  + '</b> · '
-  + c.key
-  + ' · cambios: '
-  + c.differences.length
-  + '</div>'
- )
- .join("");
-
-}
-
-
-/* =========================================================
+/* ============================================================
    MATRIZ
-========================================================= */
+============================================================ */
 
 function renderMatrix(){
 
- let html="";
+  const el =
+    document.getElementById('byteMatrix');
 
+  const groups = {};
 
- Object.keys(matrixData)
- .forEach(
-  key=>{
+  packets.forEach(p=>{
 
-   html +=
-   "<h3>"
-   + escapeHTML(key)
-   + "</h3>";
+    const key =
+      p.type + '/' + p.length;
 
-   html +=
-   '<table>'
-   + '<tr>'
-   + '<th>Byte</th>'
-   + '<th>Cambios</th>'
-   + '<th>Valores observados</th>'
-   + '<th>Estado</th>'
-   + '</tr>';
+    if(!groups[key]){
 
+      groups[key] = [];
 
-   matrixData[key]
-   .forEach(
-    (item,index)=>{
+      for(
+        let i=0;
+        i<p.length;
+        i++
+      ){
 
-     const values=
-     Object.keys(item.values)
-     .join(" · ");
-
-
-     html +=
-     '<tr>'
-
-     + '<td>Byte '
-     + index
-     + '</td>'
-
-     + '<td>'
-     + item.changes
-     + '</td>'
-
-     + '<td class="mono">'
-     + values
-     + '</td>'
-
-     + '<td>'
-     + (
-      item.changes
-      ? '<span class="warn">VARIABLE OBSERVADA</span>'
-      : '<span class="ok">FIJO</span>'
-     )
-     + '</td>'
-
-     + '</tr>';
-
+        groups[key][i] = {
+          values:new Set(),
+          changes:0
+        };
+      }
     }
-   );
+
+    p.bytes.forEach((v,i)=>{
+      groups[key][i].values.add(v);
+    });
+  });
 
 
-   html +=
-   '</table>';
+  transitions.forEach(t=>{
 
-  }
- );
+    const key =
+      t.type + '/' +
+      (
+        packets.find(p =>
+          p.type === t.type &&
+          p.time >= t.time
+        )?.length || 0
+      );
+
+    if(groups[key] && groups[key][t.byte]){
+
+      groups[key][t.byte].changes++;
+    }
+  });
 
 
- $("matrix").innerHTML=
- html || "Sin datos.";
+  let html = '';
 
+  Object.keys(groups).forEach(key=>{
+
+    html +=
+      '<h3>' +
+      escapeHTML(key) +
+      '</h3>' +
+
+      '<table>' +
+      '<tr>' +
+      '<th>Byte</th>' +
+      '<th>Cambios</th>' +
+      '<th>Valores observados</th>' +
+      '<th>Estado</th>' +
+      '</tr>';
+
+
+    groups[key].forEach((g,i)=>{
+
+      const values =
+        Array.from(g.values)
+        .map(byteHex)
+        .join(' · ');
+
+      html +=
+        '<tr>' +
+        '<td>' + i + '</td>' +
+        '<td>' + g.changes + '</td>' +
+        '<td class="mono">' +
+        values +
+        '</td>' +
+        '<td>' +
+        (
+          g.values.size > 1
+          ? '<span class="warn">VARIABLE OBSERVADA</span>'
+          : '<span class="ok">FIJO</span>'
+        ) +
+        '</td>' +
+        '</tr>';
+    });
+
+    html += '</table>';
+  });
+
+
+  el.innerHTML =
+    html ||
+    '<div class="small">Sin datos.</div>';
 }
 
 
-/* =========================================================
+/* ============================================================
    TIPOS
-========================================================= */
+============================================================ */
 
 function renderTypes(){
 
- const total=
- packets.length;
+  const el =
+    document.getElementById('frameTypes');
 
+  if(!packets.length){
 
- if(!Object.keys(typeData).length){
+    el.innerHTML =
+      '<div class="small">Sin datos.</div>';
 
-  $("typesTable").innerHTML=
-  "Sin datos.";
-
-  return;
-
- }
-
-
- let html=
- '<table>'
- + '<tr>'
- + '<th>Tipo</th>'
- + '<th>Tramas</th>'
- + '<th>% RX</th>'
- + '<th>Longitudes</th>'
- + '</tr>';
-
-
- Object.keys(typeData)
- .forEach(
-  key=>{
-
-   const d=
-   typeData[key];
-
-
-   const lengths=
-   Object.keys(d.lengths)
-   .map(
-    l=>l+" bytes"
-   )
-   .join(", ");
-
-
-   html +=
-   '<tr>'
-
-   + '<td>'
-   + key
-   + '</td>'
-
-   + '<td>'
-   + d.count
-   + '</td>'
-
-   + '<td>'
-   + (
-    total
-    ? (d.count/total*100)
-     .toFixed(1)
-    : "0.0"
-   )
-   + '%</td>'
-
-   + '<td>'
-   + lengths
-   + '</td>'
-
-   + '</tr>';
-
+    return;
   }
- );
+
+  const map = {};
+
+  packets.forEach(p=>{
+
+    if(!map[p.type]){
+
+      map[p.type] = {
+        count:0,
+        lengths:new Set()
+      };
+    }
+
+    map[p.type].count++;
+
+    map[p.type].lengths.add(
+      p.length
+    );
+  });
 
 
- html +=
- '</table>';
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>Tipo</th>' +
+    '<th>Tramas</th>' +
+    '<th>% RX</th>' +
+    '<th>Longitudes</th>' +
+    '</tr>' +
 
+    Object.keys(map)
+      .map(type=>{
 
- $("typesTable").innerHTML=
- html;
+        const x = map[type];
 
+        return '<tr>' +
+          '<td>' + type + '</td>' +
+          '<td>' + x.count + '</td>' +
+          '<td>' +
+          ((x.count/packets.length)*100)
+          .toFixed(1) +
+          '%</td>' +
+          '<td>' +
+          Array.from(x.lengths)
+            .join(', ') +
+          ' bytes</td>' +
+          '</tr>';
+      })
+      .join('') +
+
+    '</table>';
 }
 
 
-/* =========================================================
+/* ============================================================
    LONGITUD
-========================================================= */
+============================================================ */
 
 function renderLengths(){
 
- const data={};
+  const el =
+    document.getElementById('lengthAnalysis');
 
+  if(!packets.length){
 
- packets.forEach(
-  p=>{
-
-   const bytes=
-   hexToBytes(p.hex);
-
-
-   if(bytes.length<3){
+    el.innerHTML =
+      '<div class="small">Sin datos.</div>';
 
     return;
-
-   }
-
-
-   const byte2=
-   bytes[2];
-
-
-   const calculated=
-   byte2+3;
-
-
-   const key=
-   p.length
-   + "|"
-   + hexByte(byte2)
-   + "|"
-   + calculated;
-
-
-   data[key]=
-   (data[key] || 0)+1;
-
   }
- );
+
+  const map = {};
+
+  packets.forEach(p=>{
+
+    if(!map[p.length]){
+
+      map[p.length] = {
+        byte2:null,
+        count:0
+      };
+    }
+
+    map[p.length].count++;
+
+    if(p.bytes.length >= 3){
+
+      map[p.length].byte2 =
+        p.bytes[2];
+    }
+  });
 
 
- let html=
- '<table>'
- + '<tr>'
- + '<th>Longitud real</th>'
- + '<th>Byte 2</th>'
- + '<th>Calculada</th>'
- + '<th>Resultado</th>'
- + '<th>Veces</th>'
- + '</tr>';
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>Longitud real</th>' +
+    '<th>Byte 2</th>' +
+    '<th>Calculada</th>' +
+    '<th>Resultado</th>' +
+    '<th>Veces</th>' +
+    '</tr>' +
 
+    Object.keys(map)
+      .map(length=>{
 
- Object.keys(data)
- .forEach(
-  key=>{
+        const x = map[length];
 
-   const parts=
-   key.split("|");
+        const calculated =
+          x.byte2 !== null
+          ? x.byte2 + 3
+          : null;
 
+        const match =
+          calculated === Number(length);
 
-   html +=
-   '<tr>'
+        return '<tr>' +
+          '<td>' + length + '</td>' +
+          '<td>' +
+          (
+            x.byte2 !== null
+            ? byteHex(x.byte2)
+            : '—'
+          ) +
+          '</td>' +
+          '<td>' +
+          (
+            calculated !== null
+            ? calculated
+            : '—'
+          ) +
+          '</td>' +
+          '<td>' +
+          (
+            match
+            ? '<span class="ok">🟢 COINCIDE</span>'
+            : '<span class="warn">⚠️ NO COINCIDE</span>'
+          ) +
+          '</td>' +
+          '<td>' +
+          x.count +
+          '</td>' +
+          '</tr>';
+      })
+      .join('') +
 
-   + '<td>'
-   + parts[0]
-   + '</td>'
-
-   + '<td class="mono">'
-   + parts[1]
-   + '</td>'
-
-   + '<td>'
-   + parts[2]
-   + '</td>'
-
-   + '<td class="ok">'
-   + (
-    Number(parts[0]) ===
-    Number(parts[2])
-    ? "🟢 COINCIDE"
-    : "⚠️ NO COINCIDE"
-   )
-   + '</td>'
-
-   + '<td>'
-   + data[key]
-   + '</td>'
-
-   + '</tr>';
-
-  }
- );
-
-
- html +=
- '</table>';
-
-
- $("lengthTable").innerHTML=
- packets.length
- ? html
- : "Sin datos.";
-
+    '</table>';
 }
 
 
-/* =========================================================
+/* ============================================================
    PATRONES
-========================================================= */
+============================================================ */
 
 function renderPatterns(){
 
- const entries=
- Object.entries(patternData)
- .sort(
-  (a,b)=>b[1]-a[1]
- );
+  const el =
+    document.getElementById('patterns');
 
+  if(!packets.length){
 
- if(!entries.length){
+    el.innerHTML =
+      '<div class="small">Sin datos.</div>';
 
-  $("patternTable").innerHTML=
-  "Sin datos.";
-
-  return;
-
- }
-
-
- $("patternTable").innerHTML=
-
- '<table>'
- + '<tr>'
- + '<th>Patrón HEX</th>'
- + '<th>Tipo</th>'
- + '<th>Veces</th>'
- + '<th>%</th>'
- + '</tr>'
-
- + entries
- .map(
-  ([hex,count])=>{
-
-   const bytes=
-   hexToBytes(hex);
-
-   const type=
-   bytes.length>=5
-   ? bytes[4]
-   : null;
-
-
-   return
-
-   '<tr>'
-
-   + '<td class="mono">'
-   + escapeHTML(hex)
-   + '</td>'
-
-   + '<td>'
-   + (
-    type===null
-    ? "—"
-    : "0x"
-    + type.toString(16).toUpperCase()
-   )
-   + '</td>'
-
-   + '<td>'
-   + count
-   + '</td>'
-
-   + '<td>'
-   + (
-    count/packets.length*100
-   ).toFixed(1)
-   + '%</td>'
-
-   + '</tr>';
-
+    return;
   }
- )
- .join("")
 
- + '</table>';
+  const map = {};
 
+  packets.forEach(p=>{
+
+    if(!map[p.hex]){
+
+      map[p.hex] = {
+        type:p.type,
+        count:0
+      };
+    }
+
+    map[p.hex].count++;
+  });
+
+
+  const rows =
+    Object.entries(map)
+      .sort((a,b)=>b[1].count-a[1].count);
+
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>Patrón HEX</th>' +
+    '<th>Tipo</th>' +
+    '<th>Veces</th>' +
+    '<th>%</th>' +
+    '</tr>' +
+
+    rows.map(([pattern,x])=>
+      '<tr>' +
+      '<td class="mono">' +
+      escapeHTML(pattern) +
+      '</td>' +
+      '<td>' + x.type + '</td>' +
+      '<td>' + x.count + '</td>' +
+      '<td>' +
+      ((x.count/packets.length)*100)
+      .toFixed(1) +
+      '%</td>' +
+      '</tr>'
+    ).join('') +
+
+    '</table>';
 }
 
 
-/* =========================================================
+/* ============================================================
    INTERVALOS
-========================================================= */
+============================================================ */
 
 function renderIntervals(){
 
- const rows=
- packets.filter(
-  p=>p.interval!==null
- );
+  const el =
+    document.getElementById('intervals');
+
+  if(packets.length < 2){
+
+    el.innerHTML =
+      '<div class="small">Sin intervalos.</div>';
+
+    return;
+  }
+
+  const rows = [];
+
+  for(let i=1;i<packets.length;i++){
+
+    rows.push({
+
+      type:packets[i].type,
+
+      delta:
+        packets[i].time -
+        packets[i-1].time
+    });
+  }
 
 
- if(!rows.length){
+  el.innerHTML =
+    '<table>' +
+    '<tr>' +
+    '<th>RX</th>' +
+    '<th>Intervalo</th>' +
+    '</tr>' +
 
-  $("intervalTable").innerHTML=
-  "Sin intervalos.";
+    rows
+      .slice()
+      .reverse()
+      .map(x =>
+        '<tr>' +
+        '<td>' + x.type + '</td>' +
+        '<td>' +
+        (x.delta/1000).toFixed(3) +
+        ' s</td>' +
+        '</tr>'
+      )
+      .join('') +
 
-  return;
-
- }
-
-
- $("intervalTable").innerHTML=
-
- '<table>'
- + '<tr>'
- + '<th>RX</th>'
- + '<th>Intervalo</th>'
- + '</tr>'
-
- + rows.slice(-80)
- .map(
-  p=>
-  '<tr>'
-  + '<td>0x'
-  + (
-   p.type===null
-   ? "??"
-   : p.type
-    .toString(16)
-    .toUpperCase()
-  )
-  + '</td>'
-  + '<td>'
-  + p.interval.toFixed(3)
-  + ' s</td>'
-  + '</tr>'
- )
- .join("")
-
- + '</table>';
-
+    '</table>';
 }
 
 
-/* =========================================================
-   PAQUETES
-========================================================= */
+/* ============================================================
+   CAPTURAS
+============================================================ */
 
-function renderPackets(){
+function renderCaptures(){
 
- if(!packets.length){
+  const el =
+    document.getElementById('captures');
 
-  $("packetList").innerHTML=
-  "Sin capturas.";
+  if(!packets.length){
 
-  return;
+    el.innerHTML =
+      '<div class="small">Sin capturas.</div>';
 
- }
+    return;
+  }
 
+  el.innerHTML =
+    packets
+      .slice()
+      .reverse()
+      .map(p =>
+        '<div class="packet">' +
 
- $("packetList").innerHTML=
+        '<b>📥 PAQUETE #' +
+        p.id +
+        '</b> · RX · NOTIFY<br>' +
 
- packets.slice()
- .reverse()
- .slice(0,60)
- .map(
-  p=>
+        timeString(p.date) +
+        ' · Tipo ' +
+        p.type +
+        ' · ' +
+        p.length +
+        ' bytes' +
 
-  '<div class="stat" style="margin-bottom:8px">'
+        '<hr>' +
 
-  + '<b>📥 PAQUETE #'
-  + p.id
-  + '</b> · RX · NOTIFY'
+        '<div class="mono">' +
+        escapeHTML(p.hex) +
+        '</div>' +
 
-  + '<div class="small">'
-  + escapeHTML(p.displayTime)
-  + ' · Tipo 0x'
-  + (
-   p.type===null
-   ? "??"
-   : p.type
-    .toString(16)
-    .toUpperCase()
-  )
-  + ' · '
-  + p.length
-  + ' bytes'
-  + '</div>'
+        '<div class="small">' +
+        'DECIMAL: ' +
+        escapeHTML(p.decimal) +
+        '<br>' +
+        'ASCII: ' +
+        escapeHTML(p.ascii) +
+        '</div>' +
 
-  + '<div class="mono" style="margin-top:6px">'
-  + escapeHTML(p.hex)
-  + '</div>'
-
-  + '<div class="small">'
-  + 'DECIMAL: '
-  + escapeHTML(p.decimal)
-  + '<br>ASCII: '
-  + escapeHTML(p.ascii)
-  + '</div>'
-
-  + '</div>'
-
- )
- .join("");
-
+        '</div>'
+      )
+      .join('');
 }
 
 
-/* =========================================================
+/* ============================================================
    TX MANUAL
-========================================================= */
+============================================================ */
 
-async function sendManualTX(){
+async function sendTX(){
 
- if(!txCharacteristic){
+  if(!txCharacteristic){
 
-  alert(
-   "No existe una característica TX identificada."
-  );
+    alert(
+      'No existe una característica TX disponible.'
+    );
 
-  return;
+    return;
+  }
 
- }
+  const input =
+    document.getElementById('txInput')
+    .value
+    .trim();
 
+  if(!input){
 
- const text=
- $("txInput").value.trim();
+    alert('Introduce una trama HEX.');
 
-
- if(!text){
-
-  alert(
-   "Introduce una trama HEX."
-  );
-
-  return;
-
- }
-
-
- try{
-
-  const bytes=
-  hexToBytes(text);
-
-
-  if(!bytes.length){
-
-   throw new Error(
-    "HEX vacío o inválido."
-   );
-
+    return;
   }
 
 
-  if(
-   bytes.some(
-    b=>Number.isNaN(b)
-   )
-  ){
+  try{
 
-   throw new Error(
-    "HEX inválido."
-   );
+    const clean =
+      input.replace(/[^0-9a-fA-F]/g,'');
 
+    if(clean.length % 2 !== 0){
+
+      throw new Error(
+        'HEX incompleto.'
+      );
+    }
+
+    const bytes =
+      new Uint8Array(
+        clean.match(/.{2}/g)
+          .map(x=>parseInt(x,16))
+      );
+
+
+    if(
+      txCharacteristic.properties
+        .includes('writeWithoutResponse')
+    ){
+
+      await txCharacteristic
+        .writeValueWithoutResponse(bytes);
+
+    }else{
+
+      await txCharacteristic
+        .writeValue(bytes);
+    }
+
+    totalTX++;
+
+    document.getElementById('txStatus')
+      .textContent =
+      '🟢 TX enviado: ' +
+      hex(bytes);
+
+    log(
+      '📤 TX MANUAL | ' +
+      hex(bytes)
+    );
+
+    renderAll();
+
+  }catch(error){
+
+    document.getElementById('txStatus')
+      .textContent =
+      '❌ Error TX: ' +
+      error.message;
+
+    log(
+      '❌ ERROR TX: ' +
+      error.message
+    );
   }
-
-
-  if(
-   txCharacteristic.properties
-   .writeWithoutResponse
-  ){
-
-   await txCharacteristic
-   .writeValueWithoutResponse(
-    bytes
-   );
-
-  }
-  else{
-
-   await txCharacteristic
-   .writeValue(
-    bytes
-   );
-
-  }
-
-
-  txCount++;
-
-
-  log(
-   "📤 TX MANUAL | "
-   + bytesToHex(bytes)
-  );
-
-
-  updateStats();
-
- }
- catch(error){
-
-  log(
-   "❌ TX ERROR | "
-   + error.message
-  );
-
- }
-
 }
 
 
-/* =========================================================
-   LIMPIAR
-========================================================= */
+/* ============================================================
+   LIMPIEZAS
+============================================================ */
 
 function clearCaptures(){
 
- if(
-  !confirm(
-   "¿Limpiar todas las capturas y análisis?"
-  )
- ){
+  packets = [];
+  comparisons = [];
+  transitions = [];
+  correlations = [];
 
-  return;
+  previousByKey = {};
 
- }
+  sequence = 0;
 
+  log('🧹 Capturas y análisis reiniciados.');
 
- packets=[];
-
- comparisons=[];
-
- transitions=[];
-
- events=[];
-
- correlations=[];
-
- typeData={};
-
- patternData={};
-
- matrixData={};
-
- lastByGroup={};
-
- lastRXTime=null;
-
- comparisonCount=0;
-
- modifiedBytes=0;
-
- cycleCount=0;
-
-
- log(
-  "🧹 Capturas y análisis reiniciados."
- );
-
-
- renderAll();
-
+  renderAll();
 }
 
 
-/* =========================================================
+function clearDiagnostics(){
+
+  document.getElementById(
+    'diagnostics'
+  ).textContent = '';
+
+  log('Diagnóstico reiniciado.');
+}
+
+
+/* ============================================================
    EXPORTACIÓN JSON
-========================================================= */
-
-function createSnapshot(){
-
- return {
-
-  laboratory:
-  "RoXThal F1 Plus Protocol Laboratory v5",
-
-  exportedAt:
-  timeNow().toISOString(),
-
-  device:{
-   name:device?.name || null,
-   id:device?.id || null
-  },
-
-  BLE:{
-   service:service?.uuid || null,
-   rx:rxCharacteristic?.uuid || null,
-   tx:txCharacteristic?.uuid || null
-  },
-
-  passiveMode:true,
-
-  packets:packets,
-
-  comparisons:comparisons,
-
-  transitions:transitions,
-
-  events:events,
-
-  correlations:correlations,
-
-  statistics:{
-   tx:txCount,
-   rx:packets.length,
-   comparisons:comparisonCount,
-   modifiedBytes:modifiedBytes,
-   transitions:transitions.length,
-   events:events.length,
-   correlations:correlations.length,
-   cycles:cycleCount
-  }
-
- };
-
-}
-
-
-function downloadFile(
- filename,
- content,
- type
-){
-
- const blob=
- new Blob(
-  [content],
-  {type:type}
- );
-
-
- const url=
- URL.createObjectURL(blob);
-
-
- const a=
- document.createElement("a");
-
-
- a.href=url;
-
- a.download=filename;
-
- a.click();
-
-
- setTimeout(
-  ()=>URL.revokeObjectURL(url),
-  1000
- );
-
-}
-
+============================================================ */
 
 function exportJSON(){
 
- const data=
- JSON.stringify(
-  createSnapshot(),
-  null,
-  2
- );
+  const data = {
+
+    laboratory:
+      'RoXThal F1 Plus Protocol Laboratory V6',
+
+    generatedAt:
+      new Date().toISOString(),
+
+    device:{
+      name:device?.name || null,
+      id:device?.id || null
+    },
+
+    BLE:{
+      service:UART_SERVICE,
+
+      rx:
+        rxCharacteristic?.uuid || null,
+
+      tx:
+        txCharacteristic?.uuid || null
+    },
+
+    statistics:{
+      tx:totalTX,
+      rx:packets.length,
+      comparisons:comparisons.length,
+      transitions:transitions.length,
+      events:events.length,
+      correlations:correlations.length
+    },
+
+    packets,
+
+    comparisons,
+
+    transitions,
+
+    events,
+
+    correlations,
+
+    diagnostics:
+      document.getElementById(
+        'diagnostics'
+      ).textContent
+  };
 
 
- downloadFile(
-  "roxthal-f1plus-v5-analysis.json",
-  data,
-  "application/json"
- );
-
-
- log(
-  "💾 Análisis JSON exportado."
- );
-
+  downloadFile(
+    JSON.stringify(data,null,2),
+    'roxthal-f1plus-v6-analysis.json',
+    'application/json'
+  );
 }
 
+
+/* ============================================================
+   EXPORTACIÓN HEX
+============================================================ */
 
 function exportHEX(){
 
- const text=
- packets
- .map(
-  p=>p.hex
- )
- .join("\n");
+  const text =
+    packets
+      .map(p =>
+        timeString(p.date) +
+        ' | ' +
+        p.type +
+        ' | ' +
+        p.length +
+        ' bytes | ' +
+        p.hex
+      )
+      .join('\n');
 
 
- downloadFile(
-  "roxthal-f1plus-v5-rx.hex",
-  text,
-  "text/plain"
- );
-
-
- log(
-  "📄 RX HEX exportado."
- );
-
+  downloadFile(
+    text,
+    'roxthal-f1plus-v6-rx.txt',
+    'text/plain'
+  );
 }
 
 
-/* =========================================================
+/* ============================================================
    COPIAR RESUMEN
-========================================================= */
+============================================================ */
 
 async function copySummary(){
 
- const summary=
+  const text =
+`RoXThal F1 Plus Laboratory V6
 
- "RoXThal F1 Plus Laboratory v5\n"
- + "==============================\n"
- + "Device: "
- + (device?.name || "—")
- + "\n"
- + "Service: "
- + (service?.uuid || "—")
- + "\n"
- + "RX: "
- + (rxCharacteristic?.uuid || "—")
- + "\n"
- + "TX: "
- + (txCharacteristic?.uuid || "—")
- + "\n"
- + "RX: "
- + packets.length
- + "\n"
- + "Tipos: "
- + Object.keys(typeData).join(", ")
- + "\n"
- + "Comparaciones: "
- + comparisonCount
- + "\n"
- + "Bytes modificados: "
- + modifiedBytes
- + "\n"
- + "Transiciones: "
- + transitions.length
- + "\n"
- + "Eventos: "
- + events.length
- + "\n"
- + "Correlaciones: "
- + correlations.length
- + "\n"
- + "Ciclos: "
- + cycleCount;
+RX: ${packets.length}
+TX: ${totalTX}
+Tipos: ${new Set(packets.map(p=>p.type)).size}
+Longitudes: ${new Set(packets.map(p=>p.length)).size}
+Comparaciones: ${comparisons.length}
+Transiciones: ${transitions.length}
+Eventos: ${events.length}
+Correlaciones: ${correlations.length}
 
+Capturas:
 
- try{
+${packets.map(p =>
+  p.hex
+).join('\n')}
+`;
 
-  await navigator.clipboard.writeText(
-   summary
-  );
+  try{
 
-  log(
-   "📋 Resumen copiado."
-  );
+    await navigator.clipboard.writeText(text);
 
- }
- catch(error){
+    log('📋 Resumen copiado al portapapeles.');
 
-  prompt(
-   "Copia el resumen:",
-   summary
-  );
+  }catch(error){
 
- }
-
+    log(
+      '❌ No se pudo copiar el resumen: ' +
+      error.message
+    );
+  }
 }
 
 
-/* =========================================================
-   BOTONES
-========================================================= */
+/* ============================================================
+   DESCARGA
+============================================================ */
 
-$("connectBtn")
-.onclick=
-connectF1Plus;
+function downloadFile(
+  content,
+  filename,
+  type
+){
+
+  const blob =
+    new Blob(
+      [content],
+      {type}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement('a');
+
+  a.href = url;
+  a.download = filename;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+}
 
 
-$("disconnectBtn")
-.onclick=
-async function(){
+/* ============================================================
+   DESCONEXIÓN
+============================================================ */
 
- try{
+document
+.getElementById('disconnectBtn')
+.addEventListener(
+  'click',
+  disconnect
+);
 
-  if(
-   rxCharacteristic
-  ){
 
-   try{
+async function disconnect(){
 
-    await rxCharacteristic
-    .stopNotifications();
+  try{
 
-   }
-   catch(e){}
+    if(
+      rxCharacteristic
+    ){
 
+      try{
+
+        await rxCharacteristic
+          .stopNotifications();
+
+      }catch(e){}
+    }
+
+    if(
+      device &&
+      device.gatt.connected
+    ){
+
+      device.gatt.disconnect();
+    }
+
+  }finally{
+
+    onDisconnected();
   }
+}
 
 
-  if(
-   device &&
-   device.gatt &&
-   device.gatt.connected
-  ){
+function onDisconnected(){
 
-   device.gatt.disconnect();
-
-  }
-
- }
- catch(error){
-
-  log(
-   "⚠️ Error al desconectar: "
-   + error.message
+  setConnection(
+    '🔴 Desconectado',
+    'bad'
   );
 
- }
+  document.getElementById('connectBtn')
+    .disabled = false;
 
-};
+  document.getElementById('disconnectBtn')
+    .disabled = true;
+
+  document.getElementById('notifyStatus')
+    .textContent = '🔴 NOTIFY no activo';
+
+  log('🔴 GATT desconectado.');
+
+  rxCharacteristic = null;
+  txCharacteristic = null;
+}
 
 
-$("bluetoothBtn")
-.onclick=
-checkBluetooth;
-
-
-$("txButton")
-.onclick=
-sendManualTX;
-
-
-/* =========================================================
+/* ============================================================
    INICIO
-========================================================= */
+============================================================ */
 
-clearDiagnostic();
+log(
+  'Sistema preparado. RoXThal Art Design · F1 Plus Protocol Laboratory V6'
+);
+
+checkBluetooth();
 
 renderAll();
 
