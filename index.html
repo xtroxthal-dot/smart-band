@@ -2,249 +2,310 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080808">
-<title>RoXThal — F1 Plus Laboratory V8</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>RoXThal — F1 Plus V9</title>
 
 <style>
-*{box-sizing:border-box}
+:root{
+  --bg:#0b1020;
+  --card:#121a2b;
+  --card2:#0f1728;
+  --text:#edf2f7;
+  --muted:#9aa7bd;
+  --line:#26324a;
+  --accent:#f59e0b;
+  --ok:#22c55e;
+  --bad:#ef4444;
+  --info:#38bdf8;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
-  background:#080808;
-  color:#eee;
-  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg,#080c17,#101827 35%,#0b1020);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
 header{
-  padding:20px 14px;
-  background:linear-gradient(135deg,#111,#1d1d1d);
-  border-bottom:1px solid #333;
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(8,12,23,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:14px;
 }
 
-h1{margin:0 0 6px;font-size:23px}
-h2{margin:0 0 14px;font-size:18px}
-h3{margin:14px 0 8px;font-size:15px}
+header h1{
+  margin:0 0 4px;
+  font-size:20px;
+}
+
+.sub{
+  color:var(--muted);
+  font-size:12px;
+}
 
 main{
-  max-width:1100px;
+  width:100%;
+  max-width:1050px;
   margin:auto;
   padding:12px;
 }
 
 .card{
-  background:#111;
-  border:1px solid #292929;
-  border-radius:14px;
+  background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line);
+  border-radius:16px;
   padding:14px;
-  margin-bottom:14px;
-  box-shadow:0 4px 18px #0008;
+  margin:10px 0;
+  box-shadow:0 8px 25px rgba(0,0,0,.16);
+}
+
+.card h2{
+  margin:0 0 12px;
+  font-size:16px;
+}
+
+.card h3{
+  margin:14px 0 8px;
+  font-size:14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:8px;
+}
+
+.row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.row > *{
+  flex:1 1 160px;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
 }
 
 button{
-  border:0;
+  border:1px solid var(--line);
+  background:#182238;
+  color:var(--text);
   border-radius:10px;
-  padding:12px 14px;
-  margin:4px;
-  background:#292929;
-  color:white;
-  font-weight:bold;
+  padding:10px 12px;
   cursor:pointer;
+  font-weight:700;
+  min-height:42px;
+}
+
+button:hover{
+  filter:brightness(1.12);
 }
 
 button:active{
-  transform:scale(.98);
+  transform:translateY(1px);
 }
-
-button.primary{background:#176b3a}
-button.danger{background:#8d2020}
-button.blue{background:#164d83}
-button.gold{background:#765817}
-button.purple{background:#603b91}
 
 button:disabled{
   opacity:.45;
   cursor:not-allowed;
 }
 
-.status{
-  padding:10px;
-  border-radius:9px;
-  background:#181818;
-  margin-top:8px;
+.primary{
+  background:#9a5b00;
+  border-color:#d88700;
 }
 
-.ok{color:#56e58b}
-.warn{color:#ffd45a}
-.bad{color:#ff6666}
-.info{color:#65b9ff}
-
-.mono{
-  font-family:Consolas,monospace;
-  word-break:break-all;
+.danger{
+  background:#451820;
+  border-color:#8e2b39;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
-  gap:8px;
+.ok{
+  background:#123b28;
+  border-color:#237b4d;
 }
 
-.stat{
-  background:#181818;
+.info{
+  background:#123448;
+  border-color:#276b8e;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  background:#09111f;
+  color:var(--text);
+  border:1px solid var(--line);
   border-radius:10px;
-  padding:12px;
-  text-align:center;
+  padding:10px;
 }
 
-.stat b{
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+label{
   display:block;
-  font-size:23px;
-  margin-bottom:3px;
+  margin-bottom:5px;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  border-radius:10px;
+  background:#0a1322;
+  border:1px solid var(--line);
+  margin:8px 0;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  min-width:10px;
+  border-radius:50%;
+  background:#64748b;
+}
+
+.dot.ok{
+  background:var(--ok);
+  box-shadow:0 0 8px rgba(34,197,94,.5);
+}
+
+.dot.bad{
+  background:var(--bad);
+}
+
+.kpi{
+  padding:12px;
+  background:#0a1322;
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+
+.kpi b{
+  display:block;
+  font-size:21px;
+  margin-top:3px;
+}
+
+.kpi span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+pre{
+  white-space:pre-wrap;
+  word-break:break-word;
+  background:#070c15;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px;
+  max-height:360px;
+  overflow:auto;
+  font-size:12px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  font-size:13px;
+  font-size:12px;
 }
 
-th,td{
-  padding:8px 6px;
-  border-bottom:1px solid #292929;
+th,
+td{
+  border-bottom:1px solid var(--line);
+  padding:7px;
   text-align:left;
   vertical-align:top;
 }
 
-th{color:#aaa}
-
-pre{
-  white-space:pre-wrap;
-  word-break:break-word;
-  background:#090909;
-  border-radius:9px;
-  padding:10px;
-  max-height:300px;
-  overflow:auto;
+th{
+  color:#cbd5e1;
 }
 
-input,select,textarea{
+.wrap{
   width:100%;
-  background:#0b0b0b;
-  color:#fff;
-  border:1px solid #333;
-  border-radius:9px;
-  padding:10px;
-  margin:5px 0;
-}
-
-textarea{
-  min-height:80px;
-  resize:vertical;
-}
-
-.packet{
-  border:1px solid #292929;
-  border-radius:10px;
-  padding:10px;
-  margin:7px 0;
-  background:#0c0c0c;
-}
-
-.small{
-  font-size:12px;
-  color:#aaa;
+  overflow-x:auto;
 }
 
 .badge{
   display:inline-block;
-  padding:4px 7px;
-  border-radius:7px;
-  background:#242424;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:3px 7px;
+  font-size:10px;
+  color:#cbd5e1;
   margin:2px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.small{
   font-size:11px;
 }
 
-hr{
-  border:0;
-  border-top:1px solid #292929;
-  margin:14px 0;
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 
-.testBox{
-  border:1px solid #3b3150;
-  background:#100c16;
-  border-radius:12px;
-  padding:12px;
-  margin-top:10px;
+.oktext{
+  color:#86efac;
 }
 
-.testResult{
-  border-left:4px solid #765817;
-  padding:10px;
-  background:#15120d;
-  border-radius:8px;
+.badtext{
+  color:#fca5a5;
+}
+
+.infotext{
+  color:#7dd3fc;
+}
+
+details summary{
+  cursor:pointer;
+  font-weight:700;
+  padding:5px 0;
+}
+
+.service-card{
   margin:8px 0;
-}
-
-.testSuccess{
-  border-left-color:#176b3a;
-  background:#0d1711;
-}
-
-.testFail{
-  border-left-color:#8d2020;
-  background:#170d0d;
-}
-
-.characteristic{
-  border:1px solid #292929;
+  padding:10px;
+  border:1px solid var(--line);
   border-radius:10px;
-  padding:12px;
-  margin:8px 0;
-  background:#0c0c0c;
+  background:#0a1322;
 }
 
-.uuid{
-  font-family:Consolas,monospace;
-  font-size:12px;
-  word-break:break-all;
-}
-
-.sectionTitle{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.notice{
-  border-left:4px solid #164d83;
-  padding:10px;
-  background:#0d1218;
-  border-radius:8px;
-}
-
-.warning{
-  border-left:4px solid #765817;
-  padding:10px;
-  background:#17130c;
-  border-radius:8px;
-}
-
-.dangerBox{
-  border-left:4px solid #8d2020;
-  padding:10px;
-  background:#170d0d;
-  border-radius:8px;
-}
-
-@media(max-width:600px){
-  button{
-    width:100%;
-    margin:4px 0;
-  }
+footer{
+  color:var(--muted);
+  font-size:11px;
+  text-align:center;
+  padding:20px;
 }
 </style>
 </head>
@@ -252,124 +313,91 @@ hr{
 <body>
 
 <header>
-<h1>🔬 RoXThal — Laboratorio F1 Plus V8</h1>
-<div class="small">
-Captura pasiva · análisis estructural · transiciones · eventos · correlación · pruebas controladas · BLE UART
+
+<h1>🔬 RoXThal — Laboratorio F1 Plus V9</h1>
+
+<div class="sub">
+Motor BLE + análisis de protocolo + arquitectura preparada para la app final
 </div>
+
+<div id="topStatus" class="status">
+<span id="topDot" class="dot"></span>
+<span id="topText">Desconectada</span>
+</div>
+
 </header>
 
 <main>
 
-<!-- =========================================================
-CONEXIÓN
-========================================================= -->
+<!-- ========================================================= -->
+<!-- CONEXIÓN -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>📡 Conexión F1 Plus</h2>
 
-<button class="primary" id="connectBtn">
+<div class="row">
+
+<button id="connectBtn" class="primary">
 🔗 CONECTAR F1 PLUS
 </button>
 
-<button class="danger" id="disconnectBtn" disabled>
+<button id="disconnectBtn" class="danger" disabled>
 ⛔ DESCONECTAR
 </button>
 
-<button class="blue" id="bluetoothBtn">
+<button id="bluetoothBtn" class="info">
 🔎 COMPROBAR BLUETOOTH
 </button>
 
-<div id="connectionStatus" class="status">
-🔴 Desconectado
 </div>
 
-<div id="deviceInfo" class="small"></div>
+<div id="connectionInfo" class="small muted">
+Aún no hay dispositivo seleccionado.
+</div>
+
+<details>
+
+<summary>🛡️ Reglas de seguridad TX</summary>
+
+<p class="small">
+La conexión nunca envía comandos automáticamente.
+El laboratorio solamente transmite cuando se pulsa explícitamente
+una prueba controlada o TX manual.
+</p>
+
+</details>
 
 </section>
 
 
-<!-- =========================================================
-DESCUBRIMIENTO
-========================================================= -->
+<!-- ========================================================= -->
+<!-- DESCUBRIMIENTO -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🧬 Descubrimiento BLE automático</h2>
 
-<div class="notice">
-La aplicación inspecciona las características reales del servicio.
+<div class="small muted">
+
+Se inspeccionan los servicios y características GATT disponibles.
+
 <br><br>
-<b>NOTIFY / INDICATE = RX</b>
+
+<b>NOTIFY / INDICATE</b> → candidatos RX
+
 <br>
-<b>WRITE / WRITE WITHOUT RESPONSE = TX</b>
-<br><br>
-No se presupone automáticamente el significado de los bytes.
+
+<b>WRITE / WRITE WITHOUT RESPONSE</b> → candidatos TX
+
 </div>
 
-<div id="characteristics">
-<div class="small">
-Aún no se ha realizado el descubrimiento.
-</div>
-</div>
+<div id="servicesBox">
 
-</section>
-
-
-<!-- =========================================================
-CANAL BLE
-========================================================= -->
-
-<section class="card">
-
-<h2>🔌 Canal BLE / UART</h2>
-
-<table>
-
-<tr>
-<th>SERVICE</th>
-<td class="mono" id="serviceUUID">—</td>
-</tr>
-
-<tr>
-<th>RX / NOTIFY</th>
-<td class="mono" id="rxUUID">—</td>
-</tr>
-
-<tr>
-<th>TX / WRITE</th>
-<td class="mono" id="txUUID">—</td>
-</tr>
-
-<tr>
-<th>NOTIFY</th>
-<td id="notifyStatus">🔴 NO activo</td>
-</tr>
-
-</table>
-
-</section>
-
-
-<!-- =========================================================
-ESTADO
-========================================================= -->
-
-<section class="card">
-
-<h2>🧪 Estado del laboratorio</h2>
-
-<div class="status">
-
-🟢 <b>MODO PASIVO ACTIVO</b>
-
-<br><br>
-
-<span class="small">
-La F1 Plus puede transmitir datos espontáneamente.
-La aplicación NO envía comandos automáticamente.
-Las transmisiones solamente se realizan desde
-<b>PRUEBAS CONTROLADAS</b> o desde TX manual avanzada.
+<span class="muted">
+Sin descubrimiento todavía.
 </span>
 
 </div>
@@ -377,9 +405,65 @@ Las transmisiones solamente se realizan desde
 </section>
 
 
-<!-- =========================================================
-ESTADÍSTICAS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- UART -->
+<!-- ========================================================= -->
+
+<section class="card">
+
+<h2>🔌 Canal BLE / UART</h2>
+
+<div class="grid">
+
+<div class="kpi">
+<span>SERVICE</span>
+<b id="serviceValue" class="small mono">—</b>
+</div>
+
+<div class="kpi">
+<span>RX / NOTIFY</span>
+<b id="rxValue" class="small mono">—</b>
+</div>
+
+<div class="kpi">
+<span>TX / WRITE</span>
+<b id="txValue" class="small mono">—</b>
+</div>
+
+<div class="kpi">
+<span>NOTIFY</span>
+<b id="notifyValue" class="small">NO</b>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- ESTADO -->
+<!-- ========================================================= -->
+
+<section class="card">
+
+<h2>🧪 Estado del laboratorio</h2>
+
+<div id="labState" class="status">
+
+<span class="dot ok"></span>
+
+<span>
+Modo pasivo activo · sin transmisión automática.
+</span>
+
+</div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- ESTADÍSTICAS -->
+<!-- ========================================================= -->
 
 <section class="card">
 
@@ -387,54 +471,54 @@ ESTADÍSTICAS
 
 <div class="grid">
 
-<div class="stat">
-<b id="statTX">0</b>
-TX
+<div class="kpi">
+<span>TX</span>
+<b id="statTx">0</b>
 </div>
 
-<div class="stat">
-<b id="statRX">0</b>
-RX
+<div class="kpi">
+<span>RX</span>
+<b id="statRx">0</b>
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>TIPOS RX</span>
 <b id="statTypes">0</b>
-Tipos RX
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>LONGITUDES</span>
 <b id="statLengths">0</b>
-Longitudes
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>COMPARACIONES</span>
 <b id="statComparisons">0</b>
-Comparaciones
 </div>
 
-<div class="stat">
-<b id="statChanges">0</b>
-Bytes modificados
+<div class="kpi">
+<span>BYTES MODIFICADOS</span>
+<b id="statChanged">0</b>
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>TRANSICIONES</span>
 <b id="statTransitions">0</b>
-Transiciones
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>EVENTOS</span>
 <b id="statEvents">0</b>
-Eventos
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>CORRELACIONES</span>
 <b id="statCorrelations">0</b>
-Correlaciones
 </div>
 
-<div class="stat">
+<div class="kpi">
+<span>CICLOS</span>
 <b id="statCycles">0</b>
-Ciclos
 </div>
 
 </div>
@@ -442,348 +526,316 @@ Ciclos
 </section>
 
 
-<!-- =========================================================
-EVENTOS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- EVENTOS -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🔘 Registro de eventos físicos</h2>
 
-<button onclick="markEvent('Evento manual')">
-🫀 EVENTO MANUAL
+<div class="row">
+
+<button data-event="EVENTO MANUAL">
+EVENTO MANUAL
 </button>
 
-<button onclick="markEvent('Botón físico')">
-🔘 BOTÓN FÍSICO
+<button data-event="BOTÓN FÍSICO">
+BOTÓN FÍSICO
 </button>
 
-<button onclick="markEvent('Carga')">
-🔋 CARGA
+<button data-event="CARGA">
+CARGA
 </button>
 
-<button onclick="markEvent('Desconexión')">
-🔌 DESCONEXIÓN
+<button data-event="DESCONEXIÓN">
+DESCONEXIÓN
 </button>
 
-<button onclick="markEvent('Función abierta/cerrada')">
-📱 FUNCIÓN
+<button data-event="FUNCIÓN">
+FUNCIÓN
 </button>
 
-<button class="gold" onclick="clearEvents()">
+<button id="clearEventsBtn" class="danger">
 🧹 LIMPIAR EVENTOS
 </button>
 
-<div class="small">
-Cada evento queda registrado con hora exacta.
-Se buscan RX dentro de ±10 segundos.
 </div>
 
-<div id="events">
-<div class="small">No hay eventos.</div>
+<div id="eventsBox" class="muted small">
+No hay eventos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-TRANSICIONES
-========================================================= -->
+<!-- ========================================================= -->
+<!-- TRANSICIONES -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🔄 Transiciones detectadas</h2>
 
-<div class="small">
-Se registran cambios de bytes entre tramas del mismo tipo y longitud.
+<div class="small muted">
+
+Se registran cambios entre tramas comparables.
+No se interpreta causalidad.
+
 </div>
 
-<div id="transitions">
-<div class="small">
-Todavía no se han observado transiciones.
-</div>
+<div id="transitionsBox" class="muted small">
+No hay transiciones.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-CICLOS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- CICLOS -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🔁 Ciclos observados</h2>
 
-<div class="small">
-Seguimiento específico de 0x91 Byte 7.
-Se consideran ciclos cuando una secuencia vuelve al valor anterior.
-Ejemplo: 50 → 64 → 50.
+<div class="small muted">
+
+Para 0x91 se observa específicamente el Byte 7,
+índice cero.
+
+Ejemplo:
+
+<span class="mono">
+50 → 64 → 50
+</span>
+
 </div>
 
-<div id="cycles">
-<div class="small">
-Aún no hay ciclos detectados.
-</div>
+<div id="cyclesBox" class="muted small">
+No hay ciclos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-CORRELACIÓN
-========================================================= -->
+<!-- ========================================================= -->
+<!-- CORRELACIÓN -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🔗 Correlación evento ↔ RX</h2>
 
-<div class="small">
-Ventana de correlación: ±10 segundos.
-Una correlación temporal NO demuestra causalidad.
+<div class="small muted">
+
+Ventana temporal: ±10 segundos.
+
+Una correlación temporal no demuestra causalidad.
+
 </div>
 
-<div id="correlations">
-<div class="small">
-Todavía no hay correlaciones.
-</div>
+<div id="correlationBox" class="muted small">
+No hay correlaciones.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-COMPARADOR
-========================================================= -->
+<!-- ========================================================= -->
+<!-- COMPARADOR -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🔬 Comparador diferencial automático</h2>
 
-<div class="small">
-Cada trama se compara únicamente con la anterior del mismo tipo y longitud.
+<div class="small muted">
+
+Se compara solamente con la trama RX anterior que tenga
+el mismo tipo y la misma longitud.
+
 </div>
 
-<div id="latestComparison">
-<div class="small">
-Todavía no hay comparación.
-</div>
-</div>
-
-<h3>📚 Historial</h3>
-
-<div id="comparisonHistory">
-<div class="small">
-Sin comparaciones.
-</div>
+<div id="compareBox" class="muted small">
+No hay comparación.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-MATRIZ
-========================================================= -->
+<!-- ========================================================= -->
+<!-- HISTORIAL -->
+<!-- ========================================================= -->
+
+<section class="card">
+
+<h2>📚 Historial de comparaciones</h2>
+
+<div id="historyBox" class="muted small">
+No hay comparaciones.
+</div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- MATRIZ -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>📊 Matriz de cambios por byte</h2>
 
-<div id="byteMatrix">
-<div class="small">
-Sin datos.
-</div>
+<div id="matrixBox" class="muted small">
+No hay datos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-TIPOS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- TIPOS -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🧬 Tipos de trama detectados</h2>
 
-<div id="frameTypes">
-<div class="small">
-Sin datos.
-</div>
+<div id="typesBox" class="muted small">
+No hay datos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-LONGITUD
-========================================================= -->
+<!-- ========================================================= -->
+<!-- LONGITUD -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>📏 Análisis de longitud</h2>
 
-<div class="small">
+<div class="small muted">
+
 Hipótesis experimental:
-Byte 2 + 3 = longitud total.
-No se considera significado confirmado.
+
+<b>Byte 2 + Byte 3 = longitud total observada.</b>
+
+Esto NO se considera confirmado.
+
 </div>
 
-<div id="lengthAnalysis">
-<div class="small">
-Sin datos.
-</div>
+<div id="lengthBox" class="muted small">
+No hay datos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-PATRONES
-========================================================= -->
+<!-- ========================================================= -->
+<!-- PATRONES -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>📈 Patrones y frecuencia</h2>
 
-<div id="patterns">
-<div class="small">
-Sin datos.
-</div>
+<div id="patternsBox" class="muted small">
+No hay datos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-INTERVALOS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- INTERVALOS -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>⏱️ Intervalos temporales</h2>
 
-<div id="intervals">
-<div class="small">
-Sin intervalos.
-</div>
+<div id="intervalBox" class="muted small">
+No hay intervalos.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-CAPTURAS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- RX -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>📦 Capturas RX</h2>
 
-<button class="gold" onclick="clearCaptures()">
+<div class="row">
+
+<button id="clearRxBtn" class="danger">
 🧹 LIMPIAR CAPTURAS
 </button>
 
-<button class="blue" onclick="exportJSON()">
-💾 EXPORTAR ANÁLISIS JSON
+<button id="exportJsonBtn" class="ok">
+💾 EXPORTAR JSON
 </button>
 
-<button class="blue" onclick="exportHEX()">
-📄 EXPORTAR RX EN HEX
+<button id="exportHexBtn">
+📄 EXPORTAR RX HEX
 </button>
 
-<button onclick="copySummary()">
+<button id="copySummaryBtn">
 📋 COPIAR RESUMEN
 </button>
 
-<div id="captures">
-<div class="small">
-Sin capturas.
 </div>
+
+<div id="rxBox" class="muted small">
+No hay capturas.
 </div>
 
 </section>
 
 
-<!-- =========================================================
-PRUEBAS CONTROLADAS
-========================================================= -->
+<!-- ========================================================= -->
+<!-- PRUEBAS CONTROLADAS -->
+<!-- ========================================================= -->
 
 <section class="card">
 
-<div class="sectionTitle">
-
 <h2>🧪 PRUEBAS CONTROLADAS — F1 PLUS</h2>
 
-<span class="badge">
-TX CONTROLADO
-</span>
+<div class="small muted">
+
+⚠️ Esta sección es una de las pocas que puede transmitir.
+
+La transmisión solamente ocurre cuando pulsas
+<b>EJECUTAR PRUEBA</b>.
+
+No se envía nada al conectar.
 
 </div>
 
-<div class="dangerBox">
+<br>
 
-⚠️ <b>ESTE ES EL ÚNICO APARTADO DEL LABORATORIO DE PRUEBAS QUE TRANSMITE AUTOMÁTICAMENTE AL PULSAR EL BOTÓN.</b>
-
-<br><br>
-
-No existe ningún comando automático al conectar.
-No se ejecuta ninguna prueba sin pulsación manual.
-
-</div>
-
-
-<h3>1️⃣ Preparación</h3>
-
-<div class="small">
-Conecta la F1 Plus y verifica que TX esté disponible.
-Después introduce una trama HEX y ejecuta una prueba.
-</div>
-
-<div class="grid">
-
-<div class="stat">
-<b id="testTXCount">0</b>
-TX realizadas
-</div>
-
-<div class="stat">
-<b id="testRXCount">0</b>
-RX posteriores
-</div>
-
-<div class="stat">
-<b id="testResponseCount">0</b>
-Posibles respuestas
-</div>
-
-<div class="stat">
-<b id="testNoResponseCount">0</b>
-Sin respuesta
-</div>
-
-</div>
-
-
-<h3>2️⃣ Trama HEX</h3>
+<label class="small">
+HEX de prueba
+</label>
 
 <textarea
 id="testHex"
-placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"></textarea>
+class="mono"
+placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
+></textarea>
 
-<button class="blue" onclick="validateTestHEX()">
-🔎 VALIDAR HEX
-</button>
+<div class="row">
 
-<div id="hexValidation" class="small">
-Introduce una trama HEX para validarla.
-</div>
-
-
-<h3>3️⃣ Ventana de observación</h3>
+<div>
 
 <label class="small">
-Milisegundos posteriores a TX
+Ventana de observación (ms)
 </label>
 
 <input
@@ -791,341 +843,499 @@ id="testWindow"
 type="number"
 min="100"
 max="30000"
-step="100"
-value="3000">
+value="3000"
+>
 
+</div>
 
-<button
-class="primary"
-id="runTestBtn"
-onclick="runControlledTest()"
-disabled>
-🧪 EJECUTAR PRUEBA
+<button id="validateTestBtn">
+✅ VALIDAR HEX
 </button>
 
-
-<h3>4️⃣ Resultado de la prueba</h3>
-
-<div id="testResult">
-<div class="small">
-No se ha ejecutado ninguna prueba.
-</div>
-</div>
-
-
-<h3>📚 Historial de pruebas</h3>
-
-<div id="testHistory">
-<div class="small">
-Sin pruebas.
-</div>
-</div>
-
-<button class="gold" onclick="clearTests()">
-🧹 LIMPIAR PRUEBAS
+<button id="runTestBtn" class="primary" disabled>
+🚀 EJECUTAR PRUEBA
 </button>
 
-<button class="blue" onclick="exportTests()">
-💾 EXPORTAR PRUEBAS
-</button>
+</div>
+
+<div id="testResult" class="small muted">
+Preparación.
+</div>
+
+<div id="testHistory" class="small muted">
+No hay pruebas.
+</div>
 
 </section>
 
 
-<!-- =========================================================
-TX AVANZADA
-========================================================= -->
+<!-- ========================================================= -->
+<!-- TX MANUAL -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>📤 TX manual avanzada</h2>
 
-<div class="warning">
+<div class="small muted">
 
-⚠️ TX manual independiente del análisis pasivo.
-
-<br><br>
-
-Esta sección no se ejecuta automáticamente.
-La transmisión requiere pulsar manualmente el botón.
+Transmisión únicamente mediante pulsación manual.
 
 </div>
 
 <textarea
-id="txInput"
-placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"></textarea>
+id="manualHex"
+class="mono"
+placeholder="HEX, por ejemplo: AB 00 05 FF 91 80 00 64"
+></textarea>
 
-<button
-class="primary"
-id="txBtn"
-disabled
-onclick="sendTX()">
+<div class="row">
 
-📤 ENVIAR HEX MANUAL
-
+<button id="validateManualBtn">
+✅ VALIDAR
 </button>
 
-<div id="txStatus" class="small"></div>
+<button id="sendManualBtn" class="primary" disabled>
+📤 ENVIAR TX MANUAL
+</button>
+
+</div>
+
+<div id="manualResult" class="small muted">
+Listo.
+</div>
 
 </section>
 
 
-<!-- =========================================================
-DIAGNÓSTICO
-========================================================= -->
+<!-- ========================================================= -->
+<!-- DIAGNÓSTICO -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>🛠️ Diagnóstico</h2>
 
-<button class="gold" onclick="clearDiagnostics()">
+<div class="row">
+
+<button id="clearDiagBtn" class="danger">
 🧹 LIMPIAR DIAGNÓSTICO
 </button>
 
-<pre id="diagnostics"></pre>
+</div>
+
+<pre id="diag">Sistema preparado.</pre>
 
 </section>
 
 
-<!-- =========================================================
-CONTROL DE SESIÓN
-========================================================= -->
+<!-- ========================================================= -->
+<!-- SESIÓN -->
+<!-- ========================================================= -->
 
 <section class="card">
 
 <h2>⚙️ Control de sesión</h2>
 
-<div class="small">
-Los datos se mantienen durante la sesión del navegador.
-Puedes guardar una copia local del laboratorio.
-</div>
+<div class="row">
 
-<button class="blue" onclick="saveSession()">
+<button id="saveSessionBtn" class="ok">
 💾 GUARDAR SESIÓN
 </button>
 
-<button class="danger" onclick="resetLaboratory()">
-🗑️ REINICIAR LABORATORIO
+<button id="loadSessionBtn">
+📥 CARGAR SESIÓN
 </button>
 
+<button id="resetBtn" class="danger">
+♻️ REINICIAR LABORATORIO
+</button>
+
+</div>
+
+<div class="small muted">
+
+La sesión se guarda localmente en este navegador mediante
+localStorage.
+
+</div>
+
 </section>
+
+
+<footer>
+
+RoXThal F1 Plus V9 · Ingeniería experimental BLE
+
+<br><br>
+
+Los significados de protocolo deben verificarse mediante evidencia.
+
+</footer>
 
 </main>
 
 
 <script>
 
-'use strict';
+(function(){
+
+"use strict";
+
 
 /* ============================================================
    CONFIGURACIÓN
 ============================================================ */
 
-const UART_SERVICE =
-'6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+const UUID = {
+
+UART_SERVICE:
+"6e400001-b5a3-f393-e0a9-e50e24dcca9e",
+
+UART_WRITE:
+"6e400002-b5a3-f393-e0a9-e50e24dcca9e",
+
+UART_NOTIFY:
+"6e400003-b5a3-f393-e0a9-e50e24dcca9e",
+
+WEARFIT_WRITE:
+"0000fea2-0000-1000-8000-00805f9b34fb",
+
+WEARFIT_NOTIFY:
+"0000fea1-0000-1000-8000-00805f9b34fb"
+
+};
+
+
+const IMMEDIATE_WINDOW = 300;
+
+const SECONDARY_WINDOW = 3000;
+
+const EVENT_WINDOW = 10000;
+
+const STORAGE_KEY =
+"roxthal_f1plus_v9_session";
 
 
 /* ============================================================
-   ESTADO BLE
+   ESTADO GLOBAL
 ============================================================ */
 
-let device = null;
-let server = null;
-let service = null;
+const state = {
 
-let rxCharacteristic = null;
-let txCharacteristic = null;
+device:null,
+
+server:null,
+
+rxChar:null,
+
+txChar:null,
+
+rxService:null,
+
+subscriptions:[],
+
+services:[],
+
+captures:[],
+
+txLog:[],
+
+events:[],
+
+comparisons:[],
+
+transitions:[],
+
+correlations:[],
+
+cycles:[],
+
+tests:[],
+
+intervals:[],
+
+lastRxTime:null,
+
+lastRxFrame:null,
+
+previousByKey:new Map(),
+
+changeMatrix:{},
+
+typeStats:{},
+
+lengthStats:{},
+
+patternStats:{},
+
+last91Byte7:null,
+
+cycleCandidate:null,
+
+notifyStarted:false,
+
+testValid:false,
+
+manualValid:false
+
+};
 
 
 /* ============================================================
-   DATOS
+   HELPERS
 ============================================================ */
 
-let packets = [];
-let comparisons = [];
-let transitions = [];
-let events = [];
-let correlations = [];
+function $(id){
 
-let tests = [];
+return document.getElementById(id);
 
-let previousByKey = {};
+}
 
-let totalTX = 0;
-let sequence = 0;
-let testSequence = 0;
-
-
-/* ============================================================
-   UTILIDADES
-============================================================ */
 
 function now(){
-  return new Date();
-}
 
-function timestamp(){
-  return Date.now();
-}
+return Date.now();
 
-function timeString(date = now()){
-
-  return date.toLocaleTimeString(
-    'es-AR',
-    {
-      hour12:false
-    }
-  );
 }
 
 
-function log(message){
+function stamp(t){
 
-  const box =
-    document.getElementById('diagnostics');
+return new Date(t || now())
+.toLocaleTimeString(
+"es-AR",
+{
+hour12:false
+}
+);
 
-  box.textContent +=
-    '[' +
-    timeString() +
-    '] ' +
-    message +
-    '\n';
-
-  box.scrollTop =
-    box.scrollHeight;
 }
 
 
-function hex(bytes){
+function uuid(u){
 
-  return Array.from(bytes)
-    .map(
-      x =>
-        x.toString(16)
-        .padStart(2,'0')
-        .toUpperCase()
-    )
-    .join(' ');
+return String(u || "").toLowerCase();
+
 }
 
 
-function decimal(bytes){
+function hexByte(n){
 
-  return Array.from(bytes).join(' ');
+return n
+.toString(16)
+.padStart(2,"0")
+.toUpperCase();
+
 }
 
 
-function ascii(bytes){
+function bytesToHex(bytes){
 
-  return Array.from(bytes)
-    .map(
-      x =>
-        x >= 32 && x <= 126
-        ? String.fromCharCode(x)
-        : '.'
-    )
-    .join('');
+return Array.from(
+bytes,
+x => hexByte(x)
+).join(" ");
+
 }
 
 
-function frameType(bytes){
+function typeOfFrame(bytes){
 
-  return bytes.length > 4
-    ? '0x' +
-      bytes[4]
-      .toString(16)
-      .padStart(2,'0')
-      .toUpperCase()
-    : '—';
+/*
+   Estructura observada:
+
+   AB 00 05 FF 91 80 00 64
+
+   Índices:
+
+   0 = AB
+   1 = 00
+   2 = 05
+   3 = FF
+   4 = 91
+   5 = 80
+   6 = 00
+   7 = 64
+
+   Por tanto el tipo se toma provisionalmente
+   del índice 4.
+*/
+
+if(bytes.length > 4){
+
+return "0x" + hexByte(bytes[4]);
+
+}
+
+return "DESCONOCIDO";
+
 }
 
 
-function keyFor(bytes){
+function frameKey(bytes){
 
-  return frameType(bytes) +
-    '/' +
-    bytes.length;
+return typeOfFrame(bytes) + "|" + bytes.length;
+
 }
 
 
-function byteHex(n){
+function escapeHtml(s){
 
-  return n
-    .toString(16)
-    .padStart(2,'0')
-    .toUpperCase();
+return String(s ?? "")
+.replace(/[&<>"']/g,function(m){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+
+}[m];
+
+});
+
 }
 
 
-function escapeHTML(str){
+function setDisabled(id,value){
 
-  return String(str)
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'","&#039;");
+$(id).disabled=value;
+
+}
+
+
+function download(name,text,type){
+
+const blob = new Blob(
+[text],
+{
+type:type || "text/plain"
+}
+);
+
+const a=document.createElement("a");
+
+a.href=URL.createObjectURL(blob);
+
+a.download=name;
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+setTimeout(
+function(){
+URL.revokeObjectURL(a.href);
+},
+1000
+);
+
+}
+
+
+function table(headers,rows){
+
+if(!rows.length){
+
+return '<span class="muted">No hay datos.</span>';
+
+}
+
+return `
+
+<div class="wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+${headers.map(
+h => `<th>${escapeHtml(h)}</th>`
+).join("")}
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${rows.map(
+r =>
+`<tr>${r.map(
+c => `<td>${c}</td>`
+).join("")}</tr>`
+).join("")
+}
+
+</tbody>
+
+</table>
+
+</div>
+
+`;
+
 }
 
 
 /* ============================================================
-   PROPIEDADES BLE
-   ESTA ES LA CORRECCIÓN PRINCIPAL DE V7
+   DIAGNÓSTICO
 ============================================================ */
 
-function getCharacteristicProperties(characteristic){
+function log(message,level){
 
-  const p =
-    characteristic.properties || {};
+const p=$("diag");
 
-  const properties = [];
+const line=
+"["+
+stamp()+
+"] "+
+message;
 
-  if(p.broadcast)
-    properties.push('BROADCAST');
+if(
+p.textContent &&
+!p.textContent.endsWith("\n")
+){
 
-  if(p.read)
-    properties.push('READ');
+p.textContent+="\n";
 
-  if(p.writeWithoutResponse)
-    properties.push('WRITE WITHOUT RESPONSE');
+}
 
-  if(p.write)
-    properties.push('WRITE');
+p.textContent+=line;
 
-  if(p.notify)
-    properties.push('NOTIFY');
+p.scrollTop=p.scrollHeight;
 
-  if(p.indicate)
-    properties.push('INDICATE');
+if(level==="error"){
 
-  if(p.authenticatedSignedWrites)
-    properties.push('AUTHENTICATED SIGNED WRITES');
+console.error(message);
 
-  return properties;
+}else{
+
+console.log(message);
+
+}
+
 }
 
 
-function hasRXProperty(characteristic){
+/* ============================================================
+   ESTADO SUPERIOR
+============================================================ */
 
-  const p =
-    characteristic.properties || {};
+function setTop(connected,text){
 
-  return !!(
-    p.notify ||
-    p.indicate
-  );
-}
+$("topDot").className=
+"dot "+(connected ? "ok" : "");
 
+$("topText").textContent=text;
 
-function hasTXProperty(characteristic){
-
-  const p =
-    characteristic.properties || {};
-
-  return !!(
-    p.write ||
-    p.writeWithoutResponse
-  );
 }
 
 
@@ -1133,795 +1343,122 @@ function hasTXProperty(characteristic){
    BLUETOOTH
 ============================================================ */
 
-document
-.getElementById('bluetoothBtn')
-.addEventListener(
-  'click',
-  checkBluetooth
+function isBluetoothReady(){
+
+if(!("bluetooth" in navigator)){
+
+log(
+"Web Bluetooth NO está disponible en este navegador.",
+"error"
 );
 
+return false;
 
-async function checkBluetooth(){
+}
 
-  if(!navigator.bluetooth){
+if(!window.isSecureContext){
 
-    setConnection(
-      '🔴 Web Bluetooth no está disponible en este navegador.',
-      'bad'
-    );
+log(
+"La página no está en contexto seguro. Se requiere HTTPS o localhost.",
+"error"
+);
 
-    log(
-      '❌ Web Bluetooth NO disponible.'
-    );
+return false;
 
-    return;
-  }
+}
 
-  setConnection(
-    '🟢 Web Bluetooth detectado correctamente.',
-    'ok'
-  );
+return true;
 
-  log(
-    '🟢 Web Bluetooth detectado correctamente.'
-  );
 }
 
 
-function setConnection(
-  text,
-  cls=''
+/* ============================================================
+   PARSER HEX
+============================================================ */
+
+function parseHex(text){
+
+let clean=String(text || "")
+.replace(/0x/gi,"")
+.replace(/[^0-9a-fA-F]/g," ");
+
+let parts=
+clean.trim()
+? clean.trim().split(/\s+/)
+: [];
+
+if(!parts.length){
+
+throw new Error("HEX vacío.");
+
+}
+
+for(const p of parts){
+
+if(
+p.length !== 2 ||
+!/^[0-9a-fA-F]{2}$/.test(p)
 ){
 
-  const el =
-    document.getElementById(
-      'connectionStatus'
-    );
-
-  el.className =
-    'status ' + cls;
-
-  el.textContent =
-    text;
-}
-
-
-/* ============================================================
-   CONEXIÓN
-============================================================ */
-
-document
-.getElementById('connectBtn')
-.addEventListener(
-  'click',
-  connect
+throw new Error(
+"HEX inválido. Cada byte debe tener dos dígitos."
 );
 
+}
 
-async function connect(){
+}
 
-  try{
-
-    if(!navigator.bluetooth){
-
-      throw new Error(
-        'Web Bluetooth no está disponible.'
-      );
-    }
-
-
-    resetBLEReferences();
-
-
-    log(
-      '=============================='
-    );
-
-    log(
-      'INICIO DE CONEXIÓN'
-    );
-
-    log(
-      'Solicitando F1 Plus...'
-    );
-
-
-    device =
-      await navigator.bluetooth.requestDevice({
-
-        filters:[
-          {
-            name:'F1 Plus'
-          }
-        ],
-
-        optionalServices:[
-          UART_SERVICE
-        ]
-
-      });
-
-
-    log(
-      '✅ DISPOSITIVO ENCONTRADO'
-    );
-
-    log(
-      'Nombre: ' +
-      (
-        device.name ||
-        'desconocido'
-      )
-    );
-
-    log(
-      'ID: ' +
-      device.id
-    );
-
-
-    document
-    .getElementById(
-      'deviceInfo'
-    )
-    .innerHTML =
-      '<b>Nombre:</b> ' +
-      escapeHTML(
-        device.name ||
-        'desconocido'
-      ) +
-      '<br><b>ID:</b> ' +
-      escapeHTML(
-        device.id
-      );
-
-
-    device.addEventListener(
-      'gattserverdisconnected',
-      onDisconnected
-    );
-
-
-    log(
-      'Conectando GATT...'
-    );
-
-
-    server =
-      await device.gatt.connect();
-
-
-    log(
-      '✅ GATT conectado.'
-    );
-
-
-    service =
-      await server.getPrimaryService(
-        UART_SERVICE
-      );
-
-
-    log(
-      '✅ Servicio UART encontrado.'
-    );
-
-
-    document
-    .getElementById(
-      'serviceUUID'
-    )
-    .textContent =
-      service.uuid;
-
-
-    await discoverCharacteristics();
-
-
-    setConnection(
-      '🟢 Smart Band conectada',
-      'ok'
-    );
-
-
-    document
-    .getElementById(
-      'connectBtn'
-    )
-    .disabled = true;
-
-
-    document
-    .getElementById(
-      'disconnectBtn'
-    )
-    .disabled = false;
-
-
-    log(
-      '================================'
-    );
-
-    log(
-      '🟢 LABORATORIO PREPARADO'
-    );
-
-    log(
-      'RX automático: ' +
-      (
-        rxCharacteristic
-        ? 'ACTIVO'
-        : 'NO DISPONIBLE'
-      )
-    );
-
-    log(
-      'TX automático: DESACTIVADO'
-    );
-
-    log(
-      'Pruebas controladas: ' +
-      (
-        txCharacteristic
-        ? 'DISPONIBLES'
-        : 'NO DISPONIBLES'
-      )
-    );
-
-
-    updateTestButton();
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    setConnection(
-      '❌ No se pudo conectar: ' +
-      error.message,
-      'bad'
-    );
-
-    log(
-      '❌ ERROR: ' +
-      error.message
-    );
-
-  }
+return new Uint8Array(
+parts.map(
+p => parseInt(p,16)
+)
+);
 
 }
 
 
 /* ============================================================
-   DESCUBRIMIENTO
+   ESTADÍSTICAS
 ============================================================ */
 
-async function discoverCharacteristics(){
+function renderStats(){
 
-  const container =
-    document.getElementById(
-      'characteristics'
-    );
+$("statTx").textContent=
+state.txLog.length;
 
-  container.innerHTML = '';
+$("statRx").textContent=
+state.captures.length;
 
+$("statTypes").textContent=
+Object.keys(state.typeStats).length;
 
-  rxCharacteristic = null;
-  txCharacteristic = null;
+$("statLengths").textContent=
+Object.keys(state.lengthStats).length;
 
+$("statComparisons").textContent=
+state.comparisons.length;
 
-  const chars =
-    await service.getCharacteristics();
+$("statChanged").textContent=
+state.comparisons.reduce(
+function(total,item){
 
+return total + item.changed.length;
 
-  log(
-    'Características encontradas: ' +
-    chars.length
-  );
+},
+0
+);
 
+$("statTransitions").textContent=
+state.transitions.length;
 
-  chars.forEach(
-    (c,index)=>{
+$("statEvents").textContent=
+state.events.length;
 
-      const properties =
-        getCharacteristicProperties(c);
+$("statCorrelations").textContent=
+state.correlations.length;
 
-
-      const div =
-        document.createElement(
-          'div'
-        );
-
-      div.className =
-        'characteristic';
-
-
-      let html =
-        '<b>Característica #' +
-        (index + 1) +
-        '</b><br><br>' +
-
-        '<span class="uuid">' +
-        escapeHTML(c.uuid) +
-        '</span><br><br>' +
-
-        '<b>Propiedades:</b> ';
-
-
-      if(properties.length){
-
-        html +=
-          properties
-          .map(
-            p =>
-              '<span class="badge">' +
-              escapeHTML(p) +
-              '</span>'
-          )
-          .join(' ');
-
-      }else{
-
-        html +=
-          '<span class="warn">' +
-          'NINGUNA DETECTADA' +
-          '</span>';
-      }
-
-
-      /* RX */
-
-      if(hasRXProperty(c)){
-
-        if(!rxCharacteristic){
-
-          rxCharacteristic = c;
-
-          html +=
-            '<br><br>' +
-            '<span class="ok">' +
-            '🟢 CANDIDATA RX' +
-            '</span>';
-
-          log(
-            '🟢 CANDIDATA RX seleccionada: ' +
-            c.uuid +
-            ' | ' +
-            properties.join(', ')
-          );
-
-        }
-
-      }
-
-
-      /* TX */
-
-      if(hasTXProperty(c)){
-
-        if(!txCharacteristic){
-
-          txCharacteristic = c;
-
-          html +=
-            '<br><br>' +
-            '<span class="info">' +
-            '🔵 CANDIDATA TX' +
-            '</span>';
-
-          log(
-            '🔵 CANDIDATA TX seleccionada: ' +
-            c.uuid +
-            ' | ' +
-            properties.join(', ')
-          );
-
-        }
-
-      }
-
-
-      div.innerHTML =
-        html;
-
-
-      container.appendChild(
-        div
-      );
-
-    }
-  );
-
-
-  /* RX */
-
-  if(rxCharacteristic){
-
-    document
-    .getElementById(
-      'rxUUID'
-    )
-    .textContent =
-      rxCharacteristic.uuid;
-
-
-    log(
-      'Activando NOTIFY / INDICATE...'
-    );
-
-
-    try{
-
-      await rxCharacteristic
-        .startNotifications();
-
-
-      rxCharacteristic.addEventListener(
-        'characteristicvaluechanged',
-        handleRX
-      );
-
-
-      document
-      .getElementById(
-        'notifyStatus'
-      )
-      .innerHTML =
-        '<span class="ok">' +
-        '🟢 NOTIFY / INDICATE activo' +
-        '</span>';
-
-
-      log(
-        '✅ RX NOTIFY / INDICATE ACTIVADO.'
-      );
-
-    }
-    catch(error){
-
-      document
-      .getElementById(
-        'notifyStatus'
-      )
-      .innerHTML =
-        '<span class="bad">' +
-        '🔴 ERROR' +
-        '</span>';
-
-
-      log(
-        '❌ Error activando RX: ' +
-        error.message
-      );
-
-    }
-
-  }
-  else{
-
-    log(
-      '⚠️ No se encontró RX NOTIFY/INDICATE.'
-    );
-
-  }
-
-
-  /* TX */
-
-  if(txCharacteristic){
-
-    document
-    .getElementById(
-      'txUUID'
-    )
-    .textContent =
-      txCharacteristic.uuid;
-
-
-    document
-    .getElementById(
-      'txBtn'
-    )
-    .disabled = false;
-
-
-    log(
-      '🔵 TX disponible.'
-    );
-
-  }
-  else{
-
-    log(
-      '⚠️ No se encontró característica TX.'
-    );
-
-  }
-
-
-  updateTestButton();
-
-}
-
-
-/* ============================================================
-   RX
-============================================================ */
-
-function handleRX(event){
-
-  try{
-
-    const value =
-      event.target.value;
-
-
-    const bytes =
-      new Uint8Array(
-        value.buffer.slice(
-          value.byteOffset,
-          value.byteOffset +
-          value.byteLength
-        )
-      );
-
-
-    processRX(bytes);
-
-  }
-  catch(error){
-
-    log(
-      '❌ ERROR procesando RX: ' +
-      error.message
-    );
-
-  }
-
-}
-
-
-function processRX(bytes){
-
-  const t =
-    timestamp();
-
-
-  const packet = {
-
-    id:
-      ++sequence,
-
-    time:
-      t,
-
-    date:
-      new Date(t),
-
-    bytes:
-      Array.from(bytes),
-
-    hex:
-      hex(bytes),
-
-    type:
-      frameType(bytes),
-
-    length:
-      bytes.length,
-
-    decimal:
-      decimal(bytes),
-
-    ascii:
-      ascii(bytes)
-
-  };
-
-
-  packets.push(packet);
-
-
-  log(
-    '🟣 RX | ' +
-    packet.hex
-  );
-
-
-  analyzePacket(packet);
-
-
-  /*
-   * Si existe una prueba activa,
-   * la RX queda asociada a ella.
-   */
-
-  registerRXForActiveTest(packet);
-
-
-  renderAll();
-
-}
-
-
-/* ============================================================
-   ANÁLISIS
-============================================================ */
-
-function analyzePacket(packet){
-
-  const key =
-    packet.type +
-    '/' +
-    packet.length;
-
-
-  const previous =
-    previousByKey[key];
-
-
-  if(previous){
-
-    comparePackets(
-      previous,
-      packet
-    );
-
-  }
-  else{
-
-    log(
-      '🔬 COMPARADOR: primera trama para ' +
-      key
-    );
-
-  }
-
-
-  previousByKey[key] =
-    packet;
-
-
-  correlatePacket(packet);
-
-}
-
-
-/* ============================================================
-   COMPARADOR
-============================================================ */
-
-function comparePackets(a,b){
-
-  const changes = [];
-
-
-  const max =
-    Math.min(
-      a.bytes.length,
-      b.bytes.length
-    );
-
-
-  for(
-    let i=0;
-    i<max;
-    i++
-  ){
-
-    if(
-      a.bytes[i] !==
-      b.bytes[i]
-    ){
-
-      changes.push({
-
-        byte:i,
-
-        from:a.bytes[i],
-
-        to:b.bytes[i]
-
-      });
-
-    }
-
-  }
-
-
-  const comparison = {
-
-    id:
-      comparisons.length + 1,
-
-    time:
-      b.time,
-
-    type:
-      b.type,
-
-    length:
-      b.length,
-
-    previous:
-      a.hex,
-
-    current:
-      b.hex,
-
-    changes
-
-  };
-
-
-  comparisons.push(
-    comparison
-  );
-
-
-  if(changes.length){
-
-    changes.forEach(
-      ch => {
-
-        transitions.push({
-
-          time:b.time,
-
-          type:b.type,
-
-          byte:ch.byte,
-
-          from:ch.from,
-
-          to:ch.to,
-
-          delta:
-            b.time -
-            a.time
-
-        });
-
-
-        log(
-          'BYTE ' +
-          ch.byte +
-          ': ' +
-          byteHex(ch.from) +
-          ' → ' +
-          byteHex(ch.to)
-        );
-
-      }
-    );
-
-
-    log(
-      '🔬 COMPARACIÓN #' +
-      comparison.id +
-      ' | ' +
-      b.type +
-      ' / ' +
-      b.length +
-      ' bytes | ' +
-      changes.length +
-      ' byte(s) modificados.'
-    );
-
-  }
-  else{
-
-    log(
-      '🟢 COMPARACIÓN #' +
-      comparison.id +
-      ' | ' +
-      b.type +
-      ' / ' +
-      b.length +
-      ' bytes | TRAMAS IDÉNTICAS.'
-    );
-
-  }
+$("statCycles").textContent=
+state.cycles.length;
 
 }
 
@@ -1930,53 +1467,54 @@ function comparePackets(a,b){
    EVENTOS
 ============================================================ */
 
-function markEvent(type){
+function recordEvent(type){
 
-  const event = {
+const event={
 
-    id:
-      events.length + 1,
+t:now(),
 
-    time:
-      timestamp(),
+type:type
 
-    type
+};
 
-  };
+state.events.push(event);
 
+log(
+"Evento físico registrado: "+
+type
+);
 
-  events.push(
-    event
-  );
+correlateEvent(event);
 
-
-  log(
-    '🟡 EVENTO MARCADO | ' +
-    type
-  );
-
-
-  correlateEvent(
-    event
-  );
-
-
-  renderAll();
+renderAll();
 
 }
 
 
-function clearEvents(){
+function renderEvents(){
 
-  events = [];
+if(!state.events.length){
 
-  correlations = [];
+$("eventsBox").innerHTML=
+"No hay eventos.";
 
-  log(
-    '🧹 Eventos y correlaciones reiniciados.'
-  );
+return;
 
-  renderAll();
+}
+
+$("eventsBox").innerHTML=
+table(
+["Hora","Evento"],
+state.events
+.slice()
+.reverse()
+.map(
+e => [
+stamp(e.t),
+escapeHtml(e.type)
+]
+)
+);
 
 }
 
@@ -1987,314 +1525,238 @@ function clearEvents(){
 
 function correlateEvent(event){
 
-  const WINDOW =
-    10000;
+state.captures.forEach(function(rx){
 
+const delta =
+rx.t - event.t;
 
-  packets.forEach(
-    packet => {
-
-      const delta =
-        packet.time -
-        event.time;
-
-
-      if(
-        Math.abs(delta) <=
-        WINDOW
-      ){
-
-        addCorrelation(
-          event,
-          packet
-        );
-
-      }
-
-    }
-  );
-
-}
-
-
-function correlatePacket(packet){
-
-  const WINDOW =
-    10000;
-
-
-  events.forEach(
-    event => {
-
-      const delta =
-        packet.time -
-        event.time;
-
-
-      if(
-        Math.abs(delta) <=
-        WINDOW
-      ){
-
-        addCorrelation(
-          event,
-          packet
-        );
-
-      }
-
-    }
-  );
-
-}
-
-
-function addCorrelation(
-  event,
-  packet
+if(
+Math.abs(delta) <= EVENT_WINDOW
 ){
 
-  const exists =
-    correlations.some(
-      c =>
-        c.eventId === event.id &&
-        c.packetId === packet.id
-    );
+const exists =
+state.correlations.some(
+c =>
+c.event.t === event.t &&
+c.rx.t === rx.t
+);
+
+if(!exists){
+
+state.correlations.push({
+
+event:event,
+
+rx:rx,
+
+delta:delta
+
+});
+
+}
+
+}
+
+});
+
+}
 
 
-  if(exists)
-    return;
+function renderCorrelations(){
 
+if(!state.correlations.length){
 
-  correlations.push({
+$("correlationBox").innerHTML=
+"No hay correlaciones.";
 
-    eventId:
-      event.id,
+return;
 
-    eventType:
-      event.type,
+}
 
-    eventTime:
-      event.time,
-
-    packetId:
-      packet.id,
-
-    packetType:
-      packet.type,
-
-    packetTime:
-      packet.time,
-
-    delta:
-      packet.time -
-      event.time,
-
-    hex:
-      packet.hex
-
-  });
+$("correlationBox").innerHTML=
+table(
+[
+"Evento",
+"RX",
+"Δ ms",
+"Trama"
+],
+state.correlations
+.slice()
+.reverse()
+.map(
+x => [
+`${stamp(x.event.t)} ${escapeHtml(x.event.type)}`,
+stamp(x.rx.t),
+x.delta,
+`<span class="mono">${escapeHtml(x.rx.hex)}</span>`
+]
+)
+);
 
 }
 
 
 /* ============================================================
-   RENDER
+   CLASIFICACIÓN RX
 ============================================================ */
 
-function renderAll(){
+function classifyRx(t){
 
-  updateStats();
+const lastTx=
+state.txLog[
+state.txLog.length-1
+];
 
-  renderEvents();
+if(!lastTx){
 
-  renderTransitions();
+return "ESPONTÁNEO";
 
-  renderCycles();
+}
 
-  renderCorrelations();
+const delta=t-lastTx.t;
 
-  renderComparisons();
+if(
+delta >= 0 &&
+delta <= IMMEDIATE_WINDOW
+){
 
-  renderMatrix();
+return "PROBABLE RESPUESTA";
 
-  renderTypes();
+}
 
-  renderLengths();
+if(
+delta >= 0 &&
+delta <= SECONDARY_WINDOW
+){
 
-  renderPatterns();
+return "RX CERCANO A TX";
 
-  renderIntervals();
+}
 
-  renderCaptures();
-
-  renderTests();
+return "ESPONTÁNEO";
 
 }
 
 
 /* ============================================================
-   ESTADÍSTICAS
+   COMPARACIÓN DIFERENCIAL
 ============================================================ */
 
-function updateStats(){
+function compareFrame(bytes,t,type){
 
-  const types =
-    new Set(
-      packets.map(
-        p => p.type
-      )
-    );
+const key=frameKey(bytes);
 
+const current=bytesToHex(bytes);
 
-  const lengths =
-    new Set(
-      packets.map(
-        p => p.length
-      )
-    );
+const previous=
+state.previousByKey.get(key);
 
+state.previousByKey.set(
+key,
+{
+bytes:Array.from(bytes),
+hex:current,
+t:t
+}
+);
 
-  const changes =
-    comparisons.reduce(
-      (
-        sum,
-        c
-      ) =>
-        sum +
-        c.changes.length,
-      0
-    );
+if(!previous){
 
+return;
 
-  const cycles =
-    transitions.filter(
-      t =>
-        t.type === '0x91' &&
-        t.byte === 7
-    ).length;
+}
 
+const changed=[];
 
-  document
-  .getElementById(
-    'statTX'
-  )
-  .textContent =
-    totalTX;
+for(
+let i=0;
+i<bytes.length;
+i++
+){
 
+if(
+bytes[i] !== previous.bytes[i]
+){
 
-  document
-  .getElementById(
-    'statRX'
-  )
-  .textContent =
-    packets.length;
+const from=
+hexByte(previous.bytes[i]);
 
+const to=
+hexByte(bytes[i]);
 
-  document
-  .getElementById(
-    'statTypes'
-  )
-  .textContent =
-    types.size;
+changed.push({
+
+i:i,
+
+from:from,
+
+to:to
+
+});
 
 
-  document
-  .getElementById(
-    'statLengths'
-  )
-  .textContent =
-    lengths.size;
+if(!state.changeMatrix[i]){
 
+state.changeMatrix[i]={
+count:0,
+values:{}
+};
 
-  document
-  .getElementById(
-    'statComparisons'
-  )
-  .textContent =
-    comparisons.length;
+}
 
+state.changeMatrix[i].count++;
 
-  document
-  .getElementById(
-    'statChanges'
-  )
-  .textContent =
-    changes;
+const transition=
+from+"→"+to;
 
+state.changeMatrix[i]
+.values[transition] =
+(
+state.changeMatrix[i]
+.values[transition] || 0
+)+1;
 
-  document
-  .getElementById(
-    'statTransitions'
-  )
-  .textContent =
-    transitions.length;
-
-
-  document
-  .getElementById(
-    'statEvents'
-  )
-  .textContent =
-    events.length;
-
-
-  document
-  .getElementById(
-    'statCorrelations'
-  )
-  .textContent =
-    correlations.length;
-
-
-  document
-  .getElementById(
-    'statCycles'
-  )
-  .textContent =
-    cycles;
+}
 
 }
 
 
-/* ============================================================
-   EVENTOS RENDER
-============================================================ */
+const item={
 
-function renderEvents(){
+t:t,
 
-  const el =
-    document.getElementById(
-      'events'
-    );
+type:type,
 
+length:bytes.length,
 
-  if(!events.length){
+previous:previous.hex,
 
-    el.innerHTML =
-      '<div class="small">No hay eventos.</div>';
+current:current,
 
-    return;
+changed:changed
 
-  }
+};
 
 
-  el.innerHTML =
-    events
-    .slice()
-    .reverse()
-    .map(
-      e =>
-        '<div class="packet">' +
-        timeString(
-          new Date(e.time)
-        ) +
-        ' <b>' +
-        escapeHTML(e.type) +
-        '</b>' +
-        '</div>'
-    )
-    .join('');
+state.comparisons.push(item);
+
+
+if(changed.length){
+
+state.transitions.push({
+
+t:t,
+
+type:type,
+
+length:bytes.length,
+
+changed:changed
+
+});
+
+}
 
 }
 
@@ -2305,311 +1767,1427 @@ function renderEvents(){
 
 function renderTransitions(){
 
-  const el =
-    document.getElementById(
-      'transitions'
-    );
+if(!state.transitions.length){
 
+$("transitionsBox").innerHTML=
+"No hay transiciones.";
 
-  if(!transitions.length){
+return;
 
-    el.innerHTML =
-      '<div class="small">' +
-      'Todavía no se han observado transiciones.' +
-      '</div>';
+}
 
-    return;
-
-  }
-
-
-  el.innerHTML =
-    transitions
-    .slice()
-    .reverse()
-    .map(
-      t =>
-        '<div class="packet">' +
-        timeString(
-          new Date(t.time)
-        ) +
-        ' <b>' +
-        t.type +
-        '</b>' +
-        ' · Byte ' +
-        t.byte +
-        ' · ' +
-        byteHex(t.from) +
-        ' → ' +
-        byteHex(t.to) +
-        ' · Δ ' +
-        (t.delta / 1000)
-        .toFixed(3) +
-        ' s' +
-        '</div>'
-    )
-    .join('');
+$("transitionsBox").innerHTML=
+table(
+[
+"Hora",
+"Tipo",
+"Longitud",
+"Cambios"
+],
+state.transitions
+.slice()
+.reverse()
+.map(
+x => [
+stamp(x.t),
+x.type,
+x.length,
+x.changed
+.map(
+c =>
+`B${c.i}: ${c.from} → ${c.to}`
+)
+.join(", ")
+]
+)
+);
 
 }
 
 
 /* ============================================================
-   CICLOS
+   CICLOS 0x91 BYTE 7
 ============================================================ */
+
+function updateCycle(bytes,t,type){
+
+if(
+type !== "0x91" ||
+bytes.length <= 7
+){
+
+return;
+
+}
+
+const value=
+hexByte(bytes[7]);
+
+
+if(state.last91Byte7 === null){
+
+state.last91Byte7=value;
+
+return;
+
+}
+
+
+if(state.cycleCandidate === null){
+
+if(
+value !== state.last91Byte7
+){
+
+state.cycleCandidate={
+
+a:state.last91Byte7,
+
+b:value
+
+};
+
+}
+
+}else{
+
+if(
+value ===
+state.cycleCandidate.a
+){
+
+const cycle={
+
+t:t,
+
+type:"0x91",
+
+sequence:[
+state.cycleCandidate.a,
+state.cycleCandidate.b,
+value
+]
+
+};
+
+state.cycles.push(cycle);
+
+log(
+"Ciclo 0x91 detectado en Byte 7: "+
+cycle.sequence.join(" → ")
+);
+
+state.cycleCandidate=null;
+
+}else if(
+value !==
+state.cycleCandidate.b
+){
+
+state.cycleCandidate={
+
+a:state.last91Byte7,
+
+b:value
+
+};
+
+}
+
+}
+
+state.last91Byte7=value;
+
+}
+
 
 function renderCycles(){
 
-  const el =
-    document.getElementById(
-      'cycles'
-    );
+if(!state.cycles.length){
 
+$("cyclesBox").innerHTML=
+"No hay ciclos.";
 
-  const list =
-    transitions.filter(
-      t =>
-        t.type === '0x91' &&
-        t.byte === 7
-    );
+return;
 
+}
 
-  if(!list.length){
-
-    el.innerHTML =
-      '<div class="small">' +
-      'Aún no hay ciclos detectados.' +
-      '</div>';
-
-    return;
-
-  }
-
-
-  let html =
-    '<table>' +
-    '<tr>' +
-    '<th>#</th>' +
-    '<th>Transición</th>' +
-    '<th>Intervalo</th>' +
-    '</tr>';
-
-
-  list.forEach(
-    (t,i) => {
-
-      html +=
-        '<tr>' +
-        '<td>' +
-        (i + 1) +
-        '</td>' +
-        '<td>' +
-        byteHex(t.from) +
-        ' → ' +
-        byteHex(t.to) +
-        '</td>' +
-        '<td>' +
-        (t.delta / 1000)
-        .toFixed(3) +
-        ' s' +
-        '</td>' +
-        '</tr>';
-
-    }
-  );
-
-
-  html +=
-    '</table>';
-
-
-  el.innerHTML =
-    html;
+$("cyclesBox").innerHTML=
+table(
+[
+"Hora",
+"Tipo",
+"Secuencia",
+"Evidencia"
+],
+state.cycles
+.slice()
+.reverse()
+.map(
+x => [
+stamp(x.t),
+x.type,
+x.sequence.join(" → "),
+"B7 índice 7"
+]
+)
+);
 
 }
 
 
 /* ============================================================
-   CORRELACIONES
+   RX PRINCIPAL
 ============================================================ */
 
-function renderCorrelations(){
+function registerRx(bytes,source){
 
-  const el =
-    document.getElementById(
-      'correlations'
-    );
+const t=now();
 
+const type=
+typeOfFrame(bytes);
 
-  if(!correlations.length){
+const hex=
+bytesToHex(bytes);
 
-    el.innerHTML =
-      '<div class="small">' +
-      'Todavía no hay correlaciones.' +
-      '</div>';
-
-    return;
-
-  }
+const classification=
+classifyRx(t);
 
 
-  el.innerHTML =
-    '<table>' +
-    '<tr>' +
-    '<th>Evento</th>' +
-    '<th>RX</th>' +
-    '<th>Δ tiempo</th>' +
-    '<th>HEX</th>' +
-    '</tr>' +
+const rx={
 
-    correlations
-    .slice()
-    .reverse()
-    .map(
-      c =>
-        '<tr>' +
-        '<td>' +
-        escapeHTML(c.eventType) +
-        '</td>' +
-        '<td>' +
-        c.packetType +
-        '</td>' +
-        '<td>' +
-        (
-          c.delta >= 0
-          ? '+'
-          : ''
-        ) +
-        (c.delta / 1000)
-        .toFixed(3) +
-        ' s</td>' +
-        '<td class="mono">' +
-        escapeHTML(c.hex) +
-        '</td>' +
-        '</tr>'
-    )
-    .join('') +
+t:t,
 
-    '</table>';
+bytes:Array.from(bytes),
+
+hex:hex,
+
+type:type,
+
+classification:classification,
+
+source:source || "notify"
+
+};
+
+
+if(state.lastRxTime !== null){
+
+state.intervals.push({
+
+t:t,
+
+delta:t-state.lastRxTime,
+
+type:type
+
+});
+
+}
+
+state.lastRxTime=t;
+
+state.lastRxFrame=rx;
+
+state.captures.push(rx);
+
+
+/* TIPOS */
+
+if(!state.typeStats[type]){
+
+state.typeStats[type]={
+
+count:0,
+
+lengths:[],
+
+last:t
+
+};
+
+}
+
+state.typeStats[type].count++;
+
+state.typeStats[type].last=t;
+
+if(
+!state.typeStats[type]
+.lengths
+.includes(bytes.length)
+){
+
+state.typeStats[type]
+.lengths
+.push(bytes.length);
+
+}
+
+
+/* LONGITUD */
+
+if(!state.lengthStats[bytes.length]){
+
+state.lengthStats[bytes.length]={
+
+count:0,
+
+examples:[]
+
+};
+
+}
+
+state.lengthStats[bytes.length].count++;
+
+if(
+state.lengthStats[bytes.length]
+.examples.length < 5
+){
+
+state.lengthStats[bytes.length]
+.examples
+.push(hex);
+
+}
+
+
+/* PATRÓN */
+
+const pattern=
+type+"|"+bytes.length;
+
+state.patternStats[pattern]=
+(
+state.patternStats[pattern] || 0
+)+1;
+
+
+/* ANÁLISIS */
+
+compareFrame(
+bytes,
+t,
+type
+);
+
+updateCycle(
+bytes,
+t,
+type
+);
+
+correlateEvent(rx);
+
+
+/* DIAGNÓSTICO */
+
+log(
+"RX "+
+classification+
+" · "+
+type+
+" · "+
+bytes.length+
+" bytes · "+
+hex
+);
+
+renderAll();
 
 }
 
 
 /* ============================================================
-   COMPARACIONES
+   NOTIFICACIÓN BLE
 ============================================================ */
 
-function renderComparisons(){
+function onCharacteristic(event){
 
-  const latest =
-    document.getElementById(
-      'latestComparison'
-    );
+try{
 
+const value=
+event.target.value;
 
-  if(!comparisons.length){
+const bytes=
+new Uint8Array(
+value.buffer.slice(
+value.byteOffset,
+value.byteOffset +
+value.byteLength
+)
+);
 
-    latest.innerHTML =
-      '<div class="small">' +
-      'Todavía no hay comparación.' +
-      '</div>';
+registerRx(
+bytes,
+"notify"
+);
 
-  }
-  else{
+}catch(error){
 
-    const c =
-      comparisons[
-        comparisons.length - 1
-      ];
+log(
+"Error procesando RX: "+
+error.message,
+"error"
+);
 
+}
 
-    latest.innerHTML =
-      '<div class="packet">' +
-
-      '<b>Comparación #' +
-      c.id +
-      '</b><br>' +
-
-      c.type +
-      ' / ' +
-      c.length +
-      ' bytes' +
-
-      '<hr>' +
-
-      '<div class="mono">' +
-      escapeHTML(
-        c.previous
-      ) +
-      '</div>' +
-
-      '↓<br>' +
-
-      '<div class="mono">' +
-      escapeHTML(
-        c.current
-      ) +
-      '</div>' +
-
-      '<hr>' +
-
-      (
-        c.changes.length
-
-        ?
-
-        '<span class="warn">' +
-        c.changes.length +
-        ' byte(s) modificados' +
-        '</span>'
-
-        :
-
-        '<span class="ok">' +
-        '🟢 TRAMAS IDÉNTICAS' +
-        '</span>'
-      ) +
-
-      '</div>';
-
-  }
+}
 
 
-  const history =
-    document.getElementById(
-      'comparisonHistory'
-    );
+/* ============================================================
+   PROPIEDADES
+============================================================ */
+
+function propertiesOf(characteristic){
+
+const list=[
+
+"broadcast",
+
+"read",
+
+"writeWithoutResponse",
+
+"write",
+
+"notify",
+
+"indicate",
+
+"authenticatedSignedWrites",
+
+"reliableWrite",
+
+"writableAuxiliaries"
+
+];
+
+return list.filter(
+p =>
+characteristic.properties &&
+characteristic.properties[p]
+);
+
+}
 
 
-  if(!comparisons.length){
+/* ============================================================
+   PRIORIDAD UUID
+============================================================ */
 
-    history.innerHTML =
-      '<div class="small">' +
-      'Sin comparaciones.' +
-      '</div>';
+function knownRank(characteristic,kind){
 
-    return;
+const id=
+uuid(characteristic.uuid);
 
-  }
+if(kind === "rx"){
+
+if(id === UUID.UART_NOTIFY){
+
+return 0;
+
+}
+
+if(id === UUID.WEARFIT_NOTIFY){
+
+return 1;
+
+}
+
+return 2;
+
+}
+
+if(id === UUID.UART_WRITE){
+
+return 0;
+
+}
+
+if(id === UUID.WEARFIT_WRITE){
+
+return 1;
+
+}
+
+return 2;
+
+}
 
 
-  history.innerHTML =
-    comparisons
-    .slice()
-    .reverse()
-    .map(
-      c =>
-        '<div class="packet">' +
-        '<b>#' +
-        c.id +
-        '</b> · ' +
-        c.type +
-        ' / ' +
-        c.length +
-        ' bytes · cambios: ' +
-        c.changes.length +
-        '</div>'
-    )
-    .join('');
+/* ============================================================
+   RENDER SERVICIOS
+============================================================ */
+
+function renderServices(){
+
+if(!state.services.length){
+
+$("servicesBox").innerHTML=
+"Sin descubrimiento todavía.";
+
+return;
+
+}
+
+$("servicesBox").innerHTML=
+state.services
+.map(
+service => `
+
+<div class="service-card">
+
+<b class="mono">
+${escapeHtml(service.uuid)}
+</b>
+
+${service.chars
+.map(
+c => `
+
+<div class="small">
+
+<span class="badge mono">
+
+${escapeHtml(c.uuid)}
+
+</span>
+
+${c.properties
+.map(escapeHtml)
+.join(", ")}
+
+</div>
+
+`
+)
+.join("")}
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+
+/* ============================================================
+   DESCUBRIMIENTO GATT
+============================================================ */
+
+async function discover(){
+
+state.services=[];
+
+state.subscriptions=[];
+
+state.rxChar=null;
+
+state.txChar=null;
+
+state.rxService=null;
+
+const services=
+await state.server.getPrimaryServices();
+
+const found=[];
+
+
+for(const service of services){
+
+const item={
+
+uuid:service.uuid,
+
+chars:[]
+
+};
+
+let characteristics=[];
+
+
+try{
+
+characteristics=
+await service.getCharacteristics();
+
+}catch(error){
+
+log(
+"No se pudieron leer características de "+
+service.uuid+
+": "+
+error.message,
+"error"
+);
+
+}
+
+
+for(
+const characteristic
+of characteristics
+){
+
+const props=
+propertiesOf(characteristic);
+
+item.chars.push({
+
+uuid:characteristic.uuid,
+
+properties:props
+
+});
+
+
+if(
+props.includes("notify") ||
+props.includes("indicate")
+){
+
+found.push({
+
+kind:"rx",
+
+service:service,
+
+c:characteristic,
+
+rank:knownRank(
+characteristic,
+"rx"
+)
+
+});
+
+}
+
+
+if(
+props.includes("write") ||
+props.includes("writeWithoutResponse")
+){
+
+found.push({
+
+kind:"tx",
+
+service:service,
+
+c:characteristic,
+
+rank:knownRank(
+characteristic,
+"tx"
+)
+
+});
+
+}
+
+}
+
+
+state.services.push(item);
+
+}
+
+
+/* RX */
+
+const rx=
+found
+.filter(x=>x.kind==="rx")
+.sort(
+(a,b)=>a.rank-b.rank
+)[0];
+
+
+/* TX */
+
+const tx=
+found
+.filter(x=>x.kind==="tx")
+.sort(
+(a,b)=>a.rank-b.rank
+)[0];
+
+
+if(rx){
+
+state.rxChar=rx.c;
+
+state.rxService=rx.service;
+
+}
+
+
+if(tx){
+
+state.txChar=tx.c;
+
+}
+
+
+$("serviceValue").textContent=
+state.rxService?.uuid ||
+tx?.service.uuid ||
+"—";
+
+
+$("rxValue").textContent=
+state.rxChar?.uuid ||
+"—";
+
+
+$("txValue").textContent=
+state.txChar?.uuid ||
+"—";
+
+
+/* NOTIFY */
+
+if(!state.rxChar){
+
+log(
+"No se encontró característica NOTIFY/INDICATE.",
+"error"
+);
+
+}else{
+
+try{
+
+state.rxChar.addEventListener(
+"characteristicvaluechanged",
+onCharacteristic
+);
+
+await state.rxChar.startNotifications();
+
+state.subscriptions.push(
+state.rxChar
+);
+
+state.notifyStarted=true;
+
+$("notifyValue").textContent=
+"SÍ";
+
+log(
+"Notificaciones activadas en "+
+state.rxChar.uuid
+);
+
+}catch(error){
+
+log(
+"No se pudieron activar notificaciones: "+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* TX */
+
+if(!state.txChar){
+
+log(
+"No se encontró característica WRITE/WRITE WITHOUT RESPONSE. RX puede funcionar igualmente."
+);
+
+}else{
+
+log(
+"TX detectado en "+
+state.txChar.uuid
+);
+
+}
+
+
+renderServices();
+
+}
+
+
+/* ============================================================
+   CONEXIÓN
+============================================================ */
+
+async function connect(){
+
+if(!isBluetoothReady()){
+
+return;
+
+}
+
+try{
+
+log(
+"Inicio del proceso de conexión."
+);
+
+
+/*
+   IMPORTANTE:
+
+   acceptAllDevices evita que un filtro demasiado
+   restrictivo impida seleccionar la F1 Plus.
+
+   La selección continúa siendo manual.
+*/
+
+const optionalServices=[
+UUID.UART_SERVICE
+];
+
+
+state.device=
+await navigator.bluetooth.requestDevice({
+
+acceptAllDevices:true,
+
+optionalServices:optionalServices
+
+});
+
+
+log(
+"Dispositivo seleccionado: "+
+(
+state.device.name ||
+"(sin nombre)"
+)+
+" · "+
+state.device.id
+);
+
+
+$("connectionInfo").textContent=
+"Nombre: "+
+(
+state.device.name ||
+"sin nombre"
+)+
+" · ID: "+
+state.device.id;
+
+
+state.device.addEventListener(
+"gattserverdisconnected",
+onDisconnected
+);
+
+
+if(!state.device.gatt){
+
+throw new Error(
+"El dispositivo seleccionado no expone GATT."
+);
+
+}
+
+
+state.server=
+await state.device.gatt.connect();
+
+
+setTop(
+true,
+"Conectada: "+
+(
+state.device.name ||
+"F1 Plus"
+)
+);
+
+
+setDisabled(
+"connectBtn",
+true
+);
+
+setDisabled(
+"disconnectBtn",
+false
+);
+
+
+log(
+"GATT conectado. Descubriendo servicios..."
+);
+
+
+await discover();
+
+
+log(
+"Descubrimiento BLE finalizado."
+);
+
+
+/*
+   Actualizar botones TX después del descubrimiento.
+*/
+
+validateTest();
+
+validateManual();
+
+
+}catch(error){
+
+if(
+error.name === "NotFoundError"
+){
+
+log(
+"Selección de dispositivo cancelada por el usuario."
+);
+
+}else{
+
+log(
+"Fallo de conexión: "+
+(error.name || "Error")+
+" · "+
+error.message,
+"error"
+);
+
+}
+
+setTop(
+false,
+"Desconectada"
+);
+
+setDisabled(
+"connectBtn",
+false
+);
+
+setDisabled(
+"disconnectBtn",
+true
+);
+
+}
+
+}
+
+
+/* ============================================================
+   DESCONEXIÓN
+============================================================ */
+
+function onDisconnected(){
+
+log(
+"GATT desconectado."
+);
+
+$("notifyValue").textContent=
+"NO";
+
+state.notifyStarted=false;
+
+setTop(
+false,
+"Desconectada"
+);
+
+setDisabled(
+"connectBtn",
+false
+);
+
+setDisabled(
+"disconnectBtn",
+true
+);
+
+
+/*
+   No llamamos recordEvent aquí para evitar
+   problemas de recursión si la interfaz genera
+   cambios durante una desconexión.
+*/
+
+const event={
+
+t:now(),
+
+type:"DESCONEXIÓN"
+
+};
+
+state.events.push(event);
+
+correlateEvent(event);
+
+renderAll();
+
+}
+
+
+async function disconnect(){
+
+try{
+
+for(
+const characteristic
+of state.subscriptions
+){
+
+try{
+
+await characteristic.stopNotifications();
+
+}catch(error){}
+
+}
+
+
+if(
+state.device &&
+state.device.gatt &&
+state.device.gatt.connected
+){
+
+state.device.gatt.disconnect();
+
+}
+
+}catch(error){
+
+log(
+"Error al desconectar: "+
+error.message,
+"error"
+);
+
+}finally{
+
+state.notifyStarted=false;
+
+$("notifyValue").textContent=
+"NO";
+
+setTop(
+false,
+"Desconectada"
+);
+
+setDisabled(
+"connectBtn",
+false
+);
+
+setDisabled(
+"disconnectBtn",
+true
+);
+
+}
+
+}
+
+
+/* ============================================================
+   ESCRITURA TX
+============================================================ */
+
+async function writeBytes(bytes){
+
+if(!state.txChar){
+
+throw new Error(
+"No hay característica TX disponible."
+);
+
+}
+
+
+const properties=
+propertiesOf(state.txChar);
+
+
+const data=
+bytes.buffer.slice(
+bytes.byteOffset,
+bytes.byteOffset +
+bytes.byteLength
+);
+
+
+if(
+properties.includes("writeWithoutResponse") &&
+typeof state.txChar.writeValueWithoutResponse === "function"
+){
+
+await state.txChar.writeValueWithoutResponse(
+data
+);
+
+}else if(
+properties.includes("write") &&
+typeof state.txChar.writeValue === "function"
+){
+
+await state.txChar.writeValue(
+data
+);
+
+}else{
+
+throw new Error(
+"La característica TX no admite escritura compatible."
+);
+
+}
+
+
+state.txLog.push({
+
+t:now(),
+
+hex:bytesToHex(bytes),
+
+uuid:state.txChar.uuid
+
+});
+
+
+log(
+"TX enviado: "+
+bytesToHex(bytes)
+);
+
+renderStats();
+
+}
+
+
+/* ============================================================
+   VALIDACIÓN
+============================================================ */
+
+function validateField(
+inputId,
+resultId,
+flag
+){
+
+try{
+
+const bytes=
+parseHex(
+$(inputId).value
+);
+
+state[flag]=true;
+
+$(resultId).innerHTML=
+
+`
+<span class="oktext">
+
+HEX válido ·
+${bytes.length} bytes ·
+
+<span class="mono">
+
+${escapeHtml(
+bytesToHex(bytes)
+)}
+
+</span>
+
+</span>
+`;
+
+return bytes;
+
+}catch(error){
+
+state[flag]=false;
+
+$(resultId).innerHTML=
+
+`
+<span class="badtext">
+
+❌
+${escapeHtml(error.message)}
+
+</span>
+`;
+
+return null;
+
+}
+
+}
+
+
+function validateTest(){
+
+validateField(
+"testHex",
+"testResult",
+"testValid"
+);
+
+setDisabled(
+"runTestBtn",
+!state.testValid ||
+!state.txChar
+);
+
+}
+
+
+function validateManual(){
+
+validateField(
+"manualHex",
+"manualResult",
+"manualValid"
+);
+
+setDisabled(
+"sendManualBtn",
+!state.manualValid ||
+!state.txChar
+);
+
+}
+
+
+/* ============================================================
+   PRUEBA CONTROLADA
+============================================================ */
+
+async function runTest(){
+
+if(!state.testValid){
+
+return;
+
+}
+
+try{
+
+const bytes=
+parseHex(
+$("testHex").value
+);
+
+const windowMs=
+Math.max(
+100,
+Math.min(
+30000,
+Number(
+$("testWindow").value
+) || 3000
+)
+);
+
+
+const start=
+now();
+
+const before=
+state.captures.length;
+
+
+$("testResult").innerHTML=
+'<span class="infotext">Transmitiendo y observando...</span>';
+
+
+await writeBytes(bytes);
+
+
+await new Promise(
+resolve =>
+setTimeout(
+resolve,
+windowMs
+)
+);
+
+
+const observed=
+state.captures
+.slice(before);
+
+
+const test={
+
+t:start,
+
+hex:bytesToHex(bytes),
+
+windowMs:windowMs,
+
+rxCount:observed.length,
+
+rx:observed.map(
+x => ({
+
+t:x.t,
+
+hex:x.hex,
+
+type:x.type,
+
+classification:x.classification
+
+})
+)
+
+};
+
+
+state.tests.push(test);
+
+
+$("testResult").innerHTML=
+
+`
+<span class="oktext">
+
+Prueba terminada ·
+${observed.length}
+RX durante
+${windowMs} ms.
+
+</span>
+`;
+
+
+renderTests();
+
+renderAll();
+
+
+}catch(error){
+
+$("testResult").innerHTML=
+
+`
+<span class="badtext">
+
+❌
+${escapeHtml(error.message)}
+
+</span>
+`;
+
+log(
+"Error en prueba controlada: "+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+function renderTests(){
+
+if(!state.tests.length){
+
+$("testHistory").innerHTML=
+"No hay pruebas.";
+
+return;
+
+}
+
+$("testHistory").innerHTML=
+table(
+[
+"Hora",
+"TX",
+"Ventana",
+"RX"
+],
+state.tests
+.slice()
+.reverse()
+.map(
+x => [
+stamp(x.t),
+`<span class="mono">${escapeHtml(x.hex)}</span>`,
+x.windowMs+" ms",
+x.rxCount
+]
+)
+);
+
+}
+
+
+/* ============================================================
+   MANUAL TX
+============================================================ */
+
+async function sendManual(){
+
+try{
+
+const bytes=
+parseHex(
+$("manualHex").value
+);
+
+await writeBytes(bytes);
+
+$("manualResult").innerHTML=
+
+`
+<span class="oktext">
+
+TX enviado correctamente.
+
+</span>
+`;
+
+}catch(error){
+
+$("manualResult").innerHTML=
+
+`
+<span class="badtext">
+
+❌
+${escapeHtml(error.message)}
+
+</span>
+`;
+
+log(
+"Error TX manual: "+
+error.message,
+"error"
+);
+
+}
 
 }
 
@@ -2620,185 +3198,45 @@ function renderComparisons(){
 
 function renderMatrix(){
 
-  const el =
-    document.getElementById(
-      'byteMatrix'
-    );
+const rows=
+Object
+.entries(state.changeMatrix)
+.sort(
+(a,b)=>
+Number(a[0])-
+Number(b[0])
+)
+.map(
+([index,data]) => [
 
+index,
 
-  const groups = {};
+data.count,
 
+escapeHtml(
+Object
+.entries(data.values)
+.map(
+([transition,count]) =>
+transition+
+" × "+
+count
+)
+.join(", ")
+)
 
-  packets.forEach(
-    p => {
+]
+);
 
-      const key =
-        p.type +
-        '/' +
-        p.length;
-
-
-      if(!groups[key]){
-
-        groups[key] = [];
-
-        for(
-          let i=0;
-          i<p.length;
-          i++
-        ){
-
-          groups[key][i] = {
-
-            values:
-              new Set(),
-
-            changes:
-              0
-
-          };
-
-        }
-
-      }
-
-
-      p.bytes.forEach(
-        (v,i) => {
-
-          groups[key][i]
-            .values
-            .add(v);
-
-        }
-      );
-
-    }
-  );
-
-
-  transitions.forEach(
-    t => {
-
-      const matching =
-        packets.find(
-          p =>
-            p.type === t.type &&
-            p.time >= t.time
-        );
-
-
-      if(!matching)
-        return;
-
-
-      const key =
-        t.type +
-        '/' +
-        matching.length;
-
-
-      if(
-        groups[key] &&
-        groups[key][t.byte]
-      ){
-
-        groups[key][t.byte]
-          .changes++;
-
-      }
-
-    }
-  );
-
-
-  let html = '';
-
-
-  Object.keys(groups)
-  .forEach(
-    key => {
-
-      html +=
-        '<h3>' +
-        escapeHTML(key) +
-        '</h3>' +
-
-        '<table>' +
-
-        '<tr>' +
-        '<th>Byte</th>' +
-        '<th>Cambios</th>' +
-        '<th>Valores observados</th>' +
-        '<th>Estado</th>' +
-        '</tr>';
-
-
-      groups[key]
-      .forEach(
-        (g,i) => {
-
-          const values =
-            Array.from(
-              g.values
-            )
-            .map(
-              byteHex
-            )
-            .join(' · ');
-
-
-          html +=
-            '<tr>' +
-
-            '<td>' +
-            i +
-            '</td>' +
-
-            '<td>' +
-            g.changes +
-            '</td>' +
-
-            '<td class="mono">' +
-            values +
-            '</td>' +
-
-            '<td>' +
-
-            (
-              g.values.size > 1
-
-              ?
-
-              '<span class="warn">' +
-              'VARIABLE OBSERVADA' +
-              '</span>'
-
-              :
-
-              '<span class="ok">' +
-              'FIJO' +
-              '</span>'
-            ) +
-
-            '</td>' +
-
-            '</tr>';
-
-        }
-      );
-
-
-      html +=
-        '</table>';
-
-    }
-  );
-
-
-  el.innerHTML =
-    html ||
-    '<div class="small">Sin datos.</div>';
+$("matrixBox").innerHTML=
+table(
+[
+"Byte índice",
+"Cambios",
+"Transiciones observadas"
+],
+rows
+);
 
 }
 
@@ -2809,252 +3247,76 @@ function renderMatrix(){
 
 function renderTypes(){
 
-  const el =
-    document.getElementById(
-      'frameTypes'
-    );
+const rows=
+Object
+.entries(state.typeStats)
+.sort()
+.map(
+([type,data]) => [
 
+type,
 
-  if(!packets.length){
+data.count,
 
-    el.innerHTML =
-      '<div class="small">Sin datos.</div>';
+data.lengths.join(", "),
 
-    return;
+stamp(data.last)
 
-  }
+]
+);
 
-
-  const map = {};
-
-
-  packets.forEach(
-    p => {
-
-      if(!map[p.type]){
-
-        map[p.type] = {
-
-          count:0,
-
-          lengths:
-            new Set()
-
-        };
-
-      }
-
-
-      map[p.type].count++;
-
-
-      map[p.type]
-        .lengths
-        .add(p.length);
-
-    }
-  );
-
-
-  el.innerHTML =
-    '<table>' +
-
-    '<tr>' +
-    '<th>Tipo</th>' +
-    '<th>Tramas</th>' +
-    '<th>% RX</th>' +
-    '<th>Longitudes</th>' +
-    '</tr>' +
-
-    Object.keys(map)
-    .map(
-      type => {
-
-        const x =
-          map[type];
-
-
-        return (
-          '<tr>' +
-
-          '<td>' +
-          type +
-          '</td>' +
-
-          '<td>' +
-          x.count +
-          '</td>' +
-
-          '<td>' +
-          (
-            x.count /
-            packets.length *
-            100
-          )
-          .toFixed(1) +
-          '%</td>' +
-
-          '<td>' +
-          Array.from(
-            x.lengths
-          )
-          .join(', ') +
-          ' bytes</td>' +
-
-          '</tr>'
-        );
-
-      }
-    )
-    .join('') +
-
-    '</table>';
+$("typesBox").innerHTML=
+table(
+[
+"Tipo",
+"RX",
+"Longitudes",
+"Última"
+],
+rows
+);
 
 }
 
 
 /* ============================================================
-   LONGITUD
+   LONGITUDES
 ============================================================ */
 
 function renderLengths(){
 
-  const el =
-    document.getElementById(
-      'lengthAnalysis'
-    );
+const rows=
+Object
+.entries(state.lengthStats)
+.sort(
+(a,b)=>
+Number(a[0])-
+Number(b[0])
+)
+.map(
+([length,data]) => [
 
+length,
 
-  if(!packets.length){
+data.count,
 
-    el.innerHTML =
-      '<div class="small">Sin datos.</div>';
+data.examples
+.slice(0,3)
+.map(escapeHtml)
+.join("<br>")
 
-    return;
+]
+);
 
-  }
-
-
-  const map = {};
-
-
-  packets.forEach(
-    p => {
-
-      if(!map[p.length]){
-
-        map[p.length] = {
-
-          byte2:null,
-
-          count:0
-
-        };
-
-      }
-
-
-      map[p.length]
-        .count++;
-
-
-      if(p.bytes.length >= 3){
-
-        map[p.length]
-          .byte2 =
-          p.bytes[2];
-
-      }
-
-    }
-  );
-
-
-  el.innerHTML =
-    '<table>' +
-
-    '<tr>' +
-    '<th>Longitud real</th>' +
-    '<th>Byte 2</th>' +
-    '<th>Calculada</th>' +
-    '<th>Resultado</th>' +
-    '<th>Veces</th>' +
-    '</tr>' +
-
-    Object.keys(map)
-    .map(
-      length => {
-
-        const x =
-          map[length];
-
-
-        const calculated =
-          x.byte2 !== null
-          ? x.byte2 + 3
-          : null;
-
-
-        const match =
-          calculated ===
-          Number(length);
-
-
-        return (
-          '<tr>' +
-
-          '<td>' +
-          length +
-          '</td>' +
-
-          '<td>' +
-          (
-            x.byte2 !== null
-            ? byteHex(x.byte2)
-            : '—'
-          ) +
-          '</td>' +
-
-          '<td>' +
-          (
-            calculated !== null
-            ? calculated
-            : '—'
-          ) +
-          '</td>' +
-
-          '<td>' +
-
-          (
-            match
-
-            ?
-
-            '<span class="ok">' +
-            '🟢 COINCIDE' +
-            '</span>'
-
-            :
-
-            '<span class="warn">' +
-            '⚠️ NO COINCIDE' +
-            '</span>'
-          ) +
-
-          '</td>' +
-
-          '<td>' +
-          x.count +
-          '</td>' +
-
-          '</tr>'
-        );
-
-      }
-    )
-    .join('') +
-
-    '</table>';
+$("lengthBox").innerHTML=
+table(
+[
+"Longitud",
+"RX",
+"Ejemplos"
+],
+rows
+);
 
 }
 
@@ -3065,97 +3327,31 @@ function renderLengths(){
 
 function renderPatterns(){
 
-  const el =
-    document.getElementById(
-      'patterns'
-    );
+const rows=
+Object
+.entries(state.patternStats)
+.sort(
+(a,b)=>
+b[1]-a[1]
+)
+.map(
+([pattern,count]) => [
 
+escapeHtml(pattern),
 
-  if(!packets.length){
+count
 
-    el.innerHTML =
-      '<div class="small">Sin datos.</div>';
+]
+);
 
-    return;
-
-  }
-
-
-  const map = {};
-
-
-  packets.forEach(
-    p => {
-
-      if(!map[p.hex]){
-
-        map[p.hex] = {
-
-          type:p.type,
-
-          count:0
-
-        };
-
-      }
-
-
-      map[p.hex]
-        .count++;
-
-    }
-  );
-
-
-  const rows =
-    Object.entries(map)
-    .sort(
-      (a,b) =>
-        b[1].count -
-        a[1].count
-    );
-
-
-  el.innerHTML =
-    '<table>' +
-
-    '<tr>' +
-    '<th>Patrón HEX</th>' +
-    '<th>Tipo</th>' +
-    '<th>Veces</th>' +
-    '<th>%</th>' +
-    '</tr>' +
-
-    rows.map(
-      ([pattern,x]) =>
-        '<tr>' +
-
-        '<td class="mono">' +
-        escapeHTML(pattern) +
-        '</td>' +
-
-        '<td>' +
-        x.type +
-        '</td>' +
-
-        '<td>' +
-        x.count +
-        '</td>' +
-
-        '<td>' +
-        (
-          x.count /
-          packets.length *
-          100
-        )
-        .toFixed(1) +
-        '%</td>' +
-
-        '</tr>'
-    )
-    .join('') +
-
-    '</table>';
+$("patternsBox").innerHTML=
+table(
+[
+"Patrón tipo/longitud",
+"Frecuencia"
+],
+rows
+);
 
 }
 
@@ -3166,1361 +3362,340 @@ function renderPatterns(){
 
 function renderIntervals(){
 
-  const el =
-    document.getElementById(
-      'intervals'
-    );
+if(!state.intervals.length){
 
+$("intervalBox").innerHTML=
+"No hay intervalos.";
 
-  if(packets.length < 2){
+return;
 
-    el.innerHTML =
-      '<div class="small">' +
-      'Sin intervalos.' +
-      '</div>';
+}
 
-    return;
-
-  }
-
-
-  const rows = [];
-
-
-  for(
-    let i=1;
-    i<packets.length;
-    i++
-  ){
-
-    rows.push({
-
-      type:
-        packets[i].type,
-
-      delta:
-        packets[i].time -
-        packets[i-1].time
-
-    });
-
-  }
-
-
-  el.innerHTML =
-    '<table>' +
-
-    '<tr>' +
-    '<th>RX</th>' +
-    '<th>Intervalo</th>' +
-    '</tr>' +
-
-    rows
-    .slice()
-    .reverse()
-    .map(
-      x =>
-        '<tr>' +
-
-        '<td>' +
-        x.type +
-        '</td>' +
-
-        '<td>' +
-        (
-          x.delta /
-          1000
-        )
-        .toFixed(3) +
-        ' s</td>' +
-
-        '</tr>'
-    )
-    .join('') +
-
-    '</table>';
+$("intervalBox").innerHTML=
+table(
+[
+"Hora",
+"Δ RX ms",
+"Tipo"
+],
+state.intervals
+.slice()
+.reverse()
+.map(
+x => [
+stamp(x.t),
+x.delta,
+x.type
+]
+)
+);
 
 }
 
 
 /* ============================================================
-   CAPTURAS
+   COMPARACIONES
 ============================================================ */
 
-function renderCaptures(){
+function renderComparisons(){
 
-  const el =
-    document.getElementById(
-      'captures'
-    );
-
-
-  if(!packets.length){
-
-    el.innerHTML =
-      '<div class="small">' +
-      'Sin capturas.' +
-      '</div>';
-
-    return;
-
-  }
+const last=
+state.comparisons[
+state.comparisons.length-1
+];
 
 
-  el.innerHTML =
-    packets
-    .slice()
-    .reverse()
-    .map(
-      p =>
-        '<div class="packet">' +
+if(last){
 
-        '<b>📥 PAQUETE #' +
-        p.id +
-        '</b> · RX<br>' +
+$("compareBox").innerHTML=
 
-        timeString(p.date) +
-        ' · Tipo ' +
-        p.type +
-        ' · ' +
-        p.length +
-        ' bytes' +
+`
 
-        '<hr>' +
+<div>
 
-        '<div class="mono">' +
-        escapeHTML(p.hex) +
-        '</div>' +
+<b>
+${stamp(last.t)}
+</b>
 
-        '<div class="small">' +
+· ${last.type}
 
-        'DECIMAL: ' +
-        escapeHTML(p.decimal) +
+· ${last.length} bytes
 
-        '<br>' +
+·
 
-        'ASCII: ' +
-        escapeHTML(p.ascii) +
+<b>
+${last.changed.length}
+bytes modificados
+</b>
 
-        '</div>' +
+<br><br>
 
-        '</div>'
-    )
-    .join('');
+<span class="mono">
 
-}
+Anterior:
+${escapeHtml(last.previous)}
 
+</span>
 
-/* ============================================================
-   VALIDACIÓN HEX
-============================================================ */
+<br>
 
-function parseHEX(input){
+<span class="mono">
 
-  const clean =
-    input
-    .trim()
-    .replace(/0x/gi,'')
-    .replace(/[^0-9a-fA-F]/g,'');
+Actual:
+${escapeHtml(last.current)}
 
+</span>
 
-  if(!clean){
+<br><br>
 
-    throw new Error(
-      'No se encontró HEX.'
-    );
+<b>Cambios:</b>
 
-  }
+${
 
+last.changed.length
 
-  if(
-    clean.length % 2 !== 0
-  ){
+?
 
-    throw new Error(
-      'La cantidad de dígitos HEX debe ser par.'
-    );
+last.changed
+.map(
+c =>
+`Byte ${c.i}: ${c.from} → ${c.to}`
+)
+.join(" · ")
 
-  }
+:
 
-
-  const parts =
-    clean.match(/.{2}/g);
-
-
-  const values =
-    parts.map(
-      x =>
-        parseInt(x,16)
-    );
-
-
-  if(
-    values.some(
-      Number.isNaN
-    )
-  ){
-
-    throw new Error(
-      'HEX inválido.'
-    );
-
-  }
-
-
-  return new Uint8Array(
-    values
-  );
+"ninguno"
 
 }
 
+</div>
 
-function validateTestHEX(){
-
-  const input =
-    document
-    .getElementById(
-      'testHex'
-    )
-    .value;
-
-
-  const result =
-    document.getElementById(
-      'hexValidation'
-    );
-
-
-  try{
-
-    const bytes =
-      parseHEX(input);
-
-
-    result.innerHTML =
-      '<span class="ok">' +
-      '🟢 HEX válido — ' +
-      bytes.length +
-      ' bytes' +
-      '</span>' +
-      '<br>' +
-      '<span class="mono">' +
-      escapeHTML(
-        hex(bytes)
-      ) +
-      '</span>';
-
-
-    updateTestButton();
-
-
-    return true;
-
-  }
-  catch(error){
-
-    result.innerHTML =
-      '<span class="bad">' +
-      '❌ ' +
-      escapeHTML(
-        error.message
-      ) +
-      '</span>';
-
-
-    updateTestButton();
-
-
-    return false;
-
-  }
-
-}
-
-
-/* ============================================================
-   BOTÓN PRUEBA
-============================================================ */
-
-function updateTestButton(){
-
-  const btn =
-    document.getElementById(
-      'runTestBtn'
-    );
-
-
-  let validHEX =
-    false;
-
-
-  try{
-
-    const input =
-      document
-      .getElementById(
-        'testHex'
-      )
-      .value
-      .trim();
-
-
-    if(input){
-
-      parseHEX(input);
-
-      validHEX = true;
-
-    }
-
-  }
-  catch(e){
-
-    validHEX = false;
-
-  }
-
-
-  btn.disabled =
-    !(
-      txCharacteristic &&
-      validHEX
-    );
-
-}
-
-
-/* ============================================================
-   PRUEBA CONTROLADA
-============================================================ */
-
-let activeTest = null;
-
-
-async function runControlledTest(){
-
-  if(!txCharacteristic){
-
-    alert(
-      'No existe TX disponible.'
-    );
-
-    return;
-
-  }
-
-
-  const input =
-    document
-    .getElementById(
-      'testHex'
-    )
-    .value;
-
-
-  let bytes;
-
-
-  try{
-
-    bytes =
-      parseHEX(input);
-
-  }
-  catch(error){
-
-    alert(
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  let windowMs =
-    Number(
-      document
-      .getElementById(
-        'testWindow'
-      )
-      .value
-    );
-
-
-  if(
-    !Number.isFinite(windowMs) ||
-    windowMs < 100
-  ){
-
-    windowMs = 3000;
-
-  }
-
-
-  if(windowMs > 30000){
-
-    windowMs = 30000;
-
-  }
-
-
-  const test = {
-
-    id:
-      ++testSequence,
-
-    startedAt:
-      timestamp(),
-
-    txHex:
-      hex(bytes),
-
-    txBytes:
-      Array.from(bytes),
-
-    windowMs,
-
-    rx:[],
-
-    status:
-      'EJECUTANDO'
-
-  };
-
-
-  tests.push(test);
-
-
-  activeTest = test;
-
-
-  renderTests();
-
-
-  log(
-    '🧪 PRUEBA #' +
-    test.id +
-    ' INICIADA'
-  );
-
-
-  log(
-    '📤 TEST TX | ' +
-    test.txHex
-  );
-
-
-  try{
-
-    await writeCharacteristic(
-      bytes
-    );
-
-
-    totalTX++;
-
-
-    test.txSentAt =
-      timestamp();
-
-
-    test.txConfirmed =
-      true;
-
-
-    /*
-     * Espera controlada.
-     */
-
-    await sleep(
-      windowMs
-    );
-
-
-    test.rx =
-      test.rx || [];
-
-
-    test.rxCount =
-      test.rx.length;
-
-
-    if(test.rx.length){
-
-      test.status =
-        'RESPUESTA_RX';
-
-    }
-    else{
-
-      test.status =
-        'SIN_RESPUESTA';
-
-    }
-
-
-    test.finishedAt =
-      timestamp();
-
-
-    test.duration =
-      test.finishedAt -
-      test.startedAt;
-
-
-    log(
-      test.rx.length
-      ? '🟢 PRUEBA #' +
-        test.id +
-        ' FINALIZADA: RX detectado.'
-      : '🟡 PRUEBA #' +
-        test.id +
-        ' FINALIZADA: sin RX dentro de la ventana.'
-    );
-
-
-  }
-  catch(error){
-
-    test.status =
-      'ERROR';
-
-
-    test.error =
-      error.message;
-
-
-    log(
-      '❌ PRUEBA #' +
-      test.id +
-      ' ERROR: ' +
-      error.message
-    );
-
-  }
-
-
-  activeTest = null;
-
-
-  renderAll();
-
-}
-
-
-function registerRXForActiveTest(packet){
-
-  if(!activeTest)
-    return;
-
-
-  if(
-    !activeTest.txSentAt
-  )
-    return;
-
-
-  const delta =
-    packet.time -
-    activeTest.txSentAt;
-
-
-  if(
-    delta < 0
-  )
-    return;
-
-
-  if(
-    delta <=
-    activeTest.windowMs
-  ){
-
-    activeTest.rx.push({
-
-      packetId:
-        packet.id,
-
-      time:
-        packet.time,
-
-      delta,
-
-      type:
-        packet.type,
-
-      length:
-        packet.length,
-
-      hex:
-        packet.hex
-
-    });
-
-
-    log(
-      '🧪 RX asociado a prueba #' +
-      activeTest.id +
-      ' | +' +
-      delta +
-      ' ms | ' +
-      packet.hex
-    );
-
-
-    renderTests();
-
-  }
-
-}
-
-
-/* ============================================================
-   ESCRITURA BLE
-============================================================ */
-
-async function writeCharacteristic(
-  bytes
-){
-
-  if(!txCharacteristic){
-
-    throw new Error(
-      'TX no disponible.'
-    );
-
-  }
-
-
-  const p =
-    txCharacteristic.properties || {};
-
-
-  if(
-    p.writeWithoutResponse
-  ){
-
-    await txCharacteristic
-      .writeValueWithoutResponse(
-        bytes
-      );
-
-    return;
-
-  }
-
-
-  if(p.write){
-
-    await txCharacteristic
-      .writeValue(
-        bytes
-      );
-
-    return;
-
-  }
-
-
-  throw new Error(
-    'La característica TX no permite escritura.'
-  );
-
-}
-
-
-/* ============================================================
-   TX MANUAL
-============================================================ */
-
-async function sendTX(){
-
-  if(!txCharacteristic){
-
-    alert(
-      'No existe una característica TX disponible.'
-    );
-
-    return;
-
-  }
-
-
-  const input =
-    document
-    .getElementById(
-      'txInput'
-    )
-    .value
-    .trim();
-
-
-  if(!input){
-
-    alert(
-      'Introduce una trama HEX.'
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const bytes =
-      parseHEX(input);
-
-
-    await writeCharacteristic(
-      bytes
-    );
-
-
-    totalTX++;
-
-
-    document
-    .getElementById(
-      'txStatus'
-    )
-    .innerHTML =
-      '<span class="ok">' +
-      '🟢 TX enviado: ' +
-      escapeHTML(
-        hex(bytes)
-      ) +
-      '</span>';
-
-
-    log(
-      '📤 TX MANUAL | ' +
-      hex(bytes)
-    );
-
-
-    renderAll();
-
-  }
-  catch(error){
-
-    document
-    .getElementById(
-      'txStatus'
-    )
-    .innerHTML =
-      '<span class="bad">' +
-      '❌ Error TX: ' +
-      escapeHTML(
-        error.message
-      ) +
-      '</span>';
-
-
-    log(
-      '❌ ERROR TX: ' +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* ============================================================
-   TEST RENDER
-============================================================ */
-
-function renderTests(){
-
-  const countTX =
-    tests.length;
-
-
-  const countRX =
-    tests.reduce(
-      (sum,t) =>
-        sum +
-        (
-          t.rx
-          ? t.rx.length
-          : 0
-        ),
-      0
-    );
-
-
-  const responses =
-    tests.filter(
-      t =>
-        t.status ===
-        'RESPUESTA_RX'
-    ).length;
-
-
-  const noResponses =
-    tests.filter(
-      t =>
-        t.status ===
-        'SIN_RESPUESTA'
-    ).length;
-
-
-  document
-  .getElementById(
-    'testTXCount'
-  )
-  .textContent =
-    countTX;
-
-
-  document
-  .getElementById(
-    'testRXCount'
-  )
-  .textContent =
-    countRX;
-
-
-  document
-  .getElementById(
-    'testResponseCount'
-  )
-  .textContent =
-    responses;
-
-
-  document
-  .getElementById(
-    'testNoResponseCount'
-  )
-  .textContent =
-    noResponses;
-
-
-  const result =
-    document.getElementById(
-      'testResult'
-    );
-
-
-  if(!tests.length){
-
-    result.innerHTML =
-      '<div class="small">' +
-      'No se ha ejecutado ninguna prueba.' +
-      '</div>';
-
-  }
-  else{
-
-    const t =
-      tests[
-        tests.length - 1
-      ];
-
-
-    let html =
-      '<div class="testResult ' +
-      (
-        t.status ===
-        'RESPUESTA_RX'
-        ? 'testSuccess'
-        : ''
-      ) +
-      '">' +
-
-      '<b>Prueba #' +
-      t.id +
-      '</b><br><br>' +
-
-      'TX:<br>' +
-
-      '<span class="mono">' +
-      escapeHTML(
-        t.txHex
-      ) +
-      '</span><br><br>' +
-
-      'Ventana: ' +
-      t.windowMs +
-      ' ms<br>' +
-
-      'Estado: <b>' +
-      escapeHTML(
-        t.status
-      ) +
-      '</b><br><br>';
-
-
-    if(t.rx && t.rx.length){
-
-      html +=
-        '<b>RX posteriores:</b>';
-
-
-      t.rx.forEach(
-        r => {
-
-          html +=
-            '<div class="packet">' +
-
-            '+' +
-            r.delta +
-            ' ms · ' +
-            r.type +
-
-            '<br>' +
-
-            '<span class="mono">' +
-            escapeHTML(
-              r.hex
-            ) +
-            '</span>' +
-
-            '</div>';
-
-        }
-      );
-
-    }
-    else if(
-      t.status ===
-      'SIN_RESPUESTA'
-    ){
-
-      html +=
-        '<span class="warn">' +
-        '⚠️ No apareció RX dentro de la ventana de observación.' +
-        '</span>';
-
-    }
-
-
-    if(t.error){
-
-      html +=
-        '<br><span class="bad">' +
-        escapeHTML(
-          t.error
-        ) +
-        '</span>';
-
-    }
-
-
-    html +=
-      '</div>';
-
-
-    result.innerHTML =
-      html;
-
-  }
-
-
-  const history =
-    document.getElementById(
-      'testHistory'
-    );
-
-
-  if(!tests.length){
-
-    history.innerHTML =
-      '<div class="small">' +
-      'Sin pruebas.' +
-      '</div>';
-
-    return;
-
-  }
-
-
-  history.innerHTML =
-    tests
-    .slice()
-    .reverse()
-    .map(
-      t =>
-        '<div class="packet">' +
-
-        '<b>Prueba #' +
-        t.id +
-        '</b> · ' +
-
-        escapeHTML(
-          t.status
-        ) +
-
-        '<br>' +
-
-        '<span class="mono">' +
-        escapeHTML(
-          t.txHex
-        ) +
-        '</span>' +
-
-        '<br>' +
-
-        'RX posteriores: ' +
-        (
-          t.rx
-          ? t.rx.length
-          : 0
-        ) +
-
-        '</div>'
-    )
-    .join('');
-
-}
-
-
-/* ============================================================
-   LIMPIAR TESTS
-============================================================ */
-
-function clearTests(){
-
-  tests = [];
-
-  activeTest = null;
-
-  testSequence = 0;
-
-  log(
-    '🧹 Historial de pruebas reiniciado.'
-  );
-
-
-  renderTests();
-
-}
-
-
-/* ============================================================
-   EXPORTAR TESTS
-============================================================ */
-
-function exportTests(){
-
-  const data = {
-
-    laboratory:
-      'RoXThal F1 Plus Laboratory V8',
-
-    generatedAt:
-      new Date().toISOString(),
-
-    tests
-
-  };
-
-
-  downloadFile(
-    JSON.stringify(
-      data,
-      null,
-      2
-    ),
-    'roxthal-f1plus-v8-tests.json',
-    'application/json'
-  );
-
-}
-
-
-/* ============================================================
-   LIMPIEZAS
-============================================================ */
-
-function clearCaptures(){
-
-  packets = [];
-
-  comparisons = [];
-
-  transitions = [];
-
-  correlations = [];
-
-  previousByKey = {};
-
-  sequence = 0;
-
-
-  log(
-    '🧹 Capturas y análisis reiniciados.'
-  );
-
-
-  renderAll();
-
-}
-
-
-function clearDiagnostics(){
-
-  document
-  .getElementById(
-    'diagnostics'
-  )
-  .textContent = '';
-
-
-  log(
-    'Diagnóstico reiniciado.'
-  );
-
-}
-
-
-/* ============================================================
-   EXPORTAR JSON
-============================================================ */
-
-function exportJSON(){
-
-  const data = {
-
-    laboratory:
-      'RoXThal F1 Plus Protocol Laboratory V8',
-
-    generatedAt:
-      new Date().toISOString(),
-
-    device:{
-
-      name:
-        device?.name ||
-        null,
-
-      id:
-        device?.id ||
-        null
-
-    },
-
-    BLE:{
-
-      service:
-        UART_SERVICE,
-
-      rx:
-        rxCharacteristic?.uuid ||
-        null,
-
-      tx:
-        txCharacteristic?.uuid ||
-        null
-
-    },
-
-    statistics:{
-
-      tx:
-        totalTX,
-
-      rx:
-        packets.length,
-
-      comparisons:
-        comparisons.length,
-
-      transitions:
-        transitions.length,
-
-      events:
-        events.length,
-
-      correlations:
-        correlations.length,
-
-      tests:
-        tests.length
-
-    },
-
-    packets,
-
-    comparisons,
-
-    transitions,
-
-    events,
-
-    correlations,
-
-    tests,
-
-    diagnostics:
-      document
-      .getElementById(
-        'diagnostics'
-      )
-      .textContent
-
-  };
-
-
-  downloadFile(
-    JSON.stringify(
-      data,
-      null,
-      2
-    ),
-    'roxthal-f1plus-v8-analysis.json',
-    'application/json'
-  );
-
-}
-
-
-/* ============================================================
-   EXPORTAR HEX
-============================================================ */
-
-function exportHEX(){
-
-  const text =
-    packets
-    .map(
-      p =>
-        timeString(p.date) +
-        ' | ' +
-        p.type +
-        ' | ' +
-        p.length +
-        ' bytes | ' +
-        p.hex
-    )
-    .join('\n');
-
-
-  downloadFile(
-    text,
-    'roxthal-f1plus-v8-rx.txt',
-    'text/plain'
-  );
-
-}
-
-
-/* ============================================================
-   COPIAR RESUMEN
-============================================================ */
-
-async function copySummary(){
-
-  const text =
-`RoXThal F1 Plus Laboratory V8
-
-RX: ${packets.length}
-TX: ${totalTX}
-Tipos: ${new Set(packets.map(p=>p.type)).size}
-Longitudes: ${new Set(packets.map(p=>p.length)).size}
-Comparaciones: ${comparisons.length}
-Transiciones: ${transitions.length}
-Eventos: ${events.length}
-Correlaciones: ${correlations.length}
-Pruebas: ${tests.length}
-
-Capturas:
-
-${packets.map(p=>p.hex).join('\n')}
 `;
 
+}else{
 
-  try{
+$("compareBox").innerHTML=
+"No hay comparación.";
 
-    await navigator
-      .clipboard
-      .writeText(text);
+}
 
 
-    log(
-      '📋 Resumen copiado al portapapeles.'
-    );
+if(!state.comparisons.length){
 
-  }
-  catch(error){
+$("historyBox").innerHTML=
+"No hay comparaciones.";
 
-    log(
-      '❌ No se pudo copiar el resumen: ' +
-      error.message
-    );
+return;
 
-  }
+}
+
+
+$("historyBox").innerHTML=
+table(
+[
+"Hora",
+"Tipo",
+"Long.",
+"Modificados",
+"Cambios"
+],
+state.comparisons
+.slice()
+.reverse()
+.map(
+x => [
+
+stamp(x.t),
+
+x.type,
+
+x.length,
+
+x.changed.length,
+
+x.changed
+.map(
+c =>
+`B${c.i} ${c.from}→${c.to}`
+)
+.join(", ")
+||
+"—"
+
+]
+)
+);
 
 }
 
 
 /* ============================================================
-   SESIÓN
+   RX
 ============================================================ */
+
+function renderRx(){
+
+if(!state.captures.length){
+
+$("rxBox").innerHTML=
+"No hay capturas.";
+
+return;
+
+}
+
+$("rxBox").innerHTML=
+table(
+[
+"#",
+"Hora",
+"Clase",
+"Tipo",
+"Long.",
+"HEX"
+],
+state.captures
+.slice()
+.reverse()
+.map(
+(x,index) => [
+
+state.captures.length-index,
+
+stamp(x.t),
+
+x.classification,
+
+x.type,
+
+x.bytes.length,
+
+`<span class="mono">${escapeHtml(x.hex)}</span>`
+
+]
+)
+);
+
+}
+
+
+/* ============================================================
+   RENDER TODO
+============================================================ */
+
+function renderAll(){
+
+renderStats();
+
+renderEvents();
+
+renderTransitions();
+
+renderCycles();
+
+renderCorrelations();
+
+renderComparisons();
+
+renderMatrix();
+
+renderTypes();
+
+renderLengths();
+
+renderPatterns();
+
+renderIntervals();
+
+renderRx();
+
+renderServices();
+
+}
+
+
+/* ============================================================
+   GUARDAR SESIÓN
+============================================================ */
+
+function serializable(){
+
+return {
+
+version:"V9",
+
+savedAt:
+new Date().toISOString(),
+
+captures:
+state.captures,
+
+txLog:
+state.txLog,
+
+events:
+state.events,
+
+comparisons:
+state.comparisons,
+
+transitions:
+state.transitions,
+
+correlations:
+state.correlations,
+
+cycles:
+state.cycles,
+
+tests:
+state.tests,
+
+intervals:
+state.intervals,
+
+typeStats:
+state.typeStats,
+
+lengthStats:
+state.lengthStats,
+
+patternStats:
+state.patternStats,
+
+changeMatrix:
+state.changeMatrix
+
+};
+
+}
+
 
 function saveSession(){
 
-  const data = {
+try{
 
-    version:
-      'V8',
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(
+serializable()
+)
+);
 
-    savedAt:
-      new Date().toISOString(),
+log(
+"Sesión guardada en localStorage."
+);
 
-    packets,
+}catch(error){
 
-    comparisons,
+log(
+"No se pudo guardar la sesión: "+
+error.message,
+"error"
+);
 
-    transitions,
-
-    events,
-
-    correlations,
-
-    tests,
-
-    totalTX,
-
-    diagnostics:
-      document
-      .getElementById(
-        'diagnostics'
-      )
-      .textContent
-
-  };
-
-
-  try{
-
-    localStorage.setItem(
-      'roxthal_f1plus_v8_session',
-      JSON.stringify(data)
-    );
-
-
-    log(
-      '💾 Sesión guardada localmente.'
-    );
-
-
-    alert(
-      'Sesión guardada correctamente.'
-    );
-
-  }
-  catch(error){
-
-    log(
-      '❌ Error guardando sesión: ' +
-      error.message
-    );
-
-  }
+}
 
 }
 
@@ -4531,414 +3706,656 @@ function saveSession(){
 
 function loadSession(){
 
-  try{
-
-    const raw =
-      localStorage.getItem(
-        'roxthal_f1plus_v8_session'
-      );
-
-
-    if(!raw)
-      return;
-
-
-    const data =
-      JSON.parse(raw);
-
-
-    packets =
-      data.packets || [];
-
-
-    comparisons =
-      data.comparisons || [];
-
-
-    transitions =
-      data.transitions || [];
-
-
-    events =
-      data.events || [];
-
-
-    correlations =
-      data.correlations || [];
-
-
-    tests =
-      data.tests || [];
-
-
-    totalTX =
-      data.totalTX || 0;
-
-
-    sequence =
-      packets.length
-      ? Math.max(
-          ...packets.map(
-            p => p.id
-          )
-        )
-      : 0;
-
-
-    testSequence =
-      tests.length
-      ? Math.max(
-          ...tests.map(
-            t => t.id
-          )
-        )
-      : 0;
-
-
-    /*
-     * Reconstruir último paquete
-     * por tipo/longitud.
-     */
-
-    previousByKey = {};
-
-
-    packets.forEach(
-      p => {
-
-        previousByKey[
-          p.type +
-          '/' +
-          p.length
-        ] = p;
-
-      }
-    );
-
-
-    renderAll();
-
-
-    log(
-      '💾 Sesión local restaurada.'
-    );
-
-  }
-  catch(error){
-
-    console.error(
-      error
-    );
-
-  }
-
-}
-
-
-/* ============================================================
-   REINICIAR
-============================================================ */
-
-function resetLaboratory(){
-
-  const ok =
-    confirm(
-      '¿Reiniciar completamente el laboratorio? Se borrarán las capturas, eventos, análisis y pruebas de esta sesión.'
-    );
-
-
-  if(!ok)
-    return;
-
-
-  packets = [];
-
-  comparisons = [];
-
-  transitions = [];
-
-  events = [];
-
-  correlations = [];
-
-  tests = [];
-
-  previousByKey = {};
-
-  totalTX = 0;
-
-  sequence = 0;
-
-  testSequence = 0;
-
-  activeTest = null;
-
-
-  try{
-
-    localStorage.removeItem(
-      'roxthal_f1plus_v8_session'
-    );
-
-  }
-  catch(e){}
-
-
-  renderAll();
-
-
-  log(
-    '🗑️ Laboratorio reiniciado.'
-  );
-
-}
-
-
-/* ============================================================
-   DESCARGA
-============================================================ */
-
-function downloadFile(
-  content,
-  filename,
-  type
-){
-
-  const blob =
-    new Blob(
-      [content],
-      {type}
-    );
-
-
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-
-  const a =
-    document.createElement(
-      'a'
-    );
-
-
-  a.href =
-    url;
-
-
-  a.download =
-    filename;
-
-
-  document.body.appendChild(
-    a
-  );
-
-
-  a.click();
-
-
-  a.remove();
-
-
-  setTimeout(
-    () =>
-      URL.revokeObjectURL(url),
-    1000
-  );
-
-}
-
-
-/* ============================================================
-   SLEEP
-============================================================ */
-
-function sleep(ms){
-
-  return new Promise(
-    resolve =>
-      setTimeout(
-        resolve,
-        ms
-      )
-  );
-
-}
-
-
-/* ============================================================
-   DESCONEXIÓN
-============================================================ */
-
-document
-.getElementById(
-  'disconnectBtn'
-)
-.addEventListener(
-  'click',
-  disconnect
+try{
+
+const raw=
+localStorage.getItem(
+STORAGE_KEY
 );
 
-
-async function disconnect(){
-
-  try{
-
-    if(rxCharacteristic){
-
-      try{
-
-        await rxCharacteristic
-          .stopNotifications();
-
-      }
-      catch(e){}
-
-    }
-
-
-    if(
-      device &&
-      device.gatt &&
-      device.gatt.connected
-    ){
-
-      device.gatt.disconnect();
-
-    }
-
-  }
-  finally{
-
-    onDisconnected();
-
-  }
-
-}
-
-
-function onDisconnected(){
-
-  setConnection(
-    '🔴 Desconectado',
-    'bad'
-  );
-
-
-  document
-  .getElementById(
-    'connectBtn'
-  )
-  .disabled = false;
-
-
-  document
-  .getElementById(
-    'disconnectBtn'
-  )
-  .disabled = true;
-
-
-  document
-  .getElementById(
-    'notifyStatus'
-  )
-  .innerHTML =
-    '🔴 NO activo';
-
-
-  document
-  .getElementById(
-    'rxUUID'
-  )
-  .textContent =
-    '—';
-
-
-  document
-  .getElementById(
-    'txUUID'
-  )
-  .textContent =
-    '—';
-
-
-  document
-  .getElementById(
-    'txBtn'
-  )
-  .disabled = true;
-
-
-  log(
-    '🔴 GATT desconectado.'
-  );
-
-
-  rxCharacteristic = null;
-
-  txCharacteristic = null;
-
-
-  updateTestButton();
-
-}
-
-
-function resetBLEReferences(){
-
-  rxCharacteristic = null;
-
-  txCharacteristic = null;
-
-  server = null;
-
-  service = null;
-
-}
-
-
-/* ============================================================
-   EVENTOS DE UI
-============================================================ */
-
-document
-.getElementById(
-  'testHex'
-)
-.addEventListener(
-  'input',
-  updateTestButton
-);
-
-
-/* ============================================================
-   INICIO
-============================================================ */
+if(!raw){
 
 log(
-  'Sistema preparado.'
+"No existe una sesión V9 guardada."
 );
 
-log(
-  'RoXThal Art Design · F1 Plus Protocol Laboratory V8'
+return;
+
+}
+
+const saved=
+JSON.parse(raw);
+
+
+const arrays=[
+
+"captures",
+"txLog",
+"events",
+"comparisons",
+"transitions",
+"correlations",
+"cycles",
+"tests",
+"intervals"
+
+];
+
+
+arrays.forEach(
+key => {
+
+state[key]=
+Array.isArray(saved[key])
+? saved[key]
+: [];
+
+}
 );
 
-log(
-  'Modo pasivo: ACTIVO'
+
+state.typeStats=
+saved.typeStats || {};
+
+state.lengthStats=
+saved.lengthStats || {};
+
+state.patternStats=
+saved.patternStats || {};
+
+state.changeMatrix=
+saved.changeMatrix || {};
+
+
+state.previousByKey=
+new Map();
+
+
+state.captures.forEach(
+capture => {
+
+const bytes=
+Uint8Array.from(
+capture.bytes
 );
 
-log(
-  'TX automático: DESACTIVADO'
+state.previousByKey.set(
+frameKey(bytes),
+{
+
+bytes:capture.bytes,
+
+hex:capture.hex,
+
+t:capture.t
+
+}
+
 );
 
-checkBluetooth();
+}
+);
 
-loadSession();
 
 renderAll();
+
+renderTests();
+
+log(
+"Sesión cargada: "+
+state.captures.length+
+" RX."
+);
+
+}catch(error){
+
+log(
+"Error cargando sesión: "+
+error.message,
+"error"
+);
+
+}
+
+}
+
+
+/* ============================================================
+   EXPORTAR JSON
+============================================================ */
+
+function exportJson(){
+
+download(
+
+"roxthal-f1plus-v9-"+Date.now()+".json",
+
+JSON.stringify(
+serializable(),
+null,
+2
+),
+
+"application/json"
+
+);
+
+}
+
+
+/* ============================================================
+   EXPORTAR HEX
+============================================================ */
+
+function exportHex(){
+
+const text=
+state.captures
+.map(
+x =>
+new Date(x.t).toISOString()+
+" | "+
+x.type+
+" | "+
+x.classification+
+" | "+
+x.hex
+)
+.join("\n");
+
+
+download(
+
+"roxthal-f1plus-v9-rx-"+Date.now()+".txt",
+
+text ||
+"SIN RX",
+
+"text/plain"
+
+);
+
+}
+
+
+/* ============================================================
+   COPIAR RESUMEN
+============================================================ */
+
+async function copySummary(){
+
+const summary=
+
+`RoXThal F1 Plus V9
+
+RX: ${state.captures.length}
+
+TX: ${state.txLog.length}
+
+Tipos:
+${Object.keys(state.typeStats).join(", ") || "—"}
+
+Longitudes:
+${Object.keys(state.lengthStats).join(", ") || "—"}
+
+Comparaciones:
+${state.comparisons.length}
+
+Bytes modificados:
+${state.comparisons.reduce(
+(total,x)=>
+total+x.changed.length,
+0
+)}
+
+Transiciones:
+${state.transitions.length}
+
+Eventos:
+${state.events.length}
+
+Correlaciones:
+${state.correlations.length}
+
+Ciclos:
+${state.cycles.length}
+
+Últimas RX:
+
+${state.captures
+.slice(-10)
+.map(
+x =>
+`${stamp(x.t)} | ${x.type} | ${x.hex}`
+)
+.join("\n")}
+`;
+
+
+try{
+
+await navigator.clipboard.writeText(
+summary
+);
+
+log(
+"Resumen copiado al portapapeles."
+);
+
+}catch(error){
+
+prompt(
+"Copia el resumen:",
+summary
+);
+
+}
+
+}
+
+
+/* ============================================================
+   LIMPIAR CAPTURAS
+============================================================ */
+
+function clearRx(){
+
+if(
+!confirm(
+"¿Borrar todas las capturas RX de esta sesión?"
+)
+){
+
+return;
+
+}
+
+state.captures=[];
+
+state.comparisons=[];
+
+state.transitions=[];
+
+state.correlations=[];
+
+state.cycles=[];
+
+state.intervals=[];
+
+state.previousByKey=
+new Map();
+
+state.changeMatrix={};
+
+state.typeStats={};
+
+state.lengthStats={};
+
+state.patternStats={};
+
+state.lastRxTime=null;
+
+state.lastRxFrame=null;
+
+state.last91Byte7=null;
+
+state.cycleCandidate=null;
+
+renderAll();
+
+log(
+"Capturas RX y análisis derivados limpiados."
+);
+
+}
+
+
+/* ============================================================
+   LIMPIAR EVENTOS
+============================================================ */
+
+function clearEvents(){
+
+state.events=[];
+
+state.correlations=[];
+
+renderAll();
+
+log(
+"Eventos y correlaciones limpiados."
+);
+
+}
+
+
+/* ============================================================
+   REINICIAR LABORATORIO
+============================================================ */
+
+function resetLab(){
+
+if(
+!confirm(
+"¿Reiniciar el laboratorio y borrar los datos locales de esta sesión?"
+)
+){
+
+return;
+
+}
+
+
+state.captures=[];
+
+state.txLog=[];
+
+state.events=[];
+
+state.comparisons=[];
+
+state.transitions=[];
+
+state.correlations=[];
+
+state.cycles=[];
+
+state.tests=[];
+
+state.intervals=[];
+
+state.previousByKey=
+new Map();
+
+state.changeMatrix={};
+
+state.typeStats={};
+
+state.lengthStats={};
+
+state.patternStats={};
+
+state.lastRxTime=null;
+
+state.lastRxFrame=null;
+
+state.last91Byte7=null;
+
+state.cycleCandidate=null;
+
+
+localStorage.removeItem(
+STORAGE_KEY
+);
+
+
+renderAll();
+
+renderTests();
+
+log(
+"Laboratorio reiniciado."
+);
+
+}
+
+
+/* ============================================================
+   EVENT LISTENERS
+============================================================ */
+
+$("connectBtn")
+.addEventListener(
+"click",
+connect
+);
+
+
+$("disconnectBtn")
+.addEventListener(
+"click",
+disconnect
+);
+
+
+$("bluetoothBtn")
+.addEventListener(
+"click",
+function(){
+
+const ok=
+isBluetoothReady();
+
+if(ok){
+
+log(
+"Web Bluetooth detectado y contexto seguro disponible."
+);
+
+}else{
+
+log(
+"Web Bluetooth no está listo. Revisa navegador y HTTPS."
+);
+
+}
+
+}
+);
+
+
+document
+.querySelectorAll(
+"[data-event]"
+)
+.forEach(
+button => {
+
+button.addEventListener(
+"click",
+function(){
+
+recordEvent(
+button.dataset.event
+);
+
+}
+);
+
+}
+);
+
+
+$("clearEventsBtn")
+.addEventListener(
+"click",
+clearEvents
+);
+
+
+$("clearRxBtn")
+.addEventListener(
+"click",
+clearRx
+);
+
+
+$("exportJsonBtn")
+.addEventListener(
+"click",
+exportJson
+);
+
+
+$("exportHexBtn")
+.addEventListener(
+"click",
+exportHex
+);
+
+
+$("copySummaryBtn")
+.addEventListener(
+"click",
+copySummary
+);
+
+
+$("validateTestBtn")
+.addEventListener(
+"click",
+validateTest
+);
+
+
+$("runTestBtn")
+.addEventListener(
+"click",
+runTest
+);
+
+
+$("validateManualBtn")
+.addEventListener(
+"click",
+validateManual
+);
+
+
+$("sendManualBtn")
+.addEventListener(
+"click",
+sendManual
+);
+
+
+$("clearDiagBtn")
+.addEventListener(
+"click",
+function(){
+
+$("diag").textContent=
+"Diagnóstico limpiado.";
+
+}
+);
+
+
+$("saveSessionBtn")
+.addEventListener(
+"click",
+saveSession
+);
+
+
+$("loadSessionBtn")
+.addEventListener(
+"click",
+loadSession
+);
+
+
+$("resetBtn")
+.addEventListener(
+"click",
+resetLab
+);
+
+
+/* ============================================================
+   CIERRE DE PÁGINA
+============================================================ */
+
+window.addEventListener(
+"beforeunload",
+function(){
+
+try{
+
+for(
+const characteristic
+of state.subscriptions
+){
+
+characteristic
+.stopNotifications()
+.catch(
+()=>{}
+);
+
+}
+
+}catch(error){}
+
+}
+);
+
+
+/* ============================================================
+   ARRANQUE
+============================================================ */
+
+renderAll();
+
+renderTests();
+
+
+if(
+"bluetooth" in navigator
+){
+
+log(
+"Web Bluetooth detectado."
+);
+
+}else{
+
+log(
+"Web Bluetooth NO detectado en este navegador.",
+"error"
+);
+
+}
+
+
+if(
+!window.isSecureContext
+){
+
+log(
+"Advertencia: contexto no seguro. Abre la aplicación mediante HTTPS.",
+"error"
+);
+
+}
+
+
+/*
+   Cargar automáticamente la sesión guardada NO modifica
+   la conexión BLE ni transmite nada.
+
+   Solo recupera análisis anteriores.
+*/
+
+try{
+
+const saved=
+localStorage.getItem(
+STORAGE_KEY
+);
+
+if(saved){
+
+log(
+"Existe una sesión V9 guardada. Puedes cargarla desde Control de sesión."
+);
+
+}
+
+}catch(error){}
+
+
+})();
 
 </script>
 
