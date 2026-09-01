@@ -160,14 +160,13 @@ pre,
 }
 
 .log{
-  max-height:300px;
+  max-height:360px;
   font-family:monospace;
   font-size:12px;
 }
 
 .packet{
   margin-bottom:10px;
-  font-family:monospace;
 }
 
 .rx{
@@ -208,6 +207,7 @@ th,td{
   border-bottom:1px solid var(--border);
   padding:8px;
   text-align:left;
+  vertical-align:top;
 }
 
 th{
@@ -220,7 +220,11 @@ th{
   border-radius:6px;
   font-size:11px;
   background:#292930;
-  margin-left:5px;
+  margin:2px;
+}
+
+.reference{
+  border-left:4px solid var(--yellow);
 }
 
 footer{
@@ -246,9 +250,17 @@ footer{
 <h2>📡 Conexión F1 Plus</h2>
 
 <div>
-<button id="connectBtn" class="primary">🔗 CONECTAR F1 PLUS</button>
-<button id="disconnectBtn" class="danger" disabled>⛔ DESCONECTAR</button>
-<button id="scanBtn">🔎 COMPROBAR BLUETOOTH</button>
+<button id="connectBtn" class="primary">
+🔗 CONECTAR F1 PLUS
+</button>
+
+<button id="disconnectBtn" class="danger" disabled>
+⛔ DESCONECTAR
+</button>
+
+<button id="scanBtn">
+🔎 COMPROBAR BLUETOOTH
+</button>
 </div>
 
 <div id="connectionStatus" class="status">
@@ -264,10 +276,10 @@ Sin dispositivo seleccionado.
 
 <section class="card">
 
-<h2>UART detectado</h2>
+<h2>🧩 Descubrimiento BLE</h2>
 
 <div id="uartInfo">
-Aún no se ha detectado el canal UART.
+Aún no se ha realizado el descubrimiento.
 </div>
 
 </section>
@@ -286,7 +298,7 @@ La aplicación <b>NO envía comandos automáticamente</b>.
 </p>
 
 <p>
-Los datos que llegan sin un TX reciente se clasifican como
+Todo paquete recibido sin un TX inmediatamente anterior se clasifica como
 <b>RX ESPONTÁNEO</b>.
 </p>
 
@@ -296,9 +308,63 @@ Un RX posterior a un TX se analiza como
 </p>
 
 <p>
-Si el RX coincide exactamente con un TX reciente,
+Si un RX coincide exactamente con un TX reciente,
 se marca como <b>ECO</b>.
 </p>
+
+<p>
+<b>Objetivo actual:</b> identificar la estructura real del protocolo de la F1 Plus antes de enviar comandos.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="card">
+
+<h2>📌 Paquetes conocidos de la F1 Plus</h2>
+
+<div class="packet reference">
+
+<b>RX ESPONTÁNEO A</b>
+
+<br><br>
+
+<code>
+AB 00 05 FF 91 80 00 64
+</code>
+
+<br><br>
+
+Longitud real: <b>8 bytes</b><br>
+Byte 2: <b>05</b><br>
+Longitud declarada + 3: <b>8</b>
+
+</div>
+
+<div class="packet reference">
+
+<b>RX ESPONTÁNEO B</b>
+
+<br><br>
+
+<code>
+AB 00 0D FF 92 C0 03 07 7B 00 00 00 00 00 00 22
+</code>
+
+<br><br>
+
+Longitud real: <b>16 bytes</b><br>
+Byte 2: <b>0D</b><br>
+Longitud declarada + 3: <b>16</b>
+
+</div>
+
+<div class="status yellow">
+
+⚠️ Estos paquetes se utilizan como <b>referencia de análisis</b>.
+La aplicación no los envía.
 
 </div>
 
@@ -317,7 +383,7 @@ Introduce bytes hexadecimales separados por espacios.
 <input
  id="hexInput"
  type="text"
- placeholder="Ejemplo: 01 02 FF 00"
+ placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
 />
 
 <button id="sendBtn" class="blue" disabled>
@@ -329,8 +395,7 @@ Introduce bytes hexadecimales separados por espacios.
 </button>
 
 <div class="small">
-⚠️ No utilices comandos aleatorios. La aplicación no considera ningún
-byte como comando confirmado del protocolo.
+⚠️ TX manual experimental. No se considera ningún comando válido hasta comprobarlo.
 </div>
 
 </section>
@@ -379,7 +444,7 @@ Patrones
 
 <section class="card">
 
-<h2>📦 Paquetes</h2>
+<h2>📦 Paquetes capturados</h2>
 
 <button id="clearPacketsBtn" class="danger">
 🧹 LIMPIAR PAQUETES
@@ -397,7 +462,9 @@ Patrones
 <h2>🔗 Relaciones TX → RX</h2>
 
 <div id="relations">
-<div class="small">Todavía no hay relaciones.</div>
+<div class="small">
+Todavía no hay relaciones.
+</div>
 </div>
 
 </section>
@@ -408,7 +475,9 @@ Patrones
 <h2>📈 Patrones RX</h2>
 
 <div id="patterns">
-<div class="small">Todavía no hay RX.</div>
+<div class="small">
+Todavía no hay RX.
+</div>
 </div>
 
 </section>
@@ -416,11 +485,11 @@ Patrones
 
 <section class="card">
 
-<h2>🧬 Análisis estructural de protocolo</h2>
+<h2>🧬 Análisis estructural</h2>
 
 <div id="structure">
 <div class="small">
-Esperando paquetes para analizar la estructura.
+Esperando paquetes.
 </div>
 </div>
 
@@ -429,11 +498,11 @@ Esperando paquetes para analizar la estructura.
 
 <section class="card">
 
-<h2>🔎 Análisis de campos variables</h2>
+<h2>🔎 Campos variables</h2>
 
 <div id="variableFields">
 <div class="small">
-Se necesitan al menos dos paquetes comparables.
+Se necesitan al menos dos paquetes.
 </div>
 </div>
 
@@ -442,7 +511,7 @@ Se necesitan al menos dos paquetes comparables.
 
 <section class="card">
 
-<h2>🧮 Análisis de checksum</h2>
+<h2>🧮 Checksum / CRC experimental</h2>
 
 <div id="checksum">
 <div class="small">
@@ -520,17 +589,21 @@ RoXThal Art Design · Laboratorio F1 Plus
 "use strict";
 
 /* =========================================================
-   CONFIGURACIÓN CONOCIDA DE TU F1 PLUS
+   UUID CONOCIDO
 ========================================================= */
 
-const UUID_SERVICE =
-"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+const KNOWN_UUIDS = {
 
-const UUID_WRITE =
-"6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+  NUS_SERVICE:
+    "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
 
-const UUID_NOTIFY =
-"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+  NUS_RX:
+    "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
+
+  NUS_TX:
+    "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+
+};
 
 
 /* =========================================================
@@ -539,23 +612,24 @@ const UUID_NOTIFY =
 
 let device = null;
 let server = null;
-let service = null;
+
+let connected = false;
 
 let writeCharacteristic = null;
 let notifyCharacteristic = null;
 
-let connected = false;
+let discoveredServices = [];
+let discoveredCharacteristics = [];
 
 let packets = [];
 let txPackets = [];
 let rxPackets = [];
 
 let packetNumber = 0;
-let txNumber = 0;
 
 let lastTx = null;
 
-const IMMEDIATE_WINDOW = 300;
+const IMMEDIATE_WINDOW = 500;
 const SECONDARY_WINDOW = 3000;
 
 
@@ -567,87 +641,146 @@ const $ = id => document.getElementById(id);
 
 
 /* =========================================================
-   UTILIDADES
+   TIEMPO
 ========================================================= */
 
 function nowTime(){
-  return new Date().toLocaleTimeString();
+
+  return new Date().toLocaleTimeString("es-AR");
+
 }
 
 function timestamp(){
+
   return Date.now();
+
 }
+
+
+/* =========================================================
+   HEX
+========================================================= */
 
 function hex(bytes){
+
   return Array.from(bytes)
-    .map(v => v.toString(16).padStart(2,"0").toUpperCase())
+    .map(v =>
+      v.toString(16)
+       .padStart(2,"0")
+       .toUpperCase()
+    )
     .join(" ");
+
 }
+
 
 function decimal(bytes){
+
   return Array.from(bytes).join(" ");
+
 }
 
+
 function ascii(bytes){
+
   return Array.from(bytes)
-    .map(v => (v >= 32 && v <= 126)
-      ? String.fromCharCode(v)
-      : ".")
+    .map(v =>
+      v >= 32 && v <= 126
+        ? String.fromCharCode(v)
+        : "."
+    )
     .join("");
+
 }
+
 
 function sameBytes(a,b){
 
-  if(!a || !b) return false;
-  if(a.length !== b.length) return false;
+  if(!a || !b)
+    return false;
+
+  if(a.length !== b.length)
+    return false;
 
   for(let i=0;i<a.length;i++){
-    if(a[i] !== b[i]) return false;
+
+    if(a[i] !== b[i])
+      return false;
+
   }
 
   return true;
+
 }
+
+
+/* =========================================================
+   HEX → BYTES
+========================================================= */
 
 function bytesFromHex(text){
 
-  const clean = text.trim();
+  const clean =
+    text.trim();
 
-  if(!clean){
-    throw new Error("No se introdujeron bytes.");
-  }
+  if(!clean)
+    throw new Error(
+      "No se introdujeron bytes."
+    );
 
-  const parts = clean.split(/\s+/);
+  const parts =
+    clean
+      .replace(/,/g," ")
+      .replace(/0x/gi," ")
+      .split(/\s+/)
+      .filter(Boolean);
 
   const bytes = [];
 
   for(const p of parts){
 
     if(!/^[0-9a-fA-F]{1,2}$/.test(p)){
-      throw new Error("Byte hexadecimal inválido: " + p);
+
+      throw new Error(
+        "Byte hexadecimal inválido: " +
+        p
+      );
+
     }
 
-    bytes.push(parseInt(p,16));
+    bytes.push(
+      parseInt(p,16)
+    );
+
   }
 
   return new Uint8Array(bytes);
+
 }
 
 
 /* =========================================================
-   DIAGNÓSTICO
+   LOG
 ========================================================= */
 
 function log(message){
 
-  const box = $("diagnostic");
+  const box =
+    $("diagnostic");
 
   const line =
-    "[" + nowTime() + "] " + message;
+    "[" +
+    nowTime() +
+    "] " +
+    message;
 
   box.textContent +=
-    (box.textContent ? "\n" : "") + line;
+    (box.textContent ? "\n" : "") +
+    line;
 
-  box.scrollTop = box.scrollHeight;
+  box.scrollTop =
+    box.scrollHeight;
+
 }
 
 
@@ -662,17 +795,23 @@ function bluetoothCheck(){
     $("connectionStatus").innerHTML =
       "🔴 Web Bluetooth NO disponible";
 
-    log("❌ Web Bluetooth no disponible.");
+    log(
+      "❌ Web Bluetooth no está disponible."
+    );
 
     return false;
+
   }
 
   $("connectionStatus").innerHTML =
-    "🟢 Web Bluetooth disponible.";
+    "🟢 Web Bluetooth disponible";
 
-  log("Web Bluetooth detectado correctamente.");
+  log(
+    "Web Bluetooth detectado correctamente."
+  );
 
   return true;
+
 }
 
 
@@ -682,38 +821,77 @@ function bluetoothCheck(){
 
 async function connect(){
 
-  if(!bluetoothCheck()) return;
+  if(!bluetoothCheck())
+    return;
 
   try{
 
-    log("==============================");
-    log("INICIO DE CONEXIÓN");
-    log("Solicitando dispositivo F1 Plus...");
+    $("connectBtn").disabled = true;
 
-    device = await navigator.bluetooth.requestDevice({
+    log(
+      "=============================="
+    );
 
-      filters:[
-        {
-          namePrefix:"F1"
-        },
-        {
-          namePrefix:"F1 Plus"
-        }
-      ],
+    log(
+      "INICIO DE CONEXIÓN"
+    );
 
-      optionalServices:[
-        UUID_SERVICE,
-        "00001800-0000-1000-8000-00805f9b34fb",
-        "00001801-0000-1000-8000-00805f9b34fb"
-      ]
+    log(
+      "Solicitando F1 Plus..."
+    );
 
-    });
+    /*
+      IMPORTANTE:
 
-    log("DISPOSITIVO ENCONTRADO");
+      No utilizamos únicamente un UUID UART.
+      La pulsera se selecciona por nombre y
+      después analizamos sus servicios.
+    */
+
+    device =
+      await navigator.bluetooth.requestDevice({
+
+        filters:[
+          {
+            name:"F1 Plus"
+          }
+        ],
+
+        optionalServices:[
+
+          KNOWN_UUIDS.NUS_SERVICE,
+
+          "0000ffe0-0000-1000-8000-00805f9b34fb",
+
+          "0000fff0-0000-1000-8000-00805f9b34fb",
+
+          "0000fee7-0000-1000-8000-00805f9b34fb",
+
+          "0000ff00-0000-1000-8000-00805f9b34fb",
+
+          "0000ff10-0000-1000-8000-00805f9b34fb"
+
+        ]
+
+      });
+
+    log(
+      "DISPOSITIVO ENCONTRADO"
+    );
+
+    log(
+      "Nombre: " +
+      (device.name || "sin nombre")
+    );
+
+    log(
+      "ID: " +
+      device.id
+    );
 
     $("deviceInfo").innerHTML =
       "<b>Nombre:</b> " +
-      (device.name || "Sin nombre") +
+      (device.name || "F1 Plus") +
       "<br><b>ID:</b> " +
       device.id;
 
@@ -722,33 +900,43 @@ async function connect(){
       handleDisconnect
     );
 
-    log("Nombre: " + (device.name || "desconocido"));
-    log("ID: " + device.id);
+    log(
+      "Conectando GATT..."
+    );
 
-    log("Conectando GATT...");
-
-    server = await device.gatt.connect();
+    server =
+      await device.gatt.connect();
 
     connected = true;
 
-    log("✅ GATT conectado.");
+    log(
+      "✅ GATT conectado."
+    );
 
     $("connectionStatus").innerHTML =
-      "🟢 Smart Band conectada";
+      "🟢 GATT conectado";
 
-    $("disconnectBtn").disabled = false;
-    $("sendBtn").disabled = true;
+    $("disconnectBtn").disabled =
+      false;
 
-    await prepareUART();
+    await discoverEverything();
 
   }catch(error){
 
     console.error(error);
 
-    log("❌ ERROR: " + error.message);
+    log(
+      "❌ ERROR DE CONEXIÓN: " +
+      error.name +
+      " — " +
+      error.message
+    );
 
     $("connectionStatus").innerHTML =
       "🔴 No se pudo conectar";
+
+    $("connectBtn").disabled =
+      false;
 
   }
 
@@ -756,73 +944,453 @@ async function connect(){
 
 
 /* =========================================================
-   PREPARAR UART
+   DESCUBRIMIENTO COMPLETO
 ========================================================= */
 
-async function prepareUART(){
+async function discoverEverything(){
+
+  discoveredServices = [];
+  discoveredCharacteristics = [];
+
+  writeCharacteristic = null;
+  notifyCharacteristic = null;
+
+  $("uartInfo").innerHTML =
+    "<div class='status'>🔎 Analizando servicios...</div>";
+
+  let services = [];
 
   try{
 
-    log("Buscando servicio UART de F1 Plus...");
-
-    service =
-      await server.getPrimaryService(UUID_SERVICE);
-
-    log("✅ Servicio UART encontrado.");
-
-    writeCharacteristic =
-      await service.getCharacteristic(UUID_WRITE);
-
-    log("✅ WRITE / TX encontrado.");
-
-    notifyCharacteristic =
-      await service.getCharacteristic(UUID_NOTIFY);
-
-    log("✅ NOTIFY / RX encontrado.");
-
-    notifyCharacteristic.addEventListener(
-      "characteristicvaluechanged",
-      handleNotification
-    );
-
-    await notifyCharacteristic.startNotifications();
-
-    log("✅ NOTIFY ACTIVADO.");
-
-    $("uartInfo").innerHTML = `
-      <div class="status">
-      <b class="green">🟢 Canal preparado</b><br><br>
-
-      <b>SERVICIO</b><br>
-      ${UUID_SERVICE}<br><br>
-
-      <b>WRITE / TX</b><br>
-      ${UUID_WRITE}<br><br>
-
-      <b>NOTIFY / RX</b><br>
-      ${UUID_NOTIFY}<br><br>
-
-      <b class="green">NOTIFY activo</b>
-      </div>
-    `;
-
-    $("sendBtn").disabled = false;
-
-    log("Canal WRITE preparado.");
-    log("Canal NOTIFY preparado.");
-
-    log("🛑 NO se enviará ningún comando automáticamente.");
-
-    log("Esperando datos espontáneos...");
+    services =
+      await server.getPrimaryServices();
 
   }catch(error){
 
-    log("❌ Error preparando UART: " + error.message);
+    log(
+      "❌ No se pudieron obtener los servicios: " +
+      error.message
+    );
 
-    $("uartInfo").innerHTML =
-      "<span class='red'>❌ No se pudo preparar UART</span>";
+    throw error;
 
   }
+
+  discoveredServices =
+    services;
+
+  log(
+    "Servicios primarios encontrados: " +
+    services.length
+  );
+
+
+  /*
+    TABLA DE DESCUBRIMIENTO
+  */
+
+  let html = `
+    <table>
+      <thead>
+        <tr>
+          <th>Servicio</th>
+          <th>Característica</th>
+          <th>Propiedades</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+
+  for(const service of services){
+
+    log(
+      "🔗 SERVICIO: " +
+      service.uuid
+    );
+
+    let chars = [];
+
+    try{
+
+      chars =
+        await service.getCharacteristics();
+
+    }catch(error){
+
+      log(
+        "⚠️ Error leyendo características: " +
+        error.message
+      );
+
+      continue;
+
+    }
+
+
+    for(const characteristic of chars){
+
+      discoveredCharacteristics
+        .push(characteristic);
+
+      const p =
+        characteristic.properties || {};
+
+      const properties = [];
+
+      if(p.read)
+        properties.push("READ");
+
+      if(p.write)
+        properties.push("WRITE");
+
+      if(p.writeWithoutResponse)
+        properties.push(
+          "WRITE WITHOUT RESPONSE"
+        );
+
+      if(p.notify)
+        properties.push("NOTIFY");
+
+      if(p.indicate)
+        properties.push("INDICATE");
+
+      const propText =
+        properties.length
+          ? properties.join(" · ")
+          : "—";
+
+      log(
+        "   Característica: " +
+        characteristic.uuid +
+        " | " +
+        propText
+      );
+
+
+      html += `
+        <tr>
+          <td class="small">
+            ${service.uuid}
+          </td>
+
+          <td class="small">
+            ${characteristic.uuid}
+          </td>
+
+          <td>
+            ${propText}
+          </td>
+        </tr>
+      `;
+
+
+      /*
+        WRITE
+      */
+
+      if(
+        !writeCharacteristic &&
+        (
+          p.write ||
+          p.writeWithoutResponse
+        )
+      ){
+
+        writeCharacteristic =
+          characteristic;
+
+      }
+
+
+      /*
+        NOTIFY
+      */
+
+      if(
+        !notifyCharacteristic &&
+        (
+          p.notify ||
+          p.indicate
+        )
+      ){
+
+        notifyCharacteristic =
+          characteristic;
+
+      }
+
+    }
+
+  }
+
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+  $("uartInfo").innerHTML =
+    html;
+
+
+  /*
+    RESULTADO WRITE
+  */
+
+  if(writeCharacteristic){
+
+    log(
+      "✅ WRITE encontrado: " +
+      writeCharacteristic.uuid
+    );
+
+  }else{
+
+    log(
+      "❌ No se encontró WRITE."
+    );
+
+  }
+
+
+  /*
+    RESULTADO NOTIFY
+  */
+
+  if(notifyCharacteristic){
+
+    log(
+      "✅ NOTIFY/INDICATE encontrado: " +
+      notifyCharacteristic.uuid
+    );
+
+    try{
+
+      if(
+        notifyCharacteristic.properties.notify
+      ){
+
+        await notifyCharacteristic
+          .startNotifications();
+
+        notifyCharacteristic
+          .addEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+          );
+
+        log(
+          "✅ NOTIFY ACTIVADO."
+        );
+
+      }else if(
+        notifyCharacteristic.properties.indicate
+      ){
+
+        await notifyCharacteristic
+          .startNotifications();
+
+        notifyCharacteristic
+          .addEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+          );
+
+        log(
+          "✅ INDICATE ACTIVADO."
+        );
+
+      }
+
+    }catch(error){
+
+      log(
+        "❌ Error activando NOTIFY: " +
+        error.message
+      );
+
+      notifyCharacteristic =
+        null;
+
+    }
+
+  }else{
+
+    log(
+      "❌ No se encontró NOTIFY/INDICATE."
+    );
+
+  }
+
+
+  /*
+    INFORMACIÓN UART
+  */
+
+  $("uartInfo").innerHTML += `
+
+    <div class="status">
+
+      <b class="green">
+      RESULTADO DEL DESCUBRIMIENTO
+      </b>
+
+      <br><br>
+
+      Servicios:
+      <b>${services.length}</b>
+
+      <br>
+
+      Características:
+      <b>${discoveredCharacteristics.length}</b>
+
+      <br><br>
+
+      WRITE:
+      <b>
+      ${
+        writeCharacteristic
+          ? writeCharacteristic.uuid
+          : "NO ENCONTRADO"
+      }
+      </b>
+
+      <br><br>
+
+      RX:
+      <b>
+      ${
+        notifyCharacteristic
+          ? notifyCharacteristic.uuid
+          : "NO ENCONTRADO"
+      }
+      </b>
+
+    </div>
+  `;
+
+
+  $("sendBtn").disabled =
+    !writeCharacteristic;
+
+
+  log(
+    "Canal WRITE " +
+    (
+      writeCharacteristic
+        ? "preparado."
+        : "NO disponible."
+    )
+  );
+
+  log(
+    "Canal NOTIFY " +
+    (
+      notifyCharacteristic
+        ? "preparado."
+        : "NO disponible."
+    )
+  );
+
+
+  /*
+    MUY IMPORTANTE:
+    NO TRANSMITIR.
+  */
+
+  log(
+    "🛑 NO se enviará ningún comando automáticamente."
+  );
+
+  log(
+    "Esperando datos espontáneos..."
+  );
+
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+function handleNotification(event){
+
+  const value =
+    event.target.value;
+
+  const bytes =
+    new Uint8Array(
+      value.buffer.slice(
+        value.byteOffset,
+        value.byteOffset +
+        value.byteLength
+      )
+    );
+
+  registerRX(bytes);
+
+}
+
+
+/* =========================================================
+   CLASIFICACIÓN
+========================================================= */
+
+function classifyRX(bytes){
+
+  const t =
+    timestamp();
+
+  if(lastTx){
+
+    const delta =
+      t -
+      lastTx.timestamp;
+
+
+    if(
+      sameBytes(
+        bytes,
+        lastTx.bytes
+      )
+    ){
+
+      return {
+        type:"ECO",
+        relation:lastTx
+      };
+
+    }
+
+
+    if(delta <= IMMEDIATE_WINDOW){
+
+      return {
+        type:"RESPUESTA PROBABLE",
+        relation:lastTx
+      };
+
+    }
+
+
+    if(delta <= SECONDARY_WINDOW){
+
+      return {
+        type:"RESPUESTA PROBABLE",
+        relation:lastTx
+      };
+
+    }
+
+  }
+
+
+  return {
+    type:"SPONTÁNEO",
+    relation:null
+  };
 
 }
 
@@ -831,89 +1399,33 @@ async function prepareUART(){
    RX
 ========================================================= */
 
-function handleNotification(event){
-
-  const value = event.target.value;
-
-  const bytes =
-    new Uint8Array(value.buffer.slice(
-      value.byteOffset,
-      value.byteOffset + value.byteLength
-    ));
-
-  registerRX(bytes);
-}
-
-
-/* =========================================================
-   CLASIFICACIÓN RX
-========================================================= */
-
-function classifyRX(bytes){
-
-  const t = timestamp();
-
-  let type = "SPONTÁNEO";
-  let relation = null;
-
-  if(lastTx){
-
-    const delta =
-      t - lastTx.timestamp;
-
-    if(delta <= IMMEDIATE_WINDOW){
-
-      type = "RESPUESTA PROBABLE";
-      relation = lastTx;
-
-    }else if(delta <= SECONDARY_WINDOW){
-
-      type = "RESPUESTA PROBABLE";
-      relation = lastTx;
-    }
-
-  }
-
-  if(lastTx && sameBytes(bytes,lastTx.bytes)){
-
-    type = "ECO";
-    relation = lastTx;
-
-  }
-
-  return {
-    type,
-    relation
-  };
-}
-
-
-/* =========================================================
-   REGISTRAR RX
-========================================================= */
-
 function registerRX(bytes){
-
-  const t = timestamp();
 
   const classification =
     classifyRX(bytes);
 
   const packet = {
 
-    number: ++packetNumber,
+    number:
+      ++packetNumber,
 
-    direction:"RX",
+    direction:
+      "RX",
 
-    transport:"NOTIFY",
+    transport:
+      "NOTIFY",
 
-    bytes:Array.from(bytes),
+    bytes:
+      Array.from(bytes),
 
-    timestamp:t,
+    timestamp:
+      timestamp(),
 
-    time:nowTime(),
+    time:
+      nowTime(),
 
-    type:classification.type,
+    type:
+      classification.type,
 
     relation:
       classification.relation
@@ -922,18 +1434,30 @@ function registerRX(bytes){
 
   };
 
+
   rxPackets.push(packet);
+
   packets.push(packet);
 
+
   updateStats();
+
   renderPackets();
+
   renderRelations();
+
   renderPatterns();
+
   renderStructure();
+
   renderVariableFields();
+
   renderChecksum();
+
   renderComparison();
+
   renderTimeline();
+
 
   if(packet.type === "ECO"){
 
@@ -942,10 +1466,14 @@ function registerRX(bytes){
       hex(bytes)
     );
 
-  }else if(packet.type === "RESPUESTA PROBABLE"){
+  }else if(
+    packet.type ===
+    "RESPUESTA PROBABLE"
+  ){
 
     log(
-      "🟢 RX asociado a TX #" +
+      "🟢 RX RESPUESTA PROBABLE | " +
+      "TX #" +
       packet.relation +
       " | " +
       hex(bytes)
@@ -957,70 +1485,127 @@ function registerRX(bytes){
       "🟣 RX ESPONTÁNEO | " +
       hex(bytes)
     );
+
   }
 
 }
 
 
 /* =========================================================
-   TX
+   TX MANUAL
 ========================================================= */
 
 async function sendHex(){
 
   if(!writeCharacteristic){
 
-    alert("El canal WRITE no está preparado.");
+    alert(
+      "No existe un canal WRITE preparado."
+    );
+
     return;
+
   }
+
 
   try{
 
     const bytes =
-      bytesFromHex($("hexInput").value);
+      bytesFromHex(
+        $("hexInput").value
+      );
 
-    await writeCharacteristic.writeValue(bytes);
+
+    /*
+      Elegimos el método correcto según
+      las propiedades reales.
+    */
+
+    if(
+      writeCharacteristic
+        .properties
+        .writeWithoutResponse &&
+      !writeCharacteristic
+        .properties
+        .write
+    ){
+
+      await writeCharacteristic
+        .writeValueWithoutResponse(
+          bytes
+        );
+
+    }else{
+
+      await writeCharacteristic
+        .writeValue(
+          bytes
+        );
+
+    }
+
 
     const packet = {
 
-      number:++packetNumber,
+      number:
+        ++packetNumber,
 
-      direction:"TX",
+      direction:
+        "TX",
 
-      transport:"WRITE",
+      transport:
+        "WRITE",
 
-      bytes:Array.from(bytes),
+      bytes:
+        Array.from(bytes),
 
-      timestamp:timestamp(),
+      timestamp:
+        timestamp(),
 
-      time:nowTime()
+      time:
+        nowTime()
 
     };
 
+
     txPackets.push(packet);
+
     packets.push(packet);
 
-    lastTx = packet;
+    lastTx =
+      packet;
 
-    $("hexInput").value = "";
+
+    $("hexInput").value =
+      "";
+
 
     updateStats();
+
     renderPackets();
+
     renderRelations();
+
     renderTimeline();
 
+
     log(
-      "📤 TX enviado | " +
-      bytes.length +
-      " bytes | HEX: " +
+      "📤 TX MANUAL | " +
       hex(bytes)
     );
 
+
   }catch(error){
 
-    log("❌ TX ERROR: " + error.message);
+    log(
+      "❌ ERROR TX: " +
+      error.message
+    );
 
-    alert(error.message);
+    alert(
+      error.message
+    );
+
   }
 
 }
@@ -1039,29 +1624,33 @@ function updateStats(){
     rxPackets.length;
 
   $("spontCount").textContent =
-    rxPackets.filter(p =>
-      p.type === "SPONTÁNEO"
+    rxPackets.filter(
+      p =>
+        p.type ===
+        "SPONTÁNEO"
     ).length;
 
   $("responseCount").textContent =
-    rxPackets.filter(p =>
-      p.type === "RESPUESTA PROBABLE"
+    rxPackets.filter(
+      p =>
+        p.type ===
+        "RESPUESTA PROBABLE"
     ).length;
 
   $("echoCount").textContent =
-    rxPackets.filter(p =>
-      p.type === "ECO"
+    rxPackets.filter(
+      p =>
+        p.type ===
+        "ECO"
     ).length;
 
-  const unique =
-    new Set(
-      rxPackets.map(p =>
-        hex(p.bytes)
-      )
-    );
-
   $("patternCount").textContent =
-    unique.size;
+    new Set(
+      rxPackets.map(
+        p => hex(p.bytes)
+      )
+    ).size;
+
 }
 
 
@@ -1071,15 +1660,21 @@ function updateStats(){
 
 function renderPackets(){
 
-  const box = $("packets");
+  const box =
+    $("packets");
+
 
   if(!packets.length){
 
     box.innerHTML =
-      "<div class='small'>Todavía no hay paquetes.</div>";
+      "<div class='small'>" +
+      "Todavía no hay paquetes." +
+      "</div>";
 
     return;
+
   }
+
 
   box.innerHTML =
     packets
@@ -1087,86 +1682,81 @@ function renderPackets(){
       .reverse()
       .map(p => {
 
-        const h =
-          hex(p.bytes);
-
-        const d =
-          decimal(p.bytes);
-
-        const a =
-          ascii(p.bytes);
-
         let cls =
           p.direction === "TX"
             ? "tx"
             : "rx";
 
-        if(p.type === "ECO")
+        if(
+          p.type === "ECO"
+        )
           cls = "echo";
 
-        if(p.type === "SPONTÁNEO")
+        if(
+          p.type === "SPONTÁNEO"
+        )
           cls = "spont";
 
+
         return `
+
           <div class="packet ${cls}">
 
-            ${p.direction === "TX"
-              ? "📤"
-              : "📥"}
+            ${
+              p.direction === "TX"
+                ? "📤"
+                : "📥"
+            }
 
-            <b>PAQUETE #${p.number}</b>
+            <b>
+            PAQUETE #${p.number}
+            </b>
 
             · ${p.direction}
 
-            ${p.direction === "RX"
-              ? " · NOTIFY"
-              : " · WRITE"}
-
             ${
               p.type
-                ? `<span class="badge">${p.type}</span>`
+                ? `
+                  <span class="badge">
+                  ${p.type}
+                  </span>
+                  `
                 : ""
             }
 
             <br><br>
 
             <b>HEX:</b>
-            ${h}
+            ${hex(p.bytes)}
 
             <br>
 
             <b>DECIMAL:</b>
-            ${d}
+            ${decimal(p.bytes)}
 
             <br>
 
             <b>ASCII:</b>
-            ${a}
+            ${ascii(p.bytes)}
 
             ${
               p.relation
-              ? `<br><br>
-                 <span class="green">
-                 RX ← TX #${p.relation}
-                 </span>`
-              : ""
-            }
-
-            ${
-              p.direction === "RX" &&
-              !p.relation
-              ? `<br><br>
-                 <span class="purple">
-                 Sin TX relacionado
-                 </span>`
-              : ""
+                ? `
+                  <br><br>
+                  <span class="green">
+                  RX ← TX #${p.relation}
+                  </span>
+                  `
+                : ""
             }
 
           </div>
+
         `;
 
       })
       .join("");
+
 }
 
 
@@ -1179,18 +1769,24 @@ function renderRelations(){
   const box =
     $("relations");
 
+
   const related =
-    rxPackets.filter(p =>
-      p.relation
+    rxPackets.filter(
+      p => p.relation
     );
+
 
   if(!related.length){
 
     box.innerHTML =
-      "<div class='small'>Todavía no hay RX relacionado con TX.</div>";
+      "<div class='small'>" +
+      "Todavía no hay relaciones TX → RX." +
+      "</div>";
 
     return;
+
   }
+
 
   box.innerHTML =
     related
@@ -1200,31 +1796,53 @@ function renderRelations(){
 
         const tx =
           txPackets.find(
-            t => t.number === rx.relation
+            t =>
+              t.number ===
+              rx.relation
           );
 
+
         return `
+
           <div class="packet">
 
-          <b>TX #${tx ? tx.number : "?"}</b><br>
-          ${tx ? hex(tx.bytes) : "?"}
+            <b>
+            TX #${tx ? tx.number : "?"}
+            </b>
 
-          <br><br>
+            <br>
 
-          <b>↓ RX</b><br>
-          ${hex(rx.bytes)}
+            ${
+              tx
+                ? hex(tx.bytes)
+                : "?"
+            }
 
-          <br><br>
+            <br><br>
 
-          <span class="green">
-          ${rx.type}
-          </span>
+            ↓
+
+            <br><br>
+
+            <b>RX</b>
+
+            <br>
+
+            ${hex(rx.bytes)}
+
+            <br><br>
+
+            <span class="green">
+            ${rx.type}
+            </span>
 
           </div>
+
         `;
 
       })
       .join("");
+
 }
 
 
@@ -1237,16 +1855,22 @@ function renderPatterns(){
   const box =
     $("patterns");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
-      "<div class='small'>Todavía no hay RX.</div>";
+      "<div class='small'>" +
+      "Todavía no hay RX." +
+      "</div>";
 
     return;
+
   }
+
 
   const map =
     new Map();
+
 
   rxPackets.forEach(p => {
 
@@ -1256,31 +1880,50 @@ function renderPatterns(){
     if(!map.has(key))
       map.set(key,[]);
 
-    map.get(key).push(p);
+    map
+      .get(key)
+      .push(p);
 
   });
 
+
   let html = `
+
     <table>
+
       <thead>
+
         <tr>
           <th>HEX</th>
           <th>Veces</th>
           <th>Intervalo medio</th>
         </tr>
+
       </thead>
+
       <tbody>
   `;
 
-  for(const [key,list] of map){
 
-    let interval = "—";
+  for(
+    const [key,list]
+    of map
+  ){
+
+    let interval =
+      "—";
+
 
     if(list.length > 1){
 
       const diffs = [];
 
-      for(let i=1;i<list.length;i++){
+
+      for(
+        let i=1;
+        i<list.length;
+        i++
+      ){
 
         diffs.push(
           list[i].timestamp -
@@ -1289,70 +1932,57 @@ function renderPatterns(){
 
       }
 
+
       const avg =
-        diffs.reduce((a,b)=>a+b,0) /
+        diffs.reduce(
+          (a,b) => a+b,
+          0
+        ) /
         diffs.length;
 
+
       interval =
-        (avg/1000).toFixed(2) +
+        (
+          avg /
+          1000
+        ).toFixed(2) +
         " s";
+
     }
 
+
     html += `
+
       <tr>
-        <td>${key}</td>
-        <td>${list.length}</td>
-        <td>${interval}</td>
+
+        <td>
+        ${key}
+        </td>
+
+        <td>
+        ${list.length}
+        </td>
+
+        <td>
+        ${interval}
+        </td>
+
       </tr>
+
     `;
+
   }
+
 
   html += `
       </tbody>
     </table>
   `;
 
-  box.innerHTML = html;
-}
 
+  box.innerHTML =
+    html;
 
-/* =========================================================
-   ANÁLISIS ESTRUCTURAL
-========================================================= */
-
-function analyzeFrame(bytes){
-
-  const b =
-    Uint8Array.from(bytes);
-
-  const result = {
-
-    length:b.length,
-
-    startsAB:
-      b.length > 0 &&
-      b[0] === 0xAB,
-
-    byte1:
-      b.length > 1 ? b[1] : null,
-
-    declaredLength:
-      b.length > 2 ? b[2] : null,
-
-    byte3:
-      b.length > 3 ? b[3] : null,
-
-    type:
-      b.length > 4 ? b[4] : null,
-
-    data:
-      b.length > 5
-        ? Array.from(b.slice(5))
-        : []
-
-  };
-
-  return result;
 }
 
 
@@ -1365,105 +1995,161 @@ function renderStructure(){
   const box =
     $("structure");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
-      "<div class='small'>Esperando paquetes.</div>";
+      "<div class='small'>" +
+      "Esperando paquetes." +
+      "</div>";
 
     return;
+
   }
+
 
   const unique =
     Array.from(
       new Map(
-        rxPackets.map(p => [
-          hex(p.bytes),
-          p
-        ])
+        rxPackets.map(
+          p => [
+            hex(p.bytes),
+            p
+          ]
+        )
       ).values()
     );
 
+
   let html = "";
+
 
   unique.forEach(p => {
 
-    const a =
-      analyzeFrame(p.bytes);
+    const b =
+      p.bytes;
 
-    let lengthCheck =
-      "—";
 
-    if(a.declaredLength !== null){
+    const realLength =
+      b.length;
 
-      const expected =
-        a.declaredLength + 3;
 
-      lengthCheck =
-        expected === a.length
+    const declared =
+      b.length >= 3
+        ? b[2]
+        : null;
+
+
+    const expected =
+      declared !== null
+        ? declared + 3
+        : null;
+
+
+    const lengthState =
+      expected === null
+        ? "—"
+        : expected === realLength
           ? "🟢 COINCIDE"
           : "🟡 NO COINCIDE";
 
-    }
 
     html += `
+
       <div class="packet">
 
-        <b>${hex(p.bytes)}</b>
+        <b>
+        ${hex(b)}
+        </b>
 
         <br><br>
 
-        Longitud real:
-        <b>${a.length}</b> bytes
-
-        <br>
-
         Byte 0:
-        <b>${a.startsAB ? "AB" : "no AB"}</b>
+        <b>
+        ${fmt(b[0])}
+        </b>
 
         <br>
 
         Byte 1:
-        <b>${fmt(a.byte1)}</b>
+        <b>
+        ${fmt(b[1])}
+        </b>
 
         <br>
 
-        Byte 2 / longitud declarada:
-        <b>${fmt(a.declaredLength)}</b>
+        Byte 2:
+        <b>
+        ${fmt(b[2])}
+        </b>
 
         <br>
 
-        Longitud calculada:
-        <b>${
-          a.declaredLength !== null
-          ? a.declaredLength + 3
-          : "—"
-        }</b>
+        Longitud declarada:
+        <b>
+        ${declared !== null
+          ? declared
+          : "—"}
+        </b>
+
+        <br>
+
+        Longitud real:
+        <b>
+        ${realLength}
+        </b>
+
+        <br>
+
+        Longitud declarada + 3:
+        <b>
+        ${expected !== null
+          ? expected
+          : "—"}
+        </b>
 
         <br>
 
         Comprobación:
-        <b>${lengthCheck}</b>
+        <b>
+        ${lengthState}
+        </b>
 
         <br>
 
         Byte 3:
-        <b>${fmt(a.byte3)}</b>
+        <b>
+        ${fmt(b[3])}
+        </b>
 
         <br>
 
-        Byte 4 / posible tipo:
-        <b>${fmt(a.type)}</b>
+        Byte 4:
+        <b>
+        ${fmt(b[4])}
+        </b>
 
-        <br><br>
+        <br>
 
-        Datos posteriores:
-        <b>${hex(a.data)}</b>
+        Bytes 5+:
+        <b>
+        ${
+          b.length > 5
+            ? hex(b.slice(5))
+            : "—"
+        }
+        </b>
 
       </div>
+
     `;
+
   });
 
-  box.innerHTML = html;
+
+  box.innerHTML =
+    html;
+
 }
 
 
@@ -1476,77 +2162,117 @@ function renderVariableFields(){
   const box =
     $("variableFields");
 
+
   if(rxPackets.length < 2){
 
     box.innerHTML =
-      "<div class='small'>Se necesitan al menos dos RX.</div>";
+      "<div class='small'>" +
+      "Se necesitan al menos dos RX." +
+      "</div>";
 
     return;
+
   }
+
 
   const max =
     Math.max(
-      ...rxPackets.map(p =>
-        p.bytes.length
+      ...rxPackets.map(
+        p => p.bytes.length
       )
     );
 
+
   let html = `
+
     <table>
+
       <thead>
+
         <tr>
           <th>Byte</th>
-          <th>Valores observados</th>
+          <th>Valores</th>
           <th>Estado</th>
         </tr>
+
       </thead>
+
       <tbody>
   `;
 
-  for(let i=0;i<max;i++){
+
+  for(
+    let i=0;
+    i<max;
+    i++
+  ){
 
     const values =
       rxPackets
-        .filter(p =>
-          p.bytes[i] !== undefined
+        .filter(
+          p =>
+            p.bytes[i] !==
+            undefined
         )
-        .map(p =>
-          p.bytes[i]
+        .map(
+          p =>
+            p.bytes[i]
         );
+
 
     const unique =
       [...new Set(values)];
 
+
     const valuesHex =
       unique
-        .map(v =>
-          v.toString(16)
-           .padStart(2,"0")
-           .toUpperCase()
+        .map(
+          v =>
+            v.toString(16)
+             .padStart(2,"0")
+             .toUpperCase()
         )
         .join(" · ");
 
+
     html += `
+
       <tr>
-        <td>${i}</td>
-        <td>${valuesHex || "—"}</td>
+
         <td>
-          ${
-            unique.length > 1
+        ${i}
+        </td>
+
+        <td>
+        ${valuesHex || "—"}
+        </td>
+
+        <td>
+
+        ${
+          unique.length > 1
             ? "<span class='yellow'>VARIABLE</span>"
             : "estable"
-          }
+        }
+
         </td>
+
       </tr>
+
     `;
+
   }
+
 
   html += `
       </tbody>
     </table>
   `;
 
-  box.innerHTML = html;
+
+  box.innerHTML =
+    html;
+
 }
 
 
@@ -1556,63 +2282,141 @@ function renderVariableFields(){
 
 function checksumCandidates(bytes){
 
-  const b =
-    Uint8Array.from(bytes);
-
-  if(b.length < 2)
+  if(bytes.length < 2)
     return [];
 
+
   const last =
-    b[b.length-1];
+    bytes[bytes.length-1];
+
 
   const candidates = [];
 
-  let sum = 0;
 
-  for(let i=0;i<b.length-1;i++)
-    sum = (sum + b[i]) & 0xFF;
+  let sumAll = 0;
+
+
+  for(
+    let i=0;
+    i<bytes.length-1;
+    i++
+  ){
+
+    sumAll =
+      (
+        sumAll +
+        bytes[i]
+      ) & 0xFF;
+
+  }
+
 
   candidates.push({
-    name:"SUM8 bytes 0..n-2",
-    value:sum,
-    matches:sum === last
+
+    name:
+      "SUM8 0..n-2",
+
+    value:
+      sumAll,
+
+    matches:
+      sumAll === last
+
   });
 
-  let xor = 0;
 
-  for(let i=0;i<b.length-1;i++)
-    xor ^= b[i];
+  let xorAll = 0;
+
+
+  for(
+    let i=0;
+    i<bytes.length-1;
+    i++
+  ){
+
+    xorAll ^=
+      bytes[i];
+
+  }
+
 
   candidates.push({
-    name:"XOR8 bytes 0..n-2",
-    value:xor,
-    matches:xor === last
+
+    name:
+      "XOR8 0..n-2",
+
+    value:
+      xorAll,
+
+    matches:
+      xorAll === last
+
   });
+
 
   let sumFrom1 = 0;
 
-  for(let i=1;i<b.length-1;i++)
+
+  for(
+    let i=1;
+    i<bytes.length-1;
+    i++
+  ){
+
     sumFrom1 =
-      (sumFrom1 + b[i]) & 0xFF;
+      (
+        sumFrom1 +
+        bytes[i]
+      ) & 0xFF;
+
+  }
+
 
   candidates.push({
-    name:"SUM8 bytes 1..n-2",
-    value:sumFrom1,
-    matches:sumFrom1 === last
+
+    name:
+      "SUM8 1..n-2",
+
+    value:
+      sumFrom1,
+
+    matches:
+      sumFrom1 === last
+
   });
+
 
   let xorFrom1 = 0;
 
-  for(let i=1;i<b.length-1;i++)
-    xorFrom1 ^= b[i];
+
+  for(
+    let i=1;
+    i<bytes.length-1;
+    i++
+  ){
+
+    xorFrom1 ^=
+      bytes[i];
+
+  }
+
 
   candidates.push({
-    name:"XOR8 bytes 1..n-2",
-    value:xorFrom1,
-    matches:xorFrom1 === last
+
+    name:
+      "XOR8 1..n-2",
+
+    value:
+      xorFrom1,
+
+    matches:
+      xorFrom1 === last
+
   });
 
+
   return candidates;
+
 }
 
 
@@ -1625,70 +2429,83 @@ function renderChecksum(){
   const box =
     $("checksum");
 
+
   if(!rxPackets.length){
 
     box.innerHTML =
-      "<div class='small'>Esperando tramas.</div>";
+      "<div class='small'>" +
+      "Esperando tramas." +
+      "</div>";
 
     return;
+
   }
 
+
   let html = "";
+
 
   rxPackets
     .slice()
     .reverse()
     .forEach(p => {
 
-      const c =
-        checksumCandidates(p.bytes);
+      const candidates =
+        checksumCandidates(
+          p.bytes
+        );
 
-      const last =
-        p.bytes[p.bytes.length-1];
 
       html += `
+
         <div class="packet">
 
-          <b>${hex(p.bytes)}</b>
-
-          <br>
-
-          Último byte:
           <b>
-          ${last !== undefined
-            ? last.toString(16)
-                .padStart(2,"0")
-                .toUpperCase()
-            : "—"}
+          ${hex(p.bytes)}
           </b>
 
           <br><br>
+
       `;
 
-      c.forEach(x => {
+
+      candidates.forEach(c => {
 
         html += `
-          ${x.name} =
-          ${x.value.toString(16)
-              .padStart(2,"0")
-              .toUpperCase()}
+
+          ${c.name}:
+
+          <b>
+          ${fmt(c.value)}
+          </b>
 
           ${
-            x.matches
-            ? "<span class='green'> ✓ POSIBLE</span>"
-            : ""
+            c.matches
+              ? `
+                <span class="green">
+                ✓ POSIBLE
+                </span>
+                `
+              : ""
           }
 
           <br>
+
         `;
+
       });
+
 
       html += `
         </div>
       `;
+
     });
 
-  box.innerHTML = html;
+
+  box.innerHTML =
+    html;
+
 }
 
 
@@ -1701,19 +2518,83 @@ function renderComparison(){
   const box =
     $("comparison");
 
+
   if(rxPackets.length < 2){
 
-    box.innerHTML =
-      "<div class='small'>Esperando al menos dos RX.</div>";
+    box.innerHTML = `
+
+      <div class="packet reference">
+
+        <b>COMPARACIÓN CONOCIDA</b>
+
+        <br><br>
+
+        A:
+        <br>
+        AB 00 05 FF 91 80 00 64
+
+        <br><br>
+
+        B:
+        <br>
+        AB 00 0D FF 92 C0 03 07
+        7B 00 00 00 00 00 00 22
+
+        <br><br>
+
+        Las diferencias conocidas son:
+
+        <br><br>
+
+        Byte 2:
+        <b>05 → 0D</b>
+
+        <br>
+
+        Byte 4:
+        <b>91 → 92</b>
+
+        <br>
+
+        Byte 5:
+        <b>80 → C0</b>
+
+        <br>
+
+        Byte 6:
+        <b>00 → 03</b>
+
+        <br>
+
+        Byte 7:
+        <b>64 → 07</b>
+
+        <br>
+
+        A partir del byte 8,
+        el segundo paquete continúa
+        con datos adicionales.
+
+      </div>
+
+    `;
 
     return;
+
   }
 
+
   const a =
-    rxPackets[rxPackets.length-2];
+    rxPackets[
+      rxPackets.length - 2
+    ];
+
 
   const b =
-    rxPackets[rxPackets.length-1];
+    rxPackets[
+      rxPackets.length - 1
+    ];
+
 
   const max =
     Math.max(
@@ -1721,9 +2602,15 @@ function renderComparison(){
       b.bytes.length
     );
 
-  let differences = [];
 
-  for(let i=0;i<max;i++){
+  const differences = [];
+
+
+  for(
+    let i=0;
+    i<max;
+    i++
+  ){
 
     const av =
       a.bytes[i];
@@ -1731,16 +2618,23 @@ function renderComparison(){
     const bv =
       b.bytes[i];
 
+
     if(av !== bv){
 
       differences.push(
+
         `Byte ${i}: ` +
         `${fmt(av)} → ${fmt(bv)}`
+
       );
+
     }
+
   }
 
-  let html = `
+
+  box.innerHTML = `
+
     <div class="packet">
 
       <b>A:</b>
@@ -1759,14 +2653,14 @@ function renderComparison(){
 
       ${
         differences.length
-        ? differences.join("<br>")
-        : "<span class='green'>🟢 Los dos paquetes son idénticos.</span>"
+          ? differences.join("<br>")
+          : "<span class='green'>🟢 Idénticos.</span>"
       }
 
     </div>
+
   `;
 
-  box.innerHTML = html;
 }
 
 
@@ -1779,31 +2673,38 @@ function renderTimeline(){
   const box =
     $("timeline");
 
+
   if(!packets.length){
 
     box.innerHTML =
-      "<div class='small'>Todavía no hay actividad.</div>";
+      "<div class='small'>" +
+      "Todavía no hay actividad." +
+      "</div>";
 
     return;
+
   }
+
 
   box.innerHTML =
     packets
       .slice()
       .reverse()
       .slice(0,100)
-      .map(p => {
+      .map(p => `
 
-        const icon =
-          p.direction === "TX"
-          ? "📤"
-          : "📥";
+        <div class="packet">
 
-        return `
-          <div class="packet">
+          ${
+            p.direction === "TX"
+              ? "📤"
+              : "📥"
+          }
 
-          ${icon}
-          <b>${p.direction}</b>
+          <b>
+          ${p.direction}
+          </b>
+
           · ${p.time}
 
           <br>
@@ -1812,17 +2713,20 @@ function renderTimeline(){
 
           ${
             p.type
-            ? `<br><span class='small'>
-               ${p.type}
-               </span>`
-            : ""
+              ? `
+                <br>
+                <span class="small">
+                ${p.type}
+                </span>
+                `
+              : ""
           }
 
-          </div>
-        `;
+        </div>
 
-      })
+      `)
       .join("");
+
 }
 
 
@@ -1832,13 +2736,18 @@ function renderTimeline(){
 
 function fmt(v){
 
-  if(v === null || v === undefined)
+  if(
+    v === null ||
+    v === undefined
+  )
     return "—";
+
 
   return v
     .toString(16)
     .padStart(2,"0")
     .toUpperCase();
+
 }
 
 
@@ -1846,89 +2755,147 @@ function fmt(v){
    DESCONECTAR
 ========================================================= */
 
-function disconnect(){
+async function disconnect(){
 
   try{
 
     if(notifyCharacteristic){
 
-      notifyCharacteristic
-        .removeEventListener(
-          "characteristicvaluechanged",
-          handleNotification
-        );
+      try{
+
+        await notifyCharacteristic
+          .stopNotifications();
+
+      }catch(e){}
+
+      try{
+
+        notifyCharacteristic
+          .removeEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+          );
+
+      }catch(e){}
 
     }
 
-    if(device && device.gatt.connected)
+
+    if(
+      device &&
+      device.gatt &&
+      device.gatt.connected
+    ){
+
       device.gatt.disconnect();
 
-  }catch(e){}
+    }
+
+  }catch(error){
+
+    log(
+      "⚠️ Error durante desconexión: " +
+      error.message
+    );
+
+  }
+
 
   handleDisconnect();
-}
-
-
-function handleDisconnect(){
-
-  connected = false;
-
-  writeCharacteristic = null;
-  notifyCharacteristic = null;
-  service = null;
-  server = null;
-
-  $("connectionStatus").innerHTML =
-    "⚪ Smart Band desconectada";
-
-  $("disconnectBtn").disabled = true;
-  $("sendBtn").disabled = true;
-
-  log("🔌 GATT desconectado.");
-
-  $("uartInfo").innerHTML =
-    "Canal UART desconectado.";
 
 }
 
 
 /* =========================================================
-   LIMPIAR
+   DESCONEXIÓN GATT
+========================================================= */
+
+function handleDisconnect(){
+
+  connected =
+    false;
+
+  server =
+    null;
+
+  writeCharacteristic =
+    null;
+
+  notifyCharacteristic =
+    null;
+
+  $("connectionStatus").innerHTML =
+    "⚪ Smart Band desconectada";
+
+  $("disconnectBtn").disabled =
+    true;
+
+  $("sendBtn").disabled =
+    true;
+
+  $("connectBtn").disabled =
+    false;
+
+  $("uartInfo").innerHTML =
+    "Canal BLE desconectado.";
+
+  log(
+    "🔌 GATT desconectado."
+  );
+
+}
+
+
+/* =========================================================
+   LIMPIAR PAQUETES
 ========================================================= */
 
 function clearPackets(){
 
   packets = [];
+
   txPackets = [];
+
   rxPackets = [];
 
   packetNumber = 0;
-  txNumber = 0;
 
   lastTx = null;
 
+
   updateStats();
+
   renderPackets();
+
   renderRelations();
+
   renderPatterns();
+
   renderStructure();
+
   renderVariableFields();
+
   renderChecksum();
+
   renderComparison();
+
   renderTimeline();
 
-  log("Historial de paquetes limpiado.");
+
+  log(
+    "🧹 Historial de paquetes limpiado."
+  );
 
 }
 
 
 /* =========================================================
-   EXPORTACIÓN
+   EXPORTAR
 ========================================================= */
 
 function buildExport(){
 
-  const data = {
+  return JSON.stringify({
 
     application:
       "RoXThal F1 Plus Protocol Laboratory",
@@ -1938,17 +2905,38 @@ function buildExport(){
 
     device:{
       name:
-        device ? device.name : null,
+        device
+          ? device.name
+          : null,
 
       id:
-        device ? device.id : null
+        device
+          ? device.id
+          : null
     },
 
-    uuid:{
-      service:UUID_SERVICE,
-      write:UUID_WRITE,
-      notify:UUID_NOTIFY
-    },
+    services:
+      discoveredServices.map(
+        s => s.uuid
+      ),
+
+    characteristics:
+      discoveredCharacteristics.map(
+        c => ({
+          uuid:c.uuid,
+          properties:c.properties
+        })
+      ),
+
+    selectedWrite:
+      writeCharacteristic
+        ? writeCharacteristic.uuid
+        : null,
+
+    selectedNotify:
+      notifyCharacteristic
+        ? notifyCharacteristic.uuid
+        : null,
 
     statistics:{
       tx:txPackets.length,
@@ -1956,28 +2944,33 @@ function buildExport(){
 
       spontaneous:
         rxPackets.filter(
-          p => p.type === "SPONTÁNEO"
+          p =>
+            p.type ===
+            "SPONTÁNEO"
         ).length,
 
       responses:
         rxPackets.filter(
-          p => p.type === "RESPUESTA PROBABLE"
+          p =>
+            p.type ===
+            "RESPUESTA PROBABLE"
         ).length,
 
       echoes:
         rxPackets.filter(
-          p => p.type === "ECO"
+          p =>
+            p.type ===
+            "ECO"
         ).length
     },
 
-    packets,
+    packets:packets,
 
-    note:
-      "No protocol command is assumed to be valid unless experimentally confirmed."
+    protocolNote:
+      "Los comandos no se consideran confirmados hasta su validación experimental."
 
-  };
+  },null,2);
 
-  return JSON.stringify(data,null,2);
 }
 
 
@@ -1986,19 +2979,32 @@ function exportAnalysis(){
   const content =
     buildExport();
 
+
   const blob =
     new Blob(
       [content],
-      {type:"application/json"}
+      {
+        type:
+          "application/json"
+      }
     );
 
+
   const url =
-    URL.createObjectURL(blob);
+    URL.createObjectURL(
+      blob
+    );
+
 
   const a =
-    document.createElement("a");
+    document.createElement(
+      "a"
+    );
 
-  a.href = url;
+
+  a.href =
+    url;
+
 
   a.download =
     "F1-Plus-analysis-" +
@@ -2006,6 +3012,7 @@ function exportAnalysis(){
       .toISOString()
       .replace(/[:.]/g,"-") +
     ".json";
+
 
   document.body.appendChild(a);
 
@@ -2015,58 +3022,81 @@ function exportAnalysis(){
 
   URL.revokeObjectURL(url);
 
-  log("💾 Análisis exportado.");
+
+  log(
+    "💾 Análisis exportado."
+  );
+
 }
 
 
 /* =========================================================
-   COPIAR RESUMEN
+   COPIAR
 ========================================================= */
 
 async function copySummary(){
 
   const text =
+
 `RoXThal F1 Plus Laboratory
 
-Device:
+DISPOSITIVO
 ${device ? device.name : "N/A"}
 
-Service:
-${UUID_SERVICE}
+WRITE
+${writeCharacteristic ? writeCharacteristic.uuid : "N/A"}
 
-TX:
+NOTIFY
+${notifyCharacteristic ? notifyCharacteristic.uuid : "N/A"}
+
+TX
 ${txPackets.length}
 
-RX:
+RX
 ${rxPackets.length}
 
-RX espontáneos:
-${rxPackets.filter(p=>p.type==="SPONTÁNEO").length}
+RX ESPONTÁNEOS
+${rxPackets.filter(
+  p => p.type === "SPONTÁNEO"
+).length}
 
-Respuestas:
-${rxPackets.filter(p=>p.type==="RESPUESTA PROBABLE").length}
+RESPUESTAS
+${rxPackets.filter(
+  p => p.type === "RESPUESTA PROBABLE"
+).length}
 
-Ecos:
-${rxPackets.filter(p=>p.type==="ECO").length}
+ECOS
+${rxPackets.filter(
+  p => p.type === "ECO"
+).length}
 
-RX:
+PAQUETES RX
 
-${rxPackets.map(p =>
-  p.type + " | " + hex(p.bytes)
+${rxPackets.map(
+  p =>
+    p.type +
+    " | " +
+    hex(p.bytes)
 ).join("\n")}
 `;
 
+
   try{
 
-    await navigator.clipboard.writeText(text);
+    await navigator
+      .clipboard
+      .writeText(text);
 
-    log("📋 Resumen copiado.");
+    log(
+      "📋 Resumen copiado."
+    );
 
-  }catch(e){
+  }catch(error){
 
     alert(text);
 
   }
+
 }
 
 
@@ -2080,11 +3110,13 @@ $("connectBtn")
     connect
   );
 
+
 $("disconnectBtn")
   .addEventListener(
     "click",
     disconnect
   );
+
 
 $("scanBtn")
   .addEventListener(
@@ -2092,17 +3124,25 @@ $("scanBtn")
     bluetoothCheck
   );
 
+
 $("sendBtn")
   .addEventListener(
     "click",
     sendHex
   );
 
+
 $("clearInputBtn")
   .addEventListener(
     "click",
-    () => $("hexInput").value = ""
+    () => {
+
+      $("hexInput").value =
+        "";
+
+    }
   );
+
 
 $("clearPacketsBtn")
   .addEventListener(
@@ -2110,20 +3150,37 @@ $("clearPacketsBtn")
     clearPackets
   );
 
+
 $("clearDiagnosticBtn")
   .addEventListener(
     "click",
     () => {
+
       $("diagnostic").textContent =
         "Sistema preparado.";
+
+      log(
+        "Analizador F1 Plus listo."
+      );
+
+      log(
+        "Modo pasivo activo."
+      );
+
+      log(
+        "No se enviarán comandos automáticamente."
+      );
+
     }
   );
+
 
 $("exportBtn")
   .addEventListener(
     "click",
     exportAnalysis
   );
+
 
 $("copyBtn")
   .addEventListener(
@@ -2132,17 +3189,18 @@ $("copyBtn")
   );
 
 
-/* =========================================================
-   ENTER EN CONSOLA HEX
-========================================================= */
-
 $("hexInput")
   .addEventListener(
     "keydown",
-    e => {
+    event => {
 
-      if(e.key === "Enter")
+      if(event.key === "Enter"){
+
+        event.preventDefault();
+
         sendHex();
+
+      }
 
     }
   );
@@ -2164,6 +3222,10 @@ log(
 
 log(
   "No se enviarán comandos automáticamente."
+);
+
+log(
+  "Esperando conexión..."
 );
 
 </script>
