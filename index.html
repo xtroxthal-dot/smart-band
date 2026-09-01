@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0f14">
-<meta name="description" content="Smart Band - Salud, actividad y estadísticas">
+<meta name="theme-color" content="#080b10">
+<meta name="description" content="Smart Band - F1 Plus">
 <title>Smart Band</title>
 
 <style>
@@ -17,12 +17,17 @@
   --accent:#35d0ba;
   --accent2:#4d8dff;
   --danger:#ff5968;
+  --warning:#f5b942;
   --border:rgba(255,255,255,.08);
 }
 
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
@@ -47,14 +52,12 @@ button{
   padding-bottom:90px;
 }
 
-/* HEADER */
-
 header{
   position:sticky;
   top:0;
   z-index:20;
   padding:16px;
-  background:rgba(8,11,16,.9);
+  background:rgba(8,11,16,.92);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
 }
@@ -63,6 +66,7 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
 }
 
 .brand{
@@ -102,6 +106,7 @@ header{
   border-radius:20px;
   font-size:11px;
   color:var(--muted);
+  white-space:nowrap;
 }
 
 .dot{
@@ -115,8 +120,6 @@ header{
   background:var(--accent);
   box-shadow:0 0 10px var(--accent);
 }
-
-/* MAIN */
 
 main{
   padding:18px;
@@ -156,8 +159,6 @@ main{
   color:var(--muted);
 }
 
-/* CARDS */
-
 .card{
   background:linear-gradient(145deg,
     rgba(255,255,255,.045),
@@ -172,6 +173,7 @@ main{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:10px;
   margin-bottom:15px;
 }
 
@@ -184,8 +186,6 @@ main{
   font-size:11px;
   color:var(--muted);
 }
-
-/* DEVICE */
 
 .device-card{
   background:
@@ -245,12 +245,11 @@ main{
 .progress span{
   display:block;
   height:100%;
-  width:76%;
+  width:0%;
   border-radius:20px;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:.3s;
 }
-
-/* GRID */
 
 .grid{
   display:grid;
@@ -288,8 +287,6 @@ main{
   margin-top:9px;
 }
 
-/* GOAL */
-
 .goal{
   display:flex;
   align-items:center;
@@ -325,8 +322,6 @@ main{
   margin-top:5px;
 }
 
-/* BUTTON */
-
 .btn{
   width:100%;
   border:0;
@@ -349,7 +344,11 @@ main{
   border:0;
 }
 
-/* LIST */
+.btn-warning{
+  background:rgba(245,185,66,.12);
+  border-color:rgba(245,185,66,.3);
+  color:#f5c968;
+}
 
 .list{
   display:flex;
@@ -379,6 +378,7 @@ main{
 
 .list-main{
   flex:1;
+  min-width:0;
 }
 
 .list-main strong{
@@ -391,9 +391,8 @@ main{
   color:var(--muted);
   font-size:10px;
   margin-top:3px;
+  word-break:break-word;
 }
-
-/* CHART */
 
 .chart{
   height:160px;
@@ -405,42 +404,37 @@ main{
 
 .bar{
   flex:1;
+  min-height:4px;
   border-radius:8px 8px 3px 3px;
   background:linear-gradient(to top,var(--accent2),var(--accent));
   opacity:.85;
 }
 
-/* TOGGLE */
-
-.toggle{
-  width:47px;
-  height:27px;
-  border:0;
-  border-radius:20px;
-  background:#303844;
-  position:relative;
+.debug-box{
+  max-height:300px;
+  overflow:auto;
+  background:#07090d;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+  font-family:monospace;
+  font-size:10px;
+  line-height:1.5;
+  white-space:pre-wrap;
+  word-break:break-word;
 }
 
-.toggle span{
-  position:absolute;
-  width:21px;
-  height:21px;
-  top:3px;
-  left:3px;
-  background:white;
-  border-radius:50%;
-  transition:.2s;
+.debug-ok{
+  color:var(--accent);
 }
 
-.toggle.on{
-  background:var(--accent);
+.debug-error{
+  color:var(--danger);
 }
 
-.toggle.on span{
-  left:23px;
+.debug-info{
+  color:#a9b5c7;
 }
-
-/* NAV */
 
 .bottom-nav{
   position:fixed;
@@ -476,8 +470,6 @@ main{
   color:var(--accent);
 }
 
-/* MODAL */
-
 .modal{
   position:fixed;
   inset:0;
@@ -495,6 +487,8 @@ main{
 
 .modal-box{
   width:min(620px,100%);
+  max-height:90vh;
+  overflow:auto;
   margin:auto;
   padding:22px;
   background:#11161e;
@@ -512,15 +506,16 @@ main{
   background:none;
   color:white;
   font-size:25px;
+  cursor:pointer;
 }
-
-/* TOAST */
 
 .toast{
   position:fixed;
   left:50%;
   bottom:90px;
   z-index:200;
+  width:max-content;
+  max-width:90%;
   padding:12px 17px;
   background:#202833;
   border:1px solid var(--border);
@@ -530,6 +525,7 @@ main{
   opacity:0;
   pointer-events:none;
   transition:.25s;
+  text-align:center;
 }
 
 .toast.show{
@@ -551,6 +547,14 @@ main{
     padding:12px;
   }
 
+  .brand strong{
+    font-size:15px;
+  }
+
+  .connection{
+    padding:7px;
+    font-size:9px;
+  }
 }
 </style>
 </head>
@@ -566,7 +570,7 @@ main{
       <div class="logo">⌚</div>
       <div>
         <strong>SMART BAND</strong>
-        <span>Health & Activity</span>
+        <span>F1 Plus • Health & Activity</span>
       </div>
     </div>
 
@@ -578,15 +582,18 @@ main{
   </div>
 </header>
 
+
 <main>
 
-<!-- INICIO -->
+<!-- =========================
+     INICIO
+========================= -->
 
 <section id="home" class="page active">
 
   <div class="greeting">
-    <h1>Buenos días 👋</h1>
-    <p>Tu resumen de actividad.</p>
+    <h1>Smart Band ⌚</h1>
+    <p>Panel de control de tu F1 Plus.</p>
   </div>
 
   <div class="card device-card">
@@ -596,7 +603,7 @@ main{
       <div class="band-icon">⌚</div>
 
       <div class="device-name">
-        <strong id="deviceName">Smart Band</strong>
+        <strong id="deviceName">F1 Plus</strong>
         <span id="deviceStatus">No conectada</span>
       </div>
 
@@ -606,7 +613,7 @@ main{
 
       <div class="battery-head">
         <span>Batería</span>
-        <strong id="batteryValue">76%</strong>
+        <strong id="batteryValue">--</strong>
       </div>
 
       <div class="progress">
@@ -619,61 +626,177 @@ main{
 
     <button class="btn btn-primary"
             onclick="connectBand()">
-      🔵 Conectar Smart Band
+      🔵 Conectar F1 Plus
     </button>
 
   </div>
+
 
   <div class="grid">
 
     <div class="metric">
       <div class="metric-icon">👣</div>
-      <div class="metric-value" id="steps">7.842</div>
+      <div class="metric-value" id="steps">--</div>
       <div class="metric-label">Pasos</div>
-      <div class="metric-change">+12% vs ayer</div>
+      <div class="metric-change">Esperando datos</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">🔥</div>
-      <div class="metric-value" id="calories">486</div>
+      <div class="metric-value" id="calories">--</div>
       <div class="metric-label">Calorías</div>
-      <div class="metric-change">Objetivo 650</div>
+      <div class="metric-change">Esperando datos</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">❤️</div>
-      <div class="metric-value" id="heart">72</div>
+      <div class="metric-value" id="heart">--</div>
       <div class="metric-label">BPM</div>
-      <div class="metric-change">Normal</div>
+      <div class="metric-change">Esperando datos</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">💧</div>
-      <div class="metric-value" id="spo2">98%</div>
+      <div class="metric-value" id="spo2">--</div>
       <div class="metric-label">SpO₂</div>
-      <div class="metric-change">Última medición</div>
+      <div class="metric-change">Esperando datos</div>
     </div>
 
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Estado Bluetooth</h2>
+      <span class="small" id="bluetoothSummary">
+        No conectado
+      </span>
+    </div>
+
+    <div class="list">
+
+      <div class="list-item">
+        <div class="list-icon">⌚</div>
+
+        <div class="list-main">
+          <strong>Dispositivo</strong>
+          <span id="deviceDetectedName">
+            F1 Plus no detectada
+          </span>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-icon">🔵</div>
+
+        <div class="list-main">
+          <strong>Bluetooth Web</strong>
+          <span id="webBluetoothStatus">
+            Comprobando compatibilidad...
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SALUD
+========================= -->
+
+<section id="health" class="page">
+
+  <div class="greeting">
+    <h1>Salud ❤️</h1>
+    <p>Datos disponibles desde la F1 Plus.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="metric">
+      <div class="metric-icon">❤️</div>
+      <div class="metric-value" id="healthHeart">--</div>
+      <div class="metric-label">Frecuencia cardíaca</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">💧</div>
+      <div class="metric-value" id="healthSpo2">--</div>
+      <div class="metric-label">SpO₂</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🌡️</div>
+      <div class="metric-value" id="healthTemp">--</div>
+      <div class="metric-label">Temperatura</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-icon">🫁</div>
+      <div class="metric-value" id="healthResp">--</div>
+      <div class="metric-label">Respiración</div>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>Frecuencia cardíaca</h2>
+      <span class="small">Datos reales cuando estén disponibles</span>
+    </div>
+
+    <div id="heartChart" class="chart"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <p class="small">
+      ⚠️ Los valores de las pulseras comerciales pueden ser
+      orientativos y no sustituyen dispositivos médicos.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ACTIVIDAD
+========================= -->
+
+<section id="activity" class="page">
+
+  <div class="greeting">
+    <h1>Actividad 🏃</h1>
+    <p>Movimiento y entrenamiento.</p>
   </div>
 
   <div class="card">
 
     <div class="card-title">
-      <h2>Objetivo diario</h2>
-      <span class="small">7.842 / 10.000</span>
+      <h2>Pasos</h2>
+      <span class="small" id="stepsStatus">Sin datos</span>
     </div>
 
     <div class="goal">
 
-      <div class="circle">
-        <strong>78%</strong>
+      <div class="circle" id="stepsCircle">
+        <strong id="stepsPercent">--</strong>
       </div>
 
       <div class="goal-text">
-        <strong>Buen trabajo</strong>
-        <span>
-          Te faltan 2.158 pasos para completar
-          tu objetivo diario.
+        <strong id="activitySteps">-- pasos</strong>
+        <span id="activityDistance">
+          Distancia: -- km
         </span>
       </div>
 
@@ -681,156 +804,31 @@ main{
 
   </div>
 
-  <div class="card">
-
-    <div class="card-title">
-      <h2>Actividad semanal</h2>
-      <span class="small">Pasos</span>
-    </div>
-
-    <div id="weeklyChart" class="chart"></div>
-
-  </div>
-
-</section>
-
-
-<!-- SALUD -->
-
-<section id="health" class="page">
-
-  <div class="greeting">
-    <h1>Salud ❤️</h1>
-    <p>Indicadores de salud registrados.</p>
-  </div>
-
-  <div class="grid">
-
-    <div class="metric">
-      <div class="metric-icon">❤️</div>
-      <div class="metric-value">72</div>
-      <div class="metric-label">Frecuencia cardíaca</div>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">💧</div>
-      <div class="metric-value">98%</div>
-      <div class="metric-label">SpO₂</div>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">🌡️</div>
-      <div class="metric-value">36.5°</div>
-      <div class="metric-label">Temperatura</div>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">🫁</div>
-      <div class="metric-value">16</div>
-      <div class="metric-label">Respiraciones/min</div>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-title">
-      <h2>Frecuencia cardíaca</h2>
-      <span class="small">Hoy</span>
-    </div>
-
-    <div id="heartChart" class="chart"></div>
-
-  </div>
-
-</section>
-
-
-<!-- ACTIVIDAD -->
-
-<section id="activity" class="page">
-
-  <div class="greeting">
-    <h1>Actividad 🏃</h1>
-    <p>Movimiento y entrenamientos.</p>
-  </div>
-
-  <div class="card">
-
-    <div class="card-title">
-      <h2>Hoy</h2>
-      <span class="small">Objetivo 10.000</span>
-    </div>
-
-    <div class="goal">
-
-      <div class="circle">
-        <strong>78%</strong>
-      </div>
-
-      <div class="goal-text">
-        <strong>7.842 pasos</strong>
-        <span>5,6 km recorridos</span>
-      </div>
-
-    </div>
-
-  </div>
 
   <div class="grid">
 
     <div class="metric">
       <div class="metric-icon">👣</div>
-      <div class="metric-value">7.842</div>
+      <div class="metric-value" id="activitySteps2">--</div>
       <div class="metric-label">Pasos</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">📍</div>
-      <div class="metric-value">5,6</div>
+      <div class="metric-value" id="distance">--</div>
       <div class="metric-label">Kilómetros</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">🔥</div>
-      <div class="metric-value">486</div>
+      <div class="metric-value" id="activityCalories">--</div>
       <div class="metric-label">Calorías</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">⏱️</div>
-      <div class="metric-value">58m</div>
+      <div class="metric-value" id="activityTime">--</div>
       <div class="metric-label">Actividad</div>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-title">
-      <h2>Entrenamientos</h2>
-    </div>
-
-    <div class="list">
-
-      <div class="list-item">
-        <div class="list-icon">🚶</div>
-        <div class="list-main">
-          <strong>Caminata</strong>
-          <span>Hoy · 32 minutos</span>
-        </div>
-        <strong>2,8 km</strong>
-      </div>
-
-      <div class="list-item">
-        <div class="list-icon">🏃</div>
-        <div class="list-main">
-          <strong>Carrera</strong>
-          <span>Ayer · 26 minutos</span>
-        </div>
-        <strong>4,1 km</strong>
-      </div>
-
     </div>
 
   </div>
@@ -838,30 +836,34 @@ main{
 </section>
 
 
-<!-- SUEÑO -->
+<!-- =========================
+     SUEÑO
+========================= -->
 
 <section id="sleep" class="page">
 
   <div class="greeting">
     <h1>Sueño 😴</h1>
-    <p>Resumen de tu descanso.</p>
+    <p>Información del descanso.</p>
   </div>
 
   <div class="card device-card">
 
     <div class="card-title">
       <h2>Última noche</h2>
-      <span class="small">Excelente</span>
+      <span class="small" id="sleepStatus">
+        Sin datos
+      </span>
     </div>
 
     <div class="goal">
 
       <div class="circle">
-        <strong>87%</strong>
+        <strong id="sleepPercent">--</strong>
       </div>
 
       <div class="goal-text">
-        <strong>7 h 42 min</strong>
+        <strong id="sleepTotal">--</strong>
         <span>Tiempo total de sueño</span>
       </div>
 
@@ -873,25 +875,25 @@ main{
 
     <div class="metric">
       <div class="metric-icon">🌙</div>
-      <div class="metric-value">5h 58m</div>
+      <div class="metric-value" id="lightSleep">--</div>
       <div class="metric-label">Sueño ligero</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">🛌</div>
-      <div class="metric-value">1h 44m</div>
+      <div class="metric-value" id="deepSleep">--</div>
       <div class="metric-label">Sueño profundo</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">⏰</div>
-      <div class="metric-value">2</div>
+      <div class="metric-value" id="wakeups">--</div>
       <div class="metric-label">Despertares</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">❤️</div>
-      <div class="metric-value">64</div>
+      <div class="metric-value" id="sleepHeart">--</div>
       <div class="metric-label">BPM promedio</div>
     </div>
 
@@ -900,20 +902,22 @@ main{
 </section>
 
 
-<!-- ESTADÍSTICAS -->
+<!-- =========================
+     ESTADÍSTICAS
+========================= -->
 
 <section id="stats" class="page">
 
   <div class="greeting">
     <h1>Estadísticas 📊</h1>
-    <p>Tu evolución semanal.</p>
+    <p>Historial disponible.</p>
   </div>
 
   <div class="card">
 
     <div class="card-title">
       <h2>Pasos</h2>
-      <span class="small">Últimos 7 días</span>
+      <span class="small">Últimos 7 registros</span>
     </div>
 
     <div id="statsChart" class="chart"></div>
@@ -924,13 +928,13 @@ main{
 
     <div class="metric">
       <div class="metric-icon">🏆</div>
-      <div class="metric-value">12.430</div>
+      <div class="metric-value" id="recordSteps">--</div>
       <div class="metric-label">Récord de pasos</div>
     </div>
 
     <div class="metric">
       <div class="metric-icon">🔥</div>
-      <div class="metric-value">681</div>
+      <div class="metric-value" id="recordCalories">--</div>
       <div class="metric-label">Récord calorías</div>
     </div>
 
@@ -939,75 +943,122 @@ main{
 </section>
 
 
-<!-- DISPOSITIVO -->
+<!-- =========================
+     BAND / DIAGNÓSTICO
+========================= -->
 
 <section id="device" class="page">
 
   <div class="greeting">
-    <h1>Mi Smart Band ⌚</h1>
-    <p>Gestiona tu dispositivo.</p>
+    <h1>F1 Plus ⌚</h1>
+    <p>Conexión y diagnóstico Bluetooth.</p>
   </div>
+
 
   <div class="card">
 
     <div class="card-title">
       <h2>Dispositivo</h2>
+      <span class="small" id="deviceConnectionState">
+        Desconectado
+      </span>
     </div>
 
     <div class="list">
 
       <div class="list-item">
         <div class="list-icon">⌚</div>
+
         <div class="list-main">
-          <strong id="deviceName2">Smart Band</strong>
-          <span id="deviceInfo">
-            Sin dispositivo conectado
+          <strong>Nombre</strong>
+          <span id="infoName">
+            F1 Plus
+          </span>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-icon">🔵</div>
+
+        <div class="list-main">
+          <strong>Bluetooth</strong>
+          <span id="infoBluetooth">
+            Desconectado
           </span>
         </div>
       </div>
 
       <div class="list-item">
         <div class="list-icon">🔋</div>
+
         <div class="list-main">
           <strong>Batería</strong>
-          <span>Nivel actual</span>
+          <span>
+            Servicio estándar, si está disponible
+          </span>
         </div>
-        <strong id="deviceBattery">76%</strong>
-      </div>
 
-      <div class="list-item">
-        <div class="list-icon">🔵</div>
-        <div class="list-main">
-          <strong>Bluetooth</strong>
-          <span>Estado</span>
-        </div>
-        <strong id="bluetoothStatus">
-          Desconectado
-        </strong>
+        <strong id="deviceBattery">--</strong>
       </div>
 
     </div>
 
   </div>
 
+
   <button class="btn btn-primary"
           onclick="connectBand()">
-    🔵 Buscar Smart Band
+    🔵 Buscar F1 Plus
   </button>
 
   <br><br>
 
   <button class="btn"
           onclick="disconnectBand()">
-    Desconectar dispositivo
+    Desconectar
   </button>
+
+
+  <br><br>
+
+
+  <div class="card">
+
+    <div class="card-title">
+      <h2>🔬 Diagnóstico BLE</h2>
+      <span class="small">Solo lectura</span>
+    </div>
+
+    <p class="small">
+      Esta sección muestra los servicios y características
+      Bluetooth que la F1 Plus permite descubrir desde el
+      navegador.
+    </p>
+
+    <br>
+
+    <button class="btn btn-warning"
+            onclick="runDiagnostic()">
+      🔍 Ejecutar diagnóstico
+    </button>
+
+    <br><br>
+
+    <div id="diagnosticOutput"
+         class="debug-box">
+Aún no se ha ejecutado el diagnóstico.
+    </div>
+
+  </div>
 
 </section>
 
 </main>
 
 
-<!-- NAVEGACIÓN -->
+<!-- =========================
+     NAVEGACIÓN
+========================= -->
 
 <nav class="bottom-nav">
 
@@ -1046,7 +1097,9 @@ main{
 </div>
 
 
-<!-- MODAL -->
+<!-- =========================
+     MODAL BLUETOOTH
+========================= -->
 
 <div id="bluetoothModal" class="modal">
 
@@ -1055,18 +1108,18 @@ main{
     <button class="close"
             onclick="closeModal()">×</button>
 
-    <h2>🔵 Conectar Smart Band</h2>
+    <h2>🔵 Buscar F1 Plus</h2>
 
     <p class="small">
-      Desde aquí prepararemos la conexión Bluetooth
-      con tu dispositivo.
+      Pulsa el botón para abrir el selector Bluetooth.
+      La F1 Plus debe estar encendida y cerca del teléfono.
     </p>
 
     <br>
 
     <button class="btn btn-primary"
             onclick="requestBluetoothDevice()">
-      Buscar dispositivo
+      🔍 Buscar dispositivo
     </button>
 
     <br><br>
@@ -1086,9 +1139,23 @@ main{
 
 <script>
 
-/* ===============================
+/* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+
+let bluetoothDevice = null;
+let bluetoothServer = null;
+
+let discoveredServices = [];
+let discoveredCharacteristics = [];
+
+let heartHistory = [];
+let stepsHistory = [];
+
+
+/* =========================================================
    NAVEGACIÓN
-================================ */
+========================================================= */
 
 function showPage(pageId,button){
 
@@ -1119,9 +1186,9 @@ function showPage(pageId,button){
 }
 
 
-/* ===============================
-   MENSAJES
-================================ */
+/* =========================================================
+   TOAST
+========================================================= */
 
 function toast(message){
 
@@ -1134,13 +1201,43 @@ function toast(message){
 
   setTimeout(()=>{
     element.classList.remove("show");
-  },2500);
+  },2800);
 }
 
 
-/* ===============================
+/* =========================================================
+   DIAGNÓSTICO DEL NAVEGADOR
+========================================================= */
+
+function checkBrowserBluetooth(){
+
+  const status=
+    document.getElementById("webBluetoothStatus");
+
+  if(!navigator.bluetooth){
+
+    status.textContent=
+      "Web Bluetooth no disponible";
+
+    status.className=
+      "debug-error";
+
+    return false;
+  }
+
+  status.textContent=
+    "Web Bluetooth disponible";
+
+  status.className=
+    "debug-ok";
+
+  return true;
+}
+
+
+/* =========================================================
    GRÁFICAS
-================================ */
+========================================================= */
 
 function createChart(id,values){
 
@@ -1151,7 +1248,12 @@ function createChart(id,values){
 
   chart.innerHTML="";
 
-  const max=Math.max(...values);
+  if(!values.length){
+    return;
+  }
+
+  const max=
+    Math.max(...values,1);
 
   values.forEach(value=>{
 
@@ -1161,38 +1263,42 @@ function createChart(id,values){
     bar.className="bar";
 
     bar.style.height=
-      Math.max(8,(value/max)*100)+"%";
+      Math.max(
+        5,
+        (value/max)*100
+      )+"%";
 
     chart.appendChild(bar);
 
   });
 }
 
+
 createChart(
-  "weeklyChart",
-  [42,58,64,48,81,72,78]
+  "heartChart",
+  [65,70,68,73,71,75,72]
 );
 
 createChart(
   "statsChart",
-  [52,61,73,46,82,68,78]
-);
-
-createChart(
-  "heartChart",
-  [62,70,68,74,72,76,69,73,71,75,72]
+  [20,35,50,42,65,58,75]
 );
 
 
-/* ===============================
-   BLUETOOTH
-================================ */
-
-let bluetoothDevice=null;
-let bluetoothServer=null;
-
+/* =========================================================
+   ABRIR MODAL
+========================================================= */
 
 function connectBand(){
+
+  if(!navigator.bluetooth){
+
+    toast(
+      "Este navegador no admite Web Bluetooth."
+    );
+
+    return;
+  }
 
   document
     .getElementById("bluetoothModal")
@@ -1208,12 +1314,16 @@ function closeModal(){
 }
 
 
+/* =========================================================
+   CONEXIÓN BLUETOOTH
+========================================================= */
+
 async function requestBluetoothDevice(){
 
   if(!navigator.bluetooth){
 
     toast(
-      "Bluetooth no está disponible en este navegador."
+      "Bluetooth no está disponible."
     );
 
     return;
@@ -1221,75 +1331,122 @@ async function requestBluetoothDevice(){
 
   try{
 
-    toast("Buscando dispositivos...");
+    toast(
+      "Abriendo búsqueda Bluetooth..."
+    );
 
-    bluetoothDevice=
+    /*
+      acceptAllDevices se utiliza deliberadamente
+      para descubrir exactamente cómo se anuncia
+      la unidad F1 Plus.
+    */
+
+    bluetoothDevice =
       await navigator.bluetooth.requestDevice({
 
         acceptAllDevices:true,
 
         optionalServices:[
           "battery_service",
-          "device_information"
+          "device_information",
+          "heart_rate",
+          "pulse_oximeter"
         ]
 
       });
 
+
     if(!bluetoothDevice){
 
-      toast("No se encontró dispositivo.");
+      toast(
+        "No se seleccionó ningún dispositivo."
+      );
 
       return;
     }
 
-    document
-      .getElementById("deviceName")
-      .textContent=
+
+    updateDeviceName(
       bluetoothDevice.name ||
-      "Smart Band";
+      "F1 Plus"
+    );
+
 
     document
-      .getElementById("deviceName2")
+      .getElementById("deviceDetectedName")
       .textContent=
       bluetoothDevice.name ||
-      "Smart Band";
+      "F1 Plus";
+
 
     document
       .getElementById("deviceStatus")
       .textContent=
-      "Conectando...";
-
-    document
-      .getElementById("deviceInfo")
-      .textContent=
       "Dispositivo detectado";
 
-    closeModal();
+
+    document
+      .getElementById("infoName")
+      .textContent=
+      bluetoothDevice.name ||
+      "F1 Plus";
+
 
     bluetoothDevice.addEventListener(
       "gattserverdisconnected",
-      disconnected
+      handleDisconnected
     );
+
+
+    closeModal();
+
+    toast(
+      "Dispositivo encontrado. Conectando..."
+    );
+
 
     bluetoothServer=
       await bluetoothDevice.gatt.connect();
 
-    setConnection(true);
+
+    setConnectionState(true);
+
+
+    toast(
+      "F1 Plus conectada."
+    );
+
+
+    /*
+      Primero intentamos batería estándar.
+    */
 
     await readBattery();
 
-    toast(
-      "Smart Band conectada."
-    );
+
+    /*
+      Después hacemos descubrimiento de servicios.
+    */
+
+    await discoverBluetoothServices();
+
 
   }catch(error){
 
     console.error(error);
 
-    setConnection(false);
+    setConnectionState(false);
+
+    logDiagnostic(
+      "ERROR DE CONEXIÓN:\n"+
+      error.name+
+      "\n"+
+      error.message,
+      "error"
+    );
 
     toast(
-      "No se pudo conectar."
+      "No se pudo conectar a la F1 Plus."
     );
 
   }
@@ -1297,11 +1454,31 @@ async function requestBluetoothDevice(){
 }
 
 
-/* ===============================
-   CONEXIÓN
-================================ */
+/* =========================================================
+   NOMBRE DEL DISPOSITIVO
+========================================================= */
 
-function setConnection(connected){
+function updateDeviceName(name){
+
+  document
+    .getElementById("deviceName")
+    .textContent=name;
+
+  document
+    .getElementById("deviceName2")
+    ?.textContent=name;
+
+  document
+    .getElementById("infoName")
+    .textContent=name;
+}
+
+
+/* =========================================================
+   ESTADO DE CONEXIÓN
+========================================================= */
+
+function setConnectionState(connected){
 
   const dot=
     document.getElementById("connectionDot");
@@ -1313,48 +1490,123 @@ function setConnection(connected){
     document.getElementById("deviceStatus");
 
   const bluetooth=
-    document.getElementById("bluetoothStatus");
+    document.getElementById("infoBluetooth");
+
+  const summary=
+    document.getElementById("bluetoothSummary");
+
+  const state=
+    document.getElementById("deviceConnectionState");
+
 
   if(connected){
 
     dot.classList.add("connected");
 
-    text.textContent="Conectada";
+    text.textContent=
+      "Conectada";
 
-    status.textContent="Conectada";
+    status.textContent=
+      "Conectada";
 
-    bluetooth.textContent="Conectado";
+    bluetooth.textContent=
+      "Conectado";
+
+    summary.textContent=
+      "Conectada";
+
+    state.textContent=
+      "Conectada";
 
   }else{
 
     dot.classList.remove("connected");
 
-    text.textContent="Desconectada";
+    text.textContent=
+      "Desconectada";
 
-    status.textContent="No conectada";
+    status.textContent=
+      "No conectada";
 
-    bluetooth.textContent="Desconectado";
+    bluetooth.textContent=
+      "Desconectado";
+
+    summary.textContent=
+      "No conectado";
+
+    state.textContent=
+      "Desconectado";
+
   }
+
 }
 
 
-function disconnected(){
+/* =========================================================
+   DESCONEXIÓN
+========================================================= */
 
-  setConnection(false);
+function handleDisconnected(){
+
+  setConnectionState(false);
 
   toast(
-    "Smart Band desconectada."
+    "F1 Plus desconectada."
   );
+
 }
 
 
-/* ===============================
-   BATERÍA
-================================ */
+function disconnectBand(){
+
+  try{
+
+    if(
+      bluetoothDevice &&
+      bluetoothDevice.gatt &&
+      bluetoothDevice.gatt.connected
+    ){
+
+      bluetoothDevice.gatt.disconnect();
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+  bluetoothDevice=null;
+  bluetoothServer=null;
+
+  discoveredServices=[];
+  discoveredCharacteristics=[];
+
+  setConnectionState(false);
+
+  document
+    .getElementById("deviceStatus")
+    .textContent=
+    "No conectada";
+
+  toast(
+    "Dispositivo desconectado."
+  );
+
+}
+
+
+/* =========================================================
+   BATERÍA BLUETOOTH ESTÁNDAR
+========================================================= */
 
 async function readBattery(){
 
-  if(!bluetoothServer) return;
+  if(!bluetoothServer){
+
+    return;
+  }
 
   try{
 
@@ -1364,24 +1616,39 @@ async function readBattery(){
         "battery_service"
       );
 
+
     const characteristic=
       await service
       .getCharacteristic(
         "battery_level"
       );
 
+
     const value=
       await characteristic.readValue();
+
 
     const battery=
       value.getUint8(0);
 
+
     updateBattery(battery);
+
+
+    logDiagnostic(
+      "Batería estándar detectada: "+
+      battery+"%",
+      "ok"
+    );
+
 
   }catch(error){
 
-    console.log(
-      "No hay batería BLE estándar disponible."
+    logDiagnostic(
+      "Servicio de batería estándar no disponible.\n"+
+      "Esto NO significa que la F1 Plus no tenga batería;\n"+
+      "puede utilizar un servicio propietario.",
+      "info"
     );
 
   }
@@ -1389,75 +1656,551 @@ async function readBattery(){
 }
 
 
+/* =========================================================
+   ACTUALIZAR BATERÍA
+========================================================= */
+
 function updateBattery(value){
 
   value=
-    Math.max(0,Math.min(100,value));
+    Math.max(
+      0,
+      Math.min(100,value)
+    );
+
 
   document
     .getElementById("batteryValue")
     .textContent=
     value+"%";
 
+
   document
     .getElementById("deviceBattery")
     .textContent=
     value+"%";
 
+
   document
     .getElementById("batteryBar")
     .style.width=
     value+"%";
+
 }
 
 
-/* ===============================
-   DESCONECTAR
-================================ */
+/* =========================================================
+   DESCUBRIR SERVICIOS BLE
+========================================================= */
 
-function disconnectBand(){
+async function discoverBluetoothServices(){
 
-  if(
-    bluetoothDevice &&
-    bluetoothDevice.gatt &&
-    bluetoothDevice.gatt.connected
-  ){
+  if(!bluetoothServer){
 
-    bluetoothDevice.gatt.disconnect();
+    return;
+  }
+
+
+  const output=
+    document.getElementById(
+      "diagnosticOutput"
+    );
+
+
+  output.textContent=
+    "Analizando servicios Bluetooth...\n";
+
+
+  discoveredServices=[];
+
+  discoveredCharacteristics=[];
+
+
+  try{
+
+    const services=
+      await bluetoothServer
+      .getPrimaryServices();
+
+
+    logDiagnostic(
+      "\n===== SERVICIOS PRIMARIOS =====\n"+
+      "Total encontrados: "+
+      services.length+
+      "\n",
+      "ok"
+    );
+
+
+    for(
+      const service of services
+    ){
+
+      const serviceUUID=
+        service.uuid;
+
+
+      discoveredServices.push(
+        serviceUUID
+      );
+
+
+      logDiagnostic(
+        "\nSERVICIO:\n"+
+        serviceUUID,
+        "info"
+      );
+
+
+      try{
+
+        const characteristics=
+          await service
+          .getCharacteristics();
+
+
+        logDiagnostic(
+          "Características: "+
+          characteristics.length,
+          "info"
+        );
+
+
+        for(
+          const characteristic
+          of characteristics
+        ){
+
+          const uuid=
+            characteristic.uuid;
+
+
+          discoveredCharacteristics
+            .push({
+              service:serviceUUID,
+              characteristic:uuid
+            });
+
+
+          logDiagnostic(
+            "  └─ "+
+            uuid+
+            "\n     Propiedades: "+
+            getProperties(
+              characteristic
+            ),
+            "info"
+          );
+
+
+          /*
+            Intentamos leer características
+            que permitan lectura.
+          */
+
+          if(
+            characteristic.properties.read
+          ){
+
+            await tryReadCharacteristic(
+              characteristic
+            );
+
+          }
+
+        }
+
+      }catch(characteristicError){
+
+        logDiagnostic(
+          "No se pudieron obtener "+
+          "las características del servicio.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    logDiagnostic(
+      "\n===== FIN DEL DIAGNÓSTICO =====\n"+
+      "Servicios: "+
+      discoveredServices.length+
+      "\nCaracterísticas: "+
+      discoveredCharacteristics.length+
+      "\n",
+      "ok"
+    );
+
+
+    toast(
+      "Diagnóstico terminado."
+    );
+
+
+  }catch(error){
+
+    logDiagnostic(
+      "\nERROR AL DESCUBRIR SERVICIOS:\n"+
+      error.name+
+      "\n"+
+      error.message,
+      "error"
+    );
 
   }
 
-  bluetoothDevice=null;
-  bluetoothServer=null;
-
-  setConnection(false);
-
-  document
-    .getElementById("deviceName")
-    .textContent=
-    "Smart Band";
-
-  document
-    .getElementById("deviceName2")
-    .textContent=
-    "Smart Band";
-
-  document
-    .getElementById("deviceInfo")
-    .textContent=
-    "Sin dispositivo conectado";
-
-  toast(
-    "Dispositivo desconectado."
-  );
 }
 
 
-/* ===============================
-   INICIO
-================================ */
+/* =========================================================
+   PROPIEDADES BLE
+========================================================= */
 
-updateBattery(76);
+function getProperties(characteristic){
+
+  const p=
+    characteristic.properties;
+
+  const result=[];
+
+  if(p.broadcast)
+    result.push("broadcast");
+
+  if(p.read)
+    result.push("read");
+
+  if(p.write)
+    result.push("write");
+
+  if(p.writeWithoutResponse)
+    result.push(
+      "writeWithoutResponse"
+    );
+
+  if(p.notify)
+    result.push("notify");
+
+  if(p.indicate)
+    result.push("indicate");
+
+  if(p.authenticatedSignedWrites)
+    result.push(
+      "authenticatedSignedWrites"
+    );
+
+  return result.join(", ") ||
+    "ninguna";
+
+}
+
+
+/* =========================================================
+   INTENTAR LEER CARACTERÍSTICA
+========================================================= */
+
+async function tryReadCharacteristic(
+  characteristic
+){
+
+  try{
+
+    const value=
+      await characteristic.readValue();
+
+
+    const bytes=
+      dataViewToHex(value);
+
+
+    logDiagnostic(
+      "     READ → "+
+      bytes,
+      "ok"
+    );
+
+
+    interpretPossibleData(
+      characteristic.uuid,
+      value
+    );
+
+
+  }catch(error){
+
+    logDiagnostic(
+      "     READ ERROR → "+
+      error.message,
+      "info"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HEX
+========================================================= */
+
+function dataViewToHex(dataView){
+
+  const bytes=[];
+
+  for(
+    let i=0;
+    i<dataView.byteLength;
+    i++
+  ){
+
+    bytes.push(
+      dataView
+        .getUint8(i)
+        .toString(16)
+        .padStart(2,"0")
+        .toUpperCase()
+    );
+
+  }
+
+  return bytes.join(" ");
+}
+
+
+/* =========================================================
+   INTERPRETACIÓN PRELIMINAR
+========================================================= */
+
+function interpretPossibleData(
+  uuid,
+  data
+){
+
+  /*
+    IMPORTANTE:
+    Esta función NO afirma que los bytes sean
+    pasos, pulso o SpO2.
+
+    Solo busca servicios estándar conocidos.
+  */
+
+
+  const lower=
+    uuid.toLowerCase();
+
+
+  if(
+    lower.includes(
+      "2a37"
+    )
+  ){
+
+    try{
+
+      const flags=
+        data.getUint8(0);
+
+
+      const heartRate16=
+        flags & 0x01;
+
+
+      let bpm;
+
+
+      if(heartRate16){
+
+        bpm=
+          data.getUint16(
+            1,
+            true
+          );
+
+      }else{
+
+        bpm=
+          data.getUint8(1);
+
+      }
+
+
+      if(
+        bpm>=30 &&
+        bpm<=220
+      ){
+
+        updateHeartRate(bpm);
+
+      }
+
+    }catch(error){
+
+      console.log(error);
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   HEART RATE
+========================================================= */
+
+function updateHeartRate(bpm){
+
+  document
+    .getElementById("heart")
+    .textContent=
+    bpm;
+
+
+  document
+    .getElementById("healthHeart")
+    .textContent=
+    bpm;
+
+
+  heartHistory.push(bpm);
+
+
+  if(
+    heartHistory.length>20
+  ){
+
+    heartHistory.shift();
+
+  }
+
+
+  createChart(
+    "heartChart",
+    heartHistory
+  );
+
+}
+
+
+/* =========================================================
+   DIAGNÓSTICO MANUAL
+========================================================= */
+
+async function runDiagnostic(){
+
+  if(!bluetoothDevice){
+
+    toast(
+      "Primero conecta la F1 Plus."
+    );
+
+    return;
+  }
+
+
+  if(
+    !bluetoothDevice.gatt ||
+    !bluetoothDevice.gatt.connected
+  ){
+
+    toast(
+      "La F1 Plus no está conectada."
+    );
+
+    return;
+  }
+
+
+  await discoverBluetoothServices();
+
+}
+
+
+/* =========================================================
+   LOG
+========================================================= */
+
+function logDiagnostic(
+  message,
+  type="info"
+){
+
+  const output=
+    document.getElementById(
+      "diagnosticOutput"
+    );
+
+
+  if(!output){
+    return;
+  }
+
+
+  const line=
+    document.createElement("div");
+
+
+  if(type==="error"){
+
+    line.className=
+      "debug-error";
+
+  }else if(type==="ok"){
+
+    line.className=
+      "debug-ok";
+
+  }else{
+
+    line.className=
+      "debug-info";
+
+  }
+
+
+  line.textContent=
+    message;
+
+
+  output.appendChild(line);
+
+
+  output.scrollTop=
+    output.scrollHeight;
+
+}
+
+
+/* =========================================================
+   INICIALIZACIÓN
+========================================================= */
+
+checkBrowserBluetooth();
+
+
+/*
+  Estado inicial.
+*/
+
+setConnectionState(false);
+
+
+/* =========================================================
+   EVITAR ERRORES DE REFERENCIA
+========================================================= */
+
+window.addEventListener(
+  "error",
+  function(event){
+
+    console.error(
+      "Error JavaScript:",
+      event.error
+    );
+
+  }
+);
 
 </script>
 
