@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#111111">
-<title>RoXThal — Laboratorio F1 Plus</title>
+<meta name="theme-color" content="#0b0b0d">
+<title>RoXThal — F1 Plus Protocol Laboratory v2</title>
 
 <style>
 :root{
@@ -19,13 +19,21 @@
   --yellow:#ffd45a;
   --blue:#62a8ff;
   --purple:#bd7cff;
+  --orange:#ff9d4d;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
-  background:linear-gradient(180deg,#09090b,#111116);
+  background:
+    radial-gradient(circle at top,#17171d 0,#0b0b0d 42%,#08080a 100%);
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
@@ -36,7 +44,8 @@ header{
   border-bottom:1px solid var(--border);
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:20;
+  backdrop-filter:blur(10px);
 }
 
 h1{
@@ -51,17 +60,18 @@ header p{
 }
 
 main{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
   padding:16px;
 }
 
 .card{
-  background:var(--panel);
+  background:rgba(21,21,25,.96);
   border:1px solid var(--border);
   border-radius:14px;
   padding:15px;
   margin-bottom:14px;
+  box-shadow:0 5px 20px rgba(0,0,0,.16);
 }
 
 .card h2{
@@ -104,6 +114,16 @@ button.yellow{
   border-color:#9b8128;
 }
 
+button.purple{
+  background:#41205d;
+  border-color:#7544a1;
+}
+
+button.orange{
+  background:#63391d;
+  border-color:#a86432;
+}
+
 button:disabled{
   opacity:.45;
   cursor:not-allowed;
@@ -121,7 +141,8 @@ button:disabled{
 .red{color:var(--red)}
 .yellow{color:var(--yellow)}
 .blueText{color:var(--blue)}
-.purple{color:var(--purple)}
+.purpleText{color:var(--purple)}
+.orangeText{color:var(--orange)}
 
 .grid{
   display:grid;
@@ -160,7 +181,7 @@ pre,
 }
 
 .log{
-  max-height:360px;
+  max-height:330px;
   font-family:monospace;
   font-size:12px;
 }
@@ -177,12 +198,20 @@ pre,
   border-left:4px solid var(--blue);
 }
 
+.spont{
+  border-left:4px solid var(--purple);
+}
+
 .echo{
   border-left:4px solid var(--yellow);
 }
 
-.spont{
-  border-left:4px solid var(--purple);
+.response{
+  border-left:4px solid var(--green);
+}
+
+.unknown{
+  border-left:4px solid var(--orange);
 }
 
 input[type=text]{
@@ -203,7 +232,8 @@ table{
   font-size:13px;
 }
 
-th,td{
+th,
+td{
   border-bottom:1px solid var(--border);
   padding:8px;
   text-align:left;
@@ -220,11 +250,84 @@ th{
   border-radius:6px;
   font-size:11px;
   background:#292930;
-  margin:2px;
+  margin-left:5px;
 }
 
-.reference{
-  border-left:4px solid var(--yellow);
+.badge.green{
+  color:var(--green);
+}
+
+.badge.yellow{
+  color:var(--yellow);
+}
+
+.badge.purple{
+  color:var(--purple);
+}
+
+.badge.blue{
+  color:var(--blue);
+}
+
+.badge.orange{
+  color:var(--orange);
+}
+
+.byte-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(90px,1fr));
+  gap:7px;
+  margin-top:10px;
+}
+
+.byte-cell{
+  background:#101014;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px;
+  text-align:center;
+}
+
+.byte-cell .index{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.byte-cell .value{
+  font-family:monospace;
+  font-size:17px;
+  margin-top:4px;
+}
+
+.variable{
+  border-color:#75611d;
+}
+
+.constant{
+  border-color:#245b43;
+}
+
+.info-box{
+  background:#101014;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  margin-top:10px;
+}
+
+.warning{
+  border-color:#705d1d;
+  background:#17150c;
+}
+
+.success{
+  border-color:#245b43;
+  background:#0d1712;
+}
+
+.danger-box{
+  border-color:#6c3030;
+  background:#170d0d;
 }
 
 footer{
@@ -233,23 +336,57 @@ footer{
   font-size:12px;
   padding:20px;
 }
+
+hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:14px 0;
+}
+
+.code{
+  font-family:monospace;
+}
+
+@media(max-width:600px){
+
+  header h1{
+    font-size:19px;
+  }
+
+  main{
+    padding:10px;
+  }
+
+  .card{
+    padding:12px;
+  }
+
+  button{
+    width:100%;
+    margin:4px 0;
+  }
+
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🔬 RoXThal — Laboratorio F1 Plus</h1>
-  <p>Analizador BLE / WearFit · investigación pasiva del protocolo</p>
+  <h1>🔬 RoXThal — Laboratorio F1 Plus v2</h1>
+  <p>Captura pasiva · análisis estructural · detección de patrones · sin comandos automáticos</p>
 </header>
 
 <main>
+
+<!-- =====================================================
+     CONEXIÓN
+===================================================== -->
 
 <section class="card">
 
 <h2>📡 Conexión F1 Plus</h2>
 
-<div>
 <button id="connectBtn" class="primary">
 🔗 CONECTAR F1 PLUS
 </button>
@@ -261,7 +398,6 @@ footer{
 <button id="scanBtn">
 🔎 COMPROBAR BLUETOOTH
 </button>
-</div>
 
 <div id="connectionStatus" class="status">
 ⚪ Desconectada
@@ -274,136 +410,73 @@ Sin dispositivo seleccionado.
 </section>
 
 
+<!-- =====================================================
+     UART
+===================================================== -->
+
 <section class="card">
 
-<h2>🧩 Descubrimiento BLE</h2>
+<h2>🔌 Canal BLE / UART</h2>
 
 <div id="uartInfo">
-Aún no se ha realizado el descubrimiento.
+Aún no se ha preparado el canal.
 </div>
 
 </section>
 
 
-<section class="card">
-
-<h2>🔬 Modo de análisis</h2>
-
-<div class="status">
-
-<b class="green">ANÁLISIS PASIVO</b>
-
-<p>
-La aplicación <b>NO envía comandos automáticamente</b>.
-</p>
-
-<p>
-Todo paquete recibido sin un TX inmediatamente anterior se clasifica como
-<b>RX ESPONTÁNEO</b>.
-</p>
-
-<p>
-Un RX posterior a un TX se analiza como
-<b>RESPUESTA PROBABLE</b>.
-</p>
-
-<p>
-Si un RX coincide exactamente con un TX reciente,
-se marca como <b>ECO</b>.
-</p>
-
-<p>
-<b>Objetivo actual:</b> identificar la estructura real del protocolo de la F1 Plus antes de enviar comandos.
-</p>
-
-</div>
-
-</section>
-
+<!-- =====================================================
+     MODO
+===================================================== -->
 
 <section class="card">
 
-<h2>📌 Paquetes conocidos de la F1 Plus</h2>
+<h2>🧪 Estado del laboratorio</h2>
 
-<div class="packet reference">
+<div class="status success">
 
-<b>RX ESPONTÁNEO A</b>
+<b class="green">
+🟢 MODO PASIVO ACTIVO
+</b>
 
-<br><br>
+<p>
+La aplicación <b>no envía ningún comando automáticamente</b>.
+</p>
 
-<code>
-AB 00 05 FF 91 80 00 64
-</code>
+<p>
+Todo RX recibido desde NOTIFY se captura y analiza.
+</p>
 
-<br><br>
-
-Longitud real: <b>8 bytes</b><br>
-Byte 2: <b>05</b><br>
-Longitud declarada + 3: <b>8</b>
-
-</div>
-
-<div class="packet reference">
-
-<b>RX ESPONTÁNEO B</b>
-
-<br><br>
-
-<code>
-AB 00 0D FF 92 C0 03 07 7B 00 00 00 00 00 00 22
-</code>
-
-<br><br>
-
-Longitud real: <b>16 bytes</b><br>
-Byte 2: <b>0D</b><br>
-Longitud declarada + 3: <b>16</b>
+<p>
+La aplicación no presupone que ningún byte sea un comando válido.
+</p>
 
 </div>
 
-<div class="status yellow">
+<div class="status warning">
 
-⚠️ Estos paquetes se utilizan como <b>referencia de análisis</b>.
-La aplicación no los envía.
+<b class="yellow">
+⚠️ IMPORTANTE
+</b>
+
+<p>
+Los significados de los bytes se consideran
+<b>desconocidos</b> hasta disponer de suficientes capturas
+experimentales.
+</p>
 
 </div>
 
 </section>
 
 
-<section class="card">
-
-<h2>📤 Consola HEX manual</h2>
-
-<p class="small">
-Esta sección es manual. Nada se transmite automáticamente.
-Introduce bytes hexadecimales separados por espacios.
-</p>
-
-<input
- id="hexInput"
- type="text"
- placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
-/>
-
-<button id="sendBtn" class="blue" disabled>
-📤 ENVIAR HEX MANUALMENTE
-</button>
-
-<button id="clearInputBtn">
-🧹 LIMPIAR
-</button>
-
-<div class="small">
-⚠️ TX manual experimental. No se considera ningún comando válido hasta comprobarlo.
-</div>
-
-</section>
-
+<!-- =====================================================
+     ESTADÍSTICAS
+===================================================== -->
 
 <section class="card">
 
-<h2>📊 Estadísticas</h2>
+<h2>📊 Estadísticas globales</h2>
 
 <div class="grid">
 
@@ -423,13 +496,23 @@ RX espontáneos
 </div>
 
 <div class="stat">
-Respuestas probables
+Respuestas
 <b id="responseCount">0</b>
 </div>
 
 <div class="stat">
 Ecos
 <b id="echoCount">0</b>
+</div>
+
+<div class="stat">
+Tipos RX
+<b id="typeCount">0</b>
+</div>
+
+<div class="stat">
+Longitudes
+<b id="lengthCount">0</b>
 </div>
 
 <div class="stat">
@@ -442,37 +525,103 @@ Patrones
 </section>
 
 
-<section class="card">
-
-<h2>📦 Paquetes capturados</h2>
-
-<button id="clearPacketsBtn" class="danger">
-🧹 LIMPIAR PAQUETES
-</button>
-
-<div id="packets">
-<div class="small">Todavía no hay paquetes.</div>
-</div>
-
-</section>
-
+<!-- =====================================================
+     TIPOS
+===================================================== -->
 
 <section class="card">
 
-<h2>🔗 Relaciones TX → RX</h2>
+<h2>🧬 Tipos de trama detectados</h2>
 
-<div id="relations">
+<div id="frameTypes">
 <div class="small">
-Todavía no hay relaciones.
+Todavía no hay suficientes datos.
 </div>
 </div>
 
 </section>
 
 
+<!-- =====================================================
+     LONGITUD
+===================================================== -->
+
 <section class="card">
 
-<h2>📈 Patrones RX</h2>
+<h2>📏 Análisis de longitud</h2>
+
+<div id="lengthAnalysis">
+<div class="small">
+Esperando tramas.
+</div>
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ESTRUCTURA
+===================================================== -->
+
+<section class="card">
+
+<h2>🧩 Estructura de las tramas</h2>
+
+<div id="structure">
+<div class="small">
+Esperando RX.
+</div>
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CAMPOS FIJOS VARIABLES
+===================================================== -->
+
+<section class="card">
+
+<h2>🔎 Campos fijos y variables</h2>
+
+<p class="small">
+El laboratorio compara automáticamente todas las tramas de cada
+tipo y determina qué posiciones permanecen constantes y cuáles cambian.
+</p>
+
+<div id="fieldAnalysis">
+<div class="small">
+Se necesitan más de una trama comparable.
+</div>
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TIPOS INDIVIDUALES
+===================================================== -->
+
+<section class="card">
+
+<h2>📚 Análisis por tipo</h2>
+
+<div id="typeAnalysis">
+<div class="small">
+Esperando datos.
+</div>
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PATRONES
+===================================================== -->
+
+<section class="card">
+
+<h2>📈 Patrones y frecuencia</h2>
 
 <div id="patterns">
 <div class="small">
@@ -483,35 +632,60 @@ Todavía no hay RX.
 </section>
 
 
+<!-- =====================================================
+     INTERVALOS
+===================================================== -->
+
 <section class="card">
 
-<h2>🧬 Análisis estructural</h2>
+<h2>⏱️ Intervalos temporales</h2>
 
-<div id="structure">
+<div id="timingAnalysis">
 <div class="small">
-Esperando paquetes.
+Esperando al menos dos RX.
 </div>
 </div>
 
 </section>
 
 
+<!-- =====================================================
+     COMPARACIÓN
+===================================================== -->
+
 <section class="card">
 
-<h2>🔎 Campos variables</h2>
+<h2>🔬 Comparación acumulada</h2>
 
-<div id="variableFields">
+<div id="comparison">
 <div class="small">
-Se necesitan al menos dos paquetes.
+Esperando RX.
 </div>
 </div>
 
 </section>
 
 
+<!-- =====================================================
+     CHECKSUM
+===================================================== -->
+
 <section class="card">
 
-<h2>🧮 Checksum / CRC experimental</h2>
+<h2>🧮 Hipótesis de checksum</h2>
+
+<div class="status warning">
+
+<b class="yellow">
+⚠️ No se declara ningún checksum como confirmado.
+</b>
+
+<p>
+Se prueban solamente fórmulas simples para buscar coincidencias
+experimentales.
+</p>
+
+</div>
 
 <div id="checksum">
 <div class="small">
@@ -522,46 +696,129 @@ Esperando tramas.
 </section>
 
 
+<!-- =====================================================
+     SECUENCIA
+===================================================== -->
+
 <section class="card">
 
-<h2>🔬 Comparación de RX</h2>
+<h2>🔗 Secuencia de tipos</h2>
 
-<div id="comparison">
+<div id="sequence">
 <div class="small">
-Esperando al menos dos RX.
+Todavía no hay secuencia.
 </div>
 </div>
 
 </section>
 
 
+<!-- =====================================================
+     PAQUETES
+===================================================== -->
+
 <section class="card">
 
-<h2>🕒 Línea temporal</h2>
+<h2>📦 Capturas RX/TX</h2>
 
-<div id="timeline">
+<button id="clearPacketsBtn" class="danger">
+🧹 LIMPIAR CAPTURAS
+</button>
+
+<div id="packets">
 <div class="small">
-Todavía no hay actividad.
+Todavía no hay paquetes.
 </div>
 </div>
 
 </section>
 
 
+<!-- =====================================================
+     CONSOLA MANUAL
+===================================================== -->
+
 <section class="card">
 
-<h2>💾 Exportación</h2>
+<h2>📤 TX manual</h2>
+
+<div class="status warning">
+
+<b class="yellow">
+⚠️ TRANSMISIÓN MANUAL
+</b>
+
+<p>
+Esta función NO se utiliza durante la captura pasiva.
+Solo está disponible si decides introducir una trama manualmente.
+</p>
+
+<p>
+No se enviará nada por sí solo.
+</p>
+
+</div>
+
+<input
+id="hexInput"
+type="text"
+placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
+/>
+
+<button id="sendBtn" class="blue" disabled>
+📤 ENVIAR HEX MANUAL
+</button>
+
+<button id="clearInputBtn">
+🧹 LIMPIAR
+</button>
+
+</section>
+
+
+<!-- =====================================================
+     RELACIONES
+===================================================== -->
+
+<section class="card">
+
+<h2>🔗 Relaciones TX → RX</h2>
+
+<div id="relations">
+<div class="small">
+No existen relaciones todavía.
+</div>
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     EXPORTACIÓN
+===================================================== -->
+
+<section class="card">
+
+<h2>💾 Datos de investigación</h2>
 
 <button id="exportBtn" class="yellow">
-💾 EXPORTAR ANÁLISIS COMPLETO
+💾 EXPORTAR ANÁLISIS JSON
 </button>
 
 <button id="copyBtn">
 📋 COPIAR RESUMEN
 </button>
 
+<button id="exportHexBtn" class="purple">
+📄 EXPORTAR RX EN HEX
+</button>
+
 </section>
 
+
+<!-- =====================================================
+     DIAGNÓSTICO
+===================================================== -->
 
 <section class="card">
 
@@ -580,7 +837,7 @@ Sistema preparado.
 </main>
 
 <footer>
-RoXThal Art Design · Laboratorio F1 Plus
+RoXThal Art Design · F1 Plus Protocol Laboratory v2
 </footer>
 
 
@@ -588,22 +845,19 @@ RoXThal Art Design · Laboratorio F1 Plus
 
 "use strict";
 
+
 /* =========================================================
-   UUID CONOCIDO
+   UUID CONOCIDOS
 ========================================================= */
 
-const KNOWN_UUIDS = {
+const UUID_SERVICE =
+"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
-  NUS_SERVICE:
-    "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
+const UUID_WRITE =
+"6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
-  NUS_RX:
-    "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
-
-  NUS_TX:
-    "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
-
-};
+const UUID_NOTIFY =
+"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
 
 /* =========================================================
@@ -612,14 +866,12 @@ const KNOWN_UUIDS = {
 
 let device = null;
 let server = null;
-
-let connected = false;
+let service = null;
 
 let writeCharacteristic = null;
 let notifyCharacteristic = null;
 
-let discoveredServices = [];
-let discoveredCharacteristics = [];
+let connected = false;
 
 let packets = [];
 let txPackets = [];
@@ -629,37 +881,30 @@ let packetNumber = 0;
 
 let lastTx = null;
 
-const IMMEDIATE_WINDOW = 500;
+const IMMEDIATE_WINDOW = 300;
 const SECONDARY_WINDOW = 3000;
 
 
 /* =========================================================
-   ELEMENTOS
+   DOM
 ========================================================= */
 
 const $ = id => document.getElementById(id);
 
 
 /* =========================================================
-   TIEMPO
+   UTILIDADES
 ========================================================= */
 
 function nowTime(){
-
-  return new Date().toLocaleTimeString("es-AR");
-
+  return new Date().toLocaleTimeString();
 }
+
 
 function timestamp(){
-
   return Date.now();
-
 }
 
-
-/* =========================================================
-   HEX
-========================================================= */
 
 function hex(bytes){
 
@@ -685,9 +930,9 @@ function ascii(bytes){
 
   return Array.from(bytes)
     .map(v =>
-      v >= 32 && v <= 126
-        ? String.fromCharCode(v)
-        : "."
+      (v >= 32 && v <= 126)
+      ? String.fromCharCode(v)
+      : "."
     )
     .join("");
 
@@ -696,8 +941,7 @@ function ascii(bytes){
 
 function sameBytes(a,b){
 
-  if(!a || !b)
-    return false;
+  if(!a || !b) return false;
 
   if(a.length !== b.length)
     return false;
@@ -710,13 +954,33 @@ function sameBytes(a,b){
   }
 
   return true;
+}
+
+
+function fmt(v){
+
+  if(v === null || v === undefined)
+    return "—";
+
+  return v
+    .toString(16)
+    .padStart(2,"0")
+    .toUpperCase();
 
 }
 
 
-/* =========================================================
-   HEX → BYTES
-========================================================= */
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
 
 function bytesFromHex(text){
 
@@ -724,32 +988,25 @@ function bytesFromHex(text){
     text.trim();
 
   if(!clean)
-    throw new Error(
-      "No se introdujeron bytes."
-    );
+    throw new Error("No se introdujeron bytes.");
 
   const parts =
-    clean
-      .replace(/,/g," ")
-      .replace(/0x/gi," ")
-      .split(/\s+/)
-      .filter(Boolean);
+    clean.split(/\s+/);
 
   const bytes = [];
 
-  for(const p of parts){
+  for(const part of parts){
 
-    if(!/^[0-9a-fA-F]{1,2}$/.test(p)){
+    if(!/^[0-9a-fA-F]{1,2}$/.test(part)){
 
       throw new Error(
-        "Byte hexadecimal inválido: " +
-        p
+        "Byte hexadecimal inválido: " + part
       );
 
     }
 
     bytes.push(
-      parseInt(p,16)
+      parseInt(part,16)
     );
 
   }
@@ -760,7 +1017,7 @@ function bytesFromHex(text){
 
 
 /* =========================================================
-   LOG
+   DIAGNÓSTICO
 ========================================================= */
 
 function log(message){
@@ -769,10 +1026,7 @@ function log(message){
     $("diagnostic");
 
   const line =
-    "[" +
-    nowTime() +
-    "] " +
-    message;
+    "[" + nowTime() + "] " + message;
 
   box.textContent +=
     (box.textContent ? "\n" : "") +
@@ -793,10 +1047,10 @@ function bluetoothCheck(){
   if(!navigator.bluetooth){
 
     $("connectionStatus").innerHTML =
-      "🔴 Web Bluetooth NO disponible";
+      "<span class='red'>🔴 Web Bluetooth NO disponible</span>";
 
     log(
-      "❌ Web Bluetooth no está disponible."
+      "❌ Web Bluetooth no disponible."
     );
 
     return false;
@@ -804,7 +1058,7 @@ function bluetoothCheck(){
   }
 
   $("connectionStatus").innerHTML =
-    "🟢 Web Bluetooth disponible";
+    "<span class='green'>🟢 Web Bluetooth disponible</span>";
 
   log(
     "Web Bluetooth detectado correctamente."
@@ -826,62 +1080,45 @@ async function connect(){
 
   try{
 
-    $("connectBtn").disabled = true;
-
-    log(
-      "=============================="
-    );
-
-    log(
-      "INICIO DE CONEXIÓN"
-    );
-
-    log(
-      "Solicitando F1 Plus..."
-    );
-
-    /*
-      IMPORTANTE:
-
-      No utilizamos únicamente un UUID UART.
-      La pulsera se selecciona por nombre y
-      después analizamos sus servicios.
-    */
+    log("==============================");
+    log("INICIO DE CONEXIÓN");
+    log("Solicitando dispositivo F1 Plus...");
 
     device =
       await navigator.bluetooth.requestDevice({
 
         filters:[
           {
-            name:"F1 Plus"
+            namePrefix:"F1"
+          },
+          {
+            namePrefix:"F1 Plus"
           }
         ],
 
         optionalServices:[
-
-          KNOWN_UUIDS.NUS_SERVICE,
-
-          "0000ffe0-0000-1000-8000-00805f9b34fb",
-
-          "0000fff0-0000-1000-8000-00805f9b34fb",
-
-          "0000fee7-0000-1000-8000-00805f9b34fb",
-
-          "0000ff00-0000-1000-8000-00805f9b34fb",
-
-          "0000ff10-0000-1000-8000-00805f9b34fb"
-
+          UUID_SERVICE,
+          "00001800-0000-1000-8000-00805f9b34fb",
+          "00001801-0000-1000-8000-00805f9b34fb"
         ]
 
       });
 
-    log(
-      "DISPOSITIVO ENCONTRADO"
-    );
+
+    log("DISPOSITIVO ENCONTRADO");
+
+    $("deviceInfo").innerHTML =
+      "<b>Nombre:</b> " +
+      escapeHTML(
+        device.name || "Sin nombre"
+      ) +
+      "<br><b>ID:</b> " +
+      escapeHTML(device.id);
+
 
     log(
       "Nombre: " +
-      (device.name || "sin nombre")
+      (device.name || "desconocido")
     );
 
     log(
@@ -889,37 +1126,32 @@ async function connect(){
       device.id
     );
 
-    $("deviceInfo").innerHTML =
-      "<b>Nombre:</b> " +
-      (device.name || "F1 Plus") +
-      "<br><b>ID:</b> " +
-      device.id;
 
     device.addEventListener(
       "gattserverdisconnected",
       handleDisconnect
     );
 
-    log(
-      "Conectando GATT..."
-    );
+
+    log("Conectando GATT...");
 
     server =
       await device.gatt.connect();
 
     connected = true;
 
-    log(
-      "✅ GATT conectado."
-    );
+    log("✅ GATT conectado.");
 
     $("connectionStatus").innerHTML =
-      "🟢 GATT conectado";
+      "<span class='green'>🟢 Smart Band conectada</span>";
 
     $("disconnectBtn").disabled =
       false;
 
-    await discoverEverything();
+    $("sendBtn").disabled =
+      true;
+
+    await prepareUART();
 
   }catch(error){
 
@@ -927,16 +1159,11 @@ async function connect(){
 
     log(
       "❌ ERROR DE CONEXIÓN: " +
-      error.name +
-      " — " +
       error.message
     );
 
     $("connectionStatus").innerHTML =
-      "🔴 No se pudo conectar";
-
-    $("connectBtn").disabled =
-      false;
+      "<span class='red'>🔴 No se pudo conectar</span>";
 
   }
 
@@ -944,375 +1171,114 @@ async function connect(){
 
 
 /* =========================================================
-   DESCUBRIMIENTO COMPLETO
+   UART
 ========================================================= */
 
-async function discoverEverything(){
-
-  discoveredServices = [];
-  discoveredCharacteristics = [];
-
-  writeCharacteristic = null;
-  notifyCharacteristic = null;
-
-  $("uartInfo").innerHTML =
-    "<div class='status'>🔎 Analizando servicios...</div>";
-
-  let services = [];
+async function prepareUART(){
 
   try{
 
-    services =
-      await server.getPrimaryServices();
+    log("Buscando servicio UART...");
+
+    service =
+      await server.getPrimaryService(
+        UUID_SERVICE
+      );
+
+    log("✅ Servicio UART encontrado.");
+
+    writeCharacteristic =
+      await service.getCharacteristic(
+        UUID_WRITE
+      );
+
+    log("✅ WRITE encontrado.");
+
+    notifyCharacteristic =
+      await service.getCharacteristic(
+        UUID_NOTIFY
+      );
+
+    log("✅ NOTIFY encontrado.");
+
+    notifyCharacteristic.addEventListener(
+      "characteristicvaluechanged",
+      handleNotification
+    );
+
+    await notifyCharacteristic.startNotifications();
+
+    log("✅ NOTIFY ACTIVADO.");
+
+    $("uartInfo").innerHTML = `
+
+      <div class="status success">
+
+        <b class="green">
+        🟢 UART PREPARADO
+        </b>
+
+        <hr>
+
+        <b>SERVICE</b><br>
+        <span class="code">
+        ${UUID_SERVICE}
+        </span>
+
+        <br><br>
+
+        <b>WRITE / TX</b><br>
+        <span class="code">
+        ${UUID_WRITE}
+        </span>
+
+        <br><br>
+
+        <b>NOTIFY / RX</b><br>
+        <span class="code">
+        ${UUID_NOTIFY}
+        </span>
+
+        <br><br>
+
+        <b class="green">
+        NOTIFY activo
+        </b>
+
+      </div>
+    `;
+
+    $("sendBtn").disabled =
+      false;
+
+    log("Canal WRITE preparado.");
+    log("Canal NOTIFY preparado.");
+
+    log(
+      "🛑 NO se enviará ningún comando automáticamente."
+    );
+
+    log(
+      "Esperando tráfico espontáneo..."
+    );
 
   }catch(error){
 
     log(
-      "❌ No se pudieron obtener los servicios: " +
+      "❌ ERROR PREPARANDO UART: " +
       error.message
     );
 
-    throw error;
+    $("uartInfo").innerHTML =
+      "<span class='red'>❌ No se pudo preparar UART.</span>";
 
   }
-
-  discoveredServices =
-    services;
-
-  log(
-    "Servicios primarios encontrados: " +
-    services.length
-  );
-
-
-  /*
-    TABLA DE DESCUBRIMIENTO
-  */
-
-  let html = `
-    <table>
-      <thead>
-        <tr>
-          <th>Servicio</th>
-          <th>Característica</th>
-          <th>Propiedades</th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
-
-
-  for(const service of services){
-
-    log(
-      "🔗 SERVICIO: " +
-      service.uuid
-    );
-
-    let chars = [];
-
-    try{
-
-      chars =
-        await service.getCharacteristics();
-
-    }catch(error){
-
-      log(
-        "⚠️ Error leyendo características: " +
-        error.message
-      );
-
-      continue;
-
-    }
-
-
-    for(const characteristic of chars){
-
-      discoveredCharacteristics
-        .push(characteristic);
-
-      const p =
-        characteristic.properties || {};
-
-      const properties = [];
-
-      if(p.read)
-        properties.push("READ");
-
-      if(p.write)
-        properties.push("WRITE");
-
-      if(p.writeWithoutResponse)
-        properties.push(
-          "WRITE WITHOUT RESPONSE"
-        );
-
-      if(p.notify)
-        properties.push("NOTIFY");
-
-      if(p.indicate)
-        properties.push("INDICATE");
-
-      const propText =
-        properties.length
-          ? properties.join(" · ")
-          : "—";
-
-      log(
-        "   Característica: " +
-        characteristic.uuid +
-        " | " +
-        propText
-      );
-
-
-      html += `
-        <tr>
-          <td class="small">
-            ${service.uuid}
-          </td>
-
-          <td class="small">
-            ${characteristic.uuid}
-          </td>
-
-          <td>
-            ${propText}
-          </td>
-        </tr>
-      `;
-
-
-      /*
-        WRITE
-      */
-
-      if(
-        !writeCharacteristic &&
-        (
-          p.write ||
-          p.writeWithoutResponse
-        )
-      ){
-
-        writeCharacteristic =
-          characteristic;
-
-      }
-
-
-      /*
-        NOTIFY
-      */
-
-      if(
-        !notifyCharacteristic &&
-        (
-          p.notify ||
-          p.indicate
-        )
-      ){
-
-        notifyCharacteristic =
-          characteristic;
-
-      }
-
-    }
-
-  }
-
-
-  html += `
-      </tbody>
-    </table>
-  `;
-
-  $("uartInfo").innerHTML =
-    html;
-
-
-  /*
-    RESULTADO WRITE
-  */
-
-  if(writeCharacteristic){
-
-    log(
-      "✅ WRITE encontrado: " +
-      writeCharacteristic.uuid
-    );
-
-  }else{
-
-    log(
-      "❌ No se encontró WRITE."
-    );
-
-  }
-
-
-  /*
-    RESULTADO NOTIFY
-  */
-
-  if(notifyCharacteristic){
-
-    log(
-      "✅ NOTIFY/INDICATE encontrado: " +
-      notifyCharacteristic.uuid
-    );
-
-    try{
-
-      if(
-        notifyCharacteristic.properties.notify
-      ){
-
-        await notifyCharacteristic
-          .startNotifications();
-
-        notifyCharacteristic
-          .addEventListener(
-            "characteristicvaluechanged",
-            handleNotification
-          );
-
-        log(
-          "✅ NOTIFY ACTIVADO."
-        );
-
-      }else if(
-        notifyCharacteristic.properties.indicate
-      ){
-
-        await notifyCharacteristic
-          .startNotifications();
-
-        notifyCharacteristic
-          .addEventListener(
-            "characteristicvaluechanged",
-            handleNotification
-          );
-
-        log(
-          "✅ INDICATE ACTIVADO."
-        );
-
-      }
-
-    }catch(error){
-
-      log(
-        "❌ Error activando NOTIFY: " +
-        error.message
-      );
-
-      notifyCharacteristic =
-        null;
-
-    }
-
-  }else{
-
-    log(
-      "❌ No se encontró NOTIFY/INDICATE."
-    );
-
-  }
-
-
-  /*
-    INFORMACIÓN UART
-  */
-
-  $("uartInfo").innerHTML += `
-
-    <div class="status">
-
-      <b class="green">
-      RESULTADO DEL DESCUBRIMIENTO
-      </b>
-
-      <br><br>
-
-      Servicios:
-      <b>${services.length}</b>
-
-      <br>
-
-      Características:
-      <b>${discoveredCharacteristics.length}</b>
-
-      <br><br>
-
-      WRITE:
-      <b>
-      ${
-        writeCharacteristic
-          ? writeCharacteristic.uuid
-          : "NO ENCONTRADO"
-      }
-      </b>
-
-      <br><br>
-
-      RX:
-      <b>
-      ${
-        notifyCharacteristic
-          ? notifyCharacteristic.uuid
-          : "NO ENCONTRADO"
-      }
-      </b>
-
-    </div>
-  `;
-
-
-  $("sendBtn").disabled =
-    !writeCharacteristic;
-
-
-  log(
-    "Canal WRITE " +
-    (
-      writeCharacteristic
-        ? "preparado."
-        : "NO disponible."
-    )
-  );
-
-  log(
-    "Canal NOTIFY " +
-    (
-      notifyCharacteristic
-        ? "preparado."
-        : "NO disponible."
-    )
-  );
-
-
-  /*
-    MUY IMPORTANTE:
-    NO TRANSMITIR.
-  */
-
-  log(
-    "🛑 NO se enviará ningún comando automáticamente."
-  );
-
-  log(
-    "Esperando datos espontáneos..."
-  );
 
 }
 
 
 /* =========================================================
-   NOTIFICATION
+   NOTIFY
 ========================================================= */
 
 function handleNotification(event){
@@ -1343,60 +1309,63 @@ function classifyRX(bytes){
   const t =
     timestamp();
 
+  let type =
+    "SPONTÁNEO";
+
+  let relation =
+    null;
+
+
   if(lastTx){
 
     const delta =
-      t -
-      lastTx.timestamp;
-
-
-    if(
-      sameBytes(
-        bytes,
-        lastTx.bytes
-      )
-    ){
-
-      return {
-        type:"ECO",
-        relation:lastTx
-      };
-
-    }
-
+      t - lastTx.timestamp;
 
     if(delta <= IMMEDIATE_WINDOW){
 
-      return {
-        type:"RESPUESTA PROBABLE",
-        relation:lastTx
-      };
+      type =
+        "RESPUESTA PROBABLE";
 
-    }
+      relation =
+        lastTx;
 
+    }else if(delta <= SECONDARY_WINDOW){
 
-    if(delta <= SECONDARY_WINDOW){
+      type =
+        "RESPUESTA PROBABLE";
 
-      return {
-        type:"RESPUESTA PROBABLE",
-        relation:lastTx
-      };
+      relation =
+        lastTx;
 
     }
 
   }
 
 
+  if(
+    lastTx &&
+    sameBytes(bytes,lastTx.bytes)
+  ){
+
+    type =
+      "ECO";
+
+    relation =
+      lastTx;
+
+  }
+
+
   return {
-    type:"SPONTÁNEO",
-    relation:null
+    type,
+    relation
   };
 
 }
 
 
 /* =========================================================
-   RX
+   REGISTRAR RX
 ========================================================= */
 
 function registerRX(bytes){
@@ -1429,34 +1398,17 @@ function registerRX(bytes){
 
     relation:
       classification.relation
-        ? classification.relation.number
-        : null
+      ? classification.relation.number
+      : null
 
   };
 
 
   rxPackets.push(packet);
-
   packets.push(packet);
 
 
-  updateStats();
-
-  renderPackets();
-
-  renderRelations();
-
-  renderPatterns();
-
-  renderStructure();
-
-  renderVariableFields();
-
-  renderChecksum();
-
-  renderComparison();
-
-  renderTimeline();
+  updateAllAnalysis();
 
 
   if(packet.type === "ECO"){
@@ -1472,8 +1424,7 @@ function registerRX(bytes){
   ){
 
     log(
-      "🟢 RX RESPUESTA PROBABLE | " +
-      "TX #" +
+      "🟢 RX RESPUESTA PROBABLE | TX #" +
       packet.relation +
       " | " +
       hex(bytes)
@@ -1500,7 +1451,7 @@ async function sendHex(){
   if(!writeCharacteristic){
 
     alert(
-      "No existe un canal WRITE preparado."
+      "El canal WRITE no está preparado."
     );
 
     return;
@@ -1516,33 +1467,9 @@ async function sendHex(){
       );
 
 
-    /*
-      Elegimos el método correcto según
-      las propiedades reales.
-    */
-
-    if(
-      writeCharacteristic
-        .properties
-        .writeWithoutResponse &&
-      !writeCharacteristic
-        .properties
-        .write
-    ){
-
-      await writeCharacteristic
-        .writeValueWithoutResponse(
-          bytes
-        );
-
-    }else{
-
-      await writeCharacteristic
-        .writeValue(
-          bytes
-        );
-
-    }
+    await writeCharacteristic.writeValue(
+      bytes
+    );
 
 
     const packet = {
@@ -1569,7 +1496,6 @@ async function sendHex(){
 
 
     txPackets.push(packet);
-
     packets.push(packet);
 
     lastTx =
@@ -1580,17 +1506,11 @@ async function sendHex(){
       "";
 
 
-    updateStats();
-
-    renderPackets();
-
-    renderRelations();
-
-    renderTimeline();
+    updateAllAnalysis();
 
 
     log(
-      "📤 TX MANUAL | " +
+      "📤 TX MANUAL ENVIADO | " +
       hex(bytes)
     );
 
@@ -1598,7 +1518,7 @@ async function sendHex(){
   }catch(error){
 
     log(
-      "❌ ERROR TX: " +
+      "❌ TX ERROR: " +
       error.message
     );
 
@@ -1607,6 +1527,41 @@ async function sendHex(){
     );
 
   }
+
+}
+
+
+/* =========================================================
+   ACTUALIZACIÓN GLOBAL
+========================================================= */
+
+function updateAllAnalysis(){
+
+  updateStats();
+
+  renderFrameTypes();
+
+  renderLengthAnalysis();
+
+  renderStructure();
+
+  renderFieldAnalysis();
+
+  renderTypeAnalysis();
+
+  renderPatterns();
+
+  renderTiming();
+
+  renderComparison();
+
+  renderChecksum();
+
+  renderSequence();
+
+  renderPackets();
+
+  renderRelations();
 
 }
 
@@ -1625,9 +1580,7 @@ function updateStats(){
 
   $("spontCount").textContent =
     rxPackets.filter(
-      p =>
-        p.type ===
-        "SPONTÁNEO"
+      p => p.type === "SPONTÁNEO"
     ).length;
 
   $("responseCount").textContent =
@@ -1639,17 +1592,1470 @@ function updateStats(){
 
   $("echoCount").textContent =
     rxPackets.filter(
-      p =>
-        p.type ===
-        "ECO"
+      p => p.type === "ECO"
     ).length;
 
-  $("patternCount").textContent =
+
+  const types =
+    new Set(
+      rxPackets.map(
+        p => getFrameType(p.bytes)
+      )
+    );
+
+  const lengths =
+    new Set(
+      rxPackets.map(
+        p => p.bytes.length
+      )
+    );
+
+  const patterns =
     new Set(
       rxPackets.map(
         p => hex(p.bytes)
       )
-    ).size;
+    );
+
+
+  $("typeCount").textContent =
+    types.size;
+
+  $("lengthCount").textContent =
+    lengths.size;
+
+  $("patternCount").textContent =
+    patterns.size;
+
+}
+
+
+/* =========================================================
+   TIPO DE TRAMA
+========================================================= */
+
+function getFrameType(bytes){
+
+  if(bytes.length > 4)
+    return fmt(bytes[4]);
+
+  return "??";
+
+}
+
+
+function renderFrameTypes(){
+
+  const box =
+    $("frameTypes");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Todavía no hay RX.</div>";
+
+    return;
+
+  }
+
+
+  const map =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const type =
+      getFrameType(p.bytes);
+
+    if(!map.has(type))
+      map.set(type,[]);
+
+    map.get(type).push(p);
+
+  });
+
+
+  let html = `
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Tipo</th>
+          <th>Tramas</th>
+          <th>% RX</th>
+          <th>Longitudes</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+  `;
+
+
+  for(
+    const [type,list]
+    of map
+  ){
+
+    const percentage =
+      (
+        list.length /
+        rxPackets.length *
+        100
+      ).toFixed(1);
+
+
+    const lengths =
+      [
+        ...new Set(
+          list.map(
+            p => p.bytes.length
+          )
+        )
+      ]
+      .sort((a,b)=>a-b)
+      .join(", ");
+
+
+    html += `
+
+      <tr>
+
+        <td>
+          <span class="badge blue">
+          0x${type}
+          </span>
+        </td>
+
+        <td>
+          ${list.length}
+        </td>
+
+        <td>
+          ${percentage}%
+        </td>
+
+        <td>
+          ${lengths} bytes
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   LONGITUD
+========================================================= */
+
+function renderLengthAnalysis(){
+
+  const box =
+    $("lengthAnalysis");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Esperando tramas.</div>";
+
+    return;
+
+  }
+
+
+  const map =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const real =
+      p.bytes.length;
+
+    const declared =
+      p.bytes.length > 2
+      ? p.bytes[2]
+      : null;
+
+    const expected =
+      declared !== null
+      ? declared + 3
+      : null;
+
+
+    if(!map.has(real))
+      map.set(real,[]);
+
+    map.get(real).push({
+      packet:p,
+      declared,
+      expected
+    });
+
+  });
+
+
+  let html = `
+
+    <div class="info-box">
+
+      <b>
+      Regla observada:
+      </b>
+
+      <br><br>
+
+      <span class="code">
+      Byte 2 + 3 = longitud total
+      </span>
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Longitud real</th>
+          <th>Byte 2</th>
+          <th>Resultado</th>
+          <th>Veces</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+  `;
+
+
+  for(
+    const [real,list]
+    of map
+  ){
+
+    const examples =
+      list.slice(0,5);
+
+    examples.forEach(item => {
+
+      let result =
+        "—";
+
+      if(item.expected !== null){
+
+        result =
+          item.expected === real
+          ? "<span class='green'>🟢 COINCIDE</span>"
+          : "<span class='yellow'>🟡 NO COINCIDE</span>";
+
+      }
+
+
+      html += `
+
+        <tr>
+
+          <td>
+            ${real}
+          </td>
+
+          <td>
+            ${
+              item.declared !== null
+              ? fmt(item.declared)
+              : "—"
+            }
+          </td>
+
+          <td>
+            ${result}
+          </td>
+
+          <td>
+            ${list.length}
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+  }
+
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   ESTRUCTURA
+========================================================= */
+
+function renderStructure(){
+
+  const box =
+    $("structure");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Esperando RX.</div>";
+
+    return;
+
+  }
+
+
+  const unique =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const key =
+      hex(p.bytes);
+
+    if(!unique.has(key))
+      unique.set(key,p);
+
+  });
+
+
+  let html = "";
+
+
+  unique.forEach(p => {
+
+    const b =
+      p.bytes;
+
+    const declared =
+      b.length > 2
+      ? b[2]
+      : null;
+
+    const expected =
+      declared !== null
+      ? declared + 3
+      : null;
+
+    const lengthOK =
+      expected === b.length;
+
+
+    html += `
+
+      <div class="packet rx">
+
+        <b>
+        ${hex(b)}
+        </b>
+
+        <br><br>
+
+        <table>
+
+          <tr>
+            <td>Byte 0</td>
+            <td>
+              <span class="code">
+              ${fmt(b[0])}
+              </span>
+            </td>
+            <td>
+              ${
+                b[0] === 0xAB
+                ? "<span class='green'>Cabecera AB observada</span>"
+                : "No AB"
+              }
+            </td>
+          </tr>
+
+          <tr>
+            <td>Byte 1</td>
+            <td>
+              <span class="code">
+              ${fmt(b[1])}
+              </span>
+            </td>
+            <td>
+              Campo aún desconocido
+            </td>
+          </tr>
+
+          <tr>
+            <td>Byte 2</td>
+            <td>
+              <span class="code">
+              ${fmt(b[2])}
+              </span>
+            </td>
+            <td>
+              Longitud declarada
+            </td>
+          </tr>
+
+          <tr>
+            <td>Byte 3</td>
+            <td>
+              <span class="code">
+              ${fmt(b[3])}
+              </span>
+            </td>
+            <td>
+              Campo observado
+            </td>
+          </tr>
+
+          <tr>
+            <td>Byte 4</td>
+            <td>
+              <span class="code">
+              ${fmt(b[4])}
+              </span>
+            </td>
+            <td>
+              Tipo observado
+            </td>
+          </tr>
+
+        </table>
+
+        <br>
+
+        <b>Longitud real:</b>
+        ${b.length}
+
+        <br>
+
+        <b>Longitud calculada:</b>
+        ${
+          expected !== null
+          ? expected
+          : "—"
+        }
+
+        <br>
+
+        <b>Comprobación:</b>
+        ${
+          expected === null
+          ? "—"
+          : lengthOK
+          ? "<span class='green'>🟢 COINCIDE</span>"
+          : "<span class='yellow'>🟡 NO COINCIDE</span>"
+        }
+
+        <br><br>
+
+        <b>Datos después del Byte 4:</b>
+
+        <br>
+
+        <span class="code">
+        ${
+          b.length > 5
+          ? hex(b.slice(5))
+          : "—"
+        }
+        </span>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   CAMPOS FIJOS VARIABLES
+========================================================= */
+
+function renderFieldAnalysis(){
+
+  const box =
+    $("fieldAnalysis");
+
+  if(rxPackets.length < 2){
+
+    box.innerHTML =
+      "<div class='small'>Se necesitan al menos dos RX comparables.</div>";
+
+    return;
+
+  }
+
+
+  const groups =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const type =
+      getFrameType(p.bytes);
+
+    const length =
+      p.bytes.length;
+
+    const key =
+      type + "|" + length;
+
+
+    if(!groups.has(key))
+      groups.set(key,[]);
+
+    groups.get(key).push(p);
+
+  });
+
+
+  let html = "";
+
+
+  groups.forEach((list,key) => {
+
+    if(list.length < 2)
+      return;
+
+
+    const max =
+      Math.max(
+        ...list.map(
+          p => p.bytes.length
+        )
+      );
+
+
+    const [type,length] =
+      key.split("|");
+
+
+    html += `
+
+      <div class="packet">
+
+        <h3>
+        Tipo 0x${type} · ${length} bytes
+        </h3>
+
+        <div class="byte-grid">
+    `;
+
+
+    for(let i=0;i<max;i++){
+
+      const values =
+        list
+          .map(
+            p => p.bytes[i]
+          )
+          .filter(
+            v => v !== undefined
+          );
+
+
+      const unique =
+        [...new Set(values)];
+
+
+      const isVariable =
+        unique.length > 1;
+
+
+      const valueText =
+        unique
+          .map(
+            v => fmt(v)
+          )
+          .join(" · ");
+
+
+      html += `
+
+        <div class="byte-cell ${
+          isVariable
+          ? "variable"
+          : "constant"
+        }">
+
+          <div class="index">
+          BYTE ${i}
+          </div>
+
+          <div class="value">
+          ${valueText || "—"}
+          </div>
+
+          <div class="small">
+
+          ${
+            isVariable
+            ? "VARIABLE"
+            : "FIJO"
+          }
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    html += `
+
+        </div>
+
+        <br>
+
+        <span class="small">
+        ${list.length} tramas comparadas.
+        </span>
+
+      </div>
+
+    `;
+
+  });
+
+
+  if(!html){
+
+    html =
+      "<div class='small'>Todavía no existen dos tramas del mismo tipo y longitud.</div>";
+
+  }
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   ANÁLISIS POR TIPO
+========================================================= */
+
+function renderTypeAnalysis(){
+
+  const box =
+    $("typeAnalysis");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Esperando datos.</div>";
+
+    return;
+
+  }
+
+
+  const map =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const type =
+      getFrameType(p.bytes);
+
+    if(!map.has(type))
+      map.set(type,[]);
+
+    map.get(type).push(p);
+
+  });
+
+
+  let html = "";
+
+
+  map.forEach((list,type) => {
+
+    const lengths =
+      [
+        ...new Set(
+          list.map(
+            p => p.bytes.length
+          )
+        )
+      ]
+      .sort((a,b)=>a-b);
+
+
+    const first =
+      list[0];
+
+    const last =
+      list[list.length-1];
+
+
+    html += `
+
+      <div class="packet">
+
+        <h3>
+        <span class="badge blue">
+        TIPO 0x${type}
+        </span>
+        </h3>
+
+        <b>Tramas:</b>
+        ${list.length}
+
+        <br>
+
+        <b>Longitudes:</b>
+        ${lengths.join(", ")} bytes
+
+        <br>
+
+        <b>Primera:</b>
+        ${first.time}
+
+        <br>
+
+        <b>Última:</b>
+        ${last.time}
+
+        <br><br>
+
+        <b>Ejemplos:</b>
+
+        <br>
+
+        <span class="code">
+        ${hex(first.bytes)}
+        </span>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   PATRONES
+========================================================= */
+
+function renderPatterns(){
+
+  const box =
+    $("patterns");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Todavía no hay RX.</div>";
+
+    return;
+
+  }
+
+
+  const map =
+    new Map();
+
+
+  rxPackets.forEach(p => {
+
+    const key =
+      hex(p.bytes);
+
+    if(!map.has(key))
+      map.set(key,[]);
+
+    map.get(key).push(p);
+
+  });
+
+
+  let html = `
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Patrón HEX</th>
+          <th>Tipo</th>
+          <th>Veces</th>
+          <th>%</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+  `;
+
+
+  for(
+    const [key,list]
+    of map
+  ){
+
+    const percentage =
+      (
+        list.length /
+        rxPackets.length *
+        100
+      ).toFixed(1);
+
+
+    html += `
+
+      <tr>
+
+        <td>
+          <span class="code">
+          ${key}
+          </span>
+        </td>
+
+        <td>
+          0x${getFrameType(list[0].bytes)}
+        </td>
+
+        <td>
+          ${list.length}
+        </td>
+
+        <td>
+          ${percentage}%
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   TIMING
+========================================================= */
+
+function renderTiming(){
+
+  const box =
+    $("timingAnalysis");
+
+  if(rxPackets.length < 2){
+
+    box.innerHTML =
+      "<div class='small'>Esperando al menos dos RX.</div>";
+
+    return;
+
+  }
+
+
+  const diffs = [];
+
+
+  for(let i=1;i<rxPackets.length;i++){
+
+    const diff =
+      rxPackets[i].timestamp -
+      rxPackets[i-1].timestamp;
+
+
+    diffs.push({
+      ms:diff,
+      from:rxPackets[i-1],
+      to:rxPackets[i]
+    });
+
+  }
+
+
+  const average =
+    diffs.reduce(
+      (a,b)=>a+b.ms,
+      0
+    ) /
+    diffs.length;
+
+
+  const min =
+    Math.min(
+      ...diffs.map(
+        d => d.ms
+      )
+    );
+
+
+  const max =
+    Math.max(
+      ...diffs.map(
+        d => d.ms
+      )
+    );
+
+
+  html = `
+
+    <div class="grid">
+
+      <div class="stat">
+        Intervalo medio
+        <b>${(average/1000).toFixed(3)} s</b>
+      </div>
+
+      <div class="stat">
+        Mínimo
+        <b>${(min/1000).toFixed(3)} s</b>
+      </div>
+
+      <div class="stat">
+        Máximo
+        <b>${(max/1000).toFixed(3)} s</b>
+      </div>
+
+    </div>
+
+    <br>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>#</th>
+          <th>Tipo anterior</th>
+          <th>Tipo siguiente</th>
+          <th>Intervalo</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+  `;
+
+
+  diffs
+    .slice(-30)
+    .reverse()
+    .forEach((d,index) => {
+
+      html += `
+
+        <tr>
+
+          <td>
+          ${index+1}
+          </td>
+
+          <td>
+          0x${getFrameType(d.from.bytes)}
+          </td>
+
+          <td>
+          0x${getFrameType(d.to.bytes)}
+          </td>
+
+          <td>
+          ${(d.ms/1000).toFixed(3)} s
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   COMPARACIÓN ACUMULADA
+========================================================= */
+
+function renderComparison(){
+
+  const box =
+    $("comparison");
+
+  if(rxPackets.length < 2){
+
+    box.innerHTML =
+      "<div class='small'>Esperando RX.</div>";
+
+    return;
+
+  }
+
+
+  const a =
+    rxPackets[rxPackets.length-2];
+
+  const b =
+    rxPackets[rxPackets.length-1];
+
+
+  const max =
+    Math.max(
+      a.bytes.length,
+      b.bytes.length
+    );
+
+
+  const differences = [];
+
+
+  for(let i=0;i<max;i++){
+
+    const av =
+      a.bytes[i];
+
+    const bv =
+      b.bytes[i];
+
+
+    if(av !== bv){
+
+      differences.push({
+
+        index:i,
+        a:av,
+        b:bv
+
+      });
+
+    }
+
+  }
+
+
+  let html = `
+
+    <div class="packet">
+
+      <b>A:</b>
+
+      <br>
+
+      <span class="code">
+      ${hex(a.bytes)}
+      </span>
+
+      <br><br>
+
+      <b>B:</b>
+
+      <br>
+
+      <span class="code">
+      ${hex(b.bytes)}
+      </span>
+
+      <hr>
+
+      <b>
+      🔎 DIFERENCIAS
+      </b>
+
+      <br><br>
+
+  `;
+
+
+  if(!differences.length){
+
+    html +=
+      "<span class='green'>🟢 Tramas idénticas.</span>";
+
+  }else{
+
+    differences.forEach(d => {
+
+      html += `
+
+        Byte ${d.index}:
+
+        <span class="code">
+        ${fmt(d.a)}
+        </span>
+
+        →
+
+        <span class="code">
+        ${fmt(d.b)}
+        </span>
+
+        <br>
+
+      `;
+
+    });
+
+  }
+
+
+  html += `
+    </div>
+  `;
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   CHECKSUM
+========================================================= */
+
+function checksumCandidates(bytes){
+
+  if(bytes.length < 2)
+    return [];
+
+
+  const last =
+    bytes[bytes.length-1];
+
+
+  const result = [];
+
+
+  let sumAll =
+    0;
+
+
+  for(
+    let i=0;
+    i<bytes.length-1;
+    i++
+  ){
+
+    sumAll =
+      (sumAll + bytes[i]) &
+      0xFF;
+
+  }
+
+
+  result.push({
+
+    name:
+      "SUM8 0..n-2",
+
+    value:
+      sumAll,
+
+    matches:
+      sumAll === last
+
+  });
+
+
+  let xorAll =
+    0;
+
+
+  for(
+    let i=0;
+    i<bytes.length-1;
+    i++
+  ){
+
+    xorAll ^=
+      bytes[i];
+
+  }
+
+
+  result.push({
+
+    name:
+      "XOR8 0..n-2",
+
+    value:
+      xorAll,
+
+    matches:
+      xorAll === last
+
+  });
+
+
+  let sum1 =
+    0;
+
+
+  for(
+    let i=1;
+    i<bytes.length-1;
+    i++
+  ){
+
+    sum1 =
+      (sum1 + bytes[i]) &
+      0xFF;
+
+  }
+
+
+  result.push({
+
+    name:
+      "SUM8 1..n-2",
+
+    value:
+      sum1,
+
+    matches:
+      sum1 === last
+
+  });
+
+
+  let xor1 =
+    0;
+
+
+  for(
+    let i=1;
+    i<bytes.length-1;
+    i++
+  ){
+
+    xor1 ^=
+      bytes[i];
+
+  }
+
+
+  result.push({
+
+    name:
+      "XOR8 1..n-2",
+
+    value:
+      xor1,
+
+    matches:
+      xor1 === last
+
+  });
+
+
+  return result;
+
+}
+
+
+function renderChecksum(){
+
+  const box =
+    $("checksum");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Esperando tramas.</div>";
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  rxPackets
+    .slice()
+    .reverse()
+    .slice(0,20)
+    .forEach(p => {
+
+      const candidates =
+        checksumCandidates(
+          p.bytes
+        );
+
+
+      const last =
+        p.bytes[p.bytes.length-1];
+
+
+      html += `
+
+        <div class="packet">
+
+          <b>
+          0x${getFrameType(p.bytes)}
+          </b>
+
+          ·
+
+          <span class="code">
+          ${hex(p.bytes)}
+          </span>
+
+          <br><br>
+
+          Último byte:
+
+          <span class="code">
+          ${fmt(last)}
+          </span>
+
+          <br><br>
+
+      `;
+
+
+      candidates.forEach(c => {
+
+        html += `
+
+          ${c.name}:
+
+          <span class="code">
+          ${fmt(c.value)}
+          </span>
+
+          ${
+            c.matches
+            ? "<span class='green'> ✓ COINCIDE</span>"
+            : ""
+          }
+
+          <br>
+
+        `;
+
+      });
+
+
+      html += `
+        </div>
+      `;
+
+    });
+
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =========================================================
+   SECUENCIA
+========================================================= */
+
+function renderSequence(){
+
+  const box =
+    $("sequence");
+
+  if(!rxPackets.length){
+
+    box.innerHTML =
+      "<div class='small'>Todavía no hay secuencia.</div>";
+
+    return;
+
+  }
+
+
+  const sequence =
+    rxPackets
+      .map(
+        p => "0x" +
+        getFrameType(p.bytes)
+      )
+      .join(" → ");
+
+
+  box.innerHTML = `
+
+    <div class="info-box">
+
+      <b>Secuencia observada:</b>
+
+      <br><br>
+
+      <span class="code">
+      ${sequence}
+      </span>
+
+    </div>
+
+  `;
 
 }
 
@@ -1663,13 +3069,10 @@ function renderPackets(){
   const box =
     $("packets");
 
-
   if(!packets.length){
 
     box.innerHTML =
-      "<div class='small'>" +
-      "Todavía no hay paquetes." +
-      "</div>";
+      "<div class='small'>Todavía no hay paquetes.</div>";
 
     return;
 
@@ -1684,18 +3087,31 @@ function renderPackets(){
 
         let cls =
           p.direction === "TX"
-            ? "tx"
-            : "rx";
+          ? "tx"
+          : "rx";
+
+
+        if(
+          p.type === "SPONTÁNEO"
+        )
+          cls = "spont";
+
 
         if(
           p.type === "ECO"
         )
           cls = "echo";
 
+
         if(
-          p.type === "SPONTÁNEO"
+          p.type ===
+          "RESPUESTA PROBABLE"
         )
-          cls = "spont";
+          cls = "response";
+
+
+        const h =
+          hex(p.bytes);
 
 
         return `
@@ -1704,8 +3120,8 @@ function renderPackets(){
 
             ${
               p.direction === "TX"
-                ? "📤"
-                : "📥"
+              ? "📤"
+              : "📥"
             }
 
             <b>
@@ -1715,39 +3131,68 @@ function renderPackets(){
             · ${p.direction}
 
             ${
+              p.direction === "RX"
+              ? " · NOTIFY"
+              : " · WRITE"
+            }
+
+            ${
+              p.direction === "RX"
+              ? `
+                <span class="badge blue">
+                TIPO 0x${getFrameType(p.bytes)}
+                </span>
+              `
+              : ""
+            }
+
+            ${
               p.type
-                ? `
-                  <span class="badge">
-                  ${p.type}
-                  </span>
-                  `
-                : ""
+              ? `
+                <span class="badge">
+                ${p.type}
+                </span>
+              `
+              : ""
             }
 
             <br><br>
 
             <b>HEX:</b>
-            ${hex(p.bytes)}
 
             <br>
 
+            <span class="code">
+            ${h}
+            </span>
+
+            <br><br>
+
             <b>DECIMAL:</b>
+
             ${decimal(p.bytes)}
 
             <br>
 
             <b>ASCII:</b>
+
             ${ascii(p.bytes)}
+
+            <br><br>
+
+            <span class="small">
+            ${p.time}
+            </span>
 
             ${
               p.relation
-                ? `
-                  <br><br>
-                  <span class="green">
-                  RX ← TX #${p.relation}
-                  </span>
-                  `
-                : ""
+              ? `
+                <br>
+                <span class="green">
+                RX ← TX #${p.relation}
+                </span>
+              `
+              : ""
             }
 
           </div>
@@ -1769,7 +3214,6 @@ function renderRelations(){
   const box =
     $("relations");
 
-
   const related =
     rxPackets.filter(
       p => p.relation
@@ -1779,9 +3223,7 @@ function renderRelations(){
   if(!related.length){
 
     box.innerHTML =
-      "<div class='small'>" +
-      "Todavía no hay relaciones TX → RX." +
-      "</div>";
+      "<div class='small'>Todavía no hay relaciones TX → RX.</div>";
 
     return;
 
@@ -1812,11 +3254,13 @@ function renderRelations(){
 
             <br>
 
+            <span class="code">
             ${
               tx
-                ? hex(tx.bytes)
-                : "?"
+              ? hex(tx.bytes)
+              : "?"
             }
+            </span>
 
             <br><br>
 
@@ -1824,11 +3268,15 @@ function renderRelations(){
 
             <br><br>
 
-            <b>RX</b>
+            <b>
+            RX #${rx.number}
+            </b>
 
             <br>
 
+            <span class="code">
             ${hex(rx.bytes)}
+            </span>
 
             <br><br>
 
@@ -1847,936 +3295,20 @@ function renderRelations(){
 
 
 /* =========================================================
-   PATRONES
-========================================================= */
-
-function renderPatterns(){
-
-  const box =
-    $("patterns");
-
-
-  if(!rxPackets.length){
-
-    box.innerHTML =
-      "<div class='small'>" +
-      "Todavía no hay RX." +
-      "</div>";
-
-    return;
-
-  }
-
-
-  const map =
-    new Map();
-
-
-  rxPackets.forEach(p => {
-
-    const key =
-      hex(p.bytes);
-
-    if(!map.has(key))
-      map.set(key,[]);
-
-    map
-      .get(key)
-      .push(p);
-
-  });
-
-
-  let html = `
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>HEX</th>
-          <th>Veces</th>
-          <th>Intervalo medio</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-  `;
-
-
-  for(
-    const [key,list]
-    of map
-  ){
-
-    let interval =
-      "—";
-
-
-    if(list.length > 1){
-
-      const diffs = [];
-
-
-      for(
-        let i=1;
-        i<list.length;
-        i++
-      ){
-
-        diffs.push(
-          list[i].timestamp -
-          list[i-1].timestamp
-        );
-
-      }
-
-
-      const avg =
-        diffs.reduce(
-          (a,b) => a+b,
-          0
-        ) /
-        diffs.length;
-
-
-      interval =
-        (
-          avg /
-          1000
-        ).toFixed(2) +
-        " s";
-
-    }
-
-
-    html += `
-
-      <tr>
-
-        <td>
-        ${key}
-        </td>
-
-        <td>
-        ${list.length}
-        </td>
-
-        <td>
-        ${interval}
-        </td>
-
-      </tr>
-
-    `;
-
-  }
-
-
-  html += `
-      </tbody>
-    </table>
-  `;
-
-
-  box.innerHTML =
-    html;
-
-}
-
-
-/* =========================================================
-   ESTRUCTURA
-========================================================= */
-
-function renderStructure(){
-
-  const box =
-    $("structure");
-
-
-  if(!rxPackets.length){
-
-    box.innerHTML =
-      "<div class='small'>" +
-      "Esperando paquetes." +
-      "</div>";
-
-    return;
-
-  }
-
-
-  const unique =
-    Array.from(
-      new Map(
-        rxPackets.map(
-          p => [
-            hex(p.bytes),
-            p
-          ]
-        )
-      ).values()
-    );
-
-
-  let html = "";
-
-
-  unique.forEach(p => {
-
-    const b =
-      p.bytes;
-
-
-    const realLength =
-      b.length;
-
-
-    const declared =
-      b.length >= 3
-        ? b[2]
-        : null;
-
-
-    const expected =
-      declared !== null
-        ? declared + 3
-        : null;
-
-
-    const lengthState =
-      expected === null
-        ? "—"
-        : expected === realLength
-          ? "🟢 COINCIDE"
-          : "🟡 NO COINCIDE";
-
-
-    html += `
-
-      <div class="packet">
-
-        <b>
-        ${hex(b)}
-        </b>
-
-        <br><br>
-
-        Byte 0:
-        <b>
-        ${fmt(b[0])}
-        </b>
-
-        <br>
-
-        Byte 1:
-        <b>
-        ${fmt(b[1])}
-        </b>
-
-        <br>
-
-        Byte 2:
-        <b>
-        ${fmt(b[2])}
-        </b>
-
-        <br>
-
-        Longitud declarada:
-        <b>
-        ${declared !== null
-          ? declared
-          : "—"}
-        </b>
-
-        <br>
-
-        Longitud real:
-        <b>
-        ${realLength}
-        </b>
-
-        <br>
-
-        Longitud declarada + 3:
-        <b>
-        ${expected !== null
-          ? expected
-          : "—"}
-        </b>
-
-        <br>
-
-        Comprobación:
-        <b>
-        ${lengthState}
-        </b>
-
-        <br>
-
-        Byte 3:
-        <b>
-        ${fmt(b[3])}
-        </b>
-
-        <br>
-
-        Byte 4:
-        <b>
-        ${fmt(b[4])}
-        </b>
-
-        <br>
-
-        Bytes 5+:
-        <b>
-        ${
-          b.length > 5
-            ? hex(b.slice(5))
-            : "—"
-        }
-        </b>
-
-      </div>
-
-    `;
-
-  });
-
-
-  box.innerHTML =
-    html;
-
-}
-
-
-/* =========================================================
-   CAMPOS VARIABLES
-========================================================= */
-
-function renderVariableFields(){
-
-  const box =
-    $("variableFields");
-
-
-  if(rxPackets.length < 2){
-
-    box.innerHTML =
-      "<div class='small'>" +
-      "Se necesitan al menos dos RX." +
-      "</div>";
-
-    return;
-
-  }
-
-
-  const max =
-    Math.max(
-      ...rxPackets.map(
-        p => p.bytes.length
-      )
-    );
-
-
-  let html = `
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Byte</th>
-          <th>Valores</th>
-          <th>Estado</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-  `;
-
-
-  for(
-    let i=0;
-    i<max;
-    i++
-  ){
-
-    const values =
-      rxPackets
-        .filter(
-          p =>
-            p.bytes[i] !==
-            undefined
-        )
-        .map(
-          p =>
-            p.bytes[i]
-        );
-
-
-    const unique =
-      [...new Set(values)];
-
-
-    const valuesHex =
-      unique
-        .map(
-          v =>
-            v.toString(16)
-             .padStart(2,"0")
-             .toUpperCase()
-        )
-        .join(" · ");
-
-
-    html += `
-
-      <tr>
-
-        <td>
-        ${i}
-        </td>
-
-        <td>
-        ${valuesHex || "—"}
-        </td>
-
-        <td>
-
-        ${
-          unique.length > 1
-            ? "<span class='yellow'>VARIABLE</span>"
-            : "estable"
-        }
-
-        </td>
-
-      </tr>
-
-    `;
-
-  }
-
-
-  html += `
-      </tbody>
-    </table>
-  `;
-
-
-  box.innerHTML =
-    html;
-
-}
-
-
-/* =========================================================
-   CHECKSUM
-========================================================= */
-
-function checksumCandidates(bytes){
-
-  if(bytes.length < 2)
-    return [];
-
-
-  const last =
-    bytes[bytes.length-1];
-
-
-  const candidates = [];
-
-
-  let sumAll = 0;
-
-
-  for(
-    let i=0;
-    i<bytes.length-1;
-    i++
-  ){
-
-    sumAll =
-      (
-        sumAll +
-        bytes[i]
-      ) & 0xFF;
-
-  }
-
-
-  candidates.push({
-
-    name:
-      "SUM8 0..n-2",
-
-    value:
-      sumAll,
-
-    matches:
-      sumAll === last
-
-  });
-
-
-  let xorAll = 0;
-
-
-  for(
-    let i=0;
-    i<bytes.length-1;
-    i++
-  ){
-
-    xorAll ^=
-      bytes[i];
-
-  }
-
-
-  candidates.push({
-
-    name:
-      "XOR8 0..n-2",
-
-    value:
-      xorAll,
-
-    matches:
-      xorAll === last
-
-  });
-
-
-  let sumFrom1 = 0;
-
-
-  for(
-    let i=1;
-    i<bytes.length-1;
-    i++
-  ){
-
-    sumFrom1 =
-      (
-        sumFrom1 +
-        bytes[i]
-      ) & 0xFF;
-
-  }
-
-
-  candidates.push({
-
-    name:
-      "SUM8 1..n-2",
-
-    value:
-      sumFrom1,
-
-    matches:
-      sumFrom1 === last
-
-  });
-
-
-  let xorFrom1 = 0;
-
-
-  for(
-    let i=1;
-    i<bytes.length-1;
-    i++
-  ){
-
-    xorFrom1 ^=
-      bytes[i];
-
-  }
-
-
-  candidates.push({
-
-    name:
-      "XOR8 1..n-2",
-
-    value:
-      xorFrom1,
-
-    matches:
-      xorFrom1 === last
-
-  });
-
-
-  return candidates;
-
-}
-
-
-/* =========================================================
-   RENDER CHECKSUM
-========================================================= */
-
-function renderChecksum(){
-
-  const box =
-    $("checksum");
-
-
-  if(!rxPackets.length){
-
-    box.innerHTML =
-      "<div class='small'>" +
-      "Esperando tramas." +
-      "</div>";
-
-    return;
-
-  }
-
-
-  let html = "";
-
-
-  rxPackets
-    .slice()
-    .reverse()
-    .forEach(p => {
-
-      const candidates =
-        checksumCandidates(
-          p.bytes
-        );
-
-
-      html += `
-
-        <div class="packet">
-
-          <b>
-          ${hex(p.bytes)}
-          </b>
-
-          <br><br>
-
-      `;
-
-
-      candidates.forEach(c => {
-
-        html += `
-
-          ${c.name}:
-
-          <b>
-          ${fmt(c.value)}
-          </b>
-
-          ${
-            c.matches
-              ? `
-                <span class="green">
-                ✓ POSIBLE
-                </span>
-                `
-              : ""
-          }
-
-          <br>
-
-        `;
-
-      });
-
-
-      html += `
-        </div>
-      `;
-
-    });
-
-
-  box.innerHTML =
-    html;
-
-}
-
-
-/* =========================================================
-   COMPARACIÓN
-========================================================= */
-
-function renderComparison(){
-
-  const box =
-    $("comparison");
-
-
-  if(rxPackets.length < 2){
-
-    box.innerHTML = `
-
-      <div class="packet reference">
-
-        <b>COMPARACIÓN CONOCIDA</b>
-
-        <br><br>
-
-        A:
-        <br>
-        AB 00 05 FF 91 80 00 64
-
-        <br><br>
-
-        B:
-        <br>
-        AB 00 0D FF 92 C0 03 07
-        7B 00 00 00 00 00 00 22
-
-        <br><br>
-
-        Las diferencias conocidas son:
-
-        <br><br>
-
-        Byte 2:
-        <b>05 → 0D</b>
-
-        <br>
-
-        Byte 4:
-        <b>91 → 92</b>
-
-        <br>
-
-        Byte 5:
-        <b>80 → C0</b>
-
-        <br>
-
-        Byte 6:
-        <b>00 → 03</b>
-
-        <br>
-
-        Byte 7:
-        <b>64 → 07</b>
-
-        <br>
-
-        A partir del byte 8,
-        el segundo paquete continúa
-        con datos adicionales.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  const a =
-    rxPackets[
-      rxPackets.length - 2
-    ];
-
-
-  const b =
-    rxPackets[
-      rxPackets.length - 1
-    ];
-
-
-  const max =
-    Math.max(
-      a.bytes.length,
-      b.bytes.length
-    );
-
-
-  const differences = [];
-
-
-  for(
-    let i=0;
-    i<max;
-    i++
-  ){
-
-    const av =
-      a.bytes[i];
-
-    const bv =
-      b.bytes[i];
-
-
-    if(av !== bv){
-
-      differences.push(
-
-        `Byte ${i}: ` +
-        `${fmt(av)} → ${fmt(bv)}`
-
-      );
-
-    }
-
-  }
-
-
-  box.innerHTML = `
-
-    <div class="packet">
-
-      <b>A:</b>
-      ${hex(a.bytes)}
-
-      <br><br>
-
-      <b>B:</b>
-      ${hex(b.bytes)}
-
-      <br><br>
-
-      <b>🔎 DIFERENCIAS</b>
-
-      <br><br>
-
-      ${
-        differences.length
-          ? differences.join("<br>")
-          : "<span class='green'>🟢 Idénticos.</span>"
-      }
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   TIMELINE
-========================================================= */
-
-function renderTimeline(){
-
-  const box =
-    $("timeline");
-
-
-  if(!packets.length){
-
-    box.innerHTML =
-      "<div class='small'>" +
-      "Todavía no hay actividad." +
-      "</div>";
-
-    return;
-
-  }
-
-
-  box.innerHTML =
-    packets
-      .slice()
-      .reverse()
-      .slice(0,100)
-      .map(p => `
-
-        <div class="packet">
-
-          ${
-            p.direction === "TX"
-              ? "📤"
-              : "📥"
-          }
-
-          <b>
-          ${p.direction}
-          </b>
-
-          · ${p.time}
-
-          <br>
-
-          ${hex(p.bytes)}
-
-          ${
-            p.type
-              ? `
-                <br>
-                <span class="small">
-                ${p.type}
-                </span>
-                `
-              : ""
-          }
-
-        </div>
-
-      `)
-      .join("");
-
-}
-
-
-/* =========================================================
-   FORMAT
-========================================================= */
-
-function fmt(v){
-
-  if(
-    v === null ||
-    v === undefined
-  )
-    return "—";
-
-
-  return v
-    .toString(16)
-    .padStart(2,"0")
-    .toUpperCase();
-
-}
-
-
-/* =========================================================
    DESCONECTAR
 ========================================================= */
 
-async function disconnect(){
+function disconnect(){
 
   try{
 
     if(notifyCharacteristic){
 
-      try{
-
-        await notifyCharacteristic
-          .stopNotifications();
-
-      }catch(e){}
-
-      try{
-
-        notifyCharacteristic
-          .removeEventListener(
-            "characteristicvaluechanged",
-            handleNotification
-          );
-
-      }catch(e){}
+      notifyCharacteristic
+        .removeEventListener(
+          "characteristicvaluechanged",
+          handleNotification
+        );
 
     }
 
@@ -2791,14 +3323,7 @@ async function disconnect(){
 
     }
 
-  }catch(error){
-
-    log(
-      "⚠️ Error durante desconexión: " +
-      error.message
-    );
-
-  }
+  }catch(e){}
 
 
   handleDisconnect();
@@ -2806,17 +3331,10 @@ async function disconnect(){
 }
 
 
-/* =========================================================
-   DESCONEXIÓN GATT
-========================================================= */
-
 function handleDisconnect(){
 
   connected =
     false;
-
-  server =
-    null;
 
   writeCharacteristic =
     null;
@@ -2824,8 +3342,15 @@ function handleDisconnect(){
   notifyCharacteristic =
     null;
 
+  service =
+    null;
+
+  server =
+    null;
+
+
   $("connectionStatus").innerHTML =
-    "⚪ Smart Band desconectada";
+    "<span class='yellow'>⚪ Smart Band desconectada</span>";
 
   $("disconnectBtn").disabled =
     true;
@@ -2833,11 +3358,10 @@ function handleDisconnect(){
   $("sendBtn").disabled =
     true;
 
-  $("connectBtn").disabled =
-    false;
 
   $("uartInfo").innerHTML =
-    "Canal BLE desconectado.";
+    "Canal UART desconectado.";
+
 
   log(
     "🔌 GATT desconectado."
@@ -2847,7 +3371,7 @@ function handleDisconnect(){
 
 
 /* =========================================================
-   LIMPIAR PAQUETES
+   LIMPIAR CAPTURAS
 ========================================================= */
 
 function clearPackets(){
@@ -2863,90 +3387,84 @@ function clearPackets(){
   lastTx = null;
 
 
-  updateStats();
-
-  renderPackets();
-
-  renderRelations();
-
-  renderPatterns();
-
-  renderStructure();
-
-  renderVariableFields();
-
-  renderChecksum();
-
-  renderComparison();
-
-  renderTimeline();
+  updateAllAnalysis();
 
 
   log(
-    "🧹 Historial de paquetes limpiado."
+    "🧹 Historial de capturas limpiado."
   );
 
 }
 
 
 /* =========================================================
-   EXPORTAR
+   EXPORTACIÓN JSON
 ========================================================= */
 
 function buildExport(){
 
+  const typeMap = {};
+
+
+  rxPackets.forEach(p => {
+
+    const type =
+      getFrameType(p.bytes);
+
+    if(!typeMap[type])
+      typeMap[type] = 0;
+
+    typeMap[type]++;
+
+  });
+
+
   return JSON.stringify({
 
     application:
-      "RoXThal F1 Plus Protocol Laboratory",
+      "RoXThal F1 Plus Protocol Laboratory v2",
 
-    date:
+    exportDate:
       new Date().toISOString(),
 
     device:{
+
       name:
         device
-          ? device.name
-          : null,
+        ? device.name
+        : null,
 
       id:
         device
-          ? device.id
-          : null
+        ? device.id
+        : null
+
     },
 
-    services:
-      discoveredServices.map(
-        s => s.uuid
-      ),
+    bluetooth:{
 
-    characteristics:
-      discoveredCharacteristics.map(
-        c => ({
-          uuid:c.uuid,
-          properties:c.properties
-        })
-      ),
+      service:
+        UUID_SERVICE,
 
-    selectedWrite:
-      writeCharacteristic
-        ? writeCharacteristic.uuid
-        : null,
+      write:
+        UUID_WRITE,
 
-    selectedNotify:
-      notifyCharacteristic
-        ? notifyCharacteristic.uuid
-        : null,
+      notify:
+        UUID_NOTIFY
+
+    },
 
     statistics:{
-      tx:txPackets.length,
-      rx:rxPackets.length,
+
+      tx:
+        txPackets.length,
+
+      rx:
+        rxPackets.length,
 
       spontaneous:
         rxPackets.filter(
-          p =>
-            p.type ===
-            "SPONTÁNEO"
+          p => p.type === "SPONTÁNEO"
         ).length,
 
       responses:
@@ -2958,16 +3476,36 @@ function buildExport(){
 
       echoes:
         rxPackets.filter(
-          p =>
-            p.type ===
-            "ECO"
-        ).length
+          p => p.type === "ECO"
+        ).length,
+
+      types:
+        Object.keys(typeMap).length
+
     },
 
-    packets:packets,
+    detectedTypes:
+      typeMap,
 
-    protocolNote:
-      "Los comandos no se consideran confirmados hasta su validación experimental."
+    packets:
+
+      packets,
+
+    protocolObservations:{
+
+      frameHeader:
+        "AB observado en las capturas disponibles",
+
+      byte2LengthHypothesis:
+        "Byte 2 + 3 parece coincidir con la longitud total en las capturas disponibles",
+
+      byte3:
+        "FF observado en las capturas disponibles",
+
+      warning:
+        "Los significados funcionales de los campos no están confirmados."
+
+    }
 
   },null,2);
 
@@ -2991,15 +3529,11 @@ function exportAnalysis(){
 
 
   const url =
-    URL.createObjectURL(
-      blob
-    );
+    URL.createObjectURL(blob);
 
 
   const a =
-    document.createElement(
-      "a"
-    );
+    document.createElement("a");
 
 
   a.href =
@@ -3007,7 +3541,7 @@ function exportAnalysis(){
 
 
   a.download =
-    "F1-Plus-analysis-" +
+    "F1-Plus-Laboratory-v2-" +
     new Date()
       .toISOString()
       .replace(/[:.]/g,"-") +
@@ -3024,74 +3558,160 @@ function exportAnalysis(){
 
 
   log(
-    "💾 Análisis exportado."
+    "💾 Análisis JSON exportado."
   );
 
 }
 
 
 /* =========================================================
-   COPIAR
+   EXPORTAR HEX
+========================================================= */
+
+function exportHex(){
+
+  if(!rxPackets.length){
+
+    alert(
+      "No hay RX para exportar."
+    );
+
+    return;
+
+  }
+
+
+  const lines =
+    rxPackets.map(p =>
+      `${p.time} | ` +
+      `TIPO 0x${getFrameType(p.bytes)} | ` +
+      hex(p.bytes)
+    );
+
+
+  const content =
+    lines.join("\n");
+
+
+  const blob =
+    new Blob(
+      [content],
+      {
+        type:
+          "text/plain"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href =
+    url;
+
+
+  a.download =
+    "F1-Plus-RX-" +
+    new Date()
+      .toISOString()
+      .replace(/[:.]/g,"-") +
+    ".txt";
+
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+
+  log(
+    "📄 RX exportados en HEX."
+  );
+
+}
+
+
+/* =========================================================
+   COPIAR RESUMEN
 ========================================================= */
 
 async function copySummary(){
 
-  const text =
+  const types =
+    new Set(
+      rxPackets.map(
+        p => getFrameType(p.bytes)
+      )
+    );
 
-`RoXThal F1 Plus Laboratory
 
-DISPOSITIVO
+  const lengths =
+    new Set(
+      rxPackets.map(
+        p => p.bytes.length
+      )
+    );
+
+
+  const text = `
+
+RoXThal F1 Plus Protocol Laboratory v2
+
+DEVICE:
 ${device ? device.name : "N/A"}
 
-WRITE
-${writeCharacteristic ? writeCharacteristic.uuid : "N/A"}
+SERVICE:
+${UUID_SERVICE}
 
-NOTIFY
-${notifyCharacteristic ? notifyCharacteristic.uuid : "N/A"}
-
-TX
-${txPackets.length}
-
-RX
+RX:
 ${rxPackets.length}
 
-RX ESPONTÁNEOS
-${rxPackets.filter(
-  p => p.type === "SPONTÁNEO"
-).length}
+TX:
+${txPackets.length}
 
-RESPUESTAS
-${rxPackets.filter(
-  p => p.type === "RESPUESTA PROBABLE"
-).length}
+TIPOS RX:
+${[...types].map(t=>"0x"+t).join(", ") || "N/A"}
 
-ECOS
-${rxPackets.filter(
-  p => p.type === "ECO"
-).length}
+LONGITUDES:
+${[...lengths].join(", ") || "N/A"}
 
-PAQUETES RX
+TRAMAS RX:
 
-${rxPackets.map(
-  p =>
-    p.type +
-    " | " +
-    hex(p.bytes)
+${rxPackets.map(p =>
+  `${p.time} | ` +
+  `0x${getFrameType(p.bytes)} | ` +
+  hex(p.bytes)
 ).join("\n")}
+
+OBSERVACIÓN:
+Byte 2 + 3 coincide con la longitud total
+en las capturas actuales.
+
+No se considera ningún significado de campo
+como confirmado sin más evidencia.
+
 `;
 
 
   try{
 
-    await navigator
-      .clipboard
-      .writeText(text);
+    await navigator.clipboard.writeText(
+      text
+    );
 
     log(
       "📋 Resumen copiado."
     );
 
-  }catch(error){
+  }catch(e){
 
     alert(text);
 
@@ -3159,18 +3779,6 @@ $("clearDiagnosticBtn")
       $("diagnostic").textContent =
         "Sistema preparado.";
 
-      log(
-        "Analizador F1 Plus listo."
-      );
-
-      log(
-        "Modo pasivo activo."
-      );
-
-      log(
-        "No se enviarán comandos automáticamente."
-      );
-
     }
   );
 
@@ -3179,6 +3787,13 @@ $("exportBtn")
   .addEventListener(
     "click",
     exportAnalysis
+  );
+
+
+$("exportHexBtn")
+  .addEventListener(
+    "click",
+    exportHex
   );
 
 
@@ -3192,15 +3807,10 @@ $("copyBtn")
 $("hexInput")
   .addEventListener(
     "keydown",
-    event => {
+    e => {
 
-      if(event.key === "Enter"){
-
-        event.preventDefault();
-
+      if(e.key === "Enter")
         sendHex();
-
-      }
 
     }
   );
@@ -3213,7 +3823,7 @@ $("hexInput")
 bluetoothCheck();
 
 log(
-  "Inicializando analizador F1 Plus..."
+  "Inicializando Laboratorio F1 Plus v2..."
 );
 
 log(
@@ -3225,7 +3835,7 @@ log(
 );
 
 log(
-  "Esperando conexión..."
+  "Esperando datos espontáneos de la F1 Plus..."
 );
 
 </script>
