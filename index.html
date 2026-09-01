@@ -2,128 +2,233 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
 <meta name="theme-color" content="#080808">
+
 <title>RoXThal Art Design - F1 Plus Analyzer</title>
 
 <style>
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  padding:0;
-  background:#080808;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif
+
+*{
+    box-sizing:border-box;
 }
-body{min-height:100vh}
+
+html,
+body{
+    margin:0;
+    padding:0;
+    background:#080808;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+}
+
 .container{
-  width:100%;
-  max-width:760px;
-  margin:auto;
-  padding:15px 15px 40px
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:15px 15px 40px;
 }
-.header{text-align:center;padding:20px 10px}
-.logo{font-size:50px}
-h1{font-size:27px;margin:5px 0}
-.subtitle{color:#aaa}
+
+.header{
+    text-align:center;
+    padding:20px 10px;
+}
+
+.logo{
+    font-size:50px;
+}
+
+h1{
+    font-size:27px;
+    margin:5px 0;
+}
+
+.subtitle{
+    color:#aaa;
+}
+
 .card{
-  background:#151515;
-  border-radius:18px;
-  padding:18px;
-  margin-top:15px;
-  box-shadow:0 6px 25px rgba(0,0,0,.25)
+    background:#151515;
+    border-radius:18px;
+    padding:18px;
+    margin-top:15px;
+    box-shadow:0 6px 25px rgba(0,0,0,.25);
 }
+
 .title{
-  color:#ffd54a;
-  font-size:19px;
-  margin:0 0 12px
+    color:#ffd54a;
+    font-size:19px;
+    margin:0 0 12px;
 }
+
 button{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:15px;
-  margin-top:9px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:15px;
+    margin-top:9px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
 }
-button:disabled{opacity:.45}
-#connectBtn{background:#e0b400;color:#111}
-#listenBtn{background:#16834a;color:#fff}
-#stopBtn,#disconnectBtn,#clearBtn{
-  background:#333;color:#fff
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
 }
-#sendBtn{background:#2377d8;color:#fff}
-#testBtn{background:#7b4bd1;color:#fff}
+
+#connectBtn{
+    background:#e0b400;
+    color:#111;
+}
+
+#listenBtn{
+    background:#16834a;
+    color:#fff;
+}
+
+#stopBtn,
+#disconnectBtn,
+#clearBtn{
+    background:#333;
+    color:#fff;
+}
+
+#sendBtn{
+    background:#2377d8;
+    color:#fff;
+}
+
+#testBtn{
+    background:#7b4bd1;
+    color:#fff;
+}
+
+#copyBtn{
+    background:#444;
+    color:#fff;
+}
 
 .status{
-  padding:14px;
-  border-radius:10px;
-  background:#202020;
-  text-align:center;
-  margin-top:12px
+    padding:14px;
+    border-radius:10px;
+    background:#202020;
+    text-align:center;
+    margin-top:12px;
 }
-.success{background:#123d20;color:#7cff9b}
-.error{background:#431515;color:#ff8f8f}
-.warning{background:#403715;color:#ffe477}
+
+.success{
+    background:#123d20;
+    color:#7cff9b;
+}
+
+.error{
+    background:#431515;
+    color:#ff8f8f;
+}
+
+.warning{
+    background:#403715;
+    color:#ffe477;
+}
 
 .info{
-  background:#202020;
-  padding:11px;
-  border-radius:9px;
-  margin-top:8px;
-  word-break:break-all
+    background:#202020;
+    padding:11px;
+    border-radius:9px;
+    margin-top:8px;
+    word-break:break-all;
 }
+
 .small{
-  color:#999;
-  font-size:12px;
-  line-height:1.5
+    color:#999;
+    font-size:12px;
+    line-height:1.5;
 }
+
 textarea{
-  width:100%;
-  min-height:90px;
-  resize:vertical;
-  margin-top:8px;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #444;
-  background:#080808;
-  color:#fff;
-  font-family:monospace;
-  font-size:14px
+    width:100%;
+    min-height:90px;
+    resize:vertical;
+    margin-top:8px;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #444;
+    background:#080808;
+    color:#fff;
+    font-family:monospace;
+    font-size:14px;
 }
+
 .log{
-  background:#050505;
-  border-radius:10px;
-  padding:13px;
-  max-height:420px;
-  overflow:auto;
-  white-space:pre-wrap;
-  word-break:break-word;
-  font-family:monospace;
-  font-size:12px;
-  line-height:1.55
+    background:#050505;
+    border-radius:10px;
+    padding:13px;
+    max-height:430px;
+    overflow:auto;
+    white-space:pre-wrap;
+    word-break:break-word;
+    font-family:monospace;
+    font-size:12px;
+    line-height:1.55;
 }
+
 .packet{
-  background:#090909;
-  border-left:3px solid #ffd54a;
-  border-radius:8px;
-  padding:12px;
-  margin-top:10px;
-  font-family:monospace;
-  font-size:12px;
-  line-height:1.6;
-  word-break:break-word
+    background:#090909;
+    border-radius:8px;
+    padding:12px;
+    margin-top:10px;
+    font-family:monospace;
+    font-size:12px;
+    line-height:1.6;
+    word-break:break-word;
 }
-.rx{border-left-color:#55d6ff}
-.tx{border-left-color:#d58cff}
+
+.packet.rx{
+    border-left:4px solid #55d6ff;
+}
+
+.packet.tx{
+    border-left:4px solid #d58cff;
+}
+
+.packet.echo{
+    border-left:4px solid #ffd54a;
+}
+
+.packet.newrx{
+    border-left:4px solid #7cff9b;
+}
+
+.label{
+    display:inline-block;
+    padding:3px 7px;
+    border-radius:6px;
+    background:#333;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
 .footer{
-  text-align:center;
-  color:#777;
-  font-size:12px;
-  margin-top:25px
+    text-align:center;
+    color:#777;
+    font-size:12px;
+    margin-top:25px;
 }
+
+hr{
+    border:0;
+    border-top:1px solid #292929;
+    margin:15px 0;
+}
+
 </style>
 </head>
 
@@ -132,197 +237,433 @@ textarea{
 <div class="container">
 
 <header class="header">
-  <div class="logo">⌚</div>
-  <h1>Smart Band F1 Plus</h1>
-  <div class="subtitle">
-    RoXThal Art Design · Analizador de protocolo
-  </div>
+
+    <div class="logo">⌚</div>
+
+    <h1>
+        Smart Band F1 Plus
+    </h1>
+
+    <div class="subtitle">
+        RoXThal Art Design · Analizador de protocolo
+    </div>
+
 </header>
 
-<section class="card">
 
-  <div id="compatibility" class="status">
-    🔵 Comprobando Bluetooth...
-  </div>
-
-  <button id="connectBtn">
-    🔗 CONECTAR F1 PLUS
-  </button>
-
-  <button id="listenBtn" disabled>
-    📡 ACTIVAR ESCUCHA
-  </button>
-
-  <button id="stopBtn" style="display:none">
-    ⏹️ DETENER ESCUCHA
-  </button>
-
-  <button id="disconnectBtn" style="display:none">
-    ❌ DESCONECTAR
-  </button>
-
-  <div id="bandStatus" class="status">
-    ⚪ Smart Band desconectada
-  </div>
-
-</section>
-
-<section id="deviceCard" class="card" style="display:none">
-
-  <h2 class="title">📱 Dispositivo detectado</h2>
-
-  <div id="deviceName" class="info">
-    Nombre: —
-  </div>
-
-  <div id="deviceId" class="info">
-    ID: —
-  </div>
-
-  <div id="deviceGatt" class="info">
-    GATT: —
-  </div>
-
-</section>
-
-<section id="uartCard" class="card" style="display:none">
-
-  <h2 class="title">📡 Canal F1 Plus</h2>
-
-  <div class="info">
-    <strong>Servicio UART</strong><br>
-    6e400001-b5a3-f393-e0a9-e50e24dcca9e
-  </div>
-
-  <div class="info">
-    <strong>WRITE</strong><br>
-    6e400002-b5a3-f393-e0a9-e50e24dcca9e
-  </div>
-
-  <div class="info">
-    <strong>NOTIFY</strong><br>
-    6e400003-b5a3-f393-e0a9-e50e24dcca9e
-  </div>
-
-  <div id="uartStatus" class="info">
-    ⏳ UART pendiente
-  </div>
-
-</section>
-
-<section id="consoleCard" class="card" style="display:none">
-
-  <h2 class="title">🧪 Consola de protocolo</h2>
-
-  <div class="small">
-    Introduce bytes HEX separados por espacios.
-    No se enviará nada hasta que pulses ENVIAR HEX.
-  </div>
-
-  <textarea
-    id="hexInput"
-    placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"
-  ></textarea>
-
-  <button id="sendBtn" disabled>
-    📤 ENVIAR HEX
-  </button>
-
-  <button id="testBtn" disabled>
-    🧪 ENVIAR PRUEBA CONTROLADA
-  </button>
-
-  <div class="small" style="margin-top:12px">
-    La prueba controlada utiliza el paquete de 8 bytes
-    que la propia F1 Plus ya nos envió espontáneamente.
-    No se ejecuta automáticamente.
-  </div>
-
-</section>
-
-<section id="trafficCard" class="card" style="display:none">
-
-  <h2 class="title">📦 Tráfico BLE</h2>
-
-  <div id="packetCounter" class="info">
-    RX: 0 · TX: 0
-  </div>
-
-  <div id="traffic"></div>
-
-</section>
+<!-- =====================================================
+     CONEXIÓN
+===================================================== -->
 
 <section class="card">
 
-  <h2 class="title">🛠️ Diagnóstico</h2>
+    <div
+        id="compatibility"
+        class="status"
+    >
+        🔵 Comprobando Bluetooth...
+    </div>
 
-  <div id="log" class="log">
+
+    <button
+        id="connectBtn"
+        type="button"
+    >
+        🔗 CONECTAR F1 PLUS
+    </button>
+
+
+    <button
+        id="listenBtn"
+        type="button"
+        disabled
+    >
+        📡 ACTIVAR ESCUCHA
+    </button>
+
+
+    <button
+        id="stopBtn"
+        type="button"
+        style="display:none"
+    >
+        ⏹️ DETENER ESCUCHA
+    </button>
+
+
+    <button
+        id="disconnectBtn"
+        type="button"
+        style="display:none"
+    >
+        ❌ DESCONECTAR
+    </button>
+
+
+    <div
+        id="bandStatus"
+        class="status"
+    >
+        ⚪ Smart Band desconectada
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DISPOSITIVO
+===================================================== -->
+
+<section
+    id="deviceCard"
+    class="card"
+    style="display:none"
+>
+
+    <h2 class="title">
+        📱 Dispositivo detectado
+    </h2>
+
+    <div
+        id="deviceName"
+        class="info"
+    >
+        Nombre: —
+    </div>
+
+    <div
+        id="deviceId"
+        class="info"
+    >
+        ID: —
+    </div>
+
+    <div
+        id="deviceGatt"
+        class="info"
+    >
+        GATT: —
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     UART
+===================================================== -->
+
+<section
+    id="uartCard"
+    class="card"
+    style="display:none"
+>
+
+    <h2 class="title">
+        📡 Canal UART F1 Plus
+    </h2>
+
+    <div class="info">
+        <strong>SERVICIO</strong><br>
+        6e400001-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
+
+    <div class="info">
+        <strong>WRITE</strong><br>
+        6e400002-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
+
+    <div class="info">
+        <strong>NOTIFY</strong><br>
+        6e400003-b5a3-f393-e0a9-e50e24dcca9e
+    </div>
+
+    <div
+        id="uartStatus"
+        class="info"
+    >
+        ⏳ UART pendiente
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ANALIZADOR
+===================================================== -->
+
+<section
+    id="analysisCard"
+    class="card"
+    style="display:none"
+>
+
+    <h2 class="title">
+        🔬 Análisis automático
+    </h2>
+
+    <div
+        id="analysisStatus"
+        class="info"
+    >
+        Esperando tráfico...
+    </div>
+
+    <div
+        id="analysisStats"
+        class="info"
+    >
+        TX: 0 · RX: 0 · ECO: 0 · RX NUEVOS: 0
+    </div>
+
+    <hr>
+
+    <div class="small">
+
+        <strong>📤 TX</strong> =
+        datos enviados por esta aplicación.
+
+        <br><br>
+
+        <strong>📥 RX NUEVO</strong> =
+        datos recibidos que no coinciden con
+        un envío reciente.
+
+        <br><br>
+
+        <strong>🔁 ECO</strong> =
+        datos recibidos idénticos a un TX reciente.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONSOLA HEX
+===================================================== -->
+
+<section
+    id="consoleCard"
+    class="card"
+    style="display:none"
+>
+
+    <h2 class="title">
+        🧪 Consola HEX
+    </h2>
+
+    <div class="small">
+
+        Esta consola <strong>NO envía nada automáticamente.</strong>
+
+        <br><br>
+
+        Introduce bytes hexadecimales separados por espacios.
+
+        <br>
+
+        Ejemplo:
+        <code>01 02 FF 00</code>
+
+    </div>
+
+
+    <textarea
+        id="hexInput"
+        placeholder="AB 00 05 FF 91 80 00 64"
+    ></textarea>
+
+
+    <button
+        id="sendBtn"
+        type="button"
+        disabled
+    >
+        📤 ENVIAR HEX
+    </button>
+
+
+    <button
+        id="testBtn"
+        type="button"
+        disabled
+    >
+        🧪 PRUEBA CON PAQUETE CONOCIDO
+    </button>
+
+
+    <div class="small"
+         style="margin-top:12px">
+
+        La prueba conocida utiliza:
+
+        <br><br>
+
+        <code>
+        AB 00 05 FF 91 80 00 64
+        </code>
+
+        <br><br>
+
+        Solo se envía cuando tú pulsas el botón.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TRÁFICO
+===================================================== -->
+
+<section
+    id="trafficCard"
+    class="card"
+    style="display:none"
+>
+
+    <h2 class="title">
+        📦 Tráfico BLE
+    </h2>
+
+    <div
+        id="packetCounter"
+        class="info"
+    >
+        TX: 0 · RX: 0 · ECO: 0
+    </div>
+
+
+    <div id="traffic"></div>
+
+</section>
+
+
+<!-- =====================================================
+     DIAGNÓSTICO
+===================================================== -->
+
+<section class="card">
+
+    <h2 class="title">
+        🛠️ Diagnóstico
+    </h2>
+
+    <div
+        id="log"
+        class="log"
+    >
 Sistema preparado.
-  </div>
+    </div>
 
-  <button id="copyBtn">
-    📋 COPIAR DIAGNÓSTICO
-  </button>
 
-  <button id="clearBtn">
-    🧹 LIMPIAR
-  </button>
+    <button
+        id="copyBtn"
+        type="button"
+    >
+        📋 COPIAR DIAGNÓSTICO
+    </button>
+
+
+    <button
+        id="clearBtn"
+        type="button"
+    >
+        🧹 LIMPIAR DIAGNÓSTICO
+    </button>
 
 </section>
+
 
 <div class="footer">
-  RoXThal Art Design · F1 Plus
+    RoXThal Art Design · Smart Band F1 Plus
 </div>
 
 </div>
+
 
 <script>
+
 "use strict";
 
+
 /* =========================================================
-   UUID EXACTOS DE LA F1 PLUS DETECTADA
+   UUID CONFIRMADOS
 ========================================================= */
 
 const UART_SERVICE =
-"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+    "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UART_WRITE =
-"6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+    "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
 const UART_NOTIFY =
-"6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+    "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
 
 /* =========================================================
-   PAQUETE REAL YA CAPTURADO
+   PAQUETE REAL CONOCIDO
 ========================================================= */
 
-const KNOWN_PACKET = new Uint8Array([
-  0xAB,
-  0x00,
-  0x05,
-  0xFF,
-  0x91,
-  0x80,
-  0x00,
-  0x64
-]);
+const KNOWN_PACKET =
+    new Uint8Array([
+        0xAB,
+        0x00,
+        0x05,
+        0xFF,
+        0x91,
+        0x80,
+        0x00,
+        0x64
+    ]);
 
 
 /* =========================================================
-   VARIABLES
+   VARIABLES BLE
 ========================================================= */
 
 let device = null;
+
 let server = null;
+
 let uartService = null;
+
 let writeCharacteristic = null;
+
 let notifyCharacteristic = null;
 
 let listening = false;
 
-let rxCount = 0;
+
+/* =========================================================
+   VARIABLES DEL ANALIZADOR
+========================================================= */
+
 let txCount = 0;
+
+let rxCount = 0;
+
+let echoCount = 0;
+
+let newRxCount = 0;
+
+
+/*
+ * Guardamos los TX recientes.
+ *
+ * Esto permite determinar si un RX
+ * coincide con algo que acabamos de enviar.
+ */
+
+const recentTransmissions = [];
+
+
+/*
+ * Tiempo durante el cual consideramos
+ * que un RX idéntico puede ser ECO.
+ */
+
+const ECHO_WINDOW_MS = 5000;
 
 
 /* =========================================================
@@ -330,61 +671,70 @@ let txCount = 0;
 ========================================================= */
 
 const compatibility =
-document.getElementById("compatibility");
+    document.getElementById("compatibility");
 
 const connectBtn =
-document.getElementById("connectBtn");
+    document.getElementById("connectBtn");
 
 const listenBtn =
-document.getElementById("listenBtn");
+    document.getElementById("listenBtn");
 
 const stopBtn =
-document.getElementById("stopBtn");
+    document.getElementById("stopBtn");
 
 const disconnectBtn =
-document.getElementById("disconnectBtn");
+    document.getElementById("disconnectBtn");
 
 const bandStatus =
-document.getElementById("bandStatus");
+    document.getElementById("bandStatus");
 
 const deviceCard =
-document.getElementById("deviceCard");
+    document.getElementById("deviceCard");
 
 const uartCard =
-document.getElementById("uartCard");
+    document.getElementById("uartCard");
+
+const analysisCard =
+    document.getElementById("analysisCard");
 
 const consoleCard =
-document.getElementById("consoleCard");
+    document.getElementById("consoleCard");
 
 const trafficCard =
-document.getElementById("trafficCard");
+    document.getElementById("trafficCard");
 
 const uartStatus =
-document.getElementById("uartStatus");
+    document.getElementById("uartStatus");
+
+const analysisStatus =
+    document.getElementById("analysisStatus");
+
+const analysisStats =
+    document.getElementById("analysisStats");
 
 const logBox =
-document.getElementById("log");
+    document.getElementById("log");
 
 const traffic =
-document.getElementById("traffic");
+    document.getElementById("traffic");
 
 const packetCounter =
-document.getElementById("packetCounter");
+    document.getElementById("packetCounter");
 
 const hexInput =
-document.getElementById("hexInput");
+    document.getElementById("hexInput");
 
 const sendBtn =
-document.getElementById("sendBtn");
+    document.getElementById("sendBtn");
 
 const testBtn =
-document.getElementById("testBtn");
+    document.getElementById("testBtn");
 
 const copyBtn =
-document.getElementById("copyBtn");
+    document.getElementById("copyBtn");
 
 const clearBtn =
-document.getElementById("clearBtn");
+    document.getElementById("clearBtn");
 
 
 /* =========================================================
@@ -393,26 +743,29 @@ document.getElementById("clearBtn");
 
 function log(message){
 
-  const time =
-    new Date().toLocaleTimeString();
+    const time =
+        new Date().toLocaleTimeString();
 
-  const line =
-    "[" + time + "] " + message;
+    const line =
+        "[" +
+        time +
+        "] " +
+        message;
 
-  console.log(line);
+    console.log(line);
 
-  if(
-    logBox.textContent.trim() ===
-    "Sistema preparado."
-  ){
-    logBox.textContent = "";
-  }
+    if(
+        logBox.textContent.trim() ===
+        "Sistema preparado."
+    ){
+        logBox.textContent = "";
+    }
 
-  logBox.textContent +=
-    line + "\n";
+    logBox.textContent +=
+        line + "\n";
 
-  logBox.scrollTop =
-    logBox.scrollHeight;
+    logBox.scrollTop =
+        logBox.scrollHeight;
 }
 
 
@@ -420,15 +773,20 @@ function log(message){
    ESTADO
 ========================================================= */
 
-function setStatus(text,type){
+function setStatus(
+    message,
+    type
+){
 
-  bandStatus.textContent = text;
+    bandStatus.textContent =
+        message;
 
-  bandStatus.className = "status";
+    bandStatus.className =
+        "status";
 
-  if(type){
-    bandStatus.classList.add(type);
-  }
+    if(type){
+        bandStatus.classList.add(type);
+    }
 
 }
 
@@ -439,38 +797,45 @@ function setStatus(text,type){
 
 function checkBluetooth(){
 
-  log("Comprobando Web Bluetooth...");
-
-  if(!navigator.bluetooth){
-
-    compatibility.textContent =
-      "❌ Web Bluetooth no disponible";
-
-    compatibility.className =
-      "status error";
-
-    connectBtn.disabled = true;
-
     log(
-      "ERROR: navigator.bluetooth no existe."
+        "Comprobando Web Bluetooth..."
     );
 
-    return false;
-  }
+    if(
+        !navigator.bluetooth
+    ){
 
-  compatibility.textContent =
-    "✅ Web Bluetooth disponible";
+        compatibility.textContent =
+            "❌ Web Bluetooth no disponible";
 
-  compatibility.className =
-    "status success";
+        compatibility.className =
+            "status error";
 
-  connectBtn.disabled = false;
+        connectBtn.disabled =
+            true;
 
-  log(
-    "Web Bluetooth detectado correctamente."
-  );
+        log(
+            "ERROR: navigator.bluetooth no existe."
+        );
 
-  return true;
+        return false;
+    }
+
+
+    compatibility.textContent =
+        "✅ Web Bluetooth disponible";
+
+    compatibility.className =
+        "status success";
+
+    connectBtn.disabled =
+        false;
+
+    log(
+        "Web Bluetooth detectado correctamente."
+    );
+
+    return true;
 }
 
 
@@ -480,135 +845,205 @@ function checkBluetooth(){
 
 async function connectBand(){
 
-  if(!checkBluetooth()){
-    return;
-  }
-
-  connectBtn.disabled = true;
-
-  connectBtn.textContent =
-    "🔍 BUSCANDO F1 PLUS...";
-
-  setStatus(
-    "🔵 Abriendo selector Bluetooth...",
-    "warning"
-  );
-
-  log("==============================");
-  log("INICIO DE CONEXIÓN");
-  log("Solicitando dispositivo...");
-
-  try{
-
-    device =
-      await navigator.bluetooth.requestDevice({
-
-        acceptAllDevices:true,
-
-        optionalServices:[
-          UART_SERVICE
-        ]
-
-      });
-
-    log(
-      "DISPOSITIVO ENCONTRADO"
-    );
-
-    log(
-      "Nombre: " +
-      (device.name || "Sin nombre")
-    );
-
-    log(
-      "ID: " +
-      device.id
-    );
-
-    document.getElementById(
-      "deviceName"
-    ).textContent =
-      "Nombre: " +
-      (device.name || "Sin nombre");
-
-    document.getElementById(
-      "deviceId"
-    ).textContent =
-      "ID: " +
-      device.id;
-
-    deviceCard.style.display =
-      "block";
-
-    device.addEventListener(
-      "gattserverdisconnected",
-      handleDisconnected
-    );
-
-    log("Conectando GATT...");
-
-    server =
-      await device.gatt.connect();
-
     if(
-      !server ||
-      !server.connected
+        !checkBluetooth()
     ){
-      throw new Error(
-        "GATT no quedó conectado."
-      );
+        return;
     }
 
-    document.getElementById(
-      "deviceGatt"
-    ).textContent =
-      "GATT: 🟢 Conectado";
 
-    setStatus(
-      "🟢 F1 Plus conectada",
-      "success"
-    );
+    connectBtn.disabled =
+        true;
 
     connectBtn.textContent =
-      "🟢 F1 PLUS CONECTADA";
+        "🔍 BUSCANDO F1 PLUS...";
 
-    disconnectBtn.style.display =
-      "block";
-
-    uartCard.style.display =
-      "block";
-
-    await prepareUART();
-
-  }
-  catch(error){
-
-    log(
-      "❌ ERROR DE CONEXIÓN"
-    );
-
-    log(
-      "Nombre: " +
-      (error.name || "desconocido")
-    );
-
-    log(
-      "Mensaje: " +
-      (error.message || String(error))
-    );
 
     setStatus(
-      error.name === "NotFoundError"
-        ? "⚪ Selección cancelada"
-        : "❌ No se pudo conectar",
-      "error"
+        "🔵 Abriendo selector Bluetooth...",
+        "warning"
     );
 
-    connectBtn.disabled = false;
 
-    connectBtn.textContent =
-      "🔗 CONECTAR F1 PLUS";
-  }
+    log(
+        "=============================="
+    );
+
+    log(
+        "INICIO DE CONEXIÓN"
+    );
+
+    log(
+        "Solicitando dispositivo..."
+    );
+
+
+    try{
+
+        /*
+         * IMPORTANTE:
+         *
+         * Solamente pedimos el servicio
+         * UART que ya sabemos que existe.
+         */
+
+        device =
+            await navigator.bluetooth.requestDevice({
+
+                acceptAllDevices:true,
+
+                optionalServices:[
+                    UART_SERVICE
+                ]
+
+            });
+
+
+        log(
+            "DISPOSITIVO ENCONTRADO"
+        );
+
+        log(
+            "Nombre: " +
+            (
+                device.name ||
+                "Sin nombre"
+            )
+        );
+
+        log(
+            "ID: " +
+            device.id
+        );
+
+
+        document.getElementById(
+            "deviceName"
+        ).textContent =
+            "Nombre: " +
+            (
+                device.name ||
+                "Sin nombre"
+            );
+
+
+        document.getElementById(
+            "deviceId"
+        ).textContent =
+            "ID: " +
+            device.id;
+
+
+        deviceCard.style.display =
+            "block";
+
+
+        device.addEventListener(
+            "gattserverdisconnected",
+            handleDisconnected
+        );
+
+
+        log(
+            "Conectando GATT..."
+        );
+
+
+        server =
+            await device.gatt.connect();
+
+
+        if(
+            !server ||
+            !server.connected
+        ){
+
+            throw new Error(
+                "GATT no quedó conectado."
+            );
+
+        }
+
+
+        document.getElementById(
+            "deviceGatt"
+        ).textContent =
+            "GATT: 🟢 Conectado";
+
+
+        setStatus(
+            "🟢 F1 Plus conectada",
+            "success"
+        );
+
+
+        connectBtn.textContent =
+            "🟢 F1 PLUS CONECTADA";
+
+
+        disconnectBtn.style.display =
+            "block";
+
+
+        uartCard.style.display =
+            "block";
+
+
+        await prepareUART();
+
+
+    }
+    catch(error){
+
+        log(
+            "❌ ERROR DE CONEXIÓN"
+        );
+
+        log(
+            "Nombre: " +
+            (
+                error.name ||
+                "desconocido"
+            )
+        );
+
+        log(
+            "Mensaje: " +
+            (
+                error.message ||
+                String(error)
+            )
+        );
+
+
+        if(
+            error.name ===
+            "NotFoundError"
+        ){
+
+            setStatus(
+                "⚪ Selección cancelada",
+                "warning"
+            );
+
+        }
+        else{
+
+            setStatus(
+                "❌ No se pudo conectar",
+                "error"
+            );
+
+        }
+
+
+        connectBtn.disabled =
+            false;
+
+        connectBtn.textContent =
+            "🔗 CONECTAR F1 PLUS";
+
+    }
 
 }
 
@@ -619,75 +1054,98 @@ async function connectBand(){
 
 async function prepareUART(){
 
-  try{
+    try{
 
-    log(
-      "Buscando servicio UART de F1 Plus..."
-    );
+        log(
+            "Buscando servicio UART de F1 Plus..."
+        );
 
-    uartService =
-      await server.getPrimaryService(
-        UART_SERVICE
-      );
 
-    log(
-      "✅ Servicio UART encontrado."
-    );
+        uartService =
+            await server.getPrimaryService(
+                UART_SERVICE
+            );
 
-    writeCharacteristic =
-      await uartService.getCharacteristic(
-        UART_WRITE
-      );
 
-    log(
-      "✅ Característica WRITE encontrada."
-    );
+        log(
+            "✅ Servicio UART encontrado."
+        );
 
-    notifyCharacteristic =
-      await uartService.getCharacteristic(
-        UART_NOTIFY
-      );
 
-    log(
-      "✅ Característica NOTIFY encontrada."
-    );
+        writeCharacteristic =
+            await uartService.getCharacteristic(
+                UART_WRITE
+            );
 
-    uartStatus.textContent =
-      "🟢 Canal UART preparado";
 
-    consoleCard.style.display =
-      "block";
+        log(
+            "✅ WRITE encontrado."
+        );
 
-    listenBtn.disabled = false;
 
-    sendBtn.disabled = false;
+        notifyCharacteristic =
+            await uartService.getCharacteristic(
+                UART_NOTIFY
+            );
 
-    testBtn.disabled = false;
 
-    log(
-      "Canal WRITE preparado."
-    );
+        log(
+            "✅ NOTIFY encontrado."
+        );
 
-    log(
-      "Canal NOTIFY preparado."
-    );
 
-    log(
-      "NO se enviará ningún comando automáticamente."
-    );
+        uartStatus.textContent =
+            "🟢 UART preparado · WRITE + NOTIFY disponibles";
 
-  }
-  catch(error){
 
-    uartStatus.textContent =
-      "❌ Error preparando UART";
+        analysisCard.style.display =
+            "block";
 
-    log(
-      "❌ ERROR UART: " +
-      error.message
-    );
 
-  }
+        consoleCard.style.display =
+            "block";
+
+
+        listenBtn.disabled =
+            false;
+
+
+        sendBtn.disabled =
+            false;
+
+
+        testBtn.disabled =
+            false;
+
+
+        log(
+            "Canal WRITE preparado."
+        );
+
+
+        log(
+            "Canal NOTIFY preparado."
+        );
+
+
+        log(
+            "NO se enviará ningún comando automáticamente."
+        );
+
+
+    }
+    catch(error){
+
+        uartStatus.textContent =
+            "❌ Error preparando UART";
+
+
+        log(
+            "❌ ERROR UART: " +
+            error.message
+        );
+
+    }
 
 }
 
@@ -698,61 +1156,78 @@ async function prepareUART(){
 
 async function startListening(){
 
-  if(!notifyCharacteristic){
+    if(
+        !notifyCharacteristic
+    ){
 
-    log(
-      "❌ NOTIFY no disponible."
-    );
+        log(
+            "❌ NOTIFY no disponible."
+        );
 
-    return;
-  }
+        return;
+    }
 
-  if(listening){
-    return;
-  }
 
-  try{
+    if(listening){
+        return;
+    }
 
-    notifyCharacteristic.addEventListener(
-      "characteristicvaluechanged",
-      handleNotification
-    );
 
-    await notifyCharacteristic.startNotifications();
+    try{
 
-    listening = true;
+        notifyCharacteristic.addEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+        );
 
-    listenBtn.style.display =
-      "none";
 
-    stopBtn.style.display =
-      "block";
+        await notifyCharacteristic.startNotifications();
 
-    trafficCard.style.display =
-      "block";
 
-    setStatus(
-      "📡 F1 Plus conectada y escuchando",
-      "success"
-    );
+        listening =
+            true;
 
-    log(
-      "✅ NOTIFY ACTIVADO."
-    );
 
-    log(
-      "Esperando datos de la F1 Plus..."
-    );
+        listenBtn.style.display =
+            "none";
 
-  }
-  catch(error){
 
-    log(
-      "❌ ERROR ACTIVANDO NOTIFY: " +
-      error.message
-    );
+        stopBtn.style.display =
+            "block";
 
-  }
+
+        trafficCard.style.display =
+            "block";
+
+
+        setStatus(
+            "📡 F1 Plus conectada y escuchando",
+            "success"
+        );
+
+
+        analysisStatus.textContent =
+            "🟢 Escuchando tráfico NOTIFY";
+
+
+        log(
+            "✅ NOTIFY ACTIVADO."
+        );
+
+
+        log(
+            "Esperando datos de la F1 Plus..."
+        );
+
+    }
+    catch(error){
+
+        log(
+            "❌ ERROR ACTIVANDO NOTIFY: " +
+            error.message
+        );
+
+    }
 
 }
 
@@ -763,146 +1238,266 @@ async function startListening(){
 
 async function stopListening(){
 
-  if(!notifyCharacteristic){
-    return;
-  }
+    if(
+        !notifyCharacteristic
+    ){
+        return;
+    }
 
-  try{
 
-    if(listening){
+    try{
 
-      await notifyCharacteristic.stopNotifications();
+        if(listening){
 
-      notifyCharacteristic.removeEventListener(
-        "characteristicvaluechanged",
-        handleNotification
-      );
+            await notifyCharacteristic
+                .stopNotifications();
+
+
+            notifyCharacteristic
+                .removeEventListener(
+                    "characteristicvaluechanged",
+                    handleNotification
+                );
+
+        }
+
+    }
+    catch(error){
+
+        log(
+            "⚠️ Error deteniendo NOTIFY: " +
+            error.message
+        );
 
     }
 
-  }
-  catch(error){
+
+    listening =
+        false;
+
+
+    listenBtn.style.display =
+        "block";
+
+
+    stopBtn.style.display =
+        "none";
+
+
+    analysisStatus.textContent =
+        "⏹️ Escucha detenida";
+
 
     log(
-      "⚠️ Error deteniendo NOTIFY: " +
-      error.message
+        "NOTIFY detenido."
     );
-
-  }
-
-  listening = false;
-
-  listenBtn.style.display =
-    "block";
-
-  stopBtn.style.display =
-    "none";
-
-  log(
-    "NOTIFY detenido."
-  );
 
 }
 
 
 /* =========================================================
-   CONVERSIÓN
+   BYTES → HEX
 ========================================================= */
 
 function bytesToHex(bytes){
 
-  return Array.from(bytes)
-    .map(
-      b =>
-        b.toString(16)
-        .padStart(2,"0")
-        .toUpperCase()
-    )
-    .join(" ");
+    return Array.from(bytes)
+        .map(
+            byte =>
+                byte
+                    .toString(16)
+                    .padStart(
+                        2,
+                        "0"
+                    )
+                    .toUpperCase()
+        )
+        .join(" ");
 
-}
-
-
-function bytesToAscii(bytes){
-
-  let text = "";
-
-  for(const b of bytes){
-
-    if(
-      b >= 32 &&
-      b <= 126
-    ){
-      text +=
-        String.fromCharCode(b);
-    }
-    else{
-      text += ".";
-    }
-
-  }
-
-  return text;
 }
 
 
 /* =========================================================
-   RECIBIR
+   BYTES → DECIMAL
 ========================================================= */
 
-function handleNotification(event){
+function bytesToDecimal(bytes){
 
-  const value =
-    event.target.value;
+    return Array.from(bytes)
+        .join(" ");
 
-  const bytes = new Uint8Array(
-    value.buffer.slice(
-      value.byteOffset,
-      value.byteOffset +
-      value.byteLength
-    )
-  );
+}
 
-  rxCount++;
 
-  const hex =
-    bytesToHex(bytes);
+/* =========================================================
+   BYTES → ASCII
+========================================================= */
 
-  const decimal =
-    Array.from(bytes).join(" ");
+function bytesToAscii(bytes){
 
-  const ascii =
-    bytesToAscii(bytes);
+    let result = "";
 
-  log("==============================");
+    for(
+        const byte
+        of bytes
+    ){
 
-  log(
-    "📥 RX #" +
-    rxCount +
-    " · " +
-    bytes.length +
-    " bytes"
-  );
+        if(
+            byte >= 32 &&
+            byte <= 126
+        ){
 
-  log(
-    "HEX: " + hex
-  );
+            result +=
+                String.fromCharCode(byte);
 
-  log(
-    "DECIMAL: " + decimal
-  );
+        }
+        else{
 
-  log(
-    "ASCII: " + ascii
-  );
+            result += ".";
 
-  addPacket(
-    "rx",
-    "📥 RX #" + rxCount,
+        }
+
+    }
+
+    return result;
+}
+
+
+/* =========================================================
+   COPIAR ARRAY
+========================================================= */
+
+function copyBytes(bytes){
+
+    return new Uint8Array(bytes);
+}
+
+
+/* =========================================================
+   COMPARAR BYTES
+========================================================= */
+
+function bytesEqual(
+    a,
+    b
+){
+
+    if(
+        !a ||
+        !b ||
+        a.length !== b.length
+    ){
+        return false;
+    }
+
+
+    for(
+        let i = 0;
+        i < a.length;
+        i++
+    ){
+
+        if(
+            a[i] !== b[i]
+        ){
+            return false;
+        }
+
+    }
+
+
+    return true;
+}
+
+
+/* =========================================================
+   LIMPIAR TX ANTIGUOS
+========================================================= */
+
+function cleanupRecentTransmissions(){
+
+    const now =
+        Date.now();
+
+
+    while(
+        recentTransmissions.length > 0 &&
+        now -
+        recentTransmissions[0].time >
+        ECHO_WINDOW_MS
+    ){
+
+        recentTransmissions.shift();
+
+    }
+
+}
+
+
+/* =========================================================
+   BUSCAR ECO
+========================================================= */
+
+function findMatchingTransmission(
     bytes
-  );
+){
 
-  updateCounter();
+    cleanupRecentTransmissions();
+
+
+    for(
+        let i =
+            recentTransmissions.length - 1;
+        i >= 0;
+        i--
+    ){
+
+        const item =
+            recentTransmissions[i];
+
+
+        if(
+            bytesEqual(
+                bytes,
+                item.bytes
+            )
+        ){
+
+            return item;
+
+        }
+
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   ACTUALIZAR ESTADÍSTICAS
+========================================================= */
+
+function updateStats(){
+
+    analysisStats.textContent =
+        "TX: " +
+        txCount +
+        " · RX: " +
+        rxCount +
+        " · ECO: " +
+        echoCount +
+        " · RX NUEVOS: " +
+        newRxCount;
+
+
+    packetCounter.textContent =
+        "TX: " +
+        txCount +
+        " · RX: " +
+        rxCount +
+        " · ECO: " +
+        echoCount;
 
 }
 
@@ -911,280 +1506,554 @@ function handleNotification(event){
    MOSTRAR PAQUETE
 ========================================================= */
 
-function addPacket(type,title,bytes){
+function addPacket(
+    type,
+    title,
+    bytes,
+    extra
+){
 
-  const box =
-    document.createElement("div");
-
-  box.className =
-    "packet " + type;
-
-  box.innerHTML =
-    "<strong>" +
-    title +
-    "</strong><br>" +
-
-    "<strong>LONGITUD:</strong> " +
-    bytes.length +
-    "<br>" +
-
-    "<strong>HEX:</strong><br>" +
-    escapeHtml(
-      bytesToHex(bytes)
-    ) +
-
-    "<br><strong>DECIMAL:</strong><br>" +
-    escapeHtml(
-      Array.from(bytes).join(" ")
-    ) +
-
-    "<br><strong>ASCII:</strong><br>" +
-    escapeHtml(
-      bytesToAscii(bytes)
-    );
-
-  traffic.prepend(box);
-
-}
+    const box =
+        document.createElement(
+            "div"
+        );
 
 
-function escapeHtml(text){
-
-  return text
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-}
+    box.className =
+        "packet " + type;
 
 
-/* =========================================================
-   CONTADOR
-========================================================= */
-
-function updateCounter(){
-
-  packetCounter.textContent =
-    "RX: " +
-    rxCount +
-    " · TX: " +
-    txCount;
-
-}
+    let html =
+        "<span class='label'>" +
+        escapeHtml(title) +
+        "</span><br>";
 
 
-/* =========================================================
-   PARSE HEX
-========================================================= */
+    html +=
+        "<strong>LONGITUD:</strong> " +
+        bytes.length +
+        " bytes<br>";
 
-function parseHex(text){
 
-  const clean =
-    text.trim();
+    html +=
+        "<strong>HEX:</strong><br>" +
+        escapeHtml(
+            bytesToHex(bytes)
+        ) +
+        "<br>";
 
-  if(!clean){
 
-    throw new Error(
-      "No has introducido ningún byte HEX."
-    );
+    html +=
+        "<strong>DECIMAL:</strong><br>" +
+        escapeHtml(
+            bytesToDecimal(bytes)
+        ) +
+        "<br>";
 
-  }
 
-  const parts =
-    clean.split(/\s+/);
+    html +=
+        "<strong>ASCII:</strong> " +
+        escapeHtml(
+            bytesToAscii(bytes)
+        );
 
-  const result = [];
 
-  for(const part of parts){
+    if(extra){
 
-    if(
-      !/^[0-9a-fA-F]{1,2}$/.test(part)
-    ){
-
-      throw new Error(
-        "Byte HEX inválido: " + part
-      );
+        html +=
+            "<hr>" +
+            escapeHtml(extra);
 
     }
 
-    result.push(
-      parseInt(part,16)
+
+    box.innerHTML =
+        html;
+
+
+    traffic.prepend(
+        box
     );
-
-  }
-
-  return new Uint8Array(result);
 
 }
 
 
 /* =========================================================
-   ENVIAR HEX MANUAL
+   ESCAPE HTML
 ========================================================= */
 
-async function sendHex(){
+function escapeHtml(text){
 
-  if(!writeCharacteristic){
+    return String(text)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        );
 
-    log(
-      "❌ WRITE no disponible."
-    );
+}
 
-    return;
-  }
 
-  try{
+/* =========================================================
+   RECIBIR NOTIFY
+========================================================= */
+
+function handleNotification(event){
+
+    const value =
+        event.target.value;
+
 
     const bytes =
-      parseHex(hexInput.value);
-
-    await sendBytes(
-      bytes,
-      "ENVÍO MANUAL"
-    );
-
-  }
-  catch(error){
-
-    log(
-      "❌ " + error.message
-    );
-
-  }
-
-}
+        new Uint8Array(
+            value.buffer.slice(
+                value.byteOffset,
+                value.byteOffset +
+                value.byteLength
+            )
+        );
 
 
-/* =========================================================
-   ENVÍO CONTROLADO
-========================================================= */
-
-async function sendKnownTest(){
-
-  if(!writeCharacteristic){
-
-    log(
-      "❌ WRITE no disponible."
-    );
-
-    return;
-  }
-
-  const confirmed =
-    window.confirm(
-      "Se enviará a la F1 Plus el paquete real que ella misma nos envió anteriormente:\n\n" +
-      "AB 00 05 FF 91 80 00 64\n\n" +
-      "¿Quieres continuar?"
-    );
-
-  if(!confirmed){
-    log(
-      "Prueba cancelada por el usuario."
-    );
-    return;
-  }
-
-  await sendBytes(
-    KNOWN_PACKET,
-    "PRUEBA CONTROLADA"
-  );
-
-}
+    rxCount++;
 
 
-/* =========================================================
-   ESCRITURA
-========================================================= */
+    const hex =
+        bytesToHex(bytes);
 
-async function sendBytes(bytes,label){
 
-  try{
+    const matchingTX =
+        findMatchingTransmission(
+            bytes
+        );
 
-    log("==============================");
-
-    log(
-      "📤 " + label
-    );
-
-    log(
-      "Longitud: " +
-      bytes.length +
-      " bytes"
-    );
-
-    log(
-      "HEX: " +
-      bytesToHex(bytes)
-    );
-
-    log(
-      "Escribiendo en 6e400002..."
-    );
 
     /*
-     * writeValueWithoutResponse suele ser adecuado
-     * para Nordic UART cuando la característica
-     * ofrece WRITE WITHOUT RESPONSE.
-     *
-     * Si el dispositivo no lo soporta, usamos
-     * writeValue como respaldo.
+     * Si coincide con un TX reciente,
+     * lo clasificamos como ECO.
      */
 
-    if(
-      writeCharacteristic.properties
-        .writeWithoutResponse
-    ){
+    if(matchingTX){
 
-      await writeCharacteristic
-        .writeValueWithoutResponse(bytes);
+        echoCount++;
 
-      log(
-        "✅ WRITE WITHOUT RESPONSE completado."
-      );
+
+        const elapsed =
+            Date.now() -
+            matchingTX.time;
+
+
+        log(
+            "🔁 ECO RX #" +
+            rxCount +
+            " coincide con TX #" +
+            matchingTX.number +
+            " · " +
+            elapsed +
+            " ms"
+        );
+
+
+        log(
+            "HEX: " +
+            hex
+        );
+
+
+        addPacket(
+            "echo",
+            "🔁 ECO RX #" + rxCount,
+            bytes,
+            "Coincide con TX #" +
+            matchingTX.number +
+            " · diferencia temporal: " +
+            elapsed +
+            " ms"
+        );
+
+
+        analysisStatus.textContent =
+            "🔁 Último RX identificado como ECO";
+
 
     }
     else{
 
-      await writeCharacteristic
-        .writeValue(bytes);
+        newRxCount++;
 
-      log(
-        "✅ WRITE completado."
-      );
+
+        log(
+            "📥 RX NUEVO #" +
+            rxCount +
+            " · " +
+            bytes.length +
+            " bytes"
+        );
+
+
+        log(
+            "HEX: " +
+            hex
+        );
+
+
+        log(
+            "DECIMAL: " +
+            bytesToDecimal(bytes)
+        );
+
+
+        log(
+            "ASCII: " +
+            bytesToAscii(bytes)
+        );
+
+
+        addPacket(
+            "newrx",
+            "📥 RX NUEVO #" + rxCount,
+            bytes
+        );
+
+
+        analysisStatus.textContent =
+            "🟢 Se recibió un paquete NUEVO";
 
     }
 
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   ENVIAR HEX
+========================================================= */
+
+function parseHex(text){
+
+    const clean =
+        text.trim();
+
+
+    if(!clean){
+
+        throw new Error(
+            "No has introducido ningún dato HEX."
+        );
+
+    }
+
+
+    const parts =
+        clean.split(/\s+/);
+
+
+    const bytes = [];
+
+
+    for(
+        const part
+        of parts
+    ){
+
+        if(
+            !/^[0-9a-fA-F]{1,2}$/.test(part)
+        ){
+
+            throw new Error(
+                "Byte HEX inválido: " +
+                part
+            );
+
+        }
+
+
+        bytes.push(
+            parseInt(
+                part,
+                16
+            )
+        );
+
+    }
+
+
+    if(bytes.length > 512){
+
+        throw new Error(
+            "El paquete es demasiado largo."
+        );
+
+    }
+
+
+    return new Uint8Array(bytes);
+
+}
+
+
+/* =========================================================
+   REGISTRAR TX
+========================================================= */
+
+function registerTransmission(
+    bytes,
+    label
+){
+
     txCount++;
 
+
+    const record = {
+
+        number:
+            txCount,
+
+        bytes:
+            copyBytes(bytes),
+
+        time:
+            Date.now(),
+
+        label:
+            label
+
+    };
+
+
+    recentTransmissions.push(
+        record
+    );
+
+
+    cleanupRecentTransmissions();
+
+
+    log(
+        "📤 TX #" +
+        txCount +
+        " · " +
+        label
+    );
+
+
+    log(
+        "LONGITUD: " +
+        bytes.length +
+        " bytes"
+    );
+
+
+    log(
+        "HEX: " +
+        bytesToHex(bytes)
+    );
+
+
     addPacket(
-      "tx",
-      "📤 TX #" + txCount,
-      bytes
+        "tx",
+        "📤 TX #" + txCount,
+        bytes,
+        label
     );
 
-    updateCounter();
 
-    log(
-      "Esperando respuesta NOTIFY..."
+    updateStats();
+
+
+    return record;
+
+}
+
+
+/* =========================================================
+   ESCRIBIR BYTES
+========================================================= */
+
+async function sendBytes(
+    bytes,
+    label
+){
+
+    if(
+        !writeCharacteristic
+    ){
+
+        log(
+            "❌ WRITE no disponible."
+        );
+
+        return false;
+
+    }
+
+
+    try{
+
+        /*
+         * Registramos TX ANTES de escribir.
+         *
+         * Esto es importante porque si la pulsera
+         * responde inmediatamente podremos detectar
+         * correctamente el posible ECO.
+         */
+
+        registerTransmission(
+            bytes,
+            label
+        );
+
+
+        if(
+            writeCharacteristic
+                .properties
+                .writeWithoutResponse
+        ){
+
+            await writeCharacteristic
+                .writeValueWithoutResponse(
+                    bytes
+                );
+
+
+            log(
+                "✅ WRITE WITHOUT RESPONSE completado."
+            );
+
+        }
+        else{
+
+            await writeCharacteristic
+                .writeValue(
+                    bytes
+                );
+
+
+            log(
+                "✅ WRITE completado."
+            );
+
+        }
+
+
+        log(
+            "Esperando tráfico NOTIFY..."
+        );
+
+
+        return true;
+
+    }
+    catch(error){
+
+        log(
+            "❌ ERROR DE ESCRITURA"
+        );
+
+
+        log(
+            "Nombre: " +
+            (
+                error.name ||
+                "desconocido"
+            )
+        );
+
+
+        log(
+            "Mensaje: " +
+            (
+                error.message ||
+                String(error)
+            )
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   ENVÍO MANUAL
+========================================================= */
+
+async function sendHex(){
+
+    try{
+
+        const bytes =
+            parseHex(
+                hexInput.value
+            );
+
+
+        await sendBytes(
+            bytes,
+            "ENVÍO MANUAL"
+        );
+
+
+    }
+    catch(error){
+
+        log(
+            "❌ " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PRUEBA CONOCIDA
+========================================================= */
+
+async function sendKnownTest(){
+
+    const confirmed =
+        window.confirm(
+
+            "Se enviará este paquete a la F1 Plus:\n\n" +
+
+            "AB 00 05 FF 91 80 00 64\n\n" +
+
+            "La aplicación analizará automáticamente " +
+
+            "si la respuesta es ECO o RX NUEVO.\n\n" +
+
+            "¿Continuar?"
+
+        );
+
+
+    if(!confirmed){
+
+        log(
+            "🛑 Prueba cancelada."
+        );
+
+        return;
+
+    }
+
+
+    await sendBytes(
+        KNOWN_PACKET,
+        "PRUEBA PAQUETE CONOCIDO"
     );
-
-  }
-  catch(error){
-
-    log(
-      "❌ ERROR DE ESCRITURA"
-    );
-
-    log(
-      "Nombre: " +
-      (error.name || "desconocido")
-    );
-
-    log(
-      "Mensaje: " +
-      (error.message || String(error))
-    );
-
-  }
 
 }
 
@@ -1195,29 +2064,35 @@ async function sendBytes(bytes,label){
 
 async function disconnectBand(){
 
-  await stopListening();
+    try{
 
-  try{
-
-    if(
-      device &&
-      device.gatt &&
-      device.gatt.connected
-    ){
-
-      device.gatt.disconnect();
+        await stopListening();
 
     }
+    catch(error){}
 
-  }
-  catch(error){
 
-    log(
-      "⚠️ " +
-      error.message
-    );
+    try{
 
-  }
+        if(
+            device &&
+            device.gatt &&
+            device.gatt.connected
+        ){
+
+            device.gatt.disconnect();
+
+        }
+
+    }
+    catch(error){
+
+        log(
+            "⚠️ Error desconectando: " +
+            error.message
+        );
+
+    }
 
 }
 
@@ -1228,77 +2103,104 @@ async function disconnectBand(){
 
 function handleDisconnected(){
 
-  log("==============================");
+    log(
+        "=============================="
+    );
 
-  log(
-    "🔴 F1 PLUS DESCONECTADA."
-  );
+    log(
+        "🔴 F1 PLUS DESCONECTADA."
+    );
 
-  server = null;
-  uartService = null;
-  writeCharacteristic = null;
-  notifyCharacteristic = null;
 
-  listening = false;
+    server =
+        null;
 
-  setStatus(
-    "🔴 Smart Band desconectada",
-    "error"
-  );
+    uartService =
+        null;
 
-  document.getElementById(
-    "deviceGatt"
-  ).textContent =
-    "GATT: 🔴 Desconectado";
+    writeCharacteristic =
+        null;
 
-  connectBtn.disabled = false;
+    notifyCharacteristic =
+        null;
 
-  connectBtn.textContent =
-    "🔗 CONECTAR F1 PLUS";
+    listening =
+        false;
 
-  listenBtn.disabled = true;
 
-  listenBtn.style.display =
-    "block";
+    setStatus(
+        "🔴 Smart Band desconectada",
+        "error"
+    );
 
-  stopBtn.style.display =
-    "none";
 
-  sendBtn.disabled = true;
+    document.getElementById(
+        "deviceGatt"
+    ).textContent =
+        "GATT: 🔴 Desconectado";
 
-  testBtn.disabled = true;
 
-  disconnectBtn.style.display =
-    "none";
+    connectBtn.disabled =
+        false;
+
+    connectBtn.textContent =
+        "🔗 CONECTAR F1 PLUS";
+
+
+    listenBtn.disabled =
+        true;
+
+    listenBtn.style.display =
+        "block";
+
+
+    stopBtn.style.display =
+        "none";
+
+
+    sendBtn.disabled =
+        true;
+
+    testBtn.disabled =
+        true;
+
+
+    disconnectBtn.style.display =
+        "none";
+
+
+    analysisStatus.textContent =
+        "⚪ Sin conexión";
 
 }
 
 
 /* =========================================================
-   COPIAR DIAGNÓSTICO
+   COPIAR
 ========================================================= */
 
 async function copyDiagnostic(){
 
-  try{
+    try{
 
-    await navigator.clipboard.writeText(
-      logBox.textContent
-    );
+        await navigator.clipboard.writeText(
+            logBox.textContent
+        );
 
-    log(
-      "📋 Diagnóstico copiado."
-    );
 
-  }
-  catch(error){
+        log(
+            "📋 Diagnóstico copiado."
+        );
 
-    log(
-      "❌ No se pudo copiar: " +
-      error.message
-    );
+    }
+    catch(error){
 
-  }
+        log(
+            "❌ No se pudo copiar: " +
+            error.message
+        );
+
+    }
 
 }
 
@@ -1309,19 +2211,35 @@ async function copyDiagnostic(){
 
 function clearAll(){
 
-  logBox.textContent =
-    "Sistema preparado.";
+    logBox.textContent =
+        "Sistema preparado.";
 
-  traffic.innerHTML = "";
+    traffic.innerHTML =
+        "";
 
-  rxCount = 0;
-  txCount = 0;
+    recentTransmissions.length =
+        0;
 
-  updateCounter();
+    txCount =
+        0;
 
-  log(
-    "Diagnóstico y tráfico limpiados."
-  );
+    rxCount =
+        0;
+
+    echoCount =
+        0;
+
+    newRxCount =
+        0;
+
+    updateStats();
+
+    analysisStatus.textContent =
+        "Esperando tráfico...";
+
+    log(
+        "Diagnóstico y tráfico limpiados."
+    );
 
 }
 
@@ -1331,61 +2249,118 @@ function clearAll(){
 ========================================================= */
 
 connectBtn.addEventListener(
-  "click",
-  connectBand
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        connectBand();
+
+    }
 );
+
 
 listenBtn.addEventListener(
-  "click",
-  startListening
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        startListening();
+
+    }
 );
+
 
 stopBtn.addEventListener(
-  "click",
-  stopListening
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        stopListening();
+
+    }
 );
+
 
 disconnectBtn.addEventListener(
-  "click",
-  disconnectBand
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        disconnectBand();
+
+    }
 );
+
 
 sendBtn.addEventListener(
-  "click",
-  sendHex
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        sendHex();
+
+    }
 );
+
 
 testBtn.addEventListener(
-  "click",
-  sendKnownTest
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        sendKnownTest();
+
+    }
 );
+
 
 copyBtn.addEventListener(
-  "click",
-  copyDiagnostic
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        copyDiagnostic();
+
+    }
 );
 
+
 clearBtn.addEventListener(
-  "click",
-  clearAll
+    "click",
+    function(event){
+
+        event.preventDefault();
+
+        clearAll();
+
+    }
 );
 
 
 /* =========================================================
-   INICIO
+   INICIALIZACIÓN
 ========================================================= */
 
 window.addEventListener(
-  "load",
-  function(){
+    "load",
+    function(){
 
-    log(
-      "Inicializando analizador F1 Plus..."
-    );
+        log(
+            "Inicializando analizador F1 Plus..."
+        );
 
-    checkBluetooth();
+        checkBluetooth();
 
-  }
+        updateStats();
+
+    }
 );
 
 </script>
