@@ -5,7 +5,7 @@
 <meta name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080b12">
-<title>RoXThal F1 Plus — Protocol Laboratory V3</title>
+<title>RoXThal F1 Plus — Protocol Laboratory V4</title>
 
 <style>
 :root{
@@ -295,9 +295,24 @@ th{
   font-weight:bold;
 }
 
+.confirmed{
+  color:var(--green);
+  font-weight:bold;
+}
+
+.unknown{
+  color:var(--muted);
+}
+
 .console-line{
   border-bottom:1px solid #141c29;
   padding:4px 0;
+}
+
+.fea-analysis{
+  margin-top:10px;
+  border-left:3px solid var(--cyan);
+  padding-left:10px;
 }
 
 @media(max-width:600px){
@@ -331,9 +346,10 @@ th{
 <body>
 
 <header>
-  <h1>🔬 RoXThal F1 Plus — Protocol Laboratory V3</h1>
+  <h1>🔬 RoXThal F1 Plus — Protocol Laboratory V4</h1>
+
   <div class="subtitle">
-    BLE · GATT · NUS · FEE7 · RX · parser AB · comparación · investigación
+    BLE · GATT · NUS · FEE7 · FEA1 · RX · parser AB · comparación
   </div>
 
   <div class="status">
@@ -349,23 +365,30 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>📡 Dispositivo</h2>
 
   <div class="flex">
+
     <button id="connectBtn" class="btn-green">
       🔗 CONECTAR F1 PLUS
     </button>
 
-    <button id="disconnectBtn" class="btn-red" disabled>
+    <button id="disconnectBtn"
+            class="btn-red"
+            disabled>
       ⛔ DESCONECTAR
     </button>
 
-    <button id="bluetoothBtn" class="btn-blue">
+    <button id="bluetoothBtn"
+            class="btn-blue">
       🔎 COMPROBAR BLUETOOTH
     </button>
+
   </div>
 
   <div class="grid">
+
     <div class="stat">
       <span class="label">Nombre</span>
       <b id="deviceName">—</b>
@@ -385,6 +408,7 @@ th{
       <span class="label">Servicios</span>
       <b id="serviceCount">0</b>
     </div>
+
   </div>
 </section>
 
@@ -393,6 +417,7 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>📊 Estadísticas</h2>
 
   <div class="grid">
@@ -435,15 +460,17 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>🧬 GATT completo</h2>
 
   <div class="small">
-    Las propiedades se leen directamente desde la API Web Bluetooth.
-    No se infieren únicamente por UUID.
+    Propiedades obtenidas directamente mediante Web Bluetooth.
   </div>
 
   <div id="gattTable" class="table-wrap">
+
     <table>
+
       <thead>
         <tr>
           <th>Servicio</th>
@@ -453,12 +480,19 @@ th{
           <th>Acciones</th>
         </tr>
       </thead>
+
       <tbody id="gattBody">
+
         <tr>
-          <td colspan="5">Sin conexión.</td>
+          <td colspan="5">
+            Sin conexión.
+          </td>
         </tr>
+
       </tbody>
+
     </table>
+
   </div>
 </section>
 
@@ -467,26 +501,100 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>🟣 Inspector FEE7</h2>
 
   <div class="small">
-    Canal experimental. No se envían comandos automáticamente.
-    Las funciones READ / INDICATE / NOTIFY dependen de las propiedades reales
-    que exponga el dispositivo.
+    Lectura y suscripción manual. No se ejecutan automáticamente.
   </div>
 
   <div id="feeInspector">
+
     <div class="fee-row">
       Esperando conexión...
     </div>
+
   </div>
+
 </section>
 
 <!-- ========================================================= -->
-<!-- PARSER -->
+<!-- ANALISIS FEA1 -->
 <!-- ========================================================= -->
 
 <section class="card">
+
+  <h2>🚶 Analizador FEA1 — actividad</h2>
+
+  <div class="grid">
+
+    <div class="stat">
+      <span class="label">Lecturas FEA1</span>
+      <b id="fea1Reads">0</b>
+    </div>
+
+    <div class="stat">
+      <span class="label">Últimos pasos</span>
+      <b id="fea1Steps">—</b>
+    </div>
+
+    <div class="stat">
+      <span class="label">Campo 2</span>
+      <b id="fea1Field2">—</b>
+    </div>
+
+    <div class="stat">
+      <span class="label">Campo 3</span>
+      <b id="fea1Field3">—</b>
+    </div>
+
+  </div>
+
+  <h3>Última lectura FEA1</h3>
+
+  <pre id="fea1Last">
+Sin datos.
+  </pre>
+
+  <h3>Comparación FEA1</h3>
+
+  <pre id="fea1Compare">
+Sin comparación.
+  </pre>
+
+  <div class="fea-analysis">
+
+    <span class="badge ok">
+      CONFIRMADO
+    </span>
+
+    <div>
+      En las pruebas realizadas en este F1 Plus,
+      los bytes 1–3 de FEA1 representan el contador
+      de pasos en little-endian.
+    </div>
+
+    <br>
+
+    <span class="badge warn">
+      NO CONFIRMADO
+    </span>
+
+    <div>
+      Los campos siguientes todavía no se asignan a
+      distancia/calorías sin nueva evidencia.
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ========================================================= -->
+<!-- PARSER AB -->
+<!-- ========================================================= -->
+
+<section class="card">
+
   <h2>🧠 Analizador estructural AB</h2>
 
   <div class="grid">
@@ -514,16 +622,23 @@ th{
   </div>
 
   <h3>Último frame</h3>
+
   <pre id="lastFrame">—</pre>
 
   <h3>Descomposición</h3>
-  <pre id="lastAnalysis">Esperando datos...</pre>
+
+  <pre id="lastAnalysis">
+Esperando datos...
+  </pre>
 
   <h3>Tabla de opcodes observados</h3>
 
   <div class="table-wrap">
+
     <table>
+
       <thead>
+
         <tr>
           <th>Opcode</th>
           <th>Veces</th>
@@ -532,15 +647,23 @@ th{
           <th>Interpretación</th>
           <th>Nivel</th>
         </tr>
+
       </thead>
 
       <tbody id="opcodeBody">
+
         <tr>
-          <td colspan="6">Sin frames.</td>
+          <td colspan="6">
+            Sin frames.
+          </td>
         </tr>
+
       </tbody>
+
     </table>
+
   </div>
+
 </section>
 
 <!-- ========================================================= -->
@@ -548,26 +671,35 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>🔬 Comparador byte a byte</h2>
 
   <div class="grid">
 
     <div>
+
       <h3>A</h3>
+
       <textarea id="compareA"
         placeholder="AB 00 05 FF 91 80 00 64"></textarea>
+
     </div>
 
     <div>
+
       <h3>B</h3>
+
       <textarea id="compareB"
         placeholder="AB 00 05 FF 91 80 00 50"></textarea>
+
     </div>
 
   </div>
 
   <div class="flex">
-    <button id="compareBtn" class="btn-blue">
+
+    <button id="compareBtn"
+            class="btn-blue">
       🔎 COMPARAR
     </button>
 
@@ -578,64 +710,85 @@ th{
     <button id="loadLastBtn">
       ⬅ CARGAR ÚLTIMOS
     </button>
+
   </div>
 
-  <pre id="compareResult">Sin comparación.</pre>
+  <pre id="compareResult">
+Sin comparación.
+  </pre>
+
 </section>
 
 <!-- ========================================================= -->
-<!-- HISTORIAL DE COMPARACIONES -->
+<!-- COMPARACIONES AUTOMATICAS -->
 <!-- ========================================================= -->
 
 <section class="card">
-  <h2>📈 Comparaciones automáticas</h2>
+
+  <h2>📈 Comparaciones automáticas AB</h2>
 
   <div class="small">
-    Se comparan automáticamente frames del mismo opcode cuando llegan.
+    Se comparan frames AB consecutivos del mismo opcode.
   </div>
 
-  <pre id="autoCompareLog">Sin comparaciones.</pre>
+  <pre id="autoCompareLog">
+Sin comparaciones.
+  </pre>
+
 </section>
 
 <!-- ========================================================= -->
-<!-- CAPTURA 180 -->
+<!-- CAPTURA -->
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>⏱️ Captura pasiva 180 segundos</h2>
 
   <div class="grid">
 
     <div class="stat">
       <span class="label">Estado</span>
-      <b id="captureState">Detenida</b>
+      <b id="captureState">
+        Detenida
+      </b>
     </div>
 
     <div class="stat">
       <span class="label">Tiempo restante</span>
-      <b id="captureTimer">180 s</b>
+      <b id="captureTimer">
+        180 s
+      </b>
     </div>
 
     <div class="stat">
       <span class="label">RX durante captura</span>
-      <b id="captureRx">0</b>
+      <b id="captureRx">
+        0
+      </b>
     </div>
 
   </div>
 
   <div class="flex">
-    <button id="startCaptureBtn" class="btn-green">
+
+    <button id="startCaptureBtn"
+            class="btn-green">
       ▶ INICIAR 180s
     </button>
 
-    <button id="stopCaptureBtn" class="btn-red" disabled>
+    <button id="stopCaptureBtn"
+            class="btn-red"
+            disabled>
       ■ DETENER
     </button>
+
   </div>
 
   <div class="small">
-    Durante esta prueba no se transmite ningún paquete.
+    No se transmite ningún paquete durante esta prueba.
   </div>
+
 </section>
 
 <!-- ========================================================= -->
@@ -643,6 +796,7 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>📤 TX manual</h2>
 
   <div class="badge danger">
@@ -650,32 +804,38 @@ th{
   </div>
 
   <p class="small">
-    No existe ningún comando automático al conectar. Esta consola sirve
-    únicamente para pruebas controladas.
+    No existe TX automático.
   </p>
 
   <textarea id="txHex"
-    placeholder="Ejemplo: AB 00 05 FF 91 80 00 64"></textarea>
+    placeholder="AB 00 05 FF 91 80 00 64"></textarea>
 
   <div class="flex">
 
     <select id="txTarget">
+
       <option value="nus">
         6E400002 — NUS WRITE
       </option>
 
       <option value="fea2">
-        FEA2 — escritura manual si está disponible
+        FEA2 — escritura manual
       </option>
+
     </select>
 
-    <button id="sendTxBtn" class="btn-yellow" disabled>
+    <button id="sendTxBtn"
+            class="btn-yellow"
+            disabled>
       📤 ENVIAR TX
     </button>
 
   </div>
 
-  <pre id="txResult">TX preparado.</pre>
+  <pre id="txResult">
+TX preparado.
+  </pre>
+
 </section>
 
 <!-- ========================================================= -->
@@ -683,21 +843,27 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>⚡ Eventos RX / FEE7</h2>
 
   <div class="flex">
+
     <button id="clearEventsBtn">
       🧹 LIMPIAR
     </button>
 
-    <button id="exportBtn" class="btn-blue">
+    <button id="exportBtn"
+            class="btn-blue">
       💾 EXPORTAR JSON
     </button>
+
   </div>
 
-  <div id="eventLog" class="log">
+  <div id="eventLog"
+       class="log">
     Sin eventos.
   </div>
+
 </section>
 
 <!-- ========================================================= -->
@@ -705,6 +871,7 @@ th{
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>🛠️ Diagnóstico</h2>
 
   <pre id="diagnostic">
@@ -712,6 +879,7 @@ Sistema preparado.
 Web Bluetooth: pendiente.
 No se transmite nada automáticamente.
   </pre>
+
 </section>
 
 <!-- ========================================================= -->
@@ -719,6 +887,7 @@ No se transmite nada automáticamente.
 <!-- ========================================================= -->
 
 <section class="card">
+
   <h2>📚 Referencias de familia</h2>
 
   <div class="grid">
@@ -727,7 +896,8 @@ No se transmite nada automáticamente.
       <span class="label">0x91</span>
       <b>🔋 Batería</b>
       <div class="small">
-        Evidencia fuerte en ChronosESP32. Debe confirmarse con F1 Plus.
+        Evidencia fuerte externa. Pendiente de confirmación
+        directa en F1 Plus.
       </div>
     </div>
 
@@ -735,7 +905,8 @@ No se transmite nada automáticamente.
       <span class="label">0x92</span>
       <b>ℹ️ Información</b>
       <div class="small">
-        Evidencia de familia. El F1 Plus presenta una variante de longitud.
+        Evidencia de familia. El F1 Plus presenta una
+        variante observada de longitud.
       </div>
     </div>
 
@@ -743,7 +914,7 @@ No se transmite nada automáticamente.
       <span class="label">0x51</span>
       <b>🏃 Actividad</b>
       <div class="small">
-        Referencia externa. No confirmado todavía en F1 Plus.
+        Referencia externa. No confirmado en F1 Plus.
       </div>
     </div>
 
@@ -751,7 +922,7 @@ No se transmite nada automáticamente.
       <span class="label">0x31 / 0x32</span>
       <b>❤️ Salud</b>
       <div class="small">
-        Referencias externas. No se envían automáticamente.
+        Referencias externas. No se transmiten automáticamente.
       </div>
     </div>
 
@@ -759,11 +930,12 @@ No se transmite nada automáticamente.
       <span class="label">0x9B</span>
       <b>⚙️ Configuración</b>
       <div class="small">
-        Asociado externamente a respuestas/configuración de la familia.
+        Referencia externa de familia.
       </div>
     </div>
 
   </div>
+
 </section>
 
 </main>
@@ -772,24 +944,41 @@ No se transmite nada automáticamente.
 "use strict";
 
 /* ============================================================
-   CONFIGURACIÓN
+   CONFIGURACION
 ============================================================ */
 
 const UUID = {
-  NUS_SERVICE: "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
-  NUS_WRITE:   "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
-  NUS_NOTIFY:  "6e400003-b5a3-f393-e0a9-e50e24dcca9e",
 
-  FEE7: "0000fee7-0000-1000-8000-00805f9b34fb",
-  FEA1: "0000fea1-0000-1000-8000-00805f9b34fb",
-  FEA2: "0000fea2-0000-1000-8000-00805f9b34fb",
-  FEC9: "0000fec9-0000-1000-8000-00805f9b34fb",
+  NUS_SERVICE:
+    "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
 
-  GAP: "00001800-0000-1000-8000-00805f9b34fb",
-  GATT: "00001801-0000-1000-8000-00805f9b34fb"
+  NUS_WRITE:
+    "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
+
+  NUS_NOTIFY:
+    "6e400003-b5a3-f393-e0a9-e50e24dcca9e",
+
+  FEE7:
+    "0000fee7-0000-1000-8000-00805f9b34fb",
+
+  FEA1:
+    "0000fea1-0000-1000-8000-00805f9b34fb",
+
+  FEA2:
+    "0000fea2-0000-1000-8000-00805f9b34fb",
+
+  FEC9:
+    "0000fec9-0000-1000-8000-00805f9b34fb",
+
+  GAP:
+    "00001800-0000-1000-8000-00805f9b34fb",
+
+  GATT:
+    "00001801-0000-1000-8000-00805f9b34fb"
 };
 
 const OPTIONAL_SERVICES = [
+
   UUID.NUS_SERVICE,
   UUID.FEE7,
   UUID.FEA1,
@@ -797,38 +986,45 @@ const OPTIONAL_SERVICES = [
   UUID.FEC9,
   UUID.GAP,
   UUID.GATT
+
 ];
 
-/*
-  Evidencia externa de familia.
+/* ============================================================
+   REFERENCIAS AB
+============================================================ */
 
-  NO son comandos automáticos.
-*/
 const FAMILY_REFERENCE = {
-  "31": {
+
+  "31":{
     label:"Salud",
     confidence:"FAMILIA"
   },
-  "32": {
+
+  "32":{
     label:"Salud combinada",
     confidence:"FAMILIA"
   },
-  "51": {
+
+  "51":{
     label:"Actividad / pasos",
     confidence:"FAMILIA"
   },
-  "91": {
+
+  "91":{
     label:"Batería",
     confidence:"FUERTE"
   },
-  "92": {
+
+  "92":{
     label:"Información",
     confidence:"FUERTE"
   },
-  "9B": {
+
+  "9B":{
     label:"Configuración / respuesta",
     confidence:"FAMILIA"
   }
+
 };
 
 /* ============================================================
@@ -845,9 +1041,11 @@ let nusWrite = null;
 let nusNotify = null;
 
 const feeChars = {
-  [UUID.FEA1]: null,
-  [UUID.FEA2]: null,
-  [UUID.FEC9]: null
+
+  [UUID.FEA1]:null,
+  [UUID.FEA2]:null,
+  [UUID.FEC9]:null
+
 };
 
 const events = [];
@@ -871,31 +1069,68 @@ let captureRx = 0;
 let rxStreamBuffer = [];
 
 /* ============================================================
+   ESTADO FEA1
+============================================================ */
+
+let fea1ReadCount = 0;
+let previousFEA1 = null;
+let fea1History = [];
+
+/* ============================================================
    DOM
 ============================================================ */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
+
+/* ============================================================
+   DIAGNOSTICO
+============================================================ */
 
 function logDiagnostic(text){
-  const box = $("diagnostic");
-  const time = new Date().toLocaleTimeString();
-  box.textContent += `\n[${time}] ${text}`;
-  box.scrollTop = box.scrollHeight;
+
+  const box =
+    $("diagnostic");
+
+  const time =
+    new Date().toLocaleTimeString();
+
+  box.textContent +=
+    `\n[${time}] ${text}`;
+
+  box.scrollTop =
+    box.scrollHeight;
 }
 
+/* ============================================================
+   UI CONEXION
+============================================================ */
+
 function setConnectionUI(connected){
-  $("connectBtn").disabled = connected;
-  $("disconnectBtn").disabled = !connected;
-  $("sendTxBtn").disabled = !connected || captureRunning;
+
+  $("connectBtn").disabled =
+    connected;
+
+  $("disconnectBtn").disabled =
+    !connected;
+
+  $("sendTxBtn").disabled =
+    !connected ||
+    captureRunning;
 
   $("statusDot").className =
-    "dot" + (connected ? " on" : "");
+    "dot" +
+    (connected ? " on" : "");
 
   $("connectionStatus").textContent =
-    connected ? "F1 Plus conectado" : "Desconectado";
+    connected
+      ? "F1 Plus conectado"
+      : "Desconectado";
 
   $("deviceState").textContent =
-    connected ? "CONECTADO" : "DESCONECTADO";
+    connected
+      ? "CONECTADO"
+      : "DESCONECTADO";
 }
 
 /* ============================================================
@@ -905,10 +1140,14 @@ function setConnectionUI(connected){
 $("bluetoothBtn").onclick = () => {
 
   if(!navigator.bluetooth){
+
     logDiagnostic(
-      "Web Bluetooth NO disponible en este navegador."
+      "Web Bluetooth NO disponible."
     );
-    $("statusDot").className = "dot err";
+
+    $("statusDot").className =
+      "dot err";
+
     return;
   }
 
@@ -917,33 +1156,51 @@ $("bluetoothBtn").onclick = () => {
   );
 
   alert(
-    "Web Bluetooth está disponible en este navegador."
+    "Web Bluetooth está disponible."
   );
 };
+
+/* ============================================================
+   CONEXION
+============================================================ */
 
 async function connect(){
 
   if(!navigator.bluetooth){
+
     throw new Error(
       "Este navegador no soporta Web Bluetooth."
     );
   }
 
-  logDiagnostic("Abriendo selector BLE...");
+  logDiagnostic(
+    "Abriendo selector BLE..."
+  );
 
-  device = await navigator.bluetooth.requestDevice({
-    filters: [
-      { name: "F1 Plus" },
-      { namePrefix: "F1" }
-    ],
-    optionalServices: OPTIONAL_SERVICES
-  });
+  device =
+    await navigator.bluetooth.requestDevice({
+
+      filters:[
+        {
+          name:"F1 Plus"
+        },
+        {
+          namePrefix:"F1"
+        }
+      ],
+
+      optionalServices:
+        OPTIONAL_SERVICES
+
+    });
 
   $("deviceName").textContent =
-    device.name || "F1 Plus";
+    device.name ||
+    "F1 Plus";
 
   $("deviceId").textContent =
-    device.id || "—";
+    device.id ||
+    "—";
 
   device.addEventListener(
     "gattserverdisconnected",
@@ -951,54 +1208,73 @@ async function connect(){
   );
 
   logDiagnostic(
-    `Dispositivo seleccionado: ${device.name || "F1 Plus"}`
+    `Dispositivo seleccionado: ${
+      device.name || "F1 Plus"
+    }`
   );
 
   if(!device.gatt){
+
     throw new Error(
       "El dispositivo no expone GATT."
     );
   }
 
-  logDiagnostic("Conectando GATT...");
+  logDiagnostic(
+    "Conectando GATT..."
+  );
 
-  server = await device.gatt.connect();
+  server =
+    await device.gatt.connect();
 
   setConnectionUI(true);
 
-  logDiagnostic("GATT conectado.");
+  logDiagnostic(
+    "GATT conectado."
+  );
 
   await discoverGatt();
 }
 
-$("connectBtn").onclick = async () => {
+$("connectBtn").onclick =
+  async () => {
 
-  try{
-    await connect();
-  }catch(err){
+    try{
 
-    console.error(err);
+      await connect();
 
-    logDiagnostic(
-      "ERROR conexión: " + err.message
-    );
+    }catch(err){
 
-    setConnectionUI(false);
-  }
-};
+      console.error(err);
+
+      logDiagnostic(
+        "ERROR conexión: " +
+        err.message
+      );
+
+      setConnectionUI(false);
+    }
+  };
 
 $("disconnectBtn").onclick = () => {
 
   try{
 
-    if(device && device.gatt.connected){
+    if(
+      device &&
+      device.gatt &&
+      device.gatt.connected
+    ){
+
       device.gatt.disconnect();
+
     }
 
   }catch(err){
 
     logDiagnostic(
-      "Error al desconectar: " + err.message
+      "Error al desconectar: " +
+      err.message
     );
   }
 };
@@ -1025,7 +1301,7 @@ function handleDisconnected(){
 }
 
 /* ============================================================
-   GATT DISCOVERY
+   DESCUBRIMIENTO GATT
 ============================================================ */
 
 async function discoverGatt(){
@@ -1039,42 +1315,50 @@ async function discoverGatt(){
   let services = [];
 
   try{
+
     services =
       await server.getPrimaryServices();
+
   }catch(err){
+
     logDiagnostic(
       "getPrimaryServices falló: " +
       err.message
     );
   }
 
-  allServices = services;
+  allServices =
+    services;
 
   $("serviceCount").textContent =
     services.length;
 
   logDiagnostic(
-    `Servicios primarios encontrados: ${services.length}`
+    `Servicios primarios encontrados: ${
+      services.length
+    }`
   );
 
-  for(const service of services){
+  for(
+    const service of services
+  ){
 
-    await inspectService(service);
+    await inspectService(
+      service
+    );
   }
 
   renderFeeInspector();
 
-  /*
-    NUS
-  */
-
   if(!nusNotify){
+
     logDiagnostic(
       "⚠ No se encontró automáticamente 6E400003."
     );
   }
 
   if(!nusWrite){
+
     logDiagnostic(
       "⚠ No se encontró automáticamente 6E400002."
     );
@@ -1090,22 +1374,33 @@ async function inspectService(service){
   let characteristics = [];
 
   try{
+
     characteristics =
       await service.getCharacteristics();
+
   }catch(err){
 
     logDiagnostic(
-      `Error en servicio ${service.uuid}: ${err.message}`
+      `Error servicio ${service.uuid}: ${
+        err.message
+      }`
     );
 
     return;
   }
 
-  for(const characteristic of characteristics){
+  for(
+    const characteristic
+    of characteristics
+  ){
 
-    allCharacteristics.push(characteristic);
+    allCharacteristics.push(
+      characteristic
+    );
 
-    registerKnownCharacteristic(characteristic);
+    registerKnownCharacteristic(
+      characteristic
+    );
 
     await renderCharacteristic(
       service,
@@ -1116,92 +1411,132 @@ async function inspectService(service){
 
 function registerKnownCharacteristic(ch){
 
-  const uuid = normalizeUUID(ch.uuid);
+  const uuid =
+    normalizeUUID(
+      ch.uuid
+    );
 
   if(uuid === UUID.NUS_WRITE){
+
     nusWrite = ch;
+
   }
 
   if(uuid === UUID.NUS_NOTIFY){
+
     nusNotify = ch;
-    attachNotification(ch, "NUS");
+
+    attachNotification(
+      ch,
+      "NUS"
+    );
   }
 
-  if(uuid === UUID.FEA1 ||
-     uuid === UUID.FEA2 ||
-     uuid === UUID.FEC9){
+  if(
+    uuid === UUID.FEA1 ||
+    uuid === UUID.FEA2 ||
+    uuid === UUID.FEC9
+  ){
 
-    feeChars[uuid] = ch;
+    feeChars[uuid] =
+      ch;
   }
 }
 
 /* ============================================================
-   PROPIEDADES GATT
+   PROPIEDADES
 ============================================================ */
 
 function getProperties(ch){
 
   if(!ch.properties){
+
     return {
       available:false,
       text:"API no expone propiedades"
     };
   }
 
-  const p = ch.properties;
+  const p =
+    ch.properties;
 
   const list = [];
 
-  if(p.read) list.push("READ");
-  if(p.write) list.push("WRITE");
+  if(p.read)
+    list.push("READ");
+
+  if(p.write)
+    list.push("WRITE");
+
   if(p.writeWithoutResponse)
     list.push("WRITE_NR");
+
   if(p.notify)
     list.push("NOTIFY");
+
   if(p.indicate)
     list.push("INDICATE");
 
   return {
+
     available:true,
+
     values:list,
-    text:list.length
-      ? list.join(" · ")
-      : "NINGUNA"
+
+    text:
+      list.length
+        ? list.join(" · ")
+        : "NINGUNA"
+
   };
 }
 
 /* ============================================================
-   GATT RENDER
+   RENDER GATT
 ============================================================ */
 
-async function renderCharacteristic(service,ch){
+async function renderCharacteristic(
+  service,
+  ch
+){
 
-  const tr = document.createElement("tr");
+  const tr =
+    document.createElement("tr");
 
   const serviceCell =
     document.createElement("td");
 
   serviceCell.textContent =
-    shortUUID(service.uuid);
+    shortUUID(
+      service.uuid
+    );
 
   const charCell =
     document.createElement("td");
 
   charCell.innerHTML =
-    `<span class="mono">${shortUUID(ch.uuid)}</span>`;
+    `<span class="mono">${
+      shortUUID(ch.uuid)
+    }</span>`;
 
   const propCell =
     document.createElement("td");
 
-  const props = getProperties(ch);
+  const props =
+    getProperties(ch);
 
   propCell.innerHTML =
     props.available
-      ? props.values.map(p =>
-          `<span class="badge info">${p}</span>`
-        ).join("")
+
+      ? props.values
+          .map(
+            p =>
+              `<span class="badge info">${p}</span>`
+          )
+          .join("")
+
       : `<span class="badge warn">
-          API no expone propiedades
+           API no expone propiedades
          </span>`;
 
   const descCell =
@@ -1210,61 +1545,68 @@ async function renderCharacteristic(service,ch){
   const actionCell =
     document.createElement("td");
 
-  actionCell.className = "flex";
+  actionCell.className =
+    "flex";
 
-  /*
-    READ
-  */
-
-  if(props.available && ch.properties.read){
+  if(
+    props.available &&
+    ch.properties.read
+  ){
 
     const readBtn =
       document.createElement("button");
 
-    readBtn.textContent = "READ";
+    readBtn.textContent =
+      "READ";
 
-    readBtn.onclick = () =>
-      readCharacteristic(ch);
+    readBtn.onclick =
+      () =>
+        readCharacteristic(ch);
 
-    actionCell.appendChild(readBtn);
+    actionCell.appendChild(
+      readBtn
+    );
   }
-
-  /*
-    NOTIFY / INDICATE
-  */
 
   if(
     props.available &&
-    (ch.properties.notify ||
-     ch.properties.indicate)
+    (
+      ch.properties.notify ||
+      ch.properties.indicate
+    )
   ){
 
     const subBtn =
       document.createElement("button");
 
-    subBtn.textContent = "SUB";
+    subBtn.textContent =
+      "SUB";
 
-    subBtn.onclick = () =>
-      subscribeCharacteristic(ch);
+    subBtn.onclick =
+      () =>
+        subscribeCharacteristic(ch);
 
-    actionCell.appendChild(subBtn);
+    actionCell.appendChild(
+      subBtn
+    );
 
     const unsubBtn =
       document.createElement("button");
 
-    unsubBtn.textContent = "STOP";
+    unsubBtn.textContent =
+      "STOP";
 
-    unsubBtn.onclick = () =>
-      unsubscribeCharacteristic(ch);
+    unsubBtn.onclick =
+      () =>
+        unsubscribeCharacteristic(ch);
 
-    actionCell.appendChild(unsubBtn);
+    actionCell.appendChild(
+      unsubBtn
+    );
   }
 
-  /*
-    DESCRIPTORES
-  */
-
-  let descriptorText = "—";
+  let descriptorText =
+    "—";
 
   try{
 
@@ -1273,9 +1615,14 @@ async function renderCharacteristic(service,ch){
 
     descriptorText =
       descriptors.length
+
         ? descriptors
-            .map(d => shortUUID(d.uuid))
+            .map(
+              d =>
+                shortUUID(d.uuid)
+            )
             .join("<br>")
+
         : "—";
 
   }catch(err){
@@ -1287,13 +1634,28 @@ async function renderCharacteristic(service,ch){
   descCell.innerHTML =
     descriptorText;
 
-  tr.appendChild(serviceCell);
-  tr.appendChild(charCell);
-  tr.appendChild(propCell);
-  tr.appendChild(descCell);
-  tr.appendChild(actionCell);
+  tr.appendChild(
+    serviceCell
+  );
 
-  $("gattBody").appendChild(tr);
+  tr.appendChild(
+    charCell
+  );
+
+  tr.appendChild(
+    propCell
+  );
+
+  tr.appendChild(
+    descCell
+  );
+
+  tr.appendChild(
+    actionCell
+  );
+
+  $("gattBody")
+    .appendChild(tr);
 }
 
 /* ============================================================
@@ -1321,19 +1683,36 @@ async function readCharacteristic(ch){
       await ch.readValue();
 
     const bytes =
-      new Uint8Array(value.buffer.slice(
-        value.byteOffset,
-        value.byteOffset + value.byteLength
-      ));
+      new Uint8Array(
+        value.buffer.slice(
+          value.byteOffset,
+          value.byteOffset +
+          value.byteLength
+        )
+      );
 
     const hex =
       bytesToHex(bytes);
 
+    /*
+      PRIMERO registramos el READ.
+      Así una excepción del analizador no
+      convierte un READ correcto en "READ error".
+    */
+
     recordEvent({
+
       direction:"READ",
-      uuid:ch.uuid,
+
+      uuid:
+        normalizeUUID(ch.uuid),
+
       hex,
-      bytes:[...bytes]
+
+      bytes:[
+        ...bytes
+      ]
+
     });
 
     renderFeeValue(
@@ -1342,15 +1721,47 @@ async function readCharacteristic(ch){
       "READ"
     );
 
-    analyzeRawBytes(
-      bytes,
-      `READ ${shortUUID(ch.uuid)}`
-    );
+    const uuid =
+      normalizeUUID(
+        ch.uuid
+      );
+
+    /*
+      FEA1 tiene parser propio.
+    */
+
+    if(uuid === UUID.FEA1){
+
+      analyzeFEA1(
+        bytes,
+        `READ ${shortUUID(ch.uuid)}`
+      );
+
+    }else if(
+      bytes.length > 0 &&
+      bytes[0] === 0xAB
+    ){
+
+      feedABParser(
+        bytes,
+        `READ ${shortUUID(ch.uuid)}`
+      );
+
+    }else{
+
+      logDiagnostic(
+        `READ OK ${shortUUID(ch.uuid)} · ${
+          bytes.length
+        } bytes · sin parser AB`
+      );
+    }
 
   }catch(err){
 
     logDiagnostic(
-      `READ error ${shortUUID(ch.uuid)}: ${err.message}`
+      `READ error ${
+        shortUUID(ch.uuid)
+      }: ${err.message}`
     );
   }
 }
@@ -1367,6 +1778,7 @@ async function subscribeCharacteristic(ch){
       !ch.properties.notify &&
       !ch.properties.indicate
     ){
+
       throw new Error(
         "La característica no indica NOTIFY ni INDICATE."
       );
@@ -1385,13 +1797,17 @@ async function subscribeCharacteristic(ch){
     );
 
     logDiagnostic(
-      `SUBSCRITO → ${shortUUID(ch.uuid)}`
+      `SUBSCRITO → ${
+        shortUUID(ch.uuid)
+      }`
     );
 
   }catch(err){
 
     logDiagnostic(
-      `SUBSCRIBE error ${shortUUID(ch.uuid)}: ${err.message}`
+      `SUBSCRIBE error ${
+        shortUUID(ch.uuid)
+      }: ${err.message}`
     );
   }
 }
@@ -1408,18 +1824,25 @@ async function unsubscribeCharacteristic(ch){
     );
 
     logDiagnostic(
-      `DESUSCRITO → ${shortUUID(ch.uuid)}`
+      `DESUSCRITO → ${
+        shortUUID(ch.uuid)
+      }`
     );
 
   }catch(err){
 
     logDiagnostic(
-      `STOP error ${shortUUID(ch.uuid)}: ${err.message}`
+      `STOP error ${
+        shortUUID(ch.uuid)
+      }: ${err.message}`
     );
   }
 }
 
-function attachNotification(ch,label){
+function attachNotification(
+  ch,
+  label
+){
 
   try{
 
@@ -1428,20 +1851,18 @@ function attachNotification(ch,label){
       genericCharacteristicHandler
     );
 
-    /*
-      IMPORTANTE:
-      No se inicia automáticamente.
-      El usuario debe pulsar SUB.
-    */
-
     logDiagnostic(
-      `${label}: listener preparado en ${shortUUID(ch.uuid)}`
+      `${label}: listener preparado en ${
+        shortUUID(ch.uuid)
+      }`
     );
 
   }catch(err){
 
     logDiagnostic(
-      `No se pudo preparar listener: ${err.message}`
+      `No se pudo preparar listener: ${
+        err.message
+      }`
     );
   }
 }
@@ -1452,7 +1873,8 @@ function attachNotification(ch,label){
 
 function genericCharacteristicHandler(event){
 
-  const ch = event.target;
+  const ch =
+    event.target;
 
   const value =
     event.target.value;
@@ -1465,7 +1887,8 @@ function genericCharacteristicHandler(event){
     new Uint8Array(
       value.buffer.slice(
         value.byteOffset,
-        value.byteOffset + value.byteLength
+        value.byteOffset +
+        value.byteLength
       )
     );
 
@@ -1478,13 +1901,17 @@ function genericCharacteristicHandler(event){
     rxCount;
 
   if(captureRunning){
+
     captureRx++;
+
     $("captureRx").textContent =
       captureRx;
   }
 
   const uuid =
-    normalizeUUID(ch.uuid);
+    normalizeUUID(
+      ch.uuid
+    );
 
   const isFee =
     uuid === UUID.FEA1 ||
@@ -1505,26 +1932,55 @@ function genericCharacteristicHandler(event){
     );
 
     recordEvent({
+
       direction:"RX",
+
       channel:"FEE7",
+
       uuid,
+
       hex,
-      bytes:[...bytes]
+
+      bytes:[
+        ...bytes
+      ]
+
     });
+
+    /*
+      FEA1 también se analiza si llega
+      por NOTIFY / INDICATE.
+    */
+
+    if(uuid === UUID.FEA1){
+
+      analyzeFEA1(
+        bytes,
+        `RX ${shortUUID(uuid)}`
+      );
+    }
 
   }else{
 
     recordEvent({
+
       direction:"RX",
+
       channel:"BLE",
+
       uuid,
+
       hex,
-      bytes:[...bytes]
+
+      bytes:[
+        ...bytes
+      ]
+
     });
   }
 
   /*
-    El NUS puede llevar frames AB.
+    NUS = parser AB.
   */
 
   if(uuid === UUID.NUS_NOTIFY){
@@ -1534,40 +1990,367 @@ function genericCharacteristicHandler(event){
       "6E400003"
     );
 
-  }else{
+  }else if(
+    bytes.length > 0 &&
+    bytes[0] === 0xAB
+  ){
 
     /*
-      FEE7 también puede contener estructuras binarias,
-      pero no forzamos interpretación AB.
+      Sólo se interpreta AB cuando
+      realmente comienza con AB.
     */
 
-    if(bytes[0] === 0xAB){
-
-      feedABParser(
-        bytes,
-        shortUUID(uuid)
-      );
-
-    }
+    feedABParser(
+      bytes,
+      shortUUID(uuid)
+    );
   }
 
   updateEventLog();
 }
 
 /* ============================================================
+   ANALIZADOR FEA1
+============================================================ */
+
+function analyzeFEA1(
+  bytes,
+  source
+){
+
+  const hex =
+    bytesToHex(bytes);
+
+  fea1ReadCount++;
+
+  $("fea1Reads").textContent =
+    fea1ReadCount;
+
+  /*
+    El formato observado en F1 Plus
+    es de 10 bytes:
+    
+    07
+    XX XX XX
+    XX XX XX
+    XX XX XX
+
+    El primer campo de 3 bytes,
+    little-endian, coincide exactamente
+    con los pasos mostrados por la pulsera.
+  */
+
+  if(bytes.length < 10){
+
+    $("fea1Last").textContent =
+      [
+        `SOURCE : ${source}`,
+        `HEX    : ${hex}`,
+        ``,
+        `⚠ Longitud inesperada: ${
+          bytes.length
+        } bytes`,
+        `Se conserva el dato RAW.`
+      ].join("\n");
+
+    logDiagnostic(
+      `FEA1 recibido con ${
+        bytes.length
+      } bytes.`
+    );
+
+    return;
+  }
+
+  const flag =
+    bytes[0];
+
+  const field1 =
+    readUInt24LE(
+      bytes,
+      1
+    );
+
+  const field2 =
+    readUInt24LE(
+      bytes,
+      4
+    );
+
+  const field3 =
+    readUInt24LE(
+      bytes,
+      7
+    );
+
+  /*
+    Confirmación experimental:
+    
+    29 00 00 = 41
+    61 00 00 = 97
+    CE 00 00 = 206
+  */
+
+  $("fea1Steps").textContent =
+    field1;
+
+  $("fea1Field2").textContent =
+    field2;
+
+  $("fea1Field3").textContent =
+    field3;
+
+  const analysis = [
+
+    `SOURCE : ${source}`,
+
+    `HEX    : ${hex}`,
+
+    ``,
+
+    `BYTE 0 : ${hex2(flag)}`,
+
+    ``,
+
+    `CAMPO 1 [1..3] : ${
+      bytesToHex(
+        bytes.slice(1,4)
+      )
+    }`,
+
+    `VALOR LE       : ${field1}`,
+
+    `SIGNIFICADO    : PASOS ✓ CONFIRMADO`,
+
+    ``,
+
+    `CAMPO 2 [4..6] : ${
+      bytesToHex(
+        bytes.slice(4,7)
+      )
+    }`,
+
+    `VALOR LE       : ${field2}`,
+
+    `SIGNIFICADO    : DESCONOCIDO`,
+
+    ``,
+
+    `CAMPO 3 [7..9] : ${
+      bytesToHex(
+        bytes.slice(7,10)
+      )
+    }`,
+
+    `VALOR LE       : ${field3}`,
+
+    `SIGNIFICADO    : DESCONOCIDO`
+
+  ].join("\n");
+
+  $("fea1Last").textContent =
+    analysis;
+
+  /*
+    Comparación contra lectura FEA1 anterior.
+  */
+
+  if(previousFEA1){
+
+    const comparison =
+      compareBytes(
+        previousFEA1,
+        bytes
+      );
+
+    const lines = [
+
+      `ANTERIOR : ${
+        bytesToHex(previousFEA1)
+      }`,
+
+      `ACTUAL   : ${hex}`,
+
+      ``,
+
+      comparison.text
+
+    ];
+
+    /*
+      Interpretación adicional,
+      sólo sobre posiciones concretas.
+    */
+
+    lines.push("");
+    lines.push("INTERPRETACIÓN FEA1:");
+
+    const previousSteps =
+      readUInt24LE(
+        previousFEA1,
+        1
+      );
+
+    if(previousSteps !== field1){
+
+      lines.push(
+        `• PASOS: ${
+          previousSteps
+        } → ${
+          field1
+        }`
+      );
+
+      lines.push(
+        `• Δ PASOS: ${
+          field1 -
+          previousSteps
+        }`
+      );
+    }else{
+
+      lines.push(
+        "• PASOS: sin cambio"
+      );
+    }
+
+    const previousField2 =
+      readUInt24LE(
+        previousFEA1,
+        4
+      );
+
+    const previousField3 =
+      readUInt24LE(
+        previousFEA1,
+        7
+      );
+
+    if(previousField2 !== field2){
+
+      lines.push(
+        `• CAMPO 2: ${
+          previousField2
+        } → ${
+          field2
+        }`
+      );
+
+    }else{
+
+      lines.push(
+        "• CAMPO 2: sin cambio"
+      );
+    }
+
+    if(previousField3 !== field3){
+
+      lines.push(
+        `• CAMPO 3: ${
+          previousField3
+        } → ${
+          field3
+        }`
+      );
+
+    }else{
+
+      lines.push(
+        "• CAMPO 3: sin cambio"
+      );
+    }
+
+    $("fea1Compare").textContent =
+      lines.join("\n");
+
+  }else{
+
+    $("fea1Compare").textContent =
+      "Primera lectura FEA1. No existe lectura anterior.";
+  }
+
+  previousFEA1 =
+    Uint8Array.from(bytes);
+
+  fea1History.push({
+
+    timestamp:
+      new Date().toISOString(),
+
+    source,
+
+    hex,
+
+    bytes:[
+      ...bytes
+    ],
+
+    flag,
+
+    steps:field1,
+
+    field2,
+
+    field3
+
+  });
+
+  if(fea1History.length > 100){
+    fea1History.shift();
+  }
+
+  logDiagnostic(
+    `FEA1 analizado → pasos=${field1} · campo2=${field2} · campo3=${field3}`
+  );
+}
+
+/* ============================================================
+   ENTERO 24 BIT LITTLE ENDIAN
+============================================================ */
+
+function readUInt24LE(
+  bytes,
+  offset
+){
+
+  if(
+    !bytes ||
+    bytes.length <
+      offset + 3
+  ){
+
+    return null;
+  }
+
+  return (
+    bytes[offset] |
+    (bytes[offset + 1] << 8) |
+    (bytes[offset + 2] << 16)
+  ) >>> 0;
+}
+
+/* ============================================================
    PARSER AB STREAM
 ============================================================ */
 
-function feedABParser(bytes,source){
+function feedABParser(
+  bytes,
+  source
+){
 
-  for(const b of bytes){
+  for(
+    const b of bytes
+  ){
+
     rxStreamBuffer.push(b);
   }
 
   while(true){
 
     const index =
-      rxStreamBuffer.indexOf(0xAB);
+      rxStreamBuffer.indexOf(
+        0xAB
+      );
 
     if(index < 0){
 
@@ -1579,15 +2362,16 @@ function feedABParser(bytes,source){
     if(index > 0){
 
       rxStreamBuffer =
-        rxStreamBuffer.slice(index);
+        rxStreamBuffer.slice(
+          index
+        );
     }
 
-    /*
-      Mínimo:
-      AB 00 LEN
-    */
+    if(
+      rxStreamBuffer.length <
+      3
+    ){
 
-    if(rxStreamBuffer.length < 3){
       return;
     }
 
@@ -1596,10 +2380,6 @@ function feedABParser(bytes,source){
 
     const total =
       declared + 3;
-
-    /*
-      Protección contra longitudes absurdas.
-    */
 
     if(
       total < 5 ||
@@ -1612,15 +2392,24 @@ function feedABParser(bytes,source){
       continue;
     }
 
-    if(rxStreamBuffer.length < total){
+    if(
+      rxStreamBuffer.length <
+      total
+    ){
+
       return;
     }
 
     const frame =
-      rxStreamBuffer.slice(0,total);
+      rxStreamBuffer.slice(
+        0,
+        total
+      );
 
     rxStreamBuffer =
-      rxStreamBuffer.slice(total);
+      rxStreamBuffer.slice(
+        total
+      );
 
     analyzeABFrame(
       Uint8Array.from(frame),
@@ -1633,7 +2422,10 @@ function feedABParser(bytes,source){
    ANALISIS AB
 ============================================================ */
 
-function analyzeABFrame(bytes,source){
+function analyzeABFrame(
+  bytes,
+  source
+){
 
   abCount++;
 
@@ -1684,7 +2476,10 @@ function analyzeABFrame(bytes,source){
 
   const ref =
     FAMILY_REFERENCE[
-      opcodeHex.replace("0x","")
+      opcodeHex.replace(
+        "0x",
+        ""
+      )
     ];
 
   const meaning =
@@ -1698,25 +2493,70 @@ function analyzeABFrame(bytes,source){
       : "NUEVO";
 
   const lengthOK =
-    expectedTotal === actualTotal;
+    expectedTotal ===
+    actualTotal;
 
   const analysis = [
+
     `SOURCE       : ${source}`,
+
     `FRAME        : ${hex}`,
+
     ``,
-    `HEADER       : ${hex2(bytes[0])} ${hex2(bytes[1])}`,
-    `DECLARED LEN : ${hex2(declared)} (${declared})`,
-    `EXPECTED     : ${expectedTotal} bytes`,
-    `ACTUAL       : ${actualTotal} bytes`,
-    `VALID LENGTH : ${lengthOK ? "SI ✓" : "NO ⚠"}`,
+
+    `HEADER       : ${
+      hex2(bytes[0])
+    } ${
+      hex2(bytes[1])
+    }`,
+
+    `DECLARED LEN : ${
+      hex2(declared)
+    } (${declared})`,
+
+    `EXPECTED     : ${
+      expectedTotal
+    } bytes`,
+
+    `ACTUAL       : ${
+      actualTotal
+    } bytes`,
+
+    `VALID LENGTH : ${
+      lengthOK
+        ? "SI ✓"
+        : "NO ⚠"
+    }`,
+
     ``,
-    `CLASS        : ${hex2(classByte)}`,
-    `OPCODE       : ${opcodeHex}`,
-    `SUBOPCODE    : ${subHex}`,
-    `PAYLOAD      : ${bytesToHex(payload) || "—"}`,
+
+    `CLASS        : ${
+      hex2(classByte)
+    }`,
+
+    `OPCODE       : ${
+      opcodeHex
+    }`,
+
+    `SUBOPCODE    : ${
+      subHex
+    }`,
+
+    `PAYLOAD      : ${
+      bytesToHex(payload) ||
+      "—"
+    }`,
+
     ``,
-    `MEANING      : ${meaning}`,
-    `CONFIDENCE   : ${confidence}`
+
+    `MEANING      : ${
+      meaning
+    }`,
+
+    `CONFIDENCE   : ${
+      confidence
+    }`
+
   ].join("\n");
 
   $("lastFrame").textContent =
@@ -1740,20 +2580,42 @@ function analyzeABFrame(bytes,source){
     meaning;
 
   rxFrames.push({
-    timestamp:new Date().toISOString(),
+
+    timestamp:
+      new Date().toISOString(),
+
     source,
+
     hex,
-    bytes:[...bytes],
-    declaredLength:declared,
+
+    bytes:[
+      ...bytes
+    ],
+
+    declaredLength:
+      declared,
+
     expectedTotal,
+
     actualTotal,
-    validLength:lengthOK,
+
+    validLength:
+      lengthOK,
+
     classByte,
+
     opcode,
+
     subopcode,
-    payload:[...payload],
+
+    payload:[
+      ...payload
+    ],
+
     meaning,
+
     confidence
+
   });
 
   updateOpcodeStats(
@@ -1770,7 +2632,8 @@ function analyzeABFrame(bytes,source){
   );
 
   /*
-    Confirmación experimental especial de batería.
+    Candidato batería.
+    No se declara confirmado.
   */
 
   if(
@@ -1786,7 +2649,11 @@ function analyzeABFrame(bytes,source){
       bytes[7];
 
     logDiagnostic(
-      `0x91 detectado: batería candidata ${battery}% · carga=${charging}`
+      `0x91 observado → batería candidata ${
+        battery
+      }% · carga=${
+        hex2(charging)
+      }`
     );
 
     renderBatteryCandidate(
@@ -1816,23 +2683,39 @@ function updateOpcodeStats(
     opcodeStats.set(
       opcode,
       {
+
         count:0,
-        lengths:new Set(),
-        subs:new Set(),
+
+        lengths:
+          new Set(),
+
+        subs:
+          new Set(),
+
         meaning,
+
         confidence
+
       }
     );
   }
 
   const s =
-    opcodeStats.get(opcode);
+    opcodeStats.get(
+      opcode
+    );
 
   s.count++;
-  s.lengths.add(length);
+
+  s.lengths.add(
+    length
+  );
 
   if(subopcode !== "—"){
-    s.subs.add(subopcode);
+
+    s.subs.add(
+      subopcode
+    );
   }
 
   $("opcodeCount").textContent =
@@ -1849,50 +2732,99 @@ function updateOpcodeTable(){
   if(!opcodeStats.size){
 
     body.innerHTML =
-      `<tr><td colspan="6">Sin frames.</td></tr>`;
+      `<tr>
+        <td colspan="6">
+          Sin frames.
+        </td>
+      </tr>`;
 
     return;
   }
 
-  [...opcodeStats.entries()]
+  [
+    ...opcodeStats.entries()
+  ]
     .sort()
-    .forEach(([opcode,s]) => {
+    .forEach(
+      ([opcode,s]) => {
 
-      const tr =
-        document.createElement("tr");
+        const tr =
+          document.createElement(
+            "tr"
+          );
 
-      const level =
-        s.confidence === "FUERTE"
-          ? `<span class="badge ok">FUERTE</span>`
-          : s.confidence === "FAMILIA"
-            ? `<span class="badge warn">FAMILIA</span>`
-            : `<span class="badge info">NUEVO</span>`;
+        const level =
+          s.confidence === "FUERTE"
 
-      tr.innerHTML = `
-        <td class="mono">${opcode}</td>
-        <td>${s.count}</td>
-        <td class="mono">
-          ${[...s.lengths].join(", ")}
-        </td>
-        <td class="mono">
-          ${[...s.subs].join(", ") || "—"}
-        </td>
-        <td>${s.meaning}</td>
-        <td>${level}</td>
-      `;
+            ? `<span class="badge ok">
+                 FUERTE
+               </span>`
 
-      body.appendChild(tr);
-    });
+            : s.confidence === "FAMILIA"
+
+              ? `<span class="badge warn">
+                   FAMILIA
+                 </span>`
+
+              : `<span class="badge info">
+                   NUEVO
+                 </span>`;
+
+        tr.innerHTML = `
+
+          <td class="mono">
+            ${opcode}
+          </td>
+
+          <td>
+            ${s.count}
+          </td>
+
+          <td class="mono">
+            ${[
+              ...s.lengths
+            ].join(", ")}
+          </td>
+
+          <td class="mono">
+            ${
+              [
+                ...s.subs
+              ].join(", ")
+              || "—"
+            }
+          </td>
+
+          <td>
+            ${s.meaning}
+          </td>
+
+          <td>
+            ${level}
+          </td>
+
+        `;
+
+        body.appendChild(
+          tr
+        );
+      }
+    );
 }
 
 /* ============================================================
-   COMPARACION AUTOMATICA
+   COMPARACION AUTOMATICA AB
 ============================================================ */
 
-function autoCompareFrame(opcode,bytes){
+function autoCompareFrame(
+  opcode,
+  bytes
+){
 
   const previous =
-    previousByOpcode.get(opcode);
+    previousByOpcode.get(
+      opcode
+    );
 
   if(previous){
 
@@ -1903,7 +2835,9 @@ function autoCompareFrame(opcode,bytes){
       );
 
     const line =
-      `[${new Date().toLocaleTimeString()}] ${opcode}\n` +
+      `[${new Date().toLocaleTimeString()}] ${
+        opcode
+      }\n` +
       result.text +
       `\n`;
 
@@ -1914,7 +2848,9 @@ function autoCompareFrame(opcode,bytes){
       box.textContent ===
       "Sin comparaciones."
     ){
-      box.textContent = "";
+
+      box.textContent =
+        "";
     }
 
     box.textContent +=
@@ -1937,12 +2873,19 @@ function autoCompareFrame(opcode,bytes){
 $("compareBtn").onclick = () => {
 
   const a =
-    parseHex($("compareA").value);
+    parseHex(
+      $("compareA").value
+    );
 
   const b =
-    parseHex($("compareB").value);
+    parseHex(
+      $("compareB").value
+    );
 
-  if(!a.length || !b.length){
+  if(
+    !a.length ||
+    !b.length
+  ){
 
     $("compareResult").textContent =
       "Introduce dos paquetes HEX válidos.";
@@ -1951,57 +2894,75 @@ $("compareBtn").onclick = () => {
   }
 
   const result =
-    compareBytes(a,b);
-
-  $("compareResult").textContent =
-    result.text;
-};
-
-$("swapCompareBtn").onclick = () => {
-
-  const a =
-    $("compareA").value;
-
-  $("compareA").value =
-    $("compareB").value;
-
-  $("compareB").value =
-    a;
-};
-
-$("loadLastBtn").onclick = () => {
-
-  if(rxFrames.length < 2){
-
-    $("compareResult").textContent =
-      "Se necesitan al menos 2 frames AB.";
-
-    return;
-  }
-
-  const a =
-    rxFrames[rxFrames.length - 2];
-
-  const b =
-    rxFrames[rxFrames.length - 1];
-
-  $("compareA").value =
-    a.hex;
-
-  $("compareB").value =
-    b.hex;
-
-  const result =
     compareBytes(
-      Uint8Array.from(a.bytes),
-      Uint8Array.from(b.bytes)
+      a,
+      b
     );
 
   $("compareResult").textContent =
     result.text;
 };
 
-function compareBytes(a,b){
+$("swapCompareBtn").onclick =
+  () => {
+
+    const a =
+      $("compareA").value;
+
+    $("compareA").value =
+      $("compareB").value;
+
+    $("compareB").value =
+      a;
+  };
+
+$("loadLastBtn").onclick =
+  () => {
+
+    if(
+      rxFrames.length < 2
+    ){
+
+      $("compareResult").textContent =
+        "Se necesitan al menos 2 frames AB.";
+
+      return;
+    }
+
+    const a =
+      rxFrames[
+        rxFrames.length - 2
+      ];
+
+    const b =
+      rxFrames[
+        rxFrames.length - 1
+      ];
+
+    $("compareA").value =
+      a.hex;
+
+    $("compareB").value =
+      b.hex;
+
+    const result =
+      compareBytes(
+        Uint8Array.from(
+          a.bytes
+        ),
+        Uint8Array.from(
+          b.bytes
+        )
+      );
+
+    $("compareResult").textContent =
+      result.text;
+  };
+
+function compareBytes(
+  a,
+  b
+){
 
   const max =
     Math.max(
@@ -2011,7 +2972,11 @@ function compareBytes(a,b){
 
   const differences = [];
 
-  for(let i=0;i<max;i++){
+  for(
+    let i = 0;
+    i < max;
+    i++
+  ){
 
     const av =
       i < a.length
@@ -2026,9 +2991,13 @@ function compareBytes(a,b){
     if(av !== bv){
 
       differences.push({
+
         index:i,
+
         a:av,
+
         b:bv
+
       });
     }
   }
@@ -2054,45 +3023,84 @@ function compareBytes(a,b){
   }else{
 
     lines.push(
-      `DIFERENCIAS: ${differences.length}`
+      `DIFERENCIAS: ${
+        differences.length
+      }`
     );
 
     lines.push("");
 
-    for(const d of differences){
+    for(
+      const d of differences
+    ){
 
       lines.push(
-        `Byte ${d.index}: ${d.a} → ${d.b}`
+        `Byte ${d.index}: ${
+          d.a
+        } → ${
+          d.b
+        }`
       );
     }
   }
 
-  /*
-    Detección especial del formato AB.
-  */
-
-  if(a.length >= 5 && b.length >= 5){
+  if(
+    a.length >= 5 &&
+    b.length >= 5
+  ){
 
     lines.push("");
-    lines.push("ESTRUCTURA:");
+    lines.push(
+      "ESTRUCTURA:"
+    );
 
-    if(a[0] !== b[0])
-      lines.push("• Cabecera byte 0 diferente");
+    if(
+      a[0] !== b[0]
+    ){
 
-    if(a[2] !== b[2])
       lines.push(
-        `• Longitud declarada: ${hex2(a[2])} → ${hex2(b[2])}`
+        "• Cabecera byte 0 diferente"
       );
+    }
 
-    if(a[3] !== b[3])
-      lines.push(
-        `• Clase: ${hex2(a[3])} → ${hex2(b[3])}`
-      );
+    if(
+      a[2] !== b[2]
+    ){
 
-    if(a[4] !== b[4])
       lines.push(
-        `• Opcode: ${hex2(a[4])} → ${hex2(b[4])}`
+        `• Longitud declarada: ${
+          hex2(a[2])
+        } → ${
+          hex2(b[2])
+        }`
       );
+    }
+
+    if(
+      a[3] !== b[3]
+    ){
+
+      lines.push(
+        `• Clase: ${
+          hex2(a[3])
+        } → ${
+          hex2(b[3])
+        }`
+      );
+    }
+
+    if(
+      a[4] !== b[4]
+    ){
+
+      lines.push(
+        `• Opcode: ${
+          hex2(a[4])
+        } → ${
+          hex2(b[4])
+        }`
+      );
+    }
 
     if(
       a.length > 5 &&
@@ -2101,14 +3109,22 @@ function compareBytes(a,b){
     ){
 
       lines.push(
-        `• Subopcode: ${hex2(a[5])} → ${hex2(b[5])}`
+        `• Subopcode: ${
+          hex2(a[5])
+        } → ${
+          hex2(b[5])
+        }`
       );
     }
   }
 
   return {
+
     differences,
-    text:lines.join("\n")
+
+    text:
+      lines.join("\n")
+
   };
 }
 
@@ -2121,197 +3137,268 @@ function renderFeeInspector(){
   const box =
     $("feeInspector");
 
-  box.innerHTML = "";
+  box.innerHTML =
+    "";
 
   const definitions = [
+
     {
       uuid:UUID.FEA1,
       label:"FEA1",
-      description:"Canal FEA1"
+      description:
+        "Actividad / estado"
     },
+
     {
       uuid:UUID.FEA2,
       label:"FEA2",
-      description:"Canal FEA2"
+      description:
+        "Canal FEA2"
     },
+
     {
       uuid:UUID.FEC9,
       label:"FEC9",
-      description:"Canal FEC9"
+      description:
+        "Canal FEC9"
     }
+
   ];
 
-  definitions.forEach(def => {
+  definitions.forEach(
+    def => {
 
-    const ch =
-      feeChars[def.uuid];
+      const ch =
+        feeChars[
+          def.uuid
+        ];
 
-    const row =
-      document.createElement("div");
+      const row =
+        document.createElement(
+          "div"
+        );
 
-    row.className =
-      "fee-row";
+      row.className =
+        "fee-row";
 
-    if(!ch){
+      if(!ch){
+
+        row.innerHTML = `
+
+          <div class="fee-title">
+
+            <strong>
+              ${def.label}
+            </strong>
+
+            <span class="badge danger">
+              NO ENCONTRADA
+            </span>
+
+          </div>
+
+          <div class="small">
+            ${def.uuid}
+          </div>
+
+        `;
+
+        box.appendChild(
+          row
+        );
+
+        return;
+      }
+
+      const p =
+        getProperties(ch);
 
       row.innerHTML = `
+
         <div class="fee-title">
-          <strong>${def.label}</strong>
-          <span class="badge danger">
-            NO ENCONTRADA
+
+          <strong>
+            ${def.label}
+          </strong>
+
+          <span class="badge purple">
+            ${def.description}
           </span>
+
         </div>
-        <div class="small">
-          ${def.uuid}
+
+        <div class="small mono">
+          ${ch.uuid}
         </div>
+
+        <div class="prop">
+          Propiedades:
+          ${p.text}
+        </div>
+
+        <div class="flex">
+
+          ${
+            ch.properties &&
+            ch.properties.read
+
+              ? `<button data-action="read">
+                   📖 READ
+                 </button>`
+
+              : ""
+          }
+
+          ${
+            ch.properties &&
+            (
+              ch.properties.notify ||
+              ch.properties.indicate
+            )
+
+              ? `<button data-action="sub">
+                   🔔 SUBSCRIBE
+                 </button>`
+
+              : ""
+          }
+
+          ${
+            ch.properties &&
+            (
+              ch.properties.notify ||
+              ch.properties.indicate
+            )
+
+              ? `<button data-action="stop">
+                   ⛔ STOP
+                 </button>`
+
+              : ""
+          }
+
+          <button data-action="copy">
+            📋 COPIAR UUID
+          </button>
+
+        </div>
+
+        <pre id="fee-${def.label}">
+Sin datos.
+        </pre>
       `;
 
-      box.appendChild(row);
-
-      return;
-    }
-
-    const p =
-      getProperties(ch);
-
-    row.innerHTML = `
-      <div class="fee-title">
-        <strong>${def.label}</strong>
-        <span class="badge purple">
-          ${def.description}
-        </span>
-      </div>
-
-      <div class="small mono">
-        ${ch.uuid}
-      </div>
-
-      <div class="prop">
-        Propiedades:
-        ${p.text}
-      </div>
-
-      <div class="flex">
-
-        ${
-          ch.properties &&
-          ch.properties.read
-            ? `<button data-action="read">📖 READ</button>`
-            : ""
-        }
-
-        ${
-          ch.properties &&
-          (ch.properties.notify ||
-           ch.properties.indicate)
-            ? `<button data-action="sub">🔔 SUBSCRIBE</button>`
-            : ""
-        }
-
-        ${
-          ch.properties &&
-          (ch.properties.notify ||
-           ch.properties.indicate)
-            ? `<button data-action="stop">⛔ STOP</button>`
-            : ""
-        }
-
-        <button data-action="copy">
-          📋 COPIAR UUID
-        </button>
-
-      </div>
-
-      <pre id="fee-${def.label}">
-Sin datos.
-      </pre>
-    `;
-
-    const read =
-      row.querySelector(
-        '[data-action="read"]'
-      );
-
-    if(read){
-      read.onclick =
-        () => readCharacteristic(ch);
-    }
-
-    const sub =
-      row.querySelector(
-        '[data-action="sub"]'
-      );
-
-    if(sub){
-      sub.onclick =
-        () => subscribeCharacteristic(ch);
-    }
-
-    const stop =
-      row.querySelector(
-        '[data-action="stop"]'
-      );
-
-    if(stop){
-      stop.onclick =
-        () => unsubscribeCharacteristic(ch);
-    }
-
-    const copy =
-      row.querySelector(
-        '[data-action="copy"]'
-      );
-
-    copy.onclick = async () => {
-
-      try{
-
-        await navigator.clipboard.writeText(
-          ch.uuid
+      const read =
+        row.querySelector(
+          '[data-action="read"]'
         );
 
-        logDiagnostic(
-          `UUID copiado: ${ch.uuid}`
-        );
+      if(read){
 
-      }catch(err){
-
-        logDiagnostic(
-          "No se pudo copiar UUID."
-        );
+        read.onclick =
+          () =>
+            readCharacteristic(
+              ch
+            );
       }
-    };
 
-    box.appendChild(row);
-  });
+      const sub =
+        row.querySelector(
+          '[data-action="sub"]'
+        );
+
+      if(sub){
+
+        sub.onclick =
+          () =>
+            subscribeCharacteristic(
+              ch
+            );
+      }
+
+      const stop =
+        row.querySelector(
+          '[data-action="stop"]'
+        );
+
+      if(stop){
+
+        stop.onclick =
+          () =>
+            unsubscribeCharacteristic(
+              ch
+            );
+      }
+
+      const copy =
+        row.querySelector(
+          '[data-action="copy"]'
+        );
+
+      copy.onclick =
+        async () => {
+
+          try{
+
+            await navigator.clipboard.writeText(
+              ch.uuid
+            );
+
+            logDiagnostic(
+              `UUID copiado: ${
+                ch.uuid
+              }`
+            );
+
+          }catch(err){
+
+            logDiagnostic(
+              "No se pudo copiar UUID."
+            );
+          }
+        };
+
+      box.appendChild(
+        row
+      );
+    }
+  );
 }
 
-function renderFeeValue(uuid,hex,direction){
+function renderFeeValue(
+  uuid,
+  hex,
+  direction
+){
 
   let id = "";
 
-  if(uuid === UUID.FEA1) id = "FEA1";
-  if(uuid === UUID.FEA2) id = "FEA2";
-  if(uuid === UUID.FEC9) id = "FEC9";
+  if(uuid === UUID.FEA1)
+    id = "FEA1";
 
-  if(!id){
+  if(uuid === UUID.FEA2)
+    id = "FEA2";
+
+  if(uuid === UUID.FEC9)
+    id = "FEC9";
+
+  if(!id)
     return;
-  }
 
   const box =
     document.getElementById(
       `fee-${id}`
     );
 
-  if(!box){
+  if(!box)
     return;
-  }
 
   const time =
     new Date().toLocaleTimeString();
 
   box.textContent =
-    `[${time}] ${direction}\n${hex}\n\n` +
+    `[${time}] ${direction}\n` +
+    `${hex}\n\n` +
     box.textContent.replace(
       "Sin datos.",
       ""
@@ -2319,7 +3406,7 @@ function renderFeeValue(uuid,hex,direction){
 }
 
 /* ============================================================
-   BATERIA
+   BATERIA CANDIDATA
 ============================================================ */
 
 function renderBatteryCandidate(
@@ -2334,11 +3421,14 @@ function renderBatteryCandidate(
     );
 
   if(existing){
+
     existing.remove();
   }
 
   const card =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   card.id =
     "batteryCandidate";
@@ -2350,8 +3440,9 @@ function renderBatteryCandidate(
     "10px";
 
   card.innerHTML = `
+
     <span class="label">
-      Candidato batería F1 Plus
+      Candidato batería
     </span>
 
     <b>
@@ -2359,212 +3450,267 @@ function renderBatteryCandidate(
     </b>
 
     <div class="small">
+
+      Evidencia externa/familiar.
+      Pendiente de confirmación directa.
+
+      <br>
+
       Charging byte:
       ${hex2(charging)}
+
       · Frame:
-      <span class="mono">${hex}</span>
+      <span class="mono">
+        ${hex}
+      </span>
+
     </div>
   `;
 
   $("lastAnalysis")
     .parentElement
-    .appendChild(card);
+    .appendChild(
+      card
+    );
 }
 
 /* ============================================================
-   TX
+   TX MANUAL
 ============================================================ */
 
 $("sendTxBtn").onclick =
   async () => {
 
-  if(captureRunning){
+    if(captureRunning){
 
-    txBlocked++;
+      txBlocked++;
 
-    $("txBlocked").textContent =
-      txBlocked;
+      $("txBlocked").textContent =
+        txBlocked;
 
-    $("txResult").textContent =
-      "TX BLOQUEADO: captura pasiva activa.";
+      $("txResult").textContent =
+        "TX BLOQUEADO: captura pasiva activa.";
 
-    return;
-  }
-
-  const bytes =
-    parseHex($("txHex").value);
-
-  if(!bytes.length){
-
-    $("txResult").textContent =
-      "HEX inválido.";
-
-    return;
-  }
-
-  const target =
-    $("txTarget").value;
-
-  let characteristic = null;
-
-  if(target === "nus"){
-    characteristic = nusWrite;
-  }
-
-  if(target === "fea2"){
-    characteristic =
-      feeChars[UUID.FEA2];
-  }
-
-  if(!characteristic){
-
-    $("txResult").textContent =
-      "Característica TX no disponible.";
-
-    return;
-  }
-
-  const props =
-    getProperties(characteristic);
-
-  try{
-
-    if(
-      !props.available ||
-      (
-        !characteristic.properties.write &&
-        !characteristic.properties.writeWithoutResponse
-      )
-    ){
-
-      throw new Error(
-        "La característica no permite escritura."
-      );
+      return;
     }
 
-    const data =
-      Uint8Array.from(bytes);
-
-    /*
-      writeWithoutResponse cuando está disponible.
-    */
-
-    if(
-      characteristic.properties.writeWithoutResponse
-    ){
-
-      await characteristic.writeValueWithoutResponse(
-        data
+    const bytes =
+      parseHex(
+        $("txHex").value
       );
 
-    }else{
+    if(!bytes.length){
 
-      await characteristic.writeValue(
-        data
-      );
+      $("txResult").textContent =
+        "HEX inválido.";
+
+      return;
     }
 
-    txCount++;
+    const target =
+      $("txTarget").value;
 
-    $("txCount").textContent =
-      txCount;
+    let characteristic =
+      null;
 
-    txFrames.push({
-      timestamp:new Date().toISOString(),
-      target,
-      hex:bytesToHex(data),
-      bytes:[...data]
-    });
+    if(target === "nus"){
 
-    $("txResult").textContent =
-      `TX enviado\n${bytesToHex(data)}`;
+      characteristic =
+        nusWrite;
+    }
 
-    recordEvent({
-      direction:"TX",
-      channel:target,
-      hex:bytesToHex(data),
-      bytes:[...data]
-    });
+    if(target === "fea2"){
 
-    logDiagnostic(
-      `TX manual enviado → ${target}`
-    );
+      characteristic =
+        feeChars[
+          UUID.FEA2
+        ];
+    }
 
-  }catch(err){
+    if(!characteristic){
 
-    $("txResult").textContent =
-      "ERROR TX: " + err.message;
+      $("txResult").textContent =
+        "Característica TX no disponible.";
 
-    logDiagnostic(
-      "TX ERROR: " + err.message
-    );
-  }
-};
+      return;
+    }
+
+    const props =
+      getProperties(
+        characteristic
+      );
+
+    try{
+
+      if(
+        !props.available ||
+        (
+          !characteristic.properties.write &&
+          !characteristic.properties.writeWithoutResponse
+        )
+      ){
+
+        throw new Error(
+          "La característica no permite escritura."
+        );
+      }
+
+      const data =
+        Uint8Array.from(
+          bytes
+        );
+
+      if(
+        characteristic.properties
+          .writeWithoutResponse
+      ){
+
+        await characteristic
+          .writeValueWithoutResponse(
+            data
+          );
+
+      }else{
+
+        await characteristic
+          .writeValue(
+            data
+          );
+      }
+
+      txCount++;
+
+      $("txCount").textContent =
+        txCount;
+
+      txFrames.push({
+
+        timestamp:
+          new Date().toISOString(),
+
+        target,
+
+        hex:
+          bytesToHex(data),
+
+        bytes:[
+          ...data
+        ]
+
+      });
+
+      $("txResult").textContent =
+        `TX enviado\n${
+          bytesToHex(data)
+        }`;
+
+      recordEvent({
+
+        direction:"TX",
+
+        channel:target,
+
+        hex:
+          bytesToHex(data),
+
+        bytes:[
+          ...data
+        ]
+
+      });
+
+      logDiagnostic(
+        `TX manual enviado → ${
+          target
+        }`
+      );
+
+    }catch(err){
+
+      $("txResult").textContent =
+        "ERROR TX: " +
+        err.message;
+
+      logDiagnostic(
+        "TX ERROR: " +
+        err.message
+      );
+    }
+  };
 
 /* ============================================================
    CAPTURA 180
 ============================================================ */
 
-$("startCaptureBtn").onclick = () => {
+$("startCaptureBtn").onclick =
+  () => {
 
-  if(!device || !server){
+    if(
+      !device ||
+      !server
+    ){
 
-    alert(
-      "Conecta primero el F1 Plus."
+      alert(
+        "Conecta primero el F1 Plus."
+      );
+
+      return;
+    }
+
+    if(captureRunning)
+      return;
+
+    captureRunning =
+      true;
+
+    captureRx =
+      0;
+
+    captureEnd =
+      Date.now() +
+      180000;
+
+    $("captureRx").textContent =
+      "0";
+
+    $("captureState").textContent =
+      "ACTIVA";
+
+    $("startCaptureBtn").disabled =
+      true;
+
+    $("stopCaptureBtn").disabled =
+      false;
+
+    $("sendTxBtn").disabled =
+      true;
+
+    logDiagnostic(
+      "CAPTURA PASIVA 180s iniciada. TX bloqueado."
     );
 
-    return;
-  }
+    captureInterval =
+      setInterval(
+        updateCaptureTimer,
+        500
+      );
 
-  if(captureRunning){
-    return;
-  }
-
-  captureRunning = true;
-
-  captureRx = 0;
-
-  captureEnd =
-    Date.now() + 180000;
-
-  $("captureRx").textContent =
-    "0";
-
-  $("captureState").textContent =
-    "ACTIVA";
-
-  $("startCaptureBtn").disabled =
-    true;
-
-  $("stopCaptureBtn").disabled =
-    false;
-
-  $("sendTxBtn").disabled =
-    true;
-
-  logDiagnostic(
-    "CAPTURA PASIVA 180s iniciada. TX bloqueado."
-  );
-
-  captureInterval =
-    setInterval(updateCaptureTimer,500);
-
-  updateCaptureTimer();
-};
+    updateCaptureTimer();
+  };
 
 $("stopCaptureBtn").onclick =
   stopCapture;
 
 function updateCaptureTimer(){
 
-  if(!captureRunning){
+  if(!captureRunning)
     return;
-  }
 
   const remaining =
     Math.max(
       0,
-      captureEnd - Date.now()
+      captureEnd -
+      Date.now()
     );
 
   const seconds =
@@ -2575,28 +3721,30 @@ function updateCaptureTimer(){
   $("captureTimer").textContent =
     `${seconds} s`;
 
-  if(remaining <= 0){
+  if(
+    remaining <= 0
+  ){
 
     stopCapture();
-
-    return;
   }
 }
 
 function stopCapture(){
 
-  if(!captureRunning){
+  if(!captureRunning)
     return;
-  }
 
-  captureRunning = false;
+  captureRunning =
+    false;
 
   if(captureInterval){
+
     clearInterval(
       captureInterval
     );
 
-    captureInterval = null;
+    captureInterval =
+      null;
   }
 
   $("captureState").textContent =
@@ -2612,26 +3760,33 @@ function stopCapture(){
     true;
 
   $("sendTxBtn").disabled =
-    !device || !server;
+    !device ||
+    !server;
 
   logDiagnostic(
-    `CAPTURA finalizada. RX=${captureRx}. TX automático=0.`
+    `CAPTURA finalizada. RX=${
+      captureRx
+    }. TX automático=0.`
   );
 }
 
 /* ============================================================
-   EVENT LOG
+   EVENTOS
 ============================================================ */
 
 function recordEvent(event){
 
   events.push({
+
     timestamp:
       new Date().toISOString(),
+
     ...event
+
   });
 
   if(events.length > 1000){
+
     events.shift();
   }
 
@@ -2655,129 +3810,194 @@ function updateEventLog(){
     events.slice(-100);
 
   box.innerHTML =
-    recent.map(e => {
+    recent
+      .map(
+        e => {
 
-      const time =
-        new Date(
-          e.timestamp
-        ).toLocaleTimeString();
+          const time =
+            new Date(
+              e.timestamp
+            ).toLocaleTimeString();
 
-      return `
-        <div class="console-line">
-          <span class="small">
-            [${time}]
-          </span>
+          return `
 
-          <strong>
-            ${e.direction || ""}
-          </strong>
+            <div class="console-line">
 
-          ${e.channel || ""}
+              <span class="small">
+                [${time}]
+              </span>
 
-          <span class="hex">
-            ${e.hex || ""}
-          </span>
-        </div>
-      `;
+              <strong>
+                ${e.direction || ""}
+              </strong>
 
-    }).join("");
+              ${e.channel || ""}
+
+              <span class="hex">
+                ${e.hex || ""}
+              </span>
+
+            </div>
+
+          `;
+        }
+      )
+      .join("");
 
   box.scrollTop =
     box.scrollHeight;
 }
 
-$("clearEventsBtn").onclick = () => {
+$("clearEventsBtn").onclick =
+  () => {
 
-  events.length = 0;
+    events.length =
+      0;
 
-  $("eventLog").textContent =
-    "Sin eventos.";
+    $("eventLog").textContent =
+      "Sin eventos.";
 
-  $("autoCompareLog").textContent =
-    "Sin comparaciones.";
-};
+    $("autoCompareLog").textContent =
+      "Sin comparaciones.";
+
+    $("fea1Compare").textContent =
+      "Sin comparación.";
+  };
 
 /* ============================================================
    EXPORT
 ============================================================ */
 
-$("exportBtn").onclick = () => {
+$("exportBtn").onclick =
+  () => {
 
-  const report = {
+    const report = {
 
-    application:
-      "RoXThal F1 Plus Protocol Laboratory V3",
+      application:
+        "RoXThal F1 Plus Protocol Laboratory V4",
 
-    generated:
-      new Date().toISOString(),
+      generated:
+        new Date().toISOString(),
 
-    device:{
-      name:
-        device?.name || null,
-      id:
-        device?.id || null
-    },
+      device:{
 
-    uuids:UUID,
+        name:
+          device?.name ||
+          null,
 
-    statistics:{
-      rxCount,
-      txCount,
-      txBlocked,
-      abCount,
-      feeCount,
-      opcodeCount:
-        opcodeStats.size
-    },
+        id:
+          device?.id ||
+          null
 
-    rxFrames,
+      },
 
-    txFrames,
+      uuids:
+        UUID,
 
-    events,
+      statistics:{
 
-    opcodeStats:
-      [...opcodeStats.entries()]
-        .map(([opcode,s]) => ({
-          opcode,
-          count:s.count,
-          lengths:[...s.lengths],
-          subopcodes:[...s.subs],
-          meaning:s.meaning,
-          confidence:s.confidence
-        }))
-  };
+        rxCount,
 
-  const blob =
-    new Blob(
-      [JSON.stringify(
-        report,
-        null,
-        2
-      )],
-      {
-        type:"application/json"
-      }
+        txCount,
+
+        txBlocked,
+
+        abCount,
+
+        feeCount,
+
+        opcodeCount:
+          opcodeStats.size,
+
+        fea1ReadCount
+
+      },
+
+      fea1History,
+
+      rxFrames,
+
+      txFrames,
+
+      events,
+
+      opcodeStats:
+
+        [
+          ...opcodeStats.entries()
+        ]
+        .map(
+          ([opcode,s]) => ({
+
+            opcode,
+
+            count:
+              s.count,
+
+            lengths:
+              [
+                ...s.lengths
+              ],
+
+            subopcodes:
+              [
+                ...s.subs
+              ],
+
+            meaning:
+              s.meaning,
+
+            confidence:
+              s.confidence
+
+          })
+        )
+
+    };
+
+    const blob =
+      new Blob(
+        [
+          JSON.stringify(
+            report,
+            null,
+            2
+          )
+        ],
+        {
+          type:
+            "application/json"
+        }
+      );
+
+    const url =
+      URL.createObjectURL(
+        blob
+      );
+
+    const a =
+      document.createElement(
+        "a"
+      );
+
+    a.href =
+      url;
+
+    a.download =
+      `roxthal-f1plus-lab-v4-${
+        Date.now()
+      }.json`;
+
+    a.click();
+
+    setTimeout(
+      () =>
+        URL.revokeObjectURL(
+          url
+        ),
+      1000
     );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const a =
-    document.createElement("a");
-
-  a.href = url;
-
-  a.download =
-    `roxthal-f1plus-lab-${Date.now()}.json`;
-
-  a.click();
-
-  setTimeout(
-    () => URL.revokeObjectURL(url),
-    1000
-  );
-};
+  };
 
 /* ============================================================
    UTILIDADES
@@ -2785,36 +4005,58 @@ $("exportBtn").onclick = () => {
 
 function normalizeUUID(uuid){
 
-  return uuid
+  return String(uuid)
     .toLowerCase();
 }
 
 function shortUUID(uuid){
 
   const u =
-    normalizeUUID(uuid);
+    normalizeUUID(
+      uuid
+    );
 
   const map = {
 
-    [UUID.NUS_SERVICE]:"6E400001",
-    [UUID.NUS_WRITE]:"6E400002",
-    [UUID.NUS_NOTIFY]:"6E400003",
+    [UUID.NUS_SERVICE]:
+      "6E400001",
 
-    [UUID.FEE7]:"FEE7",
-    [UUID.FEA1]:"FEA1",
-    [UUID.FEA2]:"FEA2",
-    [UUID.FEC9]:"FEC9",
+    [UUID.NUS_WRITE]:
+      "6E400002",
 
-    [UUID.GAP]:"1800",
-    [UUID.GATT]:"1801"
+    [UUID.NUS_NOTIFY]:
+      "6E400003",
+
+    [UUID.FEE7]:
+      "FEE7",
+
+    [UUID.FEA1]:
+      "FEA1",
+
+    [UUID.FEA2]:
+      "FEA2",
+
+    [UUID.FEC9]:
+      "FEC9",
+
+    [UUID.GAP]:
+      "1800",
+
+    [UUID.GATT]:
+      "1801"
+
   };
 
-  return map[u] || uuid;
+  return (
+    map[u] ||
+    uuid
+  );
 }
 
 function hex2(n){
 
   if(n == null){
+
     return "--";
   }
 
@@ -2822,12 +4064,19 @@ function hex2(n){
     .toString(16)
     .padStart(2,"0")
     .toUpperCase()
-    .replace(/^/,"0x");
+    .replace(
+      /^/,
+      "0x"
+    );
 }
 
-function bytesToHex(bytes){
+function bytesToHex(
+  bytes
+){
 
-  return [...bytes]
+  return [
+    ...bytes
+  ]
     .map(
       b =>
         Number(b)
@@ -2838,16 +4087,25 @@ function bytesToHex(bytes){
     .join(" ");
 }
 
-function parseHex(text){
+function parseHex(
+  text
+){
 
   if(!text){
+
     return [];
   }
 
   const cleaned =
     text
-      .replace(/0x/gi," ")
-      .replace(/[^0-9a-fA-F]/g," ");
+      .replace(
+        /0x/gi,
+        " "
+      )
+      .replace(
+        /[^0-9a-fA-F]/g,
+        " "
+      );
 
   const tokens =
     cleaned
@@ -2857,14 +4115,23 @@ function parseHex(text){
 
   const result = [];
 
-  for(const token of tokens){
+  for(
+    const token of tokens
+  ){
 
-    if(!/^[0-9a-fA-F]{1,2}$/.test(token)){
+    if(
+      !/^[0-9a-fA-F]{1,2}$/
+        .test(token)
+    ){
+
       continue;
     }
 
     result.push(
-      parseInt(token,16)
+      parseInt(
+        token,
+        16
+      )
     );
   }
 
@@ -2891,7 +4158,19 @@ function parseHex(text){
   }
 
   logDiagnostic(
-    "RoXThal F1 Plus Protocol Laboratory V3 preparado."
+    "RoXThal F1 Plus Protocol Laboratory V4 preparado."
+  );
+
+  logDiagnostic(
+    "Parser FEA1 activo."
+  );
+
+  logDiagnostic(
+    "FEA1 campo [1..3] = pasos: CONFIRMADO experimentalmente."
+  );
+
+  logDiagnostic(
+    "FEA1 campos [4..6] y [7..9] = desconocidos."
   );
 
   logDiagnostic(
