@@ -4,113 +4,94 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111318">
-<title>RoXThal F1 Plus — Laboratorio</title>
+<title>RoXThal F1 Plus — WearFit Discovery Lab</title>
 
 <style>
 :root{
-  --bg:#0d0f12;
-  --panel:#15181d;
-  --panel2:#1b1f25;
-  --border:#30353d;
-  --text:#f2f4f7;
-  --muted:#9aa3ad;
-  --gold:#e0b44c;
-  --green:#35d07f;
-  --red:#ff5d68;
+  --bg:#0b0d11;
+  --panel:#11151b;
+  --panel2:#171c23;
+  --border:#29313b;
+  --text:#edf2f7;
+  --muted:#8e9aa8;
+  --green:#43e07b;
+  --yellow:#ffd166;
+  --red:#ff5d73;
   --blue:#4da3ff;
-  --orange:#ff9d42;
+  --cyan:#49d9ff;
+  --purple:#b58cff;
 }
 
 *{box-sizing:border-box}
 
-html,body{
+body{
   margin:0;
-  padding:0;
   background:var(--bg);
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
 
-body{min-height:100vh}
-
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-
-.top{
+header{
+  padding:22px 16px;
+  border-bottom:1px solid var(--border);
+  background:#0e1116;
   position:sticky;
   top:0;
-  z-index:20;
-  background:rgba(13,15,18,.96);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(12px);
-}
-
-.nav{
-  max-width:1200px;
-  margin:auto;
-  padding:12px;
-  display:flex;
-  gap:8px;
-  align-items:center;
-  overflow-x:auto;
+  z-index:10;
 }
 
 .brand{
+  font-size:24px;
   font-weight:900;
-  color:var(--gold);
-  margin-right:auto;
-  white-space:nowrap;
+  letter-spacing:.5px;
 }
 
-.nav button{
-  background:#20242a;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:8px 11px;
-}
-
-.nav button:hover{
-  border-color:var(--gold);
+.subtitle{
+  color:var(--muted);
+  margin-top:5px;
+  font-size:13px;
 }
 
 main{
-  max-width:1200px;
+  max-width:1100px;
   margin:auto;
-  padding:18px 13px 60px;
+  padding:14px;
 }
 
-h1,h2,h3{margin-top:0}
+nav{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding:8px 0 14px;
+}
 
-h1{
-  font-size:clamp(25px,5vw,42px);
+nav a{
+  white-space:nowrap;
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  text-decoration:none;
+  background:var(--panel);
+  font-size:13px;
+}
+
+section{
+  margin:12px 0;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--panel);
 }
 
 h2{
-  font-size:22px;
-  margin-bottom:12px;
+  margin:0 0 12px;
+  font-size:18px;
 }
 
 h3{
-  font-size:17px;
-}
-
-p{line-height:1.5}
-
-.muted{color:var(--muted)}
-
-.hero{
-  padding:25px 0 15px;
-}
-
-.badge{
-  display:inline-block;
-  border:1px solid var(--border);
-  border-radius:999px;
-  padding:5px 10px;
-  color:var(--gold);
-  font-size:12px;
-  margin-bottom:10px;
+  margin:15px 0 8px;
+  font-size:14px;
 }
 
 .status{
@@ -120,289 +101,168 @@ p{line-height:1.5}
   margin:12px 0;
 }
 
-.status-item{
-  background:var(--panel);
+.badge{
   border:1px solid var(--border);
-  border-radius:10px;
-  padding:8px 11px;
-  font-size:13px;
+  background:var(--panel2);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
 }
 
 .ok{color:var(--green)}
-.error{color:var(--red)}
-.warning{color:var(--orange)}
+.warn{color:var(--yellow)}
+.err{color:var(--red)}
+.info{color:var(--cyan)}
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
-}
-
-.card{
-  background:var(--panel);
+button{
   border:1px solid var(--border);
-  border-radius:14px;
-  padding:15px;
-  margin-bottom:14px;
-  min-width:0;
-}
-
-.card.full{
-  grid-column:1/-1;
-}
-
-.controls{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-}
-
-.btn{
-  border:1px solid var(--border);
-  background:#20242a;
+  background:#1b222b;
   color:var(--text);
-  padding:10px 13px;
   border-radius:10px;
+  padding:10px 12px;
+  margin:4px 3px 4px 0;
+  cursor:pointer;
   font-weight:700;
 }
 
-.btn:hover{
-  filter:brightness(1.12);
+button:hover{
+  background:#242d38;
 }
 
-.btn:disabled{
-  opacity:.45;
+button:disabled{
+  opacity:.4;
   cursor:not-allowed;
-  filter:none;
 }
 
-.btn-gold{
-  background:#3a301d;
-  border-color:#705a25;
-  color:var(--gold);
-}
-
-.btn-green{
-  background:#173224;
-  border-color:#2d714a;
-  color:var(--green);
-}
-
-.btn-red{
-  background:#351b1f;
-  border-color:#71333b;
-  color:#ff7881;
-}
-
-.btn-blue{
-  background:#172b40;
-  border-color:#315f8b;
-  color:#72b7ff;
-}
-
-input,
-textarea{
+input,textarea{
   width:100%;
-  background:#0b0d10;
-  color:var(--text);
   border:1px solid var(--border);
+  background:#090c10;
+  color:var(--text);
   border-radius:9px;
-  padding:10px;
-  outline:none;
-}
-
-input:focus,
-textarea:focus{
-  border-color:var(--gold);
+  padding:11px;
+  font-family:monospace;
 }
 
 textarea{
-  min-height:80px;
+  min-height:90px;
   resize:vertical;
-  font-family:monospace;
-  text-transform:uppercase;
 }
 
-label{
-  display:block;
-  color:var(--muted);
-  font-size:12px;
-  margin-bottom:6px;
-}
-
-.field{
-  margin-bottom:10px;
-}
-
-.stats{
+.grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:9px;
 }
 
 .stat{
-  background:var(--panel2);
+  padding:12px;
   border:1px solid var(--border);
   border-radius:10px;
-  padding:10px;
+  background:var(--panel2);
 }
 
-.stat-label{
-  color:var(--muted);
-  font-size:11px;
-  text-transform:uppercase;
-}
-
-.stat-value{
+.stat .n{
   font-size:23px;
   font-weight:900;
-  margin-top:4px;
 }
 
-.log{
+.stat .l{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+pre{
+  white-space:pre-wrap;
+  word-break:break-word;
   background:#080a0d;
   border:1px solid var(--border);
   border-radius:10px;
-  padding:10px;
-  max-height:330px;
-  overflow:auto;
+  padding:12px;
   font-family:monospace;
   font-size:12px;
-  white-space:pre-wrap;
-  word-break:break-word;
+  line-height:1.45;
+  max-height:450px;
+  overflow:auto;
 }
 
-.packet{
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:10px;
-  margin-bottom:8px;
-  background:#111419;
+.tablewrap{
+  overflow:auto;
 }
 
-.packet-head{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  justify-content:space-between;
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+th,td{
+  border-bottom:1px solid var(--border);
+  padding:8px;
+  text-align:left;
+  vertical-align:top;
+}
+
+th{
   color:var(--muted);
-  font-size:11px;
+  font-weight:700;
 }
 
-.hex{
-  margin-top:7px;
-  color:#f3d47c;
+.uuid{
   font-family:monospace;
   word-break:break-all;
 }
 
-.diff{
-  margin-top:7px;
-  color:#78bdff;
-  font-family:monospace;
-}
-
-.event{
-  border-left:3px solid var(--gold);
-  padding:7px 9px;
-  background:#17191e;
-  margin-bottom:6px;
-  border-radius:0 8px 8px 0;
-  font-size:12px;
-}
-
-.tx-test{
-  border:1px solid #5b4820;
-  background:#17150e;
-}
-
-.tx-result{
-  border:1px solid var(--blue);
-  background:#101821;
-}
-
-.warning-box{
-  border:1px solid #6b5121;
-  background:#211b0d;
-  border-radius:10px;
+.characteristic{
+  margin:10px 0;
   padding:11px;
-  color:#e9c96d;
-  margin-bottom:12px;
-}
-
-.success-box{
-  border:1px solid #276542;
-  background:#0f2118;
-  border-radius:10px;
-  padding:11px;
-  color:#73dda2;
-}
-
-.danger-box{
-  border:1px solid #71333b;
-  background:#241216;
-  border-radius:10px;
-  padding:11px;
-  color:#ff7a83;
-}
-
-.passive-box{
-  border:1px solid #315f8b;
-  background:#0d1824;
-  border-radius:12px;
-  padding:14px;
-}
-
-.passive-box.active{
-  border-color:var(--blue);
-  box-shadow:0 0 0 1px rgba(77,163,255,.2);
-}
-
-.passive-title{
-  font-size:17px;
-  font-weight:900;
-  margin-bottom:6px;
-}
-
-.passive-timer{
-  font-family:monospace;
-  font-size:32px;
-  font-weight:900;
-  color:var(--blue);
-  margin:12px 0;
-}
-
-.passive-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-  margin-top:12px;
-}
-
-.passive-stat{
-  background:#111923;
   border:1px solid var(--border);
-  border-radius:9px;
-  padding:9px;
+  border-radius:10px;
+  background:#0d1116;
 }
 
-.passive-stat-label{
+.prop{
+  display:inline-block;
+  padding:4px 6px;
+  margin:2px;
+  border-radius:6px;
+  background:#202731;
+  color:var(--cyan);
+  font-family:monospace;
+  font-size:11px;
+}
+
+.packet{
+  border-left:3px solid var(--blue);
+  padding:10px;
+  margin:7px 0;
+  background:#0b0f14;
+  border-radius:0 8px 8px 0;
+}
+
+.packet .hex{
+  font-family:monospace;
+  font-size:12px;
+  word-break:break-all;
+}
+
+.small{
   color:var(--muted);
   font-size:11px;
 }
 
-.passive-stat-value{
-  font-size:22px;
+.bigTimer{
+  font-size:34px;
+  font-family:monospace;
   font-weight:900;
-  margin-top:3px;
+  text-align:center;
+  padding:15px;
 }
 
-.capture-list{
-  margin-top:12px;
-}
-
-.hidden{
-  display:none!important;
+.active{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 1px var(--cyan);
 }
 
 footer{
@@ -411,726 +271,303 @@ footer{
   font-size:11px;
   padding:25px;
 }
-
-@media(max-width:750px){
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .card.full{
-    grid-column:auto;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .passive-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .brand{
-    display:none;
-  }
-
-  .nav{
-    justify-content:flex-start;
-  }
-}
 </style>
 </head>
 
 <body>
 
-<header class="top">
-
-<nav class="nav">
-
-<div class="brand">
-RoXThal F1 Plus
-</div>
-
-<button onclick="scrollToId('conexion')">
-📡 Dispositivo
-</button>
-
-<button onclick="scrollToId('laboratorio')">
-🔬 Laboratorio
-</button>
-
-<button onclick="scrollToId('capturaPasiva')">
-🧪 Captura 180 s
-</button>
-
-<button onclick="scrollToId('tx')">
-📤 TX
-</button>
-
-<button onclick="scrollToId('eventos')">
-⚡ Eventos
-</button>
-
-<button onclick="scrollToId('diagnostico')">
-🛠️ Diagnóstico
-</button>
-
-</nav>
-
+<header>
+  <div class="brand">🔬 ROXTHAL F1 PLUS</div>
+  <div class="subtitle">
+    WearFit Discovery Lab · BLE · GATT · RX · análisis estructural · TX manual
+  </div>
 </header>
-
 
 <main>
 
-<section class="hero">
+<nav>
+  <a href="#device">📡 Dispositivo</a>
+  <a href="#gatt">🔎 GATT</a>
+  <a href="#lab">🔬 Laboratorio</a>
+  <a href="#passive">🧪 Captura 180 s</a>
+  <a href="#tx">📤 TX</a>
+  <a href="#events">⚡ Eventos</a>
+  <a href="#diag">🛠️ Diagnóstico</a>
+</nav>
 
-<span class="badge">
-APLICACIÓN OFICIAL · BLE + LABORATORIO INTEGRADO
-</span>
+<section id="device">
 
-<h1>
-ROXTHAL F1 PLUS
-</h1>
-
-<p class="muted">
-Laboratorio de investigación BLE para captura RX,
-comparación estructural, eventos y pruebas TX controladas.
-</p>
-
-<div class="warning-box">
-
-⚠️ <strong>SEGURIDAD EXPERIMENTAL:</strong>
-
-no se transmite nada automáticamente al conectar.
-
-El TX solamente se ejecuta mediante una acción manual.
-
-Durante una captura pasiva de 180 segundos,
-el TX queda bloqueado completamente.
-
-</div>
+<h2>📡 Dispositivo F1 Plus</h2>
 
 <div class="status">
-
-<div class="status-item">
-Estado:
-<strong id="globalStatus" class="warning">
-DESCONECTADO
-</strong>
+  <div class="badge">Estado: <b id="state">DESCONECTADO</b></div>
+  <div class="badge">Web Bluetooth: <b id="bluetoothState">COMPROBANDO</b></div>
+  <div class="badge">Notify: <b id="notifyState">OFF</b></div>
+  <div class="badge">Automatic TX: <b class="ok">NO</b></div>
 </div>
 
-<div class="status-item">
-Web Bluetooth:
-<strong id="bluetoothStatus" class="warning">
-COMPROBANDO...
-</strong>
+<button id="connectBtn">🔗 CONECTAR F1 PLUS</button>
+<button id="disconnectBtn" disabled>⛔ DESCONECTAR</button>
+<button id="checkBtn">🔎 COMPROBAR BLUETOOTH</button>
+<button id="clearBtn">🧹 LIMPIAR SESIÓN</button>
+
+<div class="grid" style="margin-top:12px">
+
+<div class="stat">
+  <div class="l">NOMBRE</div>
+  <div id="deviceName">—</div>
 </div>
 
-<div class="status-item">
-Dispositivo:
-<strong id="deviceName">
-—
-</strong>
+<div class="stat">
+  <div class="l">ID BLUETOOTH</div>
+  <div id="deviceId">—</div>
 </div>
 
-<div class="status-item">
-Notify:
-<strong id="notifyStatus" class="warning">
-OFF
-</strong>
+<div class="stat">
+  <div class="l">SERVICIOS</div>
+  <div class="n" id="serviceCount">0</div>
+</div>
+
+<div class="stat">
+  <div class="l">CARACTERÍSTICAS</div>
+  <div class="n" id="characteristicCount">0</div>
 </div>
 
 </div>
+
+<h3>Canal conocido</h3>
+
+<pre id="knownChannel">6E400001-B5A3-F393-E0A9-E50E24DCCA9E
+WRITE  → 6E400002-B5A3-F393-E0A9-E50E24DCCA9E
+NOTIFY → 6E400003-B5A3-F393-E0A9-E50E24DCCA9E</pre>
 
 </section>
 
 
-<section id="conexion" class="card">
+<section id="gatt">
 
-<h2>
-📡 Conexión F1 Plus
-</h2>
+<h2>🔎 Descubrimiento GATT completo</h2>
 
-<div class="controls">
-
-<button class="btn btn-blue" id="connectBtn">
-🔗 CONECTAR F1 PLUS
-</button>
-
-<button class="btn btn-red" id="disconnectBtn">
-⛔ DESCONECTAR
-</button>
-
-<button class="btn" id="checkBtn">
-🔎 COMPROBAR BLUETOOTH
-</button>
-
-<button class="btn" id="clearBtn">
-🧹 LIMPIAR SESIÓN
-</button>
-
-</div>
-
-<br>
-
-<div class="grid">
-
-<div>
-<label>Nombre</label>
-<div class="status-item mono" id="deviceName2">
-—
-</div>
-</div>
-
-<div>
-<label>ID Bluetooth</label>
-<div class="status-item mono" id="deviceId">
-—
-</div>
-</div>
-
-<div>
-<label>Servicio</label>
-<div class="status-item mono">
-6e400001-b5a3-f393-e0a9-e50e24dcca9e
-</div>
-</div>
-
-<div>
-<label>WRITE</label>
-<div class="status-item mono">
-6e400002-b5a3-f393-e0a9-e50e24dcca9e
-</div>
-</div>
-
-<div>
-<label>NOTIFY / RX</label>
-<div class="status-item mono">
-6e400003-b5a3-f393-e0a9-e50e24dcca9e
-</div>
-</div>
-
-<div>
-<label>Modo automático</label>
-<div class="success-box">
-AUTOMATIC TX = NO
-</div>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="laboratorio">
-
-<div class="card">
-
-<h2>
-🔬 Laboratorio F1 Plus
-</h2>
-
-<div class="stats">
-
-<div class="stat">
-<div class="stat-label">TX</div>
-<div class="stat-value" id="statTx">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">RX</div>
-<div class="stat-value" id="statRx">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">Tipos RX</div>
-<div class="stat-value" id="statTypes">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">Longitudes</div>
-<div class="stat-value" id="statLengths">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">Comparaciones</div>
-<div class="stat-value" id="statComparisons">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">Bytes modificados</div>
-<div class="stat-value" id="statModified">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">Transiciones</div>
-<div class="stat-value" id="statTransitions">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">Correlaciones</div>
-<div class="stat-value" id="statCorrelations">0</div>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="grid">
-
-<section class="card">
-
-<h3>
-📊 Tipos RX
-</h3>
-
-<div id="typeStats" class="log">
-Sin datos.
-</div>
-
-</section>
-
-
-<section class="card">
-
-<h3>
-📏 Longitudes RX
-</h3>
-
-<div id="lengthStats" class="log">
-Sin datos.
-</div>
-
-</section>
-
-</div>
-
-
-<section class="card">
-
-<h3>
-📦 Capturas RX
-</h3>
-
-<div id="packetList">
-<div class="muted">
-Todavía no hay paquetes RX.
-</div>
-</div>
-
-</section>
-
-
-<section class="card">
-
-<h3>
-🔎 Matriz de diferencias
-</h3>
-
-<div id="diffMatrix" class="log">
-Todavía no hay comparaciones.
-</div>
-
-</section>
-
-
-<section class="card">
-
-<h3>
-🔄 Transiciones detectadas
-</h3>
-
-<div id="transitionList" class="log">
-Todavía no hay transiciones.
-</div>
-
-</section>
-
-</section>
-
-
-<!-- =========================================================
-     CAPTURA PASIVA
-     ========================================================= -->
-
-<section id="capturaPasiva" class="card">
-
-<h2>
-🧪 Captura pasiva controlada — 180 segundos
-</h2>
-
-<div id="passivePanel" class="passive-box">
-
-<div id="passiveState" class="passive-title">
-ESPERANDO INICIO
-</div>
-
-<p class="muted">
-
-Esta prueba escucha exclusivamente las notificaciones
-BLE/RX durante 3 minutos.
-
-<strong>
-No envía ningún comando.
-</strong>
-
-Durante la prueba todos los controles TX quedan bloqueados.
-
+<p class="small">
+La aplicación inspecciona los servicios y características expuestos por la F1 Plus.
+No escribe ni modifica ningún valor durante este proceso.
 </p>
 
-<div id="passiveTimer" class="passive-timer">
-00:00 / 03:00
+<div class="status">
+  <div class="badge">Servicios descubiertos: <b id="gattServices">0</b></div>
+  <div class="badge">Características: <b id="gattChars">0</b></div>
+  <div class="badge">Descriptores: <b id="gattDescriptors">0</b></div>
 </div>
 
-
-<div class="passive-grid">
-
-<div class="passive-stat">
-
-<div class="passive-stat-label">
-RX DURANTE PRUEBA
+<div id="gattOutput">
+  <div class="small">Conecta la F1 Plus para realizar el descubrimiento.</div>
 </div>
 
-<div class="passive-stat-value" id="passiveRx">
-0
+</section>
+
+
+<section id="lab">
+
+<h2>🔬 Laboratorio F1 Plus</h2>
+
+<div class="grid">
+
+<div class="stat">
+  <div class="n" id="txCount">0</div>
+  <div class="l">TX ENVIADOS</div>
 </div>
 
+<div class="stat">
+  <div class="n" id="rxCount">0</div>
+  <div class="l">RX</div>
 </div>
 
-
-<div class="passive-stat">
-
-<div class="passive-stat-label">
-0x91
+<div class="stat">
+  <div class="n" id="cmpCount">0</div>
+  <div class="l">COMPARACIONES</div>
 </div>
 
-<div class="passive-stat-value" id="passive91">
-0
+<div class="stat">
+  <div class="n" id="modifiedCount">0</div>
+  <div class="l">BYTES MODIFICADOS</div>
 </div>
 
+<div class="stat">
+  <div class="n" id="transitionCount">0</div>
+  <div class="l">TRANSICIONES</div>
 </div>
 
-
-<div class="passive-stat">
-
-<div class="passive-stat-label">
-0x92
-</div>
-
-<div class="passive-stat-value" id="passive92">
-0
-</div>
-
-</div>
-
-
-<div class="passive-stat">
-
-<div class="passive-stat-label">
-TX DURANTE PRUEBA
-</div>
-
-<div class="passive-stat-value" id="passiveTx">
-0
+<div class="stat">
+  <div class="n" id="correlationCount">0</div>
+  <div class="l">CORRELACIONES</div>
 </div>
 
 </div>
 
+<h3>📊 Tipos RX</h3>
+<pre id="typesOutput">Sin RX.</pre>
+
+<h3>📏 Longitudes RX</h3>
+<pre id="lengthsOutput">Sin RX.</pre>
+
+<h3>📦 Capturas RX</h3>
+<div id="rxOutput"></div>
+
+<h3>🧩 Análisis estructural</h3>
+<pre id="structureOutput">Esperando paquetes AB 00 ... FF ...</pre>
+
+<h3>🔎 Matriz de diferencias</h3>
+<pre id="diffOutput">Todavía no hay comparaciones.</pre>
+
+<h3>🔄 Transiciones</h3>
+<pre id="transitionOutput">Sin transiciones.</pre>
+
+</section>
+
+
+<section id="passive">
+
+<h2>🧪 Captura pasiva controlada — 180 segundos</h2>
+
+<p class="small">
+Escucha exclusivamente las notificaciones BLE/RX durante 3 minutos.
+No transmite comandos automáticamente. Durante la prueba los controles TX quedan bloqueados.
+</p>
+
+<div id="passivePanel">
+
+<div class="bigTimer" id="passiveTimer">00:00 / 03:00</div>
+
+<div class="grid">
+
+<div class="stat">
+  <div class="n" id="passiveRx">0</div>
+  <div class="l">RX DURANTE PRUEBA</div>
 </div>
 
+<div class="stat">
+  <div class="n" id="passive91">0</div>
+  <div class="l">0x91</div>
+</div>
 
-<br>
+<div class="stat">
+  <div class="n" id="passive92">0</div>
+  <div class="l">0x92</div>
+</div>
 
-<div class="status-item">
+<div class="stat">
+  <div class="n" id="passiveTx">0</div>
+  <div class="l">TX ENVIADOS</div>
+</div>
 
+<div class="stat">
+  <div class="n" id="blockedTx">0</div>
+  <div class="l">INTENTOS TX BLOQUEADOS</div>
+</div>
+
+</div>
+
+<p>
 Último RX de la captura:
+<b id="passiveLast">—</b>
+</p>
 
-<br>
-
-<span id="passiveLastRx" class="mono">
-—
-</span>
-
-</div>
-
-
-<br>
-
-<div class="controls">
-
-<button
-class="btn btn-blue"
-id="startPassiveBtn"
->
+<button id="startPassiveBtn">
 🧪 INICIAR CAPTURA PASIVA — 180 s
 </button>
 
-<button
-class="btn btn-red"
-id="stopPassiveBtn"
-disabled
->
+<button id="abortPassiveBtn" disabled>
 ⏹️ ABORTAR CAPTURA
 </button>
 
-</div>
-
-</div>
-
-
-<br>
-
-<div id="passiveSummary" class="hidden">
-</div>
-
-
-</section>
-
-
-<!-- =========================================================
-     TX
-     ========================================================= -->
-
-<section id="tx" class="card tx-test">
-
-<h2>
-📤 TX — Prueba controlada
-</h2>
-
-<div id="txLockWarning" class="warning-box">
-
-⚠️ Esta sección NO transmite automáticamente.
-
-Es necesario pulsar manualmente el botón de envío.
-
-</div>
-
-
-<div class="field">
-
-<label for="txHex">
-HEX a enviar
-</label>
-
-<textarea
-id="txHex"
-spellcheck="false"
-placeholder="Ejemplo: AB 00 05 FF 91 80 00 50"
-></textarea>
-
-</div>
-
-
-<div class="controls">
-
-<button
-class="btn btn-gold"
-id="sendTxBtn"
->
-📤 ENVIAR TX
-</button>
-
-<button
-class="btn btn-blue"
-id="test91Btn"
->
-🧪 PRUEBA 0x91
-</button>
-
-<button
-class="btn"
-id="clearTxBtn"
->
-🧹 LIMPIAR TX
-</button>
-
-</div>
-
-<br>
-
-<div class="status-item">
-
-Último TX:
-
-<span id="lastTx" class="mono">
-Sin TX.
-</span>
+<h3>📊 Resultado</h3>
+<pre id="passiveResult">Esperando una captura.</pre>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     CORRELACIÓN
-     ========================================================= -->
+<section id="tx">
 
-<section class="card tx-result">
+<h2>📤 TX — Prueba controlada</h2>
 
-<h2>
-🧪 Correlación TX → RX
-</h2>
-
-<p class="muted">
-
-Esta tabla registra qué ocurrió después de cada transmisión
-manual.
-
-No supone que una trama sea una respuesta hasta observar
-la correlación temporal.
-
+<p class="small">
+⚠️ TX exclusivamente manual. No existe TX automático al conectar ni durante la captura pasiva.
 </p>
 
-<div id="txResults">
-
-<div class="muted">
-Sin experimentos TX.
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     EVENTOS
-     ========================================================= -->
-
-<section id="eventos" class="card">
-
-<h2>
-⚡ Eventos físicos / manuales
-</h2>
-
-<div class="controls">
-
-<button
-class="btn"
-onclick="registerEvent('EVENTO MANUAL')"
->
-EVENTO MANUAL
-</button>
-
-<button
-class="btn"
-onclick="registerEvent('BOTÓN FÍSICO')"
->
-BOTÓN FÍSICO
-</button>
-
-<button
-class="btn"
-onclick="registerEvent('CARGA')"
->
-CARGA
-</button>
-
-<button
-class="btn"
-onclick="registerEvent('DESCONEXIÓN')"
->
-DESCONEXIÓN
-</button>
-
-<button
-class="btn"
-onclick="registerEvent('FUNCIÓN')"
->
-FUNCIÓN
-</button>
-
-<button
-class="btn btn-red"
-onclick="clearEvents()"
->
-LIMPIAR EVENTOS
-</button>
-
-</div>
+<textarea id="txInput">AB 00 05 FF 91 80 00 50</textarea>
 
 <br>
 
-<div id="eventList">
+<button id="sendBtn">📤 ENVIAR TX</button>
+<button id="test91Btn">🧪 PRUEBA 0x91</button>
+<button id="clearTxBtn">🧹 LIMPIAR TX</button>
 
-<div class="muted">
-Sin eventos registrados.
-</div>
-
-</div>
+<pre id="lastTx">Último TX: Sin TX.</pre>
 
 </section>
 
 
-<!-- =========================================================
-     ACTIVIDAD
-     ========================================================= -->
+<section>
 
-<section class="card">
+<h2>🧪 Correlación TX → RX</h2>
 
-<h2>
-📋 Registro RX/TX
-</h2>
+<p class="small">
+Registra lo que ocurre después de cada transmisión manual. La proximidad temporal
+no demuestra por sí sola que una trama sea una respuesta.
+</p>
 
-<div id="activityLog" class="log">
-Sistema preparado.
-</div>
+<pre id="correlationOutput">Sin experimentos TX.</pre>
 
 </section>
 
 
-<!-- =========================================================
-     DIAGNÓSTICO
-     ========================================================= -->
+<section id="events">
 
-<section id="diagnostico" class="card">
+<h2>⚡ Eventos físicos / manuales</h2>
 
-<h2>
-🛠️ Diagnóstico
-</h2>
+<button data-event="BOTÓN FÍSICO">BOTÓN FÍSICO</button>
+<button data-event="CARGA">CARGA</button>
+<button data-event="FUNCIÓN">FUNCIÓN</button>
+<button data-event="LIMPIAR">LIMPIAR EVENTOS</button>
 
-<div id="diagnosticLog" class="log">
-Inicializando módulo Smart Band F1 Plus...
-</div>
+<pre id="eventsOutput">Sin eventos registrados.</pre>
 
 </section>
 
 
-<!-- =========================================================
-     EXPORTACIÓN
-     ========================================================= -->
+<section>
 
-<section class="card">
+<h2>📋 Registro RX / TX</h2>
 
-<h2>
-💾 Exportación
-</h2>
+<pre id="logOutput">Sistema preparado.</pre>
 
-<div class="controls">
+</section>
 
-<button
-class="btn btn-green"
-onclick="exportJSON()"
->
-💾 EXPORTAR JSON
-</button>
 
-<button
-class="btn"
-onclick="copySession()"
->
-📋 COPIAR SESIÓN
-</button>
+<section id="diag">
 
-</div>
+<h2>🛠️ Diagnóstico</h2>
+
+<pre id="diagOutput"></pre>
+
+</section>
+
+
+<section>
+
+<h2>💾 Exportación</h2>
+
+<button id="exportBtn">💾 EXPORTAR JSON</button>
+<button id="copyBtn">📋 COPIAR SESIÓN</button>
 
 </section>
 
 </main>
 
-
 <footer>
-RoXThal F1 Plus Protocol Laboratory · BLE experimental
+RoXThal F1 Plus Protocol Laboratory · WearFit Discovery · BLE experimental
 </footer>
 
 
@@ -1138,10 +575,9 @@ RoXThal F1 Plus Protocol Laboratory · BLE experimental
 
 "use strict";
 
-
-/* ============================================================
-   CONFIGURACIÓN BLE
-   ============================================================ */
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
 
 const UUID_SERVICE =
 "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
@@ -1152,2723 +588,1259 @@ const UUID_WRITE =
 const UUID_NOTIFY =
 "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
+const EXTRA_UUIDS = [
+"0000fea1-0000-1000-8000-00805f9b34fb",
+"0000fea2-0000-1000-8000-00805f9b34fb",
+"0000fee7-0000-1000-8000-00805f9b34fb",
+"00001800-0000-1000-8000-00805f9b34fb",
+"00001801-0000-1000-8000-00805f9b34fb",
+"0000180a-0000-1000-8000-00805f9b34fb"
+];
 
-/* ============================================================
-   VENTANAS DE CORRELACIÓN
-   ============================================================ */
-
-const IMMEDIATE_WINDOW = 300;
-const SECONDARY_WINDOW = 3000;
-
-
-/* ============================================================
-   CAPTURA PASIVA
-   ============================================================ */
-
-const PASSIVE_CAPTURE_DURATION = 180000;
+const PASSIVE_DURATION = 180000;
+const RESPONSE_WINDOW = 3000;
 
 
-let passiveCapture = {
-
-  active:false,
-
-  startMs:0,
-
-  endMs:0,
-
-  timerId:null,
-
-  intervalId:null,
-
-  rx:0,
-
-  rx91:0,
-
-  rx92:0,
-
-  tx:0,
-
-  lastRx:null,
-
-  packets:[]
-
-};
-
-
-/* ============================================================
-   ESTADO BLE
-   ============================================================ */
+/* =========================================================
+   ESTADO
+========================================================= */
 
 let device = null;
-
 let server = null;
-
-let service = null;
-
-let writeCharacteristic = null;
-
-let notifyCharacteristic = null;
+let writeChar = null;
+let notifyChar = null;
 
 let connected = false;
-
 let notifyEnabled = false;
 
-
-/* ============================================================
-   DATOS
-   ============================================================ */
-
 let rxPackets = [];
-
 let txPackets = [];
-
 let comparisons = [];
-
 let transitions = [];
-
+let correlations = [];
 let events = [];
 
-let txExperiments = [];
-
-let lastRxByTypeLength = {};
-
-let lastRxPacket = null;
-
+let lastRx = null;
+let lastTx = null;
 let pendingTx = null;
 
-
-/* ============================================================
-   ESTADÍSTICAS
-   ============================================================ */
-
-const stats = {
-
+let stats = {
   tx:0,
-
   rx:0,
-
   comparisons:0,
-
   modifiedBytes:0,
-
   transitions:0,
-
   correlations:0
+};
 
+let typeStats = {};
+let lengthStats = {};
+
+let passiveCapture = {
+  active:false,
+  startMs:0,
+  endMs:0,
+  timerId:null,
+  intervalId:null,
+  rx:0,
+  rx91:0,
+  rx92:0,
+  txSent:0,
+  blockedTx:0,
+  lastRx:null,
+  packets:[]
 };
 
 
-/* ============================================================
-   UTILIDADES
-   ============================================================ */
+/* =========================================================
+   DOM
+========================================================= */
 
-function now(){
+const $ = id => document.getElementById(id);
 
-  return new Date();
+function log(msg){
+  const t = new Date().toLocaleTimeString();
+  $("logOutput").textContent +=
+    `\n[${t}] ${msg}`;
 
+  $("logOutput").scrollTop =
+    $("logOutput").scrollHeight;
+}
+
+function diag(msg){
+  const t = new Date().toLocaleTimeString();
+  $("diagOutput").textContent +=
+    `\n[${t}] ${msg}`;
+
+  $("diagOutput").scrollTop =
+    $("diagOutput").scrollHeight;
 }
 
 
-function timeString(date = new Date()){
-
-  return date.toLocaleTimeString(
-    "es-AR",
-    {
-      hour12:false
-    }
-  );
-
-}
-
-
-function isoTime(date = new Date()){
-
-  return date.toISOString();
-
-}
-
-
-function hexByte(n){
-
-  return n
-    .toString(16)
-    .padStart(2,"0")
-    .toUpperCase();
-
-}
-
-
-function bytesToHex(bytes){
-
-  return Array.from(bytes)
-    .map(hexByte)
-    .join(" ");
-
-}
-
+/* =========================================================
+   UTILIDADES HEX
+========================================================= */
 
 function hexToBytes(text){
 
-  const clean =
-    String(text)
-      .replace(/0x/gi,"")
-      .replace(/[^0-9a-fA-F]/g," ");
+  let s = String(text || "")
+    .replace(/0x/gi,"")
+    .replace(/[^0-9a-fA-F]/g," ");
 
-  const parts =
-    clean
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
+  const tokens = s
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
 
+  const out = [];
 
-  if(
-    parts.length === 1 &&
-    parts[0].length > 2
-  ){
+  for(let token of tokens){
 
-    const raw = parts[0];
+    if(token.length > 2){
 
-    if(raw.length % 2 !== 0){
+      if(token.length % 2 !== 0)
+        token = "0" + token;
 
-      throw new Error(
-        "HEX con cantidad impar de caracteres."
-      );
+      for(let i=0;i<token.length;i+=2)
+        out.push(parseInt(token.slice(i,i+2),16));
 
+    }else{
+      out.push(parseInt(token,16));
     }
-
-    const result = [];
-
-    for(
-      let i=0;
-      i<raw.length;
-      i+=2
-    ){
-
-      result.push(
-        parseInt(
-          raw.slice(i,i+2),
-          16
-        )
-      );
-
-    }
-
-    return new Uint8Array(result);
-
   }
 
-
-  const result =
-    parts.map(x => {
-
-      if(
-        !/^[0-9a-fA-F]{1,2}$/.test(x)
-      ){
-
-        throw new Error(
-          "HEX inválido: " + x
-        );
-
-      }
-
-      return parseInt(x,16);
-
-    });
-
-
-  return new Uint8Array(result);
-
+  return new Uint8Array(
+    out.filter(x => Number.isFinite(x))
+  );
 }
 
+function bytesToHex(data){
+
+  return [...new Uint8Array(data)]
+    .map(x => x.toString(16).padStart(2,"0").toUpperCase())
+    .join(" ");
+}
 
 function getType(bytes){
 
-  if(bytes.length >= 5){
+  if(bytes.length >= 5)
+    return "0x" + bytes[4].toString(16).padStart(2,"0").toUpperCase();
 
-    return "0x" +
-      hexByte(bytes[4]);
+  return "UNKNOWN";
+}
 
+function timestamp(){
+
+  return new Date().toISOString();
+}
+
+function relative(ms){
+
+  const s = Math.max(0,ms) / 1000;
+
+  return s.toFixed(3) + " s";
+}
+
+
+/* =========================================================
+   ESTRUCTURA AB 00 .. FF ..
+========================================================= */
+
+function analyzeStructure(bytes){
+
+  const b = [...bytes];
+
+  const result = {
+    prefix: b.slice(0,2).map(x =>
+      x.toString(16).padStart(2,"0").toUpperCase()
+    ).join(" "),
+
+    declaredLength: b.length >= 3 ? b[2] : null,
+
+    ffPosition: b.indexOf(0xFF),
+
+    type: b.length >= 5 ? getType(b) : null,
+
+    payload: b.length > 5 ? b.slice(5) : [],
+
+    lastByte:
+      b.length ? b[b.length-1] : null
+  };
+
+  return result;
+}
+
+function renderStructure(){
+
+  if(!rxPackets.length){
+    $("structureOutput").textContent =
+      "Esperando paquetes AB 00 ... FF ...";
+    return;
   }
 
-  return "DESCONOCIDO";
+  const lines = [];
 
+  rxPackets.forEach((p,i)=>{
+
+    const s = analyzeStructure(p.bytes);
+
+    lines.push(
+`#${i+1}
+HEX: ${bytesToHex(p.bytes)}
+LONGITUD REAL: ${p.bytes.length}
+LONGITUD DECLARADA BYTE[2]: ${s.declaredLength ?? "—"}
+POSICIÓN FF: ${s.ffPosition}
+TIPO BYTE[4]: ${s.type ?? "—"}
+PAYLOAD DESDE BYTE[5]: ${
+  s.payload.length
+    ? s.payload.map(x=>x.toString(16).padStart(2,"0").toUpperCase()).join(" ")
+    : "—"
 }
-
-
-function el(id){
-
-  return document.getElementById(id);
-
-}
-
-
-function scrollToId(id){
-
-  const node = el(id);
-
-  if(node){
-
-    node.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-  }
-
-}
-
-
-function setGlobalStatus(text,cls){
-
-  el("globalStatus").textContent =
-    text;
-
-  el("globalStatus").className =
-    cls || "";
-
-}
-
-
-function log(message){
-
-  const line =
-    "[" +
-    timeString() +
-    "] " +
-    message;
-
-  const box =
-    el("activityLog");
-
-  box.textContent +=
-    (box.textContent ? "\n" : "") +
-    line;
-
-  box.scrollTop =
-    box.scrollHeight;
-
-}
-
-
-function diagnostic(message){
-
-  const line =
-    "[" +
-    timeString() +
-    "] " +
-    message;
-
-  const box =
-    el("diagnosticLog");
-
-  box.textContent +=
-    (box.textContent ? "\n" : "") +
-    line;
-
-  box.scrollTop =
-    box.scrollHeight;
-
-}
-
-
-function escapeHtml(value){
-
-  return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
+ÚLTIMO BYTE: ${
+  s.lastByte === null
+    ? "—"
+    : s.lastByte.toString(16).padStart(2,"0").toUpperCase()
+}`
     );
 
+  });
+
+  $("structureOutput").textContent =
+    lines.join("\n\n");
 }
 
 
-/* ============================================================
-   BLUETOOTH
-   ============================================================ */
+/* =========================================================
+   RX
+========================================================= */
 
-function checkBluetooth(){
+function processRX(data){
 
-  const supported =
-    !!navigator.bluetooth;
+  const bytes = new Uint8Array(data);
+  const now = Date.now();
+  const type = getType(bytes);
 
+  stats.rx++;
 
-  el("bluetoothStatus").textContent =
-    supported
-      ? "OK"
-      : "NO DISPONIBLE";
+  typeStats[type] =
+    (typeStats[type] || 0) + 1;
 
+  const len = bytes.length;
 
-  el("bluetoothStatus").className =
-    supported
-      ? "ok"
-      : "error";
+  lengthStats[len] =
+    (lengthStats[len] || 0) + 1;
 
+  const packet = {
+    time:timestamp(),
+    ms:now,
+    type,
+    bytes:[...bytes]
+  };
 
-  diagnostic(
-    supported
-      ? "Web Bluetooth detectado correctamente."
-      : "Web Bluetooth NO está disponible."
+  rxPackets.unshift(packet);
+
+  lastRx = packet;
+
+  renderRX();
+  renderStats();
+  renderStructure();
+
+  if(passiveCapture.active){
+
+    passiveCapture.rx++;
+    passiveCapture.packets.push({
+      ...packet,
+      captureRelativeMs:
+        now - passiveCapture.startMs
+    });
+
+    passiveCapture.lastRx = packet;
+
+    if(type === "0x91")
+      passiveCapture.rx91++;
+
+    if(type === "0x92")
+      passiveCapture.rx92++;
+
+    updatePassiveUI();
+  }
+
+  detectTransition(packet);
+  correlateRX(packet);
+
+  log(
+    `RX ${type} [${bytes.length} bytes] → ${bytesToHex(bytes)}`
   );
-
-
-  return supported;
-
 }
 
 
-/* ============================================================
-   CONEXIÓN
-   ============================================================ */
+/* =========================================================
+   RENDER RX
+========================================================= */
 
-async function connect(){
+function renderRX(){
+
+  const el = $("rxOutput");
+
+  if(!rxPackets.length){
+    el.innerHTML =
+      `<div class="small">Sin capturas.</div>`;
+    return;
+  }
+
+  el.innerHTML =
+    rxPackets.slice(0,100).map((p,i)=>{
+
+      const rel = passiveCapture.active &&
+                  passiveCapture.startMs
+        ? relative(p.ms-passiveCapture.startMs)
+        : "";
+
+      return `
+      <div class="packet">
+        <div>
+          <b>#${rxPackets.length-i}</b>
+          ${p.time}
+          · <b>${p.type}</b>
+          · ${p.bytes.length} bytes
+          ${rel ? `· captura +${rel}` : ""}
+        </div>
+        <div class="hex">${bytesToHex(p.bytes)}</div>
+      </div>`;
+    }).join("");
+
+  $("typesOutput").textContent =
+    Object.entries(typeStats)
+      .map(([k,v])=>`${k} → ${v}`)
+      .join("\n") || "Sin RX.";
+
+  $("lengthsOutput").textContent =
+    Object.entries(lengthStats)
+      .map(([k,v])=>`${k} bytes → ${v}`)
+      .join("\n") || "Sin RX.";
+}
+
+
+/* =========================================================
+   ESTADÍSTICAS
+========================================================= */
+
+function renderStats(){
+
+  $("txCount").textContent = stats.tx;
+  $("rxCount").textContent = stats.rx;
+  $("cmpCount").textContent = stats.comparisons;
+  $("modifiedCount").textContent =
+    stats.modifiedBytes;
+  $("transitionCount").textContent =
+    stats.transitions;
+  $("correlationCount").textContent =
+    stats.correlations;
+}
+
+
+/* =========================================================
+   TRANSICIONES
+========================================================= */
+
+function detectTransition(packet){
+
+  const previous =
+    rxPackets.length > 1
+      ? rxPackets[1]
+      : null;
+
+  if(!previous)
+    return;
+
+  if(previous.type !== packet.type){
+
+    const item = {
+      time:packet.time,
+      from:previous.type,
+      to:packet.type
+    };
+
+    transitions.unshift(item);
+    stats.transitions++;
+
+    $("transitionOutput").textContent =
+      transitions.map(x =>
+        `${x.time} · ${x.from} → ${x.to}`
+      ).join("\n");
+
+    log(
+      `TRANSICIÓN ${item.from} → ${item.to}`
+    );
+
+    renderStats();
+  }
+}
+
+
+/* =========================================================
+   COMPARACIÓN
+========================================================= */
+
+function compareLastTwo(){
+
+  if(rxPackets.length < 2)
+    return;
+
+  const a = rxPackets[1].bytes;
+  const b = rxPackets[0].bytes;
+
+  const max =
+    Math.max(a.length,b.length);
+
+  const diffs = [];
+
+  for(let i=0;i<max;i++){
+
+    const av =
+      a[i] === undefined ? "—" :
+      a[i].toString(16).padStart(2,"0").toUpperCase();
+
+    const bv =
+      b[i] === undefined ? "—" :
+      b[i].toString(16).padStart(2,"0").toUpperCase();
+
+    if(av !== bv){
+
+      diffs.push({
+        byte:i,
+        from:av,
+        to:bv
+      });
+    }
+  }
+
+  stats.comparisons++;
+
+  stats.modifiedBytes +=
+    diffs.length;
+
+  comparisons.unshift({
+    time:timestamp(),
+    a:bytesToHex(a),
+    b:bytesToHex(b),
+    diffs
+  });
+
+  $("diffOutput").textContent =
+    comparisons.slice(0,30).map((c,i)=>{
+
+      const d =
+        c.diffs.length
+          ? c.diffs.map(x =>
+            `Byte ${x.byte}: ${x.from} → ${x.to}`
+          ).join("\n")
+          : "Sin bytes modificados.";
+
+      return `COMPARACIÓN #${comparisons.length-i}
+${d}`;
+
+    }).join("\n\n");
+
+  renderStats();
+}
+
+
+/* =========================================================
+   CORRELACIÓN TX → RX
+========================================================= */
+
+function correlateRX(packet){
+
+  if(!pendingTx)
+    return;
+
+  const delta =
+    packet.ms - pendingTx.ms;
+
+  if(delta < 0 || delta > RESPONSE_WINDOW)
+    return;
+
+  correlations.unshift({
+    tx:pendingTx,
+    rx:packet,
+    delta
+  });
+
+  stats.correlations++;
+
+  $("correlationOutput").textContent =
+    correlations.slice(0,30).map((c,i)=>
+`#${correlations.length-i}
+TX: ${bytesToHex(c.tx.bytes)}
+RX: ${bytesToHex(c.rx.bytes)}
+Δt: ${c.delta} ms`
+    ).join("\n\n");
+
+  renderStats();
+
+  pendingTx = null;
+}
+
+
+/* =========================================================
+   TX
+========================================================= */
+
+async function sendTX(){
+
+  if(passiveCapture.active){
+
+    passiveCapture.blockedTx++;
+
+    updatePassiveUI();
+
+    log(
+      "TX BLOQUEADO: captura pasiva activa."
+    );
+
+    return;
+  }
+
+  if(!connected || !writeChar){
+
+    alert("La F1 Plus no está conectada.");
+    return;
+  }
+
+  const bytes =
+    hexToBytes($("txInput").value);
+
+  if(!bytes.length){
+
+    alert("HEX vacío o inválido.");
+    return;
+  }
 
   try{
 
-    if(!checkBluetooth()){
+    if(writeChar.writeValueWithoutResponse){
 
-      throw new Error(
-        "Este navegador no dispone de Web Bluetooth."
-      );
+      await writeChar.writeValueWithoutResponse(bytes);
 
+    }else{
+
+      await writeChar.writeValue(bytes);
     }
 
+    const packet = {
+      time:timestamp(),
+      ms:Date.now(),
+      bytes:[...bytes]
+    };
 
-    diagnostic(
-      "Inicio del proceso de conexión."
+    txPackets.unshift(packet);
+
+    lastTx = packet;
+
+    pendingTx = packet;
+
+    stats.tx++;
+
+    $("lastTx").textContent =
+      `Último TX:
+${packet.time}
+${bytesToHex(bytes)}`;
+
+    renderStats();
+
+    log(
+      `TX MANUAL → ${bytesToHex(bytes)}`
     );
 
+  }catch(err){
 
-    diagnostic(
-      "⚠️ MODO PASIVO: no se enviará TX automáticamente."
+    diag(
+      `ERROR TX: ${err.message}`
     );
 
+    alert(
+      "Error enviando TX: " + err.message
+    );
+  }
+}
 
-    setGlobalStatus(
-      "BUSCANDO...",
-      "warning"
+
+/* =========================================================
+   GATT DISCOVERY
+========================================================= */
+
+async function discoverGATT(){
+
+  $("gattOutput").innerHTML =
+    `<div class="small">Descubriendo servicios...</div>`;
+
+  diag("Iniciando descubrimiento GATT completo.");
+
+  const services =
+    await server.getPrimaryServices();
+
+  $("gattServices").textContent =
+    services.length;
+
+  $("serviceCount").textContent =
+    services.length;
+
+  let totalChars = 0;
+  let totalDescriptors = 0;
+
+  const serviceHTML = [];
+
+  for(const service of services){
+
+    diag(
+      `Servicio encontrado: ${service.uuid}`
     );
 
+    let chars = [];
 
-    diagnostic(
-      "Solicitando dispositivo BLE..."
+    try{
+
+      chars =
+        await service.getCharacteristics();
+
+    }catch(err){
+
+      diag(
+        `No se pudieron leer características de ${service.uuid}: ${err.message}`
+      );
+
+      continue;
+    }
+
+    totalChars += chars.length;
+
+    let charHTML = "";
+
+    for(const ch of chars){
+
+      const props =
+        Object.entries(ch.properties)
+          .filter(([k,v]) => v)
+          .map(([k]) =>
+            `<span class="prop">${k}</span>`
+          ).join("");
+
+      let descriptors = [];
+
+      try{
+
+        descriptors =
+          await ch.getDescriptors();
+
+      }catch(err){
+
+        diag(
+          `No se pudieron obtener descriptores de ${ch.uuid}`
+        );
+      }
+
+      totalDescriptors +=
+        descriptors.length;
+
+      let descriptorHTML = "";
+
+      for(const d of descriptors){
+
+        descriptorHTML += `
+          <div class="small uuid">
+            Descriptor: ${d.uuid}
+          </div>`;
+
+      }
+
+      let known = "";
+
+      if(ch.uuid.toLowerCase() === UUID_WRITE)
+        known = `<span class="prop">ROXTHAL WRITE</span>`;
+
+      if(ch.uuid.toLowerCase() === UUID_NOTIFY)
+        known = `<span class="prop">ROXTHAL NOTIFY</span>`;
+
+      if(
+        ch.uuid.toLowerCase() ===
+        "0000fea1-0000-1000-8000-00805f9b34fb"
+      )
+        known += `<span class="prop">WEARFIT FEA1</span>`;
+
+      if(
+        ch.uuid.toLowerCase() ===
+        "0000fea2-0000-1000-8000-00805f9b34fb"
+      )
+        known += `<span class="prop">WEARFIT FEA2</span>`;
+
+      charHTML += `
+      <div class="characteristic">
+
+        <div class="uuid">
+          <b>Characteristic</b><br>
+          ${ch.uuid}
+        </div>
+
+        <div style="margin-top:6px">
+          ${props || '<span class="prop">sin propiedades</span>'}
+          ${known}
+        </div>
+
+        ${
+          descriptorHTML
+          || `<div class="small">Sin descriptores.</div>`
+        }
+
+      </div>`;
+
+      diag(
+        `Characteristic ${ch.uuid} · ${Object.entries(ch.properties).filter(([k,v])=>v).map(([k])=>k).join(", ")}`
+      );
+    }
+
+    serviceHTML.push(`
+      <div class="characteristic">
+
+        <div class="uuid">
+          <b>PRIMARY SERVICE</b><br>
+          ${service.uuid}
+        </div>
+
+        <div style="margin-top:10px">
+          ${charHTML || '<div class="small">Sin características.</div>'}
+        </div>
+
+      </div>
+    `);
+  }
+
+  $("gattChars").textContent =
+    totalChars;
+
+  $("gattDescriptors").textContent =
+    totalDescriptors;
+
+  $("characteristicCount").textContent =
+    totalChars;
+
+  $("gattOutput").innerHTML =
+    serviceHTML.join("");
+
+  diag(
+    `GATT finalizado. Servicios=${services.length}; Características=${totalChars}; Descriptores=${totalDescriptors}.`
+  );
+}
+
+
+/* =========================================================
+   CONEXIÓN
+========================================================= */
+
+async function connect(){
+
+  if(!navigator.bluetooth){
+
+    alert(
+      "Este navegador no dispone de Web Bluetooth."
     );
 
+    return;
+  }
+
+  try{
+
+    diag("Inicio del proceso de conexión.");
+    diag("Automatic TX on connect: NO.");
+    diag("Solicitando dispositivo BLE...");
 
     device =
       await navigator.bluetooth.requestDevice({
-
         filters:[
-          {
-            name:"F1 Plus"
-          }
+          {name:"F1 Plus"}
         ],
-
         optionalServices:[
-          UUID_SERVICE
+          UUID_SERVICE,
+          ...EXTRA_UUIDS
         ]
-
       });
 
-
-    if(!device){
-
-      throw new Error(
-        "No se seleccionó dispositivo."
-      );
-
-    }
-
-
-    el("deviceName").textContent =
+    $("deviceName").textContent =
       device.name || "F1 Plus";
 
-
-    el("deviceName2").textContent =
-      device.name || "F1 Plus";
-
-
-    el("deviceId").textContent =
+    $("deviceId").textContent =
       device.id || "—";
 
-
-    diagnostic(
-      "Dispositivo seleccionado: " +
-      (device.name || "F1 Plus")
+    diag(
+      `Dispositivo seleccionado: ${device.name}`
     );
 
-
-    diagnostic(
-      "ID: " +
-      (device.id || "—")
+    diag(
+      `ID: ${device.id}`
     );
-
 
     device.addEventListener(
       "gattserverdisconnected",
       handleDisconnect
     );
 
-
-    setGlobalStatus(
-      "CONECTANDO...",
-      "warning"
-    );
-
-
-    diagnostic(
-      "Conectando GATT..."
-    );
-
+    diag("Conectando GATT...");
 
     server =
       await device.gatt.connect();
 
-
     connected = true;
 
+    $("state").textContent =
+      "CONECTADO";
 
-    diagnostic(
-      "GATT conectado."
-    );
-
-
-    setGlobalStatus(
-      "CONECTADO",
-      "ok"
-    );
-
-
-    service =
-      await server.getPrimaryService(
-        UUID_SERVICE
-      );
-
-
-    diagnostic(
-      "Servicio UART encontrado: " +
-      UUID_SERVICE
-    );
-
-
-    writeCharacteristic =
-      await service.getCharacteristic(
-        UUID_WRITE
-      );
-
-
-    notifyCharacteristic =
-      await service.getCharacteristic(
-        UUID_NOTIFY
-      );
-
-
-    diagnostic(
-      "WRITE encontrado: " +
-      UUID_WRITE
-    );
-
-
-    diagnostic(
-      "NOTIFY encontrado: " +
-      UUID_NOTIFY
-    );
-
-
-    await notifyCharacteristic.startNotifications();
-
-
-    notifyCharacteristic.addEventListener(
-      "characteristicvaluechanged",
-      handleNotification
-    );
-
-
-    notifyEnabled = true;
-
-
-    el("notifyStatus").textContent =
-      "ON";
-
-
-    el("notifyStatus").className =
+    $("state").className =
       "ok";
 
+    $("disconnectBtn").disabled =
+      false;
 
-    diagnostic(
-      "NOTIFY iniciado correctamente."
-    );
+    $("connectBtn").disabled =
+      true;
 
+    diag("GATT conectado.");
 
-    diagnostic(
-      "Modo pasivo ACTIVE."
-    );
+    /*
+      Primero intentamos obtener el servicio conocido.
+    */
 
+    try{
 
-    diagnostic(
-      "Automatic TX on connect: NO."
-    );
+      const service =
+        await server.getPrimaryService(
+          UUID_SERVICE
+        );
 
+      diag(
+        `Servicio UART encontrado: ${service.uuid}`
+      );
+
+      try{
+
+        writeChar =
+          await service.getCharacteristic(
+            UUID_WRITE
+          );
+
+        diag(
+          `WRITE encontrado: ${writeChar.uuid}`
+        );
+
+      }catch(err){
+
+        diag(
+          `WRITE conocido no encontrado: ${err.message}`
+        );
+      }
+
+      try{
+
+        notifyChar =
+          await service.getCharacteristic(
+            UUID_NOTIFY
+          );
+
+        diag(
+          `NOTIFY encontrado: ${notifyChar.uuid}`
+        );
+
+        await notifyChar.startNotifications();
+
+        notifyChar.addEventListener(
+          "characteristicvaluechanged",
+          event => {
+
+            processRX(
+              event.target.value.buffer
+            );
+
+          }
+        );
+
+        notifyEnabled = true;
+
+        $("notifyState").textContent =
+          "ON";
+
+        $("notifyState").className =
+          "ok";
+
+        diag(
+          "NOTIFY iniciado correctamente."
+        );
+
+      }catch(err){
+
+        diag(
+          `NOTIFY conocido no disponible: ${err.message}`
+        );
+      }
+
+    }catch(err){
+
+      diag(
+        `Servicio UART conocido no encontrado: ${err.message}`
+      );
+    }
 
     /*
       IMPORTANTE:
-
-      No se envía ningún TX aquí.
+      No enviamos nada.
+      Ahora hacemos descubrimiento GATT.
     */
 
-  }
+    await discoverGATT();
 
-  catch(error){
-
-    connected = false;
-
-
-    setGlobalStatus(
-      "ERROR",
-      "error"
+    log(
+      "Conexión establecida. Sin TX automático."
     );
 
+  }catch(err){
 
-    diagnostic(
-      "❌ Error de conexión: " +
-      error.message
+    diag(
+      `ERROR DE CONEXIÓN: ${err.message}`
     );
 
+    $("state").textContent =
+      "ERROR";
 
-    console.error(error);
-
+    $("state").className =
+      "err";
   }
-
 }
 
 
-/* ============================================================
-   DESCONEXIÓN
-   ============================================================ */
+/* =========================================================
+   DESCONECTAR
+========================================================= */
 
 function handleDisconnect(){
 
   connected = false;
-
   notifyEnabled = false;
+  writeChar = null;
+  notifyChar = null;
+  server = null;
 
+  $("state").textContent =
+    "DESCONECTADO";
 
-  el("notifyStatus").textContent =
+  $("state").className =
+    "err";
+
+  $("notifyState").textContent =
     "OFF";
 
+  $("notifyState").className =
+    "";
 
-  el("notifyStatus").className =
-    "warning";
-
-
-  setGlobalStatus(
-    "DESCONECTADO",
-    "warning"
-  );
-
-
-  if(passiveCapture.active){
-
-    finishPassiveCapture(
-      "DESCONEXIÓN DURANTE CAPTURA"
-    );
-
-  }
-
-
-  diagnostic(
-    "GATT desconectado."
-  );
-
-
-  registerEvent(
-    "DESCONEXIÓN"
-  );
-
-}
-
-
-async function disconnect(){
-
-  try{
-
-    if(passiveCapture.active){
-
-      finishPassiveCapture(
-        "CAPTURA INTERRUMPIDA POR DESCONEXIÓN"
-      );
-
-    }
-
-
-    if(
-      notifyCharacteristic &&
-      notifyEnabled
-    ){
-
-      try{
-
-        await notifyCharacteristic
-          .stopNotifications();
-
-      }
-      catch(e){}
-
-      notifyEnabled = false;
-
-    }
-
-
-    if(
-      device &&
-      device.gatt.connected
-    ){
-
-      device.gatt.disconnect();
-
-    }
-
-  }
-
-  catch(error){
-
-    diagnostic(
-      "Error durante desconexión: " +
-      error.message
-    );
-
-  }
-
-  finally{
-
-    connected = false;
-
-    el("notifyStatus").textContent =
-      "OFF";
-
-    el("notifyStatus").className =
-      "warning";
-
-    setGlobalStatus(
-      "DESCONECTADO",
-      "warning"
-    );
-
-  }
-
-}
-
-
-/* ============================================================
-   NOTIFY RX
-   ============================================================ */
-
-function handleNotification(event){
-
-  const value =
-    event.target.value;
-
-
-  const bytes =
-    new Uint8Array(
-
-      value.buffer.slice(
-        value.byteOffset,
-        value.byteOffset +
-        value.byteLength
-      )
-
-    );
-
-
-  processRX(bytes);
-
-}
-
-
-/* ============================================================
-   PROCESAMIENTO RX
-   ============================================================ */
-
-function processRX(bytes){
-
-  const timestamp =
-    now();
-
-
-  const type =
-    getType(bytes);
-
-
-  const length =
-    bytes.length;
-
-
-  const hex =
-    bytesToHex(bytes);
-
-
-  const packet = {
-
-    id:
-      rxPackets.length + 1,
-
-    timestamp:
-      isoTime(timestamp),
-
-    time:
-      timeString(timestamp),
-
-    type,
-
-    length,
-
-    bytes:
-      Array.from(bytes),
-
-    hex
-
-  };
-
-
-  rxPackets.push(packet);
-
-
-  stats.rx++;
-
-
-  /*
-    CAPTURA PASIVA
-  */
-
-  if(passiveCapture.active){
-
-    passiveCapture.rx++;
-
-
-    if(type === "0x91"){
-
-      passiveCapture.rx91++;
-
-    }
-
-
-    if(type === "0x92"){
-
-      passiveCapture.rx92++;
-
-    }
-
-
-    passiveCapture.lastRx =
-      packet;
-
-
-    passiveCapture.packets.push({
-
-      ...packet,
-
-      captureRelativeMs:
-        Date.now() -
-        passiveCapture.startMs
-
-    });
-
-
-    updatePassiveUI();
-
-  }
-
-
-  /*
-    CORRELACIÓN TX
-  */
-
-  correlateRXWithTX(packet);
-
-
-  /*
-    COMPARACIÓN
-  */
-
-  const key =
-    type +
-    "|" +
-    length;
-
-
-  const previous =
-    lastRxByTypeLength[key];
-
-
-  if(previous){
-
-    const comparison =
-      comparePackets(
-        previous,
-        packet
-      );
-
-
-    comparisons.push(
-      comparison
-    );
-
-
-    stats.comparisons++;
-
-
-    stats.modifiedBytes +=
-      comparison.changed.length;
-
-
-    renderDiffMatrix();
-
-  }
-
-
-  lastRxByTypeLength[key] =
-    packet;
-
-
-  /*
-    TRANSICIONES
-  */
-
-  if(
-    lastRxPacket &&
-    lastRxPacket.type !== type
-  ){
-
-    transitions.push({
-
-      timestamp:
-        isoTime(timestamp),
-
-      time:
-        timeString(timestamp),
-
-      from:
-        lastRxPacket.type,
-
-      to:
-        type,
-
-      fromHex:
-        lastRxPacket.hex,
-
-      toHex:
-        packet.hex
-
-    });
-
-
-    stats.transitions++;
-
-
-    renderTransitions();
-
-
-    log(
-      "TRANSICIÓN " +
-      lastRxPacket.type +
-      " → " +
-      type
-    );
-
-  }
-
-
-  lastRxPacket =
-    packet;
-
-
-  log(
-    "RX " +
-    type +
-    " [" +
-    length +
-    " bytes] → " +
-    hex
-  );
-
-
-  renderPackets();
-
-  renderStats();
-
-}
-
-
-/* ============================================================
-   COMPARACIÓN BYTE A BYTE
-   ============================================================ */
-
-function comparePackets(a,b){
-
-  const changed = [];
-
-
-  const max =
-    Math.max(
-      a.bytes.length,
-      b.bytes.length
-    );
-
-
-  for(
-    let i=0;
-    i<max;
-    i++
-  ){
-
-    const av =
-      a.bytes[i];
-
-
-    const bv =
-      b.bytes[i];
-
-
-    if(av !== bv){
-
-      changed.push({
-
-        index:i,
-
-        previous:
-          av === undefined
-            ? null
-            : hexByte(av),
-
-        current:
-          bv === undefined
-            ? null
-            : hexByte(bv)
-
-      });
-
-    }
-
-  }
-
-
-  return {
-
-    timestamp:
-      b.timestamp,
-
-    time:
-      b.time,
-
-    type:
-      b.type,
-
-    length:
-      b.length,
-
-    previousId:
-      a.id,
-
-    currentId:
-      b.id,
-
-    changed
-
-  };
-
-}
-
-
-/* ============================================================
-   CORRELACIÓN TX → RX
-   ============================================================ */
-
-function correlateRXWithTX(packet){
-
-  if(!pendingTx){
-
-    return;
-
-  }
-
-
-  const delta =
-    new Date(
-      packet.timestamp
-    ).getTime() -
-    pendingTx.timestampMs;
-
-
-  if(
-    delta < 0 ||
-    delta > SECONDARY_WINDOW ||
-    pendingTx.correlated
-  ){
-
-    return;
-
-  }
-
-
-  const classification =
-    delta <= IMMEDIATE_WINDOW
-      ? "RESPUESTA INMEDIATA"
-      : "RX POSTERIOR / POSIBLE RESPUESTA";
-
-
-  pendingTx.correlated = true;
-
-  pendingTx.rxId =
-    packet.id;
-
-  pendingTx.rxHex =
-    packet.hex;
-
-  pendingTx.rxType =
-    packet.type;
-
-  pendingTx.deltaMs =
-    delta;
-
-  pendingTx.classification =
-    classification;
-
-
-  stats.correlations++;
-
-
-  const experiment =
-    txExperiments.find(
-      x =>
-        x.id ===
-        pendingTx.experimentId
-    );
-
-
-  if(experiment){
-
-    experiment.rx = {
-
-      packetId:
-        packet.id,
-
-      timestamp:
-        packet.timestamp,
-
-      time:
-        packet.time,
-
-      type:
-        packet.type,
-
-      hex:
-        packet.hex,
-
-      deltaMs:
-        delta,
-
-      classification
-
-    };
-
-  }
-
-
-  log(
-    "🔎 CORRELACIÓN TX → RX: " +
-    classification +
-    " · " +
-    delta +
-    " ms"
-  );
-
-
-  renderTxResults();
-
-  renderStats();
-
-}
-
-
-/* ============================================================
-   TX MANUAL
-   ============================================================ */
-
-async function sendTX(hexText){
-
-  /*
-    BLOQUEO DURANTE CAPTURA PASIVA
-
-    No se transmite.
-  */
-
-  if(passiveCapture.active){
-
-    passiveCapture.tx++;
-
-
-    updatePassiveUI();
-
-
-    log(
-      "🚫 TX BLOQUEADO: captura pasiva activa."
-    );
-
-
-    diagnostic(
-      "🚫 Intento de TX bloqueado durante captura pasiva. NO se transmitió."
-    );
-
-
-    return;
-
-  }
-
-
-  if(
-    !connected ||
-    !writeCharacteristic
-  ){
-
-    alert(
-      "Primero conecta la F1 Plus."
-    );
-
-    return;
-
-  }
-
-
-  let bytes;
-
-
-  try{
-
-    bytes =
-      hexToBytes(hexText);
-
-  }
-
-  catch(error){
-
-    alert(
-      "HEX inválido: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  if(bytes.length === 0){
-
-    alert(
-      "No hay bytes para enviar."
-    );
-
-    return;
-
-  }
-
-
-  const timestamp =
-    now();
-
-
-  const experiment = {
-
-    id:
-      txExperiments.length + 1,
-
-    timestamp:
-      isoTime(timestamp),
-
-    time:
-      timeString(timestamp),
-
-    hex:
-      bytesToHex(bytes),
-
-    bytes:
-      Array.from(bytes),
-
-    rx:null
-
-  };
-
-
-  txExperiments.push(
-    experiment
-  );
-
-
-  pendingTx = {
-
-    experimentId:
-      experiment.id,
-
-    timestampMs:
-      timestamp.getTime(),
-
-    timestamp:
-      isoTime(timestamp),
-
-    hex:
-      experiment.hex,
-
-    correlated:false
-
-  };
-
-
-  txPackets.push({
-
-    id:
-      txPackets.length + 1,
-
-    timestamp:
-      isoTime(timestamp),
-
-    time:
-      timeString(timestamp),
-
-    hex:
-      experiment.hex,
-
-    bytes:
-      Array.from(bytes)
-
-  });
-
-
-  stats.tx++;
-
-
-  try{
-
-    if(
-      writeCharacteristic.writeValueWithoutResponse
-    ){
-
-      await writeCharacteristic
-        .writeValueWithoutResponse(
-          bytes
-        );
-
-    }
-
-    else{
-
-      await writeCharacteristic
-        .writeValue(bytes);
-
-    }
-
-  }
-
-  catch(error){
-
-    try{
-
-      await writeCharacteristic
-        .writeValue(bytes);
-
-    }
-
-    catch(error2){
-
-      diagnostic(
-        "❌ Error TX: " +
-        error2.message
-      );
-
-
-      pendingTx = null;
-
-
-      return;
-
-    }
-
-  }
-
-
-  el("lastTx").textContent =
-    timeString(timestamp) +
-    " → " +
-    experiment.hex;
-
-
-  log(
-    "📤 TX MANUAL → " +
-    experiment.hex
-  );
-
-
-  diagnostic(
-    "TX enviado manualmente: " +
-    experiment.hex
-  );
-
-
-  renderTxResults();
-
-  renderStats();
-
-
-  /*
-    No se manda ningún segundo paquete.
-  */
-
-}
-
-
-/* ============================================================
-   PRUEBA 0x91
-   ============================================================ */
-
-function test91(){
-
-  const value =
-    el("txHex").value.trim();
-
-
-  const test =
-    value ||
-    "AB 00 05 FF 91 80 00 50";
-
-
-  el("txHex").value =
-    test;
-
-
-  sendTX(test);
-
-}
-
-
-/* ============================================================
-   ESTADÍSTICAS
-   ============================================================ */
-
-function renderStats(){
-
-  el("statTx").textContent =
-    stats.tx;
-
-
-  el("statRx").textContent =
-    stats.rx;
-
-
-  el("statTypes").textContent =
-    new Set(
-      rxPackets.map(
-        p => p.type
-      )
-    ).size;
-
-
-  el("statLengths").textContent =
-    new Set(
-      rxPackets.map(
-        p => p.length
-      )
-    ).size;
-
-
-  el("statComparisons").textContent =
-    stats.comparisons;
-
-
-  el("statModified").textContent =
-    stats.modifiedBytes;
-
-
-  el("statTransitions").textContent =
-    stats.transitions;
-
-
-  el("statCorrelations").textContent =
-    stats.correlations;
-
-
-  renderTypeStats();
-
-  renderLengthStats();
-
-}
-
-
-/* ============================================================
-   TIPOS RX
-   ============================================================ */
-
-function renderTypeStats(){
-
-  const map = {};
-
-
-  for(const p of rxPackets){
-
-    map[p.type] =
-      (map[p.type] || 0) + 1;
-
-  }
-
-
-  const lines =
-    Object.entries(map)
-      .sort()
-      .map(
-        ([type,count]) =>
-          type +
-          " → " +
-          count
-      );
-
-
-  el("typeStats").textContent =
-    lines.length
-      ? lines.join("\n")
-      : "Sin datos.";
-
-}
-
-
-/* ============================================================
-   LONGITUDES
-   ============================================================ */
-
-function renderLengthStats(){
-
-  const map = {};
-
-
-  for(const p of rxPackets){
-
-    map[p.length] =
-      (map[p.length] || 0) + 1;
-
-  }
-
-
-  const lines =
-    Object.entries(map)
-      .sort(
-        (a,b) =>
-          Number(a[0]) -
-          Number(b[0])
-      )
-      .map(
-        ([length,count]) =>
-          length +
-          " bytes → " +
-          count
-      );
-
-
-  el("lengthStats").textContent =
-    lines.length
-      ? lines.join("\n")
-      : "Sin datos.";
-
-}
-
-
-/* ============================================================
-   PACKETS
-   ============================================================ */
-
-function renderPackets(){
-
-  const box =
-    el("packetList");
-
-
-  if(!rxPackets.length){
-
-    box.innerHTML =
-      '<div class="muted">Todavía no hay paquetes RX.</div>';
-
-    return;
-
-  }
-
-
-  box.innerHTML =
-    rxPackets
-      .slice()
-      .reverse()
-      .map(p => `
-
-        <div class="packet">
-
-          <div class="packet-head">
-
-            <span>
-              #${p.id}
-            </span>
-
-            <span>
-              ${p.time}
-            </span>
-
-            <span>
-              ${p.type}
-            </span>
-
-            <span>
-              ${p.length} bytes
-            </span>
-
-          </div>
-
-          <div class="hex">
-            ${escapeHtml(p.hex)}
-          </div>
-
-        </div>
-
-      `)
-      .join("");
-
-}
-
-
-/* ============================================================
-   MATRIZ DE DIFERENCIAS
-   ============================================================ */
-
-function renderDiffMatrix(){
-
-  const box =
-    el("diffMatrix");
-
-
-  if(!comparisons.length){
-
-    box.textContent =
-      "Todavía no hay comparaciones.";
-
-    return;
-
-  }
-
-
-  const lines = [];
-
-
-  for(const c of comparisons){
-
-    lines.push(
-      c.time +
-      " · " +
-      c.type +
-      " · RX #" +
-      c.currentId
-    );
-
-
-    if(!c.changed.length){
-
-      lines.push(
-        "  SIN CAMBIOS"
-      );
-
-    }
-
-    else{
-
-      for(const d of c.changed){
-
-        lines.push(
-          "  Byte " +
-          d.index +
-          ": " +
-          (d.previous ?? "--") +
-          " → " +
-          (d.current ?? "--")
-        );
-
-      }
-
-    }
-
-
-    lines.push("");
-
-  }
-
-
-  box.textContent =
-    lines.join("\n");
-
-}
-
-
-/* ============================================================
-   TRANSICIONES
-   ============================================================ */
-
-function renderTransitions(){
-
-  const box =
-    el("transitionList");
-
-
-  if(!transitions.length){
-
-    box.textContent =
-      "Todavía no hay transiciones.";
-
-    return;
-
-  }
-
-
-  box.textContent =
-    transitions
-      .map(
-        t =>
-          t.time +
-          " · " +
-          t.from +
-          " → " +
-          t.to
-      )
-      .reverse()
-      .join("\n");
-
-}
-
-
-/* ============================================================
-   RESULTADOS TX
-   ============================================================ */
-
-function renderTxResults(){
-
-  const box =
-    el("txResults");
-
-
-  if(!txExperiments.length){
-
-    box.innerHTML =
-      '<div class="muted">Sin experimentos TX.</div>';
-
-    return;
-
-  }
-
-
-  box.innerHTML =
-    txExperiments
-      .slice()
-      .reverse()
-      .map(x => {
-
-        let rxHtml =
-          '<span class="muted">Sin RX posterior dentro de la ventana.</span>';
-
-
-        if(x.rx){
-
-          rxHtml = `
-
-            <div class="success-box">
-
-              <strong>
-                ${escapeHtml(
-                  x.rx.classification
-                )}
-              </strong>
-
-              <br>
-
-              ΔT:
-
-              <span class="mono">
-                ${x.rx.deltaMs} ms
-              </span>
-
-              <br>
-
-              Tipo RX:
-
-              <span class="mono">
-                ${escapeHtml(x.rx.type)}
-              </span>
-
-              <br>
-
-              RX:
-
-              <span class="mono">
-                ${escapeHtml(x.rx.hex)}
-              </span>
-
-            </div>
-
-          `;
-
-        }
-
-
-        return `
-
-          <div class="packet">
-
-            <div class="packet-head">
-
-              <span>
-                Experimento #${x.id}
-              </span>
-
-              <span>
-                ${x.time}
-              </span>
-
-            </div>
-
-            <div class="hex">
-
-              TX →
-              ${escapeHtml(x.hex)}
-
-            </div>
-
-            <br>
-
-            ${rxHtml}
-
-          </div>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* ============================================================
-   EVENTOS
-   ============================================================ */
-
-function registerEvent(type){
-
-  const event = {
-
-    id:
-      events.length + 1,
-
-    timestamp:
-      isoTime(),
-
-    time:
-      timeString(),
-
-    type
-
-  };
-
-
-  events.push(event);
-
-
-  if(lastRxPacket){
-
-    const delta =
-      Date.now() -
-      new Date(
-        lastRxPacket.timestamp
-      ).getTime();
-
-
-    if(
-      delta <=
-      SECONDARY_WINDOW
-    ){
-
-      event.rxCorrelation = {
-
-        packetId:
-          lastRxPacket.id,
-
-        deltaMs:
-          delta,
-
-        type:
-          lastRxPacket.type
-
-      };
-
-    }
-
-  }
-
-
-  renderEvents();
-
-
-  log(
-    "⚡ EVENTO → " +
-    type
-  );
-
-}
-
-
-function renderEvents(){
-
-  const box =
-    el("eventList");
-
-
-  if(!events.length){
-
-    box.innerHTML =
-      '<div class="muted">Sin eventos registrados.</div>';
-
-    return;
-
-  }
-
-
-  box.innerHTML =
-    events
-      .slice()
-      .reverse()
-      .map(e => `
-
-        <div class="event">
-
-          <strong>
-            ${escapeHtml(e.type)}
-          </strong>
-
-          <div class="small muted">
-
-            ${escapeHtml(e.time)}
-
-          </div>
-
-          ${
-            e.rxCorrelation
-              ? `
-                <div class="small muted">
-
-                  RX #${e.rxCorrelation.packetId}
-                  · ${e.rxCorrelation.deltaMs} ms
-                  · ${e.rxCorrelation.type}
-
-                </div>
-              `
-              : ""
-          }
-
-        </div>
-
-      `)
-      .join("");
-
-}
-
-
-function clearEvents(){
-
-  events = [];
-
-  renderEvents();
-
-  log(
-    "Eventos limpiados."
-  );
-
-}
-
-
-/* ============================================================
-   CAPTURA PASIVA — FUNCIONES
-   ============================================================ */
-
-function formatDuration(ms){
-
-  const total =
-    Math.max(
-      0,
-      Math.floor(ms / 1000)
-    );
-
-
-  const min =
-    Math.floor(
-      total / 60
-    )
-    .toString()
-    .padStart(2,"0");
-
-
-  const sec =
-    (total % 60)
-    .toString()
-    .padStart(2,"0");
-
-
-  return min + ":" + sec;
-
-}
-
-
-/* ============================================================
-   REINICIAR CONTADORES PASIVOS
-   ============================================================ */
-
-function resetPassiveCounters(){
-
-  passiveCapture.rx = 0;
-
-  passiveCapture.rx91 = 0;
-
-  passiveCapture.rx92 = 0;
-
-  passiveCapture.tx = 0;
-
-  passiveCapture.lastRx = null;
-
-  passiveCapture.packets = [];
-
-
-  el("passiveRx").textContent =
-    "0";
-
-
-  el("passive91").textContent =
-    "0";
-
-
-  el("passive92").textContent =
-    "0";
-
-
-  el("passiveTx").textContent =
-    "0";
-
-
-  el("passiveLastRx").textContent =
-    "—";
-
-}
-
-
-/* ============================================================
-   ACTUALIZAR UI PASIVA
-   ============================================================ */
-
-function updatePassiveUI(){
-
-  el("passiveRx").textContent =
-    passiveCapture.rx;
-
-
-  el("passive91").textContent =
-    passiveCapture.rx91;
-
-
-  el("passive92").textContent =
-    passiveCapture.rx92;
-
-
-  el("passiveTx").textContent =
-    passiveCapture.tx;
-
-
-  if(passiveCapture.lastRx){
-
-    el("passiveLastRx").textContent =
-
-      passiveCapture.lastRx.time +
-      " · " +
-      passiveCapture.lastRx.type +
-      " · " +
-      passiveCapture.lastRx.hex;
-
-  }
-
-}
-
-
-/* ============================================================
-   BLOQUEAR TX
-   ============================================================ */
-
-function setTxLocked(locked){
-
-  el("sendTxBtn").disabled =
-    locked;
-
-
-  el("test91Btn").disabled =
-    locked;
-
-
-  el("clearTxBtn").disabled =
-    locked;
-
-
-  el("txHex").disabled =
-    locked;
-
-
-  if(locked){
-
-    el("txLockWarning").innerHTML =
-
-      "🚫 <strong>TX BLOQUEADO:</strong> " +
-      "captura pasiva activa. " +
-      "Ningún comando será transmitido durante los 180 segundos.";
-
-  }
-
-  else{
-
-    el("txLockWarning").innerHTML =
-
-      "⚠️ Esta sección NO transmite automáticamente. " +
-      "Es necesario pulsar manualmente el botón de envío.";
-
-  }
-
-}
-
-
-/* ============================================================
-   INICIAR CAPTURA PASIVA
-   ============================================================ */
-
-function startPassiveCapture(){
-
-  if(passiveCapture.active){
-
-    return;
-
-  }
-
-
-  if(
-    !connected ||
-    !notifyEnabled
-  ){
-
-    alert(
-      "Conecta primero la F1 Plus y verifica que NOTIFY esté en ON."
-    );
-
-
-    diagnostic(
-      "❌ No se inició captura pasiva: F1 Plus no está conectada con NOTIFY activo."
-    );
-
-
-    return;
-
-  }
-
-
-  resetPassiveCounters();
-
-
-  passiveCapture.active =
+  $("disconnectBtn").disabled =
     true;
 
-
-  passiveCapture.startMs =
-    Date.now();
-
-
-  passiveCapture.endMs =
-    passiveCapture.startMs +
-    PASSIVE_CAPTURE_DURATION;
-
-
-  passiveCapture.timerId =
-    setTimeout(
-
-      () => {
-
-        finishPassiveCapture(
-          "CAPTURA FINALIZADA"
-        );
-
-      },
-
-      PASSIVE_CAPTURE_DURATION
-
-    );
-
-
-  passiveCapture.intervalId =
-    setInterval(
-      updatePassiveTimer,
-      250
-    );
-
-
-  el("passivePanel")
-    .classList
-    .add("active");
-
-
-  el("passiveState").textContent =
-    "🔵 CAPTURA ACTIVA — ESCUCHANDO RX";
-
-
-  el("passiveState").className =
-    "passive-title ok";
-
-
-  el("startPassiveBtn").disabled =
-    true;
-
-
-  el("stopPassiveBtn").disabled =
+  $("connectBtn").disabled =
     false;
 
+  diag("Desconexión GATT detectada.");
 
-  el("passiveSummary")
-    .classList
-    .add("hidden");
+  log("DESCONEXIÓN");
+
+  if(passiveCapture.active)
+    finishPassive("DESCONEXIÓN DURANTE CAPTURA");
+}
+
+function disconnect(){
+
+  if(device && device.gatt.connected)
+    device.gatt.disconnect();
+}
 
 
-  setTxLocked(true);
+/* =========================================================
+   CAPTURA PASIVA
+========================================================= */
 
+function startPassive(){
 
-  updatePassiveTimer();
+  if(!connected || !notifyEnabled){
 
+    alert(
+      "Conecta la F1 Plus y asegúrate de que NOTIFY esté ON."
+    );
+
+    return;
+  }
+
+  if(passiveCapture.active)
+    return;
+
+  passiveCapture = {
+    active:true,
+    startMs:Date.now(),
+    endMs:Date.now()+PASSIVE_DURATION,
+    timerId:null,
+    intervalId:null,
+    rx:0,
+    rx91:0,
+    rx92:0,
+    txSent:0,
+    blockedTx:0,
+    lastRx:null,
+    packets:[]
+  };
+
+  $("passivePanel").classList.add("active");
+
+  $("startPassiveBtn").disabled =
+    true;
+
+  $("abortPassiveBtn").disabled =
+    false;
+
+  $("txInput").disabled =
+    true;
+
+  $("sendBtn").disabled =
+    true;
+
+  $("test91Btn").disabled =
+    true;
 
   log(
     "🧪 INICIO CAPTURA PASIVA · 180 s · TX BLOQUEADO"
   );
 
-
-  diagnostic(
-    "🧪 Captura pasiva iniciada. Duración configurada: 180 s."
+  diag(
+    "Captura pasiva iniciada. Escuchando exclusivamente NOTIFY."
   );
 
-
-  diagnostic(
-    "RX escuchado únicamente mediante NOTIFY."
-  );
-
-
-  diagnostic(
+  diag(
     "TX durante captura: BLOQUEADO."
   );
 
+  updatePassiveUI();
+
+  passiveCapture.intervalId =
+    setInterval(updatePassiveUI,250);
+
+  passiveCapture.timerId =
+    setTimeout(
+      () => finishPassive("TIEMPO COMPLETO"),
+      PASSIVE_DURATION
+    );
 }
 
 
-/* ============================================================
-   TEMPORIZADOR
-   ============================================================ */
-
-function updatePassiveTimer(){
+function updatePassiveUI(){
 
   if(!passiveCapture.active){
 
+    $("passiveTimer").textContent =
+      "00:00 / 03:00";
+
     return;
-
   }
-
-
-  const remaining =
-    Math.max(
-      0,
-      passiveCapture.endMs -
-      Date.now()
-    );
-
 
   const elapsed =
-    PASSIVE_CAPTURE_DURATION -
-    remaining;
-
-
-  el("passiveTimer").textContent =
-
-    formatDuration(elapsed) +
-    " / 03:00";
-
-
-  if(remaining <= 0){
-
-    finishPassiveCapture(
-      "CAPTURA FINALIZADA"
+    Math.min(
+      PASSIVE_DURATION,
+      Date.now()-passiveCapture.startMs
     );
 
-  }
+  const seconds =
+    Math.floor(elapsed/1000);
 
+  const mm =
+    String(Math.floor(seconds/60))
+      .padStart(2,"0");
+
+  const ss =
+    String(seconds%60)
+      .padStart(2,"0");
+
+  $("passiveTimer").textContent =
+    `${mm}:${ss} / 03:00`;
+
+  $("passiveRx").textContent =
+    passiveCapture.rx;
+
+  $("passive91").textContent =
+    passiveCapture.rx91;
+
+  $("passive92").textContent =
+    passiveCapture.rx92;
+
+  $("passiveTx").textContent =
+    passiveCapture.txSent;
+
+  $("blockedTx").textContent =
+    passiveCapture.blockedTx;
+
+  $("passiveLast").textContent =
+    passiveCapture.lastRx
+      ? bytesToHex(passiveCapture.lastRx.bytes)
+      : "—";
 }
 
 
-/* ============================================================
-   FINALIZAR CAPTURA
-   ============================================================ */
+function finishPassive(reason){
 
-function finishPassiveCapture(
-  reason = "CAPTURA FINALIZADA"
-){
-
-  if(!passiveCapture.active){
-
+  if(!passiveCapture.active)
     return;
 
-  }
+  clearTimeout(
+    passiveCapture.timerId
+  );
 
+  clearInterval(
+    passiveCapture.intervalId
+  );
 
-  passiveCapture.active =
+  passiveCapture.active = false;
+
+  $("passivePanel").classList.remove("active");
+
+  $("startPassiveBtn").disabled =
     false;
 
-
-  if(passiveCapture.timerId){
-
-    clearTimeout(
-      passiveCapture.timerId
-    );
-
-    passiveCapture.timerId =
-      null;
-
-  }
-
-
-  if(passiveCapture.intervalId){
-
-    clearInterval(
-      passiveCapture.intervalId
-    );
-
-    passiveCapture.intervalId =
-      null;
-
-  }
-
-
-  const durationMs =
-    Math.min(
-
-      PASSIVE_CAPTURE_DURATION,
-
-      Math.max(
-        0,
-        Date.now() -
-        passiveCapture.startMs
-      )
-
-    );
-
-
-  const durationText =
-    formatDuration(durationMs);
-
-
-  el("passiveTimer").textContent =
-
-    durationText +
-    " / 03:00";
-
-
-  el("passiveState").textContent =
-    reason;
-
-
-  el("passiveState").className =
-    "passive-title " +
-    (
-      reason === "CAPTURA FINALIZADA"
-        ? "ok"
-        : "warning"
-    );
-
-
-  el("passivePanel")
-    .classList
-    .remove("active");
-
-
-  el("startPassiveBtn").disabled =
-    false;
-
-
-  el("stopPassiveBtn").disabled =
+  $("abortPassiveBtn").disabled =
     true;
 
+  $("txInput").disabled =
+    false;
 
-  setTxLocked(false);
+  $("sendBtn").disabled =
+    false;
 
+  $("test91Btn").disabled =
+    false;
 
   updatePassiveUI();
 
+  const duration =
+    passiveCapture.startMs
+      ? Math.min(
+          PASSIVE_DURATION,
+          Date.now()-passiveCapture.startMs
+        )
+      : 0;
 
-  const last =
-    passiveCapture.lastRx;
+  const seconds =
+    Math.floor(duration/1000);
 
+  const mm =
+    String(Math.floor(seconds/60))
+      .padStart(2,"0");
 
-  el("passiveSummary")
-    .classList
-    .remove("hidden");
+  const ss =
+    String(seconds%60)
+      .padStart(2,"0");
 
+  $("passiveTimer").textContent =
+    `${mm}:${ss} / 03:00`;
 
-  el("passiveSummary").className =
-    "success-box";
+  $("passiveResult").textContent =
+`CAPTURA FINALIZADA
+Motivo: ${reason}
+Duración observada: ${mm}:${ss}
 
+RX capturados durante la prueba: ${passiveCapture.rx}
+0x91: ${passiveCapture.rx91}
+0x92: ${passiveCapture.rx92}
 
-  el("passiveSummary").innerHTML =
+TX ENVIADOS DURANTE LA PRUEBA: ${passiveCapture.txSent}
+INTENTOS TX BLOQUEADOS: ${passiveCapture.blockedTx}
 
-    "<strong>📊 RESULTADO DE LA CAPTURA PASIVA</strong>" +
-
-    "<br>" +
-
-    "Duración observada: " +
-
-    "<span class=\"mono\">" +
-
-    durationText +
-
-    "</span>" +
-
-    "<br>" +
-
-    "RX capturados durante la prueba: " +
-
-    "<strong>" +
-
-    passiveCapture.rx +
-
-    "</strong>" +
-
-    "<br>" +
-
-    "0x91: " +
-
-    "<strong>" +
-
-    passiveCapture.rx91 +
-
-    "</strong>" +
-
-    " · 0x92: " +
-
-    "<strong>" +
-
-    passiveCapture.rx92 +
-
-    "</strong>" +
-
-    "<br>" +
-
-    "TX transmitidos durante la prueba: " +
-
-    "<strong>" +
-
-    passiveCapture.tx +
-
-    "</strong>" +
-
-    " (debe ser 0)" +
-
-    "<br>" +
-
-    "Último RX: " +
-
-    "<span class=\"mono\">" +
-
-    (
-      last
-        ? escapeHtml(last.hex)
-        : "NINGUNO"
-    ) +
-
-    "</span>";
-
+Último RX:
+${
+  passiveCapture.lastRx
+    ? bytesToHex(passiveCapture.lastRx.bytes)
+    : "NINGUNO"
+}`;
 
   log(
-
-    "🧪 " +
-    reason +
-    " · RX=" +
-    passiveCapture.rx +
-    " · 0x91=" +
-    passiveCapture.rx91 +
-    " · 0x92=" +
-    passiveCapture.rx92 +
-    " · TX=" +
-    passiveCapture.tx
-
+`🧪 CAPTURA FINALIZADA · RX=${passiveCapture.rx} · 0x91=${passiveCapture.rx91} · 0x92=${passiveCapture.rx92} · TX=${passiveCapture.txSent}`
   );
 
-
-  diagnostic(
-
-    "Captura pasiva terminada. " +
-    "RX=" +
-    passiveCapture.rx +
-    "; 0x91=" +
-    passiveCapture.rx91 +
-    "; 0x92=" +
-    passiveCapture.rx92 +
-    "; TX durante captura=" +
-    passiveCapture.tx +
-    "."
-
+  diag(
+`Captura pasiva terminada. RX=${passiveCapture.rx}; 0x91=${passiveCapture.rx91}; 0x92=${passiveCapture.rx92}; TX enviados=${passiveCapture.txSent}; TX bloqueados=${passiveCapture.blockedTx}.`
   );
+}
 
+function abortPassive(){
+
+  if(passiveCapture.active)
+    finishPassive("ABORTADA MANUALMENTE");
 }
 
 
-/* ============================================================
-   ABORTAR CAPTURA
-   ============================================================ */
+/* =========================================================
+   EVENTOS
+========================================================= */
 
-function abortPassiveCapture(){
+function addEvent(type){
 
-  if(!passiveCapture.active){
+  if(type === "LIMPIAR"){
 
-    return;
+    events = [];
 
-  }
+    $("eventsOutput").textContent =
+      "Sin eventos registrados.";
 
-
-  finishPassiveCapture(
-    "CAPTURA ABORTADA MANUALMENTE"
-  );
-
-}
-
-
-/* ============================================================
-   LIMPIAR SESIÓN
-   ============================================================ */
-
-function clearSession(){
-
-  if(passiveCapture.active){
-
-    diagnostic(
-      "⚠️ No se puede limpiar la sesión mientras la captura pasiva está activa."
-    );
-
-
-    alert(
-      "Espera a que termine la captura pasiva o abórtala antes de limpiar la sesión."
-    );
-
+    log("Eventos limpiados.");
 
     return;
-
   }
 
+  const event = {
+    time:timestamp(),
+    ms:Date.now(),
+    type
+  };
 
-  rxPackets = [];
+  events.unshift(event);
 
-  txPackets = [];
-
-  comparisons = [];
-
-  transitions = [];
-
-  events = [];
-
-  txExperiments = [];
-
-
-  lastRxByTypeLength = {};
-
-  lastRxPacket = null;
-
-  pendingTx = null;
-
-
-  stats.tx = 0;
-
-  stats.rx = 0;
-
-  stats.comparisons = 0;
-
-  stats.modifiedBytes = 0;
-
-  stats.transitions = 0;
-
-  stats.correlations = 0;
-
-
-  resetPassiveCounters();
-
-
-  el("activityLog").textContent =
-    "Sesión limpiada.";
-
-
-  el("diagnosticLog").textContent =
-    "Sesión de laboratorio reiniciada.";
-
-
-  el("lastTx").textContent =
-    "Sin TX.";
-
-
-  el("passiveTimer").textContent =
-    "00:00 / 03:00";
-
-
-  el("passiveState").textContent =
-    "ESPERANDO INICIO";
-
-
-  el("passiveState").className =
-    "passive-title";
-
-
-  el("passiveSummary")
-    .classList
-    .add("hidden");
-
-
-  renderStats();
-
-  renderPackets();
-
-  renderDiffMatrix();
-
-  renderTransitions();
-
-  renderEvents();
-
-  renderTxResults();
-
-}
-
-
-/* ============================================================
-   LIMPIAR TX
-   ============================================================ */
-
-function clearTX(){
-
-  if(passiveCapture.active){
-
-    log(
-      "🚫 Consola TX bloqueada durante captura pasiva."
-    );
-
-    return;
-
-  }
-
-
-  el("txHex").value =
-    "";
-
-
-  el("lastTx").textContent =
-    "Sin TX.";
-
-
-  pendingTx = null;
-
+  $("eventsOutput").textContent =
+    events.map(e =>
+      `${e.time} · ${e.type}`
+    ).join("\n");
 
   log(
-    "Consola TX limpiada."
+    `EVENTO MANUAL: ${type}`
   );
-
 }
 
 
-/* ============================================================
+/* =========================================================
    EXPORTACIÓN
-   ============================================================ */
+========================================================= */
 
 function buildSession(){
 
   return {
-
-    application:
-      "RoXThal F1 Plus Protocol Laboratory",
-
-    version:
-      "TX-RX-CORRELATION-2-PASSIVE-180S",
-
-    exportedAt:
-      isoTime(),
-
+    app:"RoXThal F1 Plus WearFit Discovery Lab",
+    version:"Discovery-1",
+    exportedAt:timestamp(),
 
     device:{
-
-      name:
-        device?.name ||
-        null,
-
-      id:
-        device?.id ||
-        null
-
+      name:device?.name || null,
+      id:device?.id || null
     },
 
-
-    bluetooth:{
-
-      service:
-        UUID_SERVICE,
-
-      write:
-        UUID_WRITE,
-
-      notify:
-        UUID_NOTIFY
-
+    knownUUID:{
+      service:UUID_SERVICE,
+      write:UUID_WRITE,
+      notify:UUID_NOTIFY
     },
-
-
-    safety:{
-
-      automaticTxOnConnect:
-        false,
-
-      passiveMode:
-        true,
-
-      automaticPassiveTx:
-        false
-
-    },
-
 
     stats,
 
+    typeStats,
+    lengthStats,
 
     rxPackets,
 
@@ -3878,284 +1850,333 @@ function buildSession(){
 
     transitions,
 
+    correlations,
+
     events,
 
-    txExperiments,
-
-
     passiveCapture:{
-
-      durationConfiguredMs:
-        PASSIVE_CAPTURE_DURATION,
-
-      durationConfiguredSeconds:
-        180,
-
+      durationConfiguredMs:PASSIVE_DURATION,
       lastRun:{
-
-        rx:
-          passiveCapture.rx,
-
-        rx91:
-          passiveCapture.rx91,
-
-        rx92:
-          passiveCapture.rx92,
-
-        tx:
-          passiveCapture.tx,
-
-        lastRx:
-          passiveCapture.lastRx,
-
-        packets:
-          passiveCapture.packets
-
+        rx:passiveCapture.rx,
+        rx91:passiveCapture.rx91,
+        rx92:passiveCapture.rx92,
+        txSent:passiveCapture.txSent,
+        blockedTx:passiveCapture.blockedTx,
+        lastRx:passiveCapture.lastRx,
+        packets:passiveCapture.packets
       }
+    },
 
+    safety:{
+      automaticTX:false,
+      passiveTXBlocked:true
     }
-
   };
-
 }
-
-
-/* ============================================================
-   EXPORTAR JSON
-   ============================================================ */
 
 function exportJSON(){
 
   const data =
-    buildSession();
-
-
-  const blob =
-    new Blob(
-
-      [
-        JSON.stringify(
-          data,
-          null,
-          2
-        )
-      ],
-
-      {
-        type:
-          "application/json"
-      }
-
-    );
-
-
-  const url =
-    URL.createObjectURL(blob);
-
-
-  const a =
-    document.createElement("a");
-
-
-  a.href =
-    url;
-
-
-  a.download =
-    "roxthal-f1-plus-session-" +
-    Date.now() +
-    ".json";
-
-
-  document.body.appendChild(a);
-
-
-  a.click();
-
-
-  a.remove();
-
-
-  URL.revokeObjectURL(url);
-
-
-  log(
-    "Sesión exportada a JSON."
-  );
-
-}
-
-
-/* ============================================================
-   COPIAR SESIÓN
-   ============================================================ */
-
-async function copySession(){
-
-  const text =
     JSON.stringify(
       buildSession(),
       null,
       2
     );
 
+  const blob =
+    new Blob(
+      [data],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "roxthal-f1plus-wearfit-discovery.json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  log("Sesión exportada a JSON.");
+}
+
+async function copySession(){
+
+  const data =
+    JSON.stringify(
+      buildSession(),
+      null,
+      2
+    );
 
   try{
 
-    await navigator.clipboard.writeText(
-      text
-    );
-
+    await navigator.clipboard.writeText(data);
 
     alert(
       "Sesión copiada al portapapeles."
     );
 
-  }
-
-  catch(error){
+  }catch(err){
 
     alert(
       "No se pudo copiar: " +
-      error.message
+      err.message
     );
-
   }
-
 }
 
 
-/* ============================================================
-   EVENT LISTENERS
-   ============================================================ */
+/* =========================================================
+   BLUETOOTH CHECK
+========================================================= */
 
-el("connectBtn")
+function checkBluetooth(){
+
+  if(navigator.bluetooth){
+
+    $("bluetoothState").textContent =
+      "OK";
+
+    $("bluetoothState").className =
+      "ok";
+
+    diag(
+      "Web Bluetooth detectado correctamente."
+    );
+
+  }else{
+
+    $("bluetoothState").textContent =
+      "NO DISPONIBLE";
+
+    $("bluetoothState").className =
+      "err";
+
+    diag(
+      "Web Bluetooth no está disponible."
+    );
+  }
+}
+
+
+/* =========================================================
+   LIMPIAR SESIÓN
+========================================================= */
+
+function clearSession(){
+
+  if(passiveCapture.active){
+
+    alert(
+      "No se puede limpiar la sesión durante una captura pasiva."
+    );
+
+    return;
+  }
+
+  rxPackets = [];
+  txPackets = [];
+  comparisons = [];
+  transitions = [];
+  correlations = [];
+  events = [];
+
+  lastRx = null;
+  lastTx = null;
+  pendingTx = null;
+
+  stats = {
+    tx:0,
+    rx:0,
+    comparisons:0,
+    modifiedBytes:0,
+    transitions:0,
+    correlations:0
+  };
+
+  typeStats = {};
+  lengthStats = {};
+
+  $("logOutput").textContent =
+    "Sistema preparado.";
+
+  $("diagOutput").textContent =
+    "Sesión limpiada.";
+
+  $("rxOutput").innerHTML =
+    `<div class="small">Sin capturas.</div>`;
+
+  $("typesOutput").textContent =
+    "Sin RX.";
+
+  $("lengthsOutput").textContent =
+    "Sin RX.";
+
+  $("structureOutput").textContent =
+    "Esperando paquetes AB 00 ... FF ...";
+
+  $("diffOutput").textContent =
+    "Todavía no hay comparaciones.";
+
+  $("transitionOutput").textContent =
+    "Sin transiciones.";
+
+  $("correlationOutput").textContent =
+    "Sin experimentos TX.";
+
+  $("eventsOutput").textContent =
+    "Sin eventos registrados.";
+
+  $("lastTx").textContent =
+    "Último TX: Sin TX.";
+
+  $("passiveResult").textContent =
+    "Esperando una captura.";
+
+  renderStats();
+
+  log("Sesión limpiada.");
+}
+
+
+/* =========================================================
+   INICIALIZACIÓN
+========================================================= */
+
+$("connectBtn")
   .addEventListener(
     "click",
     connect
   );
 
-
-el("disconnectBtn")
+$("disconnectBtn")
   .addEventListener(
     "click",
     disconnect
   );
 
-
-el("checkBtn")
+$("checkBtn")
   .addEventListener(
     "click",
     checkBluetooth
   );
 
-
-el("clearBtn")
+$("clearBtn")
   .addEventListener(
     "click",
     clearSession
   );
 
+$("sendBtn")
+  .addEventListener(
+    "click",
+    sendTX
+  );
 
-el("sendTxBtn")
+$("test91Btn")
   .addEventListener(
     "click",
     () => {
 
-      sendTX(
-        el("txHex").value
-      );
+      $("txInput").value =
+        "AB 00 05 FF 91 80 00 50";
 
+      sendTX();
     }
   );
 
-
-el("test91Btn")
+$("clearTxBtn")
   .addEventListener(
     "click",
-    test91
+    () => {
+
+      $("txInput").value = "";
+
+      $("lastTx").textContent =
+        "Último TX: Sin TX.";
+    }
   );
 
-
-el("clearTxBtn")
+$("startPassiveBtn")
   .addEventListener(
     "click",
-    clearTX
+    startPassive
   );
 
-
-el("startPassiveBtn")
+$("abortPassiveBtn")
   .addEventListener(
     "click",
-    startPassiveCapture
+    abortPassive
   );
 
-
-el("stopPassiveBtn")
+$("exportBtn")
   .addEventListener(
     "click",
-    abortPassiveCapture
+    exportJSON
   );
 
+$("copyBtn")
+  .addEventListener(
+    "click",
+    copySession
+  );
 
-/* ============================================================
-   INICIALIZACIÓN
-   ============================================================ */
+document
+  .querySelectorAll("[data-event]")
+  .forEach(btn => {
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    checkBluetooth();
-
-
-    diagnostic(
-      "Motor de laboratorio F1 Plus inicializado."
+    btn.addEventListener(
+      "click",
+      () => addEvent(
+        btn.dataset.event
+      )
     );
+  });
 
 
-    diagnostic(
-      "Passive RX: ACTIVE."
-    );
+/* =========================================================
+   ARRANQUE
+========================================================= */
 
+checkBluetooth();
 
-    diagnostic(
-      "Automatic TX on connect: NO."
-    );
-
-
-    diagnostic(
-      "TX experimental: MANUAL ONLY."
-    );
-
-
-    diagnostic(
-      "Captura pasiva: 180 s."
-    );
-
-
-    diagnostic(
-      "TX bloqueado durante captura pasiva."
-    );
-
-
-    renderStats();
-
-    renderPackets();
-
-    renderDiffMatrix();
-
-    renderTransitions();
-
-    renderEvents();
-
-    renderTxResults();
-
-    updatePassiveUI();
-
-  }
-
+diag(
+  "Inicializando módulo Smart Band F1 Plus..."
 );
+
+diag(
+  "Motor de descubrimiento WearFit/GATT inicializado."
+);
+
+diag(
+  "Passive RX: ACTIVE."
+);
+
+diag(
+  "Automatic TX on connect: NO."
+);
+
+diag(
+  "TX experimental: MANUAL ONLY."
+);
+
+diag(
+  "Captura pasiva: 180 s."
+);
+
+diag(
+  "TX bloqueado durante captura pasiva."
+);
+
+renderStats();
 
 </script>
 
