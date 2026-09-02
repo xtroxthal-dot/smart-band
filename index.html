@@ -3,174 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b0f14">
-<title>RoXThal F1 Plus — Protocol Laboratory V5</title>
+<title>RoXThal F1 Plus — Protocol Laboratory V6</title>
 
 <style>
 :root{
-  --bg:#0b0f14;
-  --card:#121923;
-  --line:#263241;
-  --txt:#e9eef5;
-  --muted:#91a0b2;
-  --ok:#36d17a;
-  --warn:#f0b44d;
-  --bad:#ff6575;
-  --accent:#66a8ff;
+  color-scheme:dark;
 }
-
-*{box-sizing:border-box}
 
 body{
   margin:0;
-  background:var(--bg);
-  color:var(--txt);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:#0b0f14;
+  color:#e8eef5;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
 }
 
 main{
-  width:100%;
   max-width:1100px;
   margin:auto;
-  padding:14px;
+  padding:16px;
 }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:14px;
-  margin:10px 0;
+h1,h2{
+  margin:.3em 0 .6em;
 }
 
 h1{
-  font-size:20px;
-  margin:3px 0 5px;
+  font-size:1.35rem;
 }
 
-h2{
-  font-size:16px;
-  margin:0 0 10px;
+.sub{
+  color:#9fb0c0;
+  font-size:.9rem;
 }
 
-h3{
-  font-size:14px;
-  margin:12px 0 6px;
+.card{
+  background:#121922;
+  border:1px solid #263342;
+  border-radius:14px;
+  padding:14px;
+  margin:12px 0;
 }
 
-p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.45;
+button,
+select,
+input{
+  font:inherit;
+  border-radius:10px;
+  border:1px solid #344455;
+  background:#18222d;
+  color:#fff;
+  padding:10px;
+  margin:4px 3px;
 }
 
 button{
-  border:1px solid var(--line);
-  background:#182230;
-  color:var(--txt);
-  border-radius:9px;
-  padding:10px 12px;
-  margin:3px;
   cursor:pointer;
-  font-weight:700;
 }
 
-button:hover{
-  border-color:var(--accent);
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
 }
 
-button.ok{
-  border-color:#276d49;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:8px;
 }
 
-button.danger{
-  border-color:#71313a;
-}
-
-button.warn{
-  border-color:#72582a;
-}
-
-input{
-  width:100%;
-  background:#0d141d;
-  color:var(--txt);
-  border:1px solid var(--line);
-  border-radius:8px;
+.stat{
+  background:#0d141c;
+  border-radius:10px;
   padding:10px;
-  margin:3px 0;
+}
+
+.stat b{
+  display:block;
+  font-size:1.25rem;
 }
 
 pre{
   white-space:pre-wrap;
   word-break:break-word;
   background:#080c11;
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:10px;
-  max-height:380px;
-  overflow:auto;
-  font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-  gap:8px;
-}
-
-.stat{
-  padding:10px;
-  border:1px solid var(--line);
   border-radius:10px;
-}
-
-.stat b{
-  display:block;
-  font-size:20px;
-}
-
-.stat span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-.row{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:4px;
+  padding:10px;
+  max-height:330px;
+  overflow:auto;
 }
 
 .badge{
   display:inline-block;
-  padding:4px 8px;
-  border-radius:99px;
-  background:#182230;
-  color:var(--muted);
-  font-size:11px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#19301f;
   margin:2px;
 }
 
-.oktxt{color:var(--ok)}
-.warntxt{color:var(--warn)}
-.badtxt{color:var(--bad)}
+.bad{
+  background:#3a1b1b;
+}
+
+.muted{
+  color:#8fa0b0;
+}
+
+.ok{
+  color:#7ee787;
+}
+
+.warn{
+  color:#ffd166;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.88rem;
+}
+
+th,
+td{
+  border-bottom:1px solid #273442;
+  padding:7px;
+  text-align:left;
+  vertical-align:top;
+}
+
+.hex{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+}
 
 .small{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.mono{
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-
-hr{
-  border:0;
-  border-top:1px solid var(--line);
-  margin:12px 0;
+  font-size:.82rem;
 }
 </style>
 </head>
@@ -179,21 +144,11 @@ hr{
 
 <main>
 
-<div class="card">
+<h1>🔬 RoXThal F1 Plus — Protocol Laboratory V6</h1>
 
-<h1>🔬 RoXThal F1 Plus — Protocol Laboratory V5</h1>
-
-<p>
-Detección ampliada · diagnóstico GATT · FEA1 · FEE7 · NUS ·
-sincronización de hora · comparación byte a byte · TX exclusivamente manual
-</p>
-
-<div class="row">
-<span id="state" class="badge">IDLE</span>
-<span id="deviceName" class="badge">Sin dispositivo</span>
-<span id="gattState" class="badge">GATT —</span>
-</div>
-
+<div class="sub">
+GATT real · propiedades corregidas · READ + NOTIFY/INDICATE ·
+comparación byte a byte · sincronización de hora · TX exclusivamente manual
 </div>
 
 
@@ -203,7 +158,7 @@ sincronización de hora · comparación byte a byte · TX exclusivamente manual
 
 <h2>📡 Detección y conexión</h2>
 
-<button id="btnConnect" class="ok">
+<button id="btnDetect">
 🔗 DETECTAR F1 PLUS
 </button>
 
@@ -211,126 +166,55 @@ sincronización de hora · comparación byte a byte · TX exclusivamente manual
 🔎 BUSCAR CUALQUIER BLE
 </button>
 
-<button id="btnDisconnect" class="danger">
+<button id="btnDisconnect">
 ⛔ DESCONECTAR
 </button>
 
-<p>
-La búsqueda normal acepta <b>F1 Plus</b>, <b>F1 BAND</b>,
-<b>F1*</b>, FEE7 y NUS.
-</p>
-
-<p class="warntxt">
-⚠️ La aplicación NO realiza reconexión automática.
-</p>
+<span id="status" class="badge bad">
+DESCONECTADO
+</span>
 
 <pre id="diag"></pre>
 
 </div>
 
 
-<!-- HORA -->
+<!-- ESTADO -->
 
 <div class="card">
 
-<h2>🕒 Hora real y sincronización</h2>
+<h2>📊 Estado</h2>
 
 <div class="grid">
 
 <div class="stat">
-<b id="localTime">--:--:--</b>
-<span>Hora del teléfono</span>
+<span>Dispositivo</span>
+<b id="deviceName">—</b>
 </div>
 
 <div class="stat">
-<b id="localDate">----</b>
-<span>Fecha del teléfono</span>
+<span>GATT</span>
+<b id="gattState">—</b>
 </div>
 
 <div class="stat">
-<b id="connectedAt">—</b>
-<span>Hora de conexión GATT</span>
+<span>Servicios</span>
+<b id="serviceCount">0</b>
 </div>
 
 <div class="stat">
-<b id="timeCaptureCount">0</b>
-<span>RX capturados para hora</span>
-</div>
-
-</div>
-
-<p>
-Esta sección intenta identificar el intercambio real que utiliza el
-F1 Plus/WearFit para actualizar fecha y hora.
-</p>
-
-<p class="warntxt">
-⚠️ No se transmite ningún comando de hora automáticamente.
-</p>
-
-<button id="btnTimeCapture" class="ok">
-⏱️ CAPTURAR SINCRONIZACIÓN
-</button>
-
-<button id="btnTimeStop">
-⏹️ DETENER CAPTURA
-</button>
-
-<button id="btnTimeRead">
-🕒 COMPROBAR SERVICIO DE HORA
-</button>
-
-<pre id="timeLog"></pre>
-
-</div>
-
-
-<!-- DIAGNÓSTICO CONEXIÓN -->
-
-<div class="card">
-
-<h2>🧪 Diagnóstico de reconexiones</h2>
-
-<div class="grid">
-
-<div class="stat">
-<b id="connectCalls">0</b>
-<span>gatt.connect() solicitados</span>
+<span>RX notify</span>
+<b id="rxNotify">0</b>
 </div>
 
 <div class="stat">
-<b id="realConnects">0</b>
-<span>Conexiones GATT reales</span>
+<span>READ</span>
+<b id="readCount">0</b>
 </div>
 
 <div class="stat">
-<b id="disconnects">0</b>
-<span>Desconexiones reales</span>
-</div>
-
-<div class="stat">
-<b id="blockedConnects">0</b>
-<span>Conexiones duplicadas bloqueadas</span>
-</div>
-
-<div class="stat">
-<b id="autoReconnects">0</b>
-<span>Auto-reconexiones</span>
-</div>
-
-<div class="stat">
-<b id="rxCount">0</b>
-<span>RX</span>
-</div>
-
-<div class="stat">
-<b id="txCount">0</b>
 <span>TX manual</span>
-</div>
-
-<div class="stat">
-<b id="fee7Count">0</b>
-<span>RX FEE7</span>
+<b id="txCount">0</b>
 </div>
 
 </div>
@@ -338,15 +222,47 @@ F1 Plus/WearFit para actualizar fecha y hora.
 </div>
 
 
-<!-- GATT -->
+<!-- MAPA GATT -->
 
 <div class="card">
 
-<h2>🧬 Servicios y características GATT</h2>
+<h2>🧬 Mapa GATT real</h2>
 
-<pre id="gatt">
-Todavía no hay descubrimiento GATT.
-</pre>
+<p class="muted small">
+V6 no utiliza Object.entries() para BluetoothCharacteristicProperties.
+Cada propiedad se consulta explícitamente.
+</p>
+
+<div id="gattMap">
+Conecta el F1 Plus para inspeccionar GATT.
+</div>
+
+</div>
+
+
+<!-- FEE7 READ -->
+
+<div class="card">
+
+<h2>📥 FEE7 — lecturas controladas</h2>
+
+<button id="btnReadAll">
+📖 LEER FEA1 + FEA2 + FEC9
+</button>
+
+<button id="btnReadFEA1">
+📖 LEER FEA1
+</button>
+
+<button id="btnReadFEA2">
+📖 LEER FEA2
+</button>
+
+<button id="btnReadFEC9">
+📖 LEER FEC9
+</button>
+
+<pre id="fee7Log"></pre>
 
 </div>
 
@@ -355,47 +271,31 @@ Todavía no hay descubrimiento GATT.
 
 <div class="card">
 
-<h2>📥 FEA1 — análisis de pasos</h2>
+<h2>🔬 FEA1 — análisis de pasos</h2>
 
 <div class="grid">
 
 <div class="stat">
-<b id="fea1Reads">0</b>
 <span>Lecturas FEA1</span>
+<b id="fea1Reads">0</b>
 </div>
 
 <div class="stat">
-<b id="steps">—</b>
 <span>Pasos bytes 1–3 LE</span>
+<b id="steps">—</b>
 </div>
 
 <div class="stat">
-<b id="field2">—</b>
 <span>Campo 2</span>
+<b id="field2">—</b>
 </div>
 
 <div class="stat">
-<b id="field3">—</b>
 <span>Campo 3</span>
+<b id="field3">—</b>
 </div>
 
 </div>
-
-<button id="btnReadFEA1">
-📖 LEER FEA1
-</button>
-
-<button id="btnSubFEA1">
-🔔 SUSCRIBIR FEA1
-</button>
-
-<button id="btnStopFEA1">
-⏹️ PARAR FEA1
-</button>
-
-<pre id="fea1"></pre>
-
-<h3>🔬 Comparación automática FEA1</h3>
 
 <pre id="fea1Compare">
 Esperando dos muestras FEA1...
@@ -404,37 +304,133 @@ Esperando dos muestras FEA1...
 </div>
 
 
-<!-- FEE7 -->
+<!-- NOTIFICACIONES -->
 
 <div class="card">
 
-<h2>📡 FEE7 / NUS — captura controlada</h2>
+<h2>📡 FEE7 / NUS — notificaciones</h2>
 
-<button id="btnSubFEC9">
+<button id="subFEA1">
+🔔 SUSCRIBIR FEA1
+</button>
+
+<button id="stopFEA1">
+⏹️ PARAR FEA1
+</button>
+
+<button id="subFEC9">
 🔔 SUSCRIBIR FEC9
 </button>
 
-<button id="btnStopFEC9">
+<button id="stopFEC9">
 ⏹️ PARAR FEC9
 </button>
 
-<button id="btnSubFEA2">
+<button id="subFEA2">
 🔔 SUSCRIBIR FEA2
 </button>
 
-<button id="btnStopFEA2">
+<button id="stopFEA2">
 ⏹️ PARAR FEA2
 </button>
 
-<button id="btnSubNUS">
+<button id="subNUS">
 🔔 SUSCRIBIR NUS
 </button>
 
-<button id="btnStopNUS">
+<button id="stopNUS">
 ⏹️ PARAR NUS
 </button>
 
-<pre id="rx"></pre>
+<pre id="rxLog"></pre>
+
+</div>
+
+
+<!-- HORA -->
+
+<div class="card">
+
+<h2>🕒 Investigación de sincronización de hora</h2>
+
+<div class="grid">
+
+<div class="stat">
+<span>Hora teléfono</span>
+<b id="phoneTime">—</b>
+</div>
+
+<div class="stat">
+<span>Fecha teléfono</span>
+<b id="phoneDate">—</b>
+</div>
+
+<div class="stat">
+<span>Hora conexión</span>
+<b id="connectTime">—</b>
+</div>
+
+<div class="stat">
+<span>RX durante captura</span>
+<b id="timeRx">0</b>
+</div>
+
+</div>
+
+<button id="btnTimeCapture">
+⏱️ CAPTURAR SINCRONIZACIÓN
+</button>
+
+<button id="btnTimeStop">
+⏹️ DETENER CAPTURA
+</button>
+
+<button id="btnCheckTime">
+🕒 COMPROBAR 1805/2A2B
+</button>
+
+<pre id="timeLog"></pre>
+
+<p class="muted small">
+No se envía ningún comando de hora automáticamente.
+Esta sección registra lecturas/notificaciones y permite comparar
+el estado antes/después.
+</p>
+
+</div>
+
+
+<!-- TX -->
+
+<div class="card">
+
+<h2>📤 TX manual</h2>
+
+<select id="txTarget">
+
+<option value="nus">
+NUS 6E400002 WRITE
+</option>
+
+<option value="fea2">
+FEA2 WRITE
+</option>
+
+</select>
+
+<input
+id="txHex"
+placeholder="Ej.: AA 01 02 03"
+style="width:min(100%,420px)"
+>
+
+<button id="btnTx">
+📤 ENVIAR TX MANUAL
+</button>
+
+<p class="muted small">
+TX nunca se ejecuta automáticamente.
+</p>
 
 </div>
 
@@ -446,49 +442,27 @@ Esperando dos muestras FEA1...
 <h2>🔬 Comparador manual byte a byte</h2>
 
 <input
-id="hexA"
+id="cmpA"
 placeholder="A: AB 00 05 FF 91 80 00 64"
+style="width:min(100%,440px)"
 >
 
 <input
-id="hexB"
-placeholder="B: AB 00 0D FF 92 C0 03 07 7B 00 00 00 00 00 00 22"
+id="cmpB"
+placeholder="B: AB 00 0D FF 92 C0 03..."
+style="width:min(100%,440px)"
 >
 
 <button id="btnCompare">
 🔎 COMPARAR
 </button>
 
-<pre id="compare"></pre>
+<pre id="cmpOut"></pre>
 
 </div>
 
 
-<!-- TX -->
-
-<div class="card">
-
-<h2>📤 TX manual</h2>
-
-<input
-id="txHex"
-placeholder="HEX. Ejemplo: AB 00 05 FF 91 80 00 64"
->
-
-<button id="btnTX" class="warn">
-📤 ENVIAR TX MANUAL
-</button>
-
-<p class="warntxt">
-⚠️ TX solamente cuando tú pulsas el botón.
-</p>
-
-<pre id="txLog"></pre>
-
-</div>
-
-
-<!-- EXPORT -->
+<!-- DATOS -->
 
 <div class="card">
 
@@ -518,38 +492,89 @@ placeholder="HEX. Ejemplo: AB 00 05 FF 91 80 00 64"
 
 const UUID = {
 
-NUS:
-"6e400001-b5a3-f393-e0a9-e50e24dcca9e",
+  FEE7:
+  "0000fee7-0000-1000-8000-00805f9b34fb",
 
-WRITE:
-"6e400002-b5a3-f393-e0a9-e50e24dcca9e",
+  FEA1:
+  "0000fea1-0000-1000-8000-00805f9b34fb",
 
-NOTIFY:
-"6e400003-b5a3-f393-e0a9-e50e24dcca9e",
+  FEA2:
+  "0000fea2-0000-1000-8000-00805f9b34fb",
 
-FEE7:
-"0000fee7-0000-1000-8000-00805f9b34fb",
+  FEC9:
+  "0000fec9-0000-1000-8000-00805f9b34fb",
 
-FEA1:
-"0000fea1-0000-1000-8000-00805f9b34fb",
+  NUS:
+  "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
 
-FEA2:
-"0000fea2-0000-1000-8000-00805f9b34fb",
+  NUS_WRITE:
+  "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
 
-FEC9:
-"0000fec9-0000-1000-8000-00805f9b34fb",
+  NUS_NOTIFY:
+  "6e400003-b5a3-f393-e0a9-e50e24dcca9e",
 
-GAP:
-"00001800-0000-1000-8000-00805f9b34fb",
+  GAP:
+  "00001800-0000-1000-8000-00805f9b34fb",
 
-GATT:
-"00001801-0000-1000-8000-00805f9b34fb",
+  GATT:
+  "00001801-0000-1000-8000-00805f9b34fb",
 
-CURRENT_TIME:
-"00001805-0000-1000-8000-00805f9b34fb",
+  CURRENT_TIME:
+  "00001805-0000-1000-8000-00805f9b34fb",
 
-CURRENT_TIME_CHAR:
-"00002a2b-0000-1000-8000-00805f9b34fb"
+  CURRENT_TIME_CHAR:
+  "00002a2b-0000-1000-8000-00805f9b34fb"
+
+};
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+const state = {
+
+  device:null,
+
+  server:null,
+
+  chars:new Map(),
+
+  subscriptions:new Map(),
+
+  gattConnectCalls:0,
+
+  realConnections:0,
+
+  disconnects:0,
+
+  duplicateBlocked:0,
+
+  autoReconnects:0,
+
+  rxNotify:0,
+
+  reads:0,
+
+  tx:0,
+
+  timeCapture:false,
+
+  timeRx:0,
+
+  connectAt:null,
+
+  lastFEA1:null,
+
+  previousFEA1:null,
+
+  samples:[],
+
+  rx:[],
+
+  readsLog:[],
+
+  txLog:[]
 
 };
 
@@ -558,138 +583,202 @@ CURRENT_TIME_CHAR:
    UTILIDADES
 ========================================================= */
 
-const $ = id => document.getElementById(id);
-
-const logLines = [];
-const rxPackets = [];
-const timePackets = [];
-
-let fea1Last = null;
-
-let fea1Reads = 0;
-
-let timeCapture = false;
-
-let timeCaptureStart = null;
-
-let rxCount = 0;
-
-let txCount = 0;
-
-let fee7Count = 0;
+const $ = id =>
+document.getElementById(id);
 
 
-/* =========================================================
-   ESTADO DE CONEXIÓN
-========================================================= */
-
-const conn = {
-
-state:"IDLE",
-
-device:null,
-
-server:null,
-
-chars:new Map(),
-
-deviceListener:false,
-
-calls:0,
-
-real:0,
-
-disconnects:0,
-
-blocked:0,
-
-auto:0,
-
-connectedAt:null
-
-};
+const now = () =>
+new Date();
 
 
-/* =========================================================
-   TIEMPO
-========================================================= */
-
-function updateClock(){
-
-const d = new Date();
-
-$("localTime").textContent =
+const hhmmss = d =>
 d.toLocaleTimeString(
-"es-AR",
-{hour12:false}
+  "es-AR",
+  {
+    hour12:false
+  }
 );
 
-$("localDate").textContent =
-d.toLocaleDateString(
-"es-AR"
-);
+
+const isoDate = d =>
+d.toISOString().slice(0,10);
+
+
+function log(msg){
+
+  const line =
+  `[${hhmmss(now())}] ${msg}`;
+
+  $("diag").textContent +=
+  line + "\n";
+
+  $("diag").scrollTop =
+  $("diag").scrollHeight;
 
 }
 
-setInterval(updateClock,250);
 
-updateClock();
+function feeLog(msg){
+
+  $("fee7Log").textContent +=
+  `[${hhmmss(now())}] ${msg}\n`;
+
+  $("fee7Log").scrollTop =
+  $("fee7Log").scrollHeight;
+
+}
+
+
+function rxLog(msg){
+
+  $("rxLog").textContent +=
+  `[${hhmmss(now())}] ${msg}\n`;
+
+  $("rxLog").scrollTop =
+  $("rxLog").scrollHeight;
+
+}
+
+
+function timeLog(msg){
+
+  $("timeLog").textContent +=
+  `[${hhmmss(now())}] ${msg}\n`;
+
+  $("timeLog").scrollTop =
+  $("timeLog").scrollHeight;
+
+}
 
 
 /* =========================================================
    HEX
 ========================================================= */
 
-function hex(bytes){
+function hex(data){
 
-return [...bytes]
-.map(
-x=>x.toString(16).padStart(2,"0").toUpperCase()
-)
-.join(" ");
+  return [
+    ...new Uint8Array(
+      data.buffer || data
+    )
+  ]
+  .map(
+    x =>
+    x.toString(16)
+    .padStart(2,"0")
+    .toUpperCase()
+  )
+  .join(" ");
+
+}
+
+
+function bytesFromHex(s){
+
+  const clean =
+  s
+  .replace(/0x/gi,"")
+  .replace(/[^0-9a-fA-F]/g," ");
+
+  const parts =
+  clean.trim()
+  ?
+  clean.trim().split(/\s+/)
+  :
+  [];
+
+  if(!parts.length){
+
+    throw new Error("HEX vacío");
+
+  }
+
+  if(
+    parts.some(
+      x =>
+      x.length !== 2 ||
+      !/^[0-9a-fA-F]{2}$/.test(x)
+    )
+  ){
+
+    throw new Error("HEX inválido");
+
+  }
+
+  return new Uint8Array(
+    parts.map(
+      x => parseInt(x,16)
+    )
+  );
 
 }
 
 
-function parseHex(text){
+/* =========================================================
+   ESTADO VISUAL
+========================================================= */
 
-const clean =
-text
-.replace(/0x/gi,"")
-.replace(/[^0-9a-fA-F]/g,"");
+function setStatus(text,good){
 
-if(!clean){
+  $("status").textContent =
+  text;
 
-throw new Error("HEX vacío");
+  $("status").className =
+  "badge " +
+  (good ? "" : "bad");
 
-}
-
-if(clean.length % 2 !== 0){
-
-throw new Error(
-"HEX inválido: cantidad impar de caracteres"
-);
-
-}
-
-const result =
-new Uint8Array(clean.length/2);
-
-for(
-let i=0;
-i<result.length;
-i++
-){
-
-result[i] =
-parseInt(
-clean.slice(i*2,i*2+2),
-16
-);
+  $("gattState").textContent =
+  good
+  ?
+  "CONNECTED"
+  :
+  "DESCONECTADO";
 
 }
 
-return result;
+
+/* =========================================================
+   PROPIEDADES GATT
+========================================================= */
+
+function propertyFlags(c){
+
+  const p =
+  c.properties || {};
+
+  const defs = [
+
+    ["broadcast","BROADCAST"],
+
+    ["read","READ"],
+
+    ["writeWithoutResponse","WRITE_NR"],
+
+    ["write","WRITE"],
+
+    ["notify","NOTIFY"],
+
+    ["indicate","INDICATE"],
+
+    ["authenticatedSignedWrites","SIGNED"],
+
+    ["reliableWrite","RELIABLE"],
+
+    ["writableAuxiliaries","AUX"]
+
+  ];
+
+  return defs
+
+  .filter(
+    ([key]) =>
+    p[key] === true
+  )
+
+  .map(
+    ([,value]) =>
+    value
+  );
 
 }
 
@@ -698,636 +787,310 @@ return result;
    UUID CORTO
 ========================================================= */
 
-function short(uuid){
+function uuidShort(u){
 
-return String(uuid || "")
-.toLowerCase()
-.replace(
-/^0000/,
-""
-)
-.replace(
-/-0000-1000-8000-00805f9b34fb$/,
-""
-)
-.toUpperCase();
+  const s =
+  u.toLowerCase();
 
-}
+  const known = {
 
+    [UUID.FEE7]:"FEE7",
 
-/* =========================================================
-   LOG
-========================================================= */
+    [UUID.FEA1]:"FEA1",
 
-function now(){
+    [UUID.FEA2]:"FEA2",
 
-return new Date()
-.toLocaleTimeString(
-"es-AR",
-{hour12:false}
-);
+    [UUID.FEC9]:"FEC9",
 
-}
+    [UUID.NUS]:"6E400001",
 
+    [UUID.NUS_WRITE]:"6E400002",
 
-function timestamp(){
+    [UUID.NUS_NOTIFY]:"6E400003",
 
-return new Date().toISOString();
+    [UUID.GAP]:"1800",
 
-}
+    [UUID.GATT]:"1801",
 
+    [UUID.CURRENT_TIME]:"1805",
 
-function diag(message){
+    [UUID.CURRENT_TIME_CHAR]:"2A2B"
 
-const line =
-"[" + now() + "] " + message;
+  };
 
-logLines.push(line);
-
-$("diag").textContent =
-logLines
-.slice(-150)
-.join("\n");
-
-}
-
-
-function timeLog(message){
-
-$("timeLog").textContent +=
-"[" + now() + "] " +
-message +
-"\n";
-
-const box = $("timeLog");
-
-box.scrollTop =
-box.scrollHeight;
-
-}
-
-
-function rxLog(message){
-
-$("rx").textContent +=
-message +
-"\n";
-
-const box = $("rx");
-
-box.scrollTop =
-box.scrollHeight;
+  return known[s]
+  ||
+  u.toUpperCase();
 
 }
 
 
 /* =========================================================
-   ESTADO
+   BUSCAR CARACTERÍSTICA
 ========================================================= */
 
-function setState(state){
+function findChar(id){
 
-conn.state = state;
-
-$("state").textContent =
-state;
-
-$("gattState").textContent =
-"GATT " +
-(
-conn.server &&
-conn.server.connected
-?
-"CONECTADO"
-:
-"—"
-);
+  return state.chars.get(
+    id.toLowerCase()
+  )
+  ||
+  null;
 
 }
 
 
 /* =========================================================
-   ESTADÍSTICAS
+   CONEXIÓN GATT ÚNICA
 ========================================================= */
 
-function updateStats(){
+async function connectGATT(origin){
 
-$("connectCalls").textContent =
-conn.calls;
+  if(!state.device){
 
-$("realConnects").textContent =
-conn.real;
+    throw new Error(
+      "No hay dispositivo seleccionado"
+    );
 
-$("disconnects").textContent =
-conn.disconnects;
+  }
 
-$("blockedConnects").textContent =
-conn.blocked;
+  if(
+    state.device.gatt.connected ||
+    state.server
+  ){
 
-$("autoReconnects").textContent =
-conn.auto;
+    state.duplicateBlocked++;
 
-$("rxCount").textContent =
-rxCount;
+    log(
+      "⛔ Ya existe una conexión o conexión en curso."
+    );
 
-$("txCount").textContent =
-txCount;
+    return;
 
-$("fee7Count").textContent =
-fee7Count;
+  }
 
-$("fea1Reads").textContent =
-fea1Reads;
 
-$("timeCaptureCount").textContent =
-timePackets.length;
+  state.gattConnectCalls++;
 
-$("connectedAt").textContent =
-conn.connectedAt
-?
-new Date(
-conn.connectedAt
-).toLocaleTimeString(
-"es-AR",
-{hour12:false}
-)
-:
-"—";
 
-$("gattState").textContent =
-"GATT " +
-(
-conn.server &&
-conn.server.connected
-?
-"CONECTADO"
-:
-"—"
-);
+  log(
+    `➡️ gatt.connect() SOLICITADO | ` +
+    `Origen: ${origin} | ` +
+    `llamada #${state.gattConnectCalls}`
+  );
+
+
+  const server =
+  await state.device.gatt.connect();
+
+
+  state.server =
+  server;
+
+
+  state.realConnections++;
+
+
+  state.connectAt =
+  now();
+
+
+  $("connectTime").textContent =
+  hhmmss(
+    state.connectAt
+  );
+
+
+  setStatus(
+    "CONECTADO",
+    true
+  );
+
+
+  log(
+    "🟢 GATT CONNECTED."
+  );
+
+
+  log(
+    `Conexión GATT real #${state.realConnections}`
+  );
+
+
+  await discover();
 
 }
 
 
 /* =========================================================
-   SERVICIOS OPCIONALES
+   DETECCIÓN
 ========================================================= */
 
-function optionalServices(){
+async function selectAndConnect(mode){
 
-return [
+  if(!navigator.bluetooth){
 
-UUID.NUS,
+    alert(
+      "Web Bluetooth no está disponible en este navegador."
+    );
 
-UUID.FEE7,
+    return;
 
-UUID.GAP,
+  }
 
-UUID.GATT,
 
-UUID.CURRENT_TIME
+  if(
+    state.device &&
+    (
+      state.device.gatt.connected ||
+      state.server
+    )
+  ){
 
-];
+    state.duplicateBlocked++;
 
-}
+    log(
+      "⛔ Ya existe una conexión o conexión en curso."
+    );
 
+    return;
 
-/* =========================================================
-   PETICIÓN NORMAL
-========================================================= */
+  }
 
-async function requestF1Device(){
 
-if(!navigator.bluetooth){
+  const options =
+  mode === "f1"
 
-throw new Error(
-"Web Bluetooth no está disponible."
-);
+  ?
 
-}
+  {
 
-diag(
-"Buscando F1 Plus / F1 BAND / F1 / FEE7 / NUS..."
-);
+    filters:[
 
-return await navigator.bluetooth.requestDevice({
+      {
+        name:"F1 Plus"
+      },
 
-filters:[
+      {
+        name:"F1 BAND"
+      },
 
-{
-name:"F1 Plus"
-},
+      {
+        namePrefix:"F1"
+      },
 
-{
-name:"F1 BAND"
-},
+      {
+        services:[UUID.FEE7]
+      },
 
-{
-namePrefix:"F1"
-},
+      {
+        services:[UUID.NUS]
+      }
 
-{
-services:[UUID.NUS]
-},
+    ],
 
-{
-services:[UUID.FEE7]
-}
+    optionalServices:[
 
-],
+      UUID.FEE7,
 
-optionalServices:
-optionalServices()
+      UUID.NUS,
 
-});
+      UUID.GAP,
 
-}
+      UUID.GATT,
 
+      UUID.CURRENT_TIME
 
-/* =========================================================
-   PETICIÓN DIAGNÓSTICA
-========================================================= */
+    ]
 
-async function requestAnyDevice(){
+  }
 
-if(!navigator.bluetooth){
+  :
 
-throw new Error(
-"Web Bluetooth no está disponible."
-);
+  {
 
-}
+    acceptAllDevices:true,
 
-diag(
-"MODO DIAGNÓSTICO: aceptando cualquier BLE..."
-);
+    optionalServices:[
 
-return await navigator.bluetooth.requestDevice({
+      UUID.FEE7,
 
-acceptAllDevices:true,
+      UUID.NUS,
 
-optionalServices:
-optionalServices()
+      UUID.GAP,
 
-});
+      UUID.GATT,
 
-}
+      UUID.CURRENT_TIME
 
+    ]
 
-/* =========================================================
-   DESCONEXIÓN REAL
-========================================================= */
+  };
 
-function onDisconnected(){
 
-conn.disconnects++;
+  log(
 
-setState("DISCONNECTED");
+    mode === "f1"
 
-diag(
-"⚠️ gattserverdisconnected EVENTO REAL."
-);
+    ?
 
-diag(
-"El enlace GATT se ha perdido."
-);
+    "Buscando F1 Plus / F1 BAND / F1* / FEE7 / NUS..."
 
-diag(
-"🚫 NO se ejecutará reconexión automática."
-);
+    :
 
-conn.server = null;
+    "Buscando cualquier dispositivo BLE..."
 
-conn.chars.clear();
+  );
 
-conn.connectedAt = null;
 
-$("gatt").textContent =
-"Desconectado.";
+  try{
 
-updateStats();
+    const device =
+    await navigator.bluetooth.requestDevice(
+      options
+    );
 
-}
 
+    state.device =
+    device;
 
-/* =========================================================
-   CONEXIÓN PRINCIPAL
-========================================================= */
 
-async function connect(origin){
+    $("deviceName").textContent =
+    device.name ||
+    "(sin nombre)";
 
-origin =
-origin ||
-"UNKNOWN";
 
-if(
-conn.state === "CONNECTING"
-){
+    log(
+      `Dispositivo seleccionado: ` +
+      `${device.name || "(sin nombre)"}`
+    );
 
-conn.blocked++;
 
-diag(
-"⛔ CONEXIÓN DUPLICADA BLOQUEADA."
-);
+    device.addEventListener(
+      "gattserverdisconnected",
+      onDisconnected,
+      {
+        once:false
+      }
+    );
 
-diag(
-"Origen: " + origin
-);
 
-updateStats();
+    await connectGATT(
+      mode === "f1"
+      ?
+      "BUTTON_F1_PLUS"
+      :
+      "BUTTON_ANY_BLE"
+    );
 
-return;
 
-}
+  }catch(e){
 
+    log(
+      `❌ ${e.name}: ${e.message}`
+    );
 
-if(
-conn.device &&
-conn.device.gatt &&
-conn.device.gatt.connected
-){
-
-conn.blocked++;
-
-diag(
-"⛔ gatt.connect() bloqueado."
-);
-
-diag(
-"GATT ya estaba conectado."
-);
-
-diag(
-"Origen: " + origin
-);
-
-updateStats();
-
-return;
-
-}
-
-
-try{
-
-setState("SELECTING");
-
-
-/*
-   IMPORTANTE:
-   requestDevice solo se ejecuta si no
-   tenemos un dispositivo seleccionado.
-*/
-
-if(!conn.device){
-
-conn.device =
-await requestF1Device();
-
-$("deviceName").textContent =
-conn.device.name ||
-"(sin nombre)";
-
-
-if(!conn.deviceListener){
-
-conn.device.addEventListener(
-"gattserverdisconnected",
-onDisconnected
-);
-
-conn.deviceListener = true;
-
-}
-
-diag(
-"Dispositivo seleccionado: " +
-(
-conn.device.name ||
-"(sin nombre)"
-)
-);
-
-}
-
-setState("CONNECTING");
-
-
-/*
-   ESTE ES EL ÚNICO PUNTO
-   DONDE SE LLAMA gatt.connect()
-*/
-
-conn.calls++;
-
-diag(
-"➡️ gatt.connect() SOLICITADO"
-);
-
-diag(
-"Origen: " +
-origin +
-" | llamada #" +
-conn.calls
-);
-
-
-conn.server =
-await conn.device.gatt.connect();
-
-
-conn.real++;
-
-conn.connectedAt =
-Date.now();
-
-setState("CONNECTED");
-
-diag(
-"🟢 GATT CONNECTED."
-);
-
-diag(
-"Conexión GATT real #" +
-conn.real
-);
-
-
-await discover();
-
-updateStats();
-
-}
-catch(error){
-
-setState("ERROR");
-
-diag(
-"❌ Error: " +
-(
-error &&
-error.message
-?
-error.message
-:
-error
-)
-);
-
-updateStats();
-
-}
-
-}
-
-
-/* =========================================================
-   MODO CUALQUIER BLE
-========================================================= */
-
-async function connectAny(){
-
-if(
-conn.state === "CONNECTING"
-||
-(
-conn.device &&
-conn.device.gatt &&
-conn.device.gatt.connected
-)
-){
-
-conn.blocked++;
-
-diag(
-"⛔ Ya existe una conexión o conexión en curso."
-);
-
-updateStats();
-
-return;
-
-}
-
-
-try{
-
-setState("SELECTING");
-
-conn.device =
-await requestAnyDevice();
-
-$("deviceName").textContent =
-conn.device.name ||
-"(sin nombre)";
-
-
-if(!conn.deviceListener){
-
-conn.device.addEventListener(
-"gattserverdisconnected",
-onDisconnected
-);
-
-conn.deviceListener = true;
-
-}
-
-diag(
-"Dispositivo seleccionado: " +
-(
-conn.device.name ||
-"(sin nombre)"
-)
-);
-
-
-setState("CONNECTING");
-
-
-conn.calls++;
-
-diag(
-"➡️ gatt.connect() SOLICITADO"
-);
-
-diag(
-"Origen: DIAGNOSTIC_ANY | llamada #" +
-conn.calls
-);
-
-
-conn.server =
-await conn.device.gatt.connect();
-
-
-conn.real++;
-
-conn.connectedAt =
-Date.now();
-
-setState("CONNECTED");
-
-diag(
-"🟢 GATT CONNECTED."
-);
-
-
-await discover();
-
-updateStats();
-
-}
-catch(error){
-
-setState("ERROR");
-
-diag(
-"❌ " +
-(
-error &&
-error.message
-?
-error.message
-:
-error
-)
-);
-
-updateStats();
-
-}
-
-}
-
-
-/* =========================================================
-   DESCONEXIÓN MANUAL
-========================================================= */
-
-function disconnect(){
-
-if(
-conn.device &&
-conn.device.gatt &&
-conn.device.gatt.connected
-){
-
-diag(
-"⛔ DESCONECTAR solicitado por usuario."
-);
-
-setState("DISCONNECTING");
-
-conn.device.gatt.disconnect();
-
-}
-else{
-
-diag(
-"No existe una conexión GATT activa."
-);
-
-}
+  }
 
 }
 
@@ -1338,106 +1101,225 @@ diag(
 
 async function discover(){
 
-$("gatt").textContent =
-"";
-
-conn.chars.clear();
-
-const services =
-await conn.server.getPrimaryServices();
-
-diag(
-"Servicios primarios encontrados: " +
-services.length
-);
+  state.chars.clear();
 
 
-for(
-const service of services
-){
+  const services =
+  await state.server.getPrimaryServices();
 
-let output =
-"SERVICE " +
-short(service.uuid) +
-"\n";
 
-try{
+  $("serviceCount").textContent =
+  services.length;
 
-const characteristics =
-await service.getCharacteristics();
 
-for(
-const c of characteristics
-){
+  log(
+    `Servicios primarios encontrados: ${services.length}`
+  );
 
-const props =
-c.properties;
 
-const active =
-Object.entries(props)
-.filter(
-item => item[1]
-)
-.map(
-item =>
-item[0].toUpperCase()
-)
-.join(", ");
+  let html =
 
-output +=
-"  " +
-short(c.uuid) +
-" [" +
-active +
-"]\n";
+  "<table>" +
 
-conn.chars.set(
-c.uuid.toLowerCase(),
-c
-);
+  "<thead>" +
 
-}
+  "<tr>" +
 
-}
-catch(error){
+  "<th>Servicio</th>" +
 
-output +=
-"  ERROR: " +
-error.message +
-"\n";
+  "<th>Característica</th>" +
 
-}
+  "<th>Propiedades</th>" +
 
-$("gatt").textContent +=
-output +
-"\n";
+  "<th>Descriptor</th>" +
 
-}
+  "</tr>" +
 
-diag(
-"🧬 Descubrimiento GATT terminado."
-);
+  "</thead>" +
 
-diag(
-"🚫 No se activaron notificaciones automáticamente."
-);
+  "<tbody>";
 
-updateStats();
+
+  for(
+    const service of services
+  ){
+
+    let chars=[];
+
+
+    try{
+
+      chars =
+      await service.getCharacteristics();
+
+    }catch(e){
+
+      log(
+        `⚠️ ${uuidShort(service.uuid)}: ${e.message}`
+      );
+
+      continue;
+
+    }
+
+
+    if(!chars.length){
+
+      html +=
+
+      `<tr>` +
+
+      `<td class="hex">` +
+
+      `${uuidShort(service.uuid)}<br>` +
+
+      `${service.uuid}` +
+
+      `</td>` +
+
+      `<td>—</td>` +
+
+      `<td>—</td>` +
+
+      `<td>—</td>` +
+
+      `</tr>`;
+
+      continue;
+
+    }
+
+
+    for(
+      const c of chars
+    ){
+
+      const flags =
+      propertyFlags(c);
+
+
+      state.chars.set(
+        c.uuid.toLowerCase(),
+        c
+      );
+
+
+      let desc=[];
+
+
+      try{
+
+        const ds =
+        await c.getDescriptors();
+
+        desc =
+        ds.map(
+          d => d.uuid
+        );
+
+      }catch(_){}
+
+
+      html +=
+
+      `<tr>` +
+
+      `<td class="hex">` +
+
+      `${uuidShort(service.uuid)}<br>` +
+
+      `${service.uuid}` +
+
+      `</td>` +
+
+      `<td class="hex">` +
+
+      `${uuidShort(c.uuid)}<br>` +
+
+      `${c.uuid}` +
+
+      `</td>` +
+
+      `<td>` +
+
+      (
+        flags.length
+        ?
+        flags.join(", ")
+        :
+        "NINGUNA DETECTADA"
+      ) +
+
+      `</td>` +
+
+      `<td class="hex">` +
+
+      (
+        desc.length
+        ?
+        desc.join(", ")
+        :
+        "—"
+      ) +
+
+      `</td>` +
+
+      `</tr>`;
+
+    }
+
+  }
+
+
+  html +=
+  "</tbody></table>";
+
+
+  $("gattMap").innerHTML =
+  html;
+
+
+  log(
+    "🧬 Descubrimiento GATT terminado."
+  );
+
+
+  log(
+    "ℹ️ Propiedades consultadas explícitamente."
+  );
 
 }
 
 
 /* =========================================================
-   OBTENER CARACTERÍSTICA
+   DESCONEXIÓN
 ========================================================= */
 
-function getChar(uuid){
+function onDisconnected(){
 
-return conn.chars.get(
-uuid.toLowerCase()
-)
-||
-null;
+  state.disconnects++;
+
+  state.server =
+  null;
+
+  state.subscriptions.clear();
+
+
+  setStatus(
+    "DESCONECTADO",
+    false
+  );
+
+
+  log(
+    `🔴 GATT DISCONNECTED. ` +
+    `Desconexiones reales: ${state.disconnects}`
+  );
+
+
+  log(
+    "🚫 No se realiza reconexión automática."
+  );
 
 }
 
@@ -1446,39 +1328,77 @@ null;
    READ
 ========================================================= */
 
-async function readCharacteristic(uuid){
+async function readChar(
+  uuid,
+  label
+){
 
-const c =
-getChar(uuid);
+  const c =
+  findChar(uuid);
 
-if(!c){
 
-throw new Error(
-"No encontrada: " +
-short(uuid)
-);
+  if(!c){
 
-}
+    throw new Error(
+      `${label} no encontrada`
+    );
 
-if(!c.properties.read){
+  }
 
-throw new Error(
-"Sin READ: " +
-short(uuid)
-);
 
-}
+  if(!c.properties.read){
 
-const value =
-await c.readValue();
+    throw new Error(
+      `${label} no tiene READ`
+    );
 
-return new Uint8Array(
-value.buffer.slice(
-value.byteOffset,
-value.byteOffset +
-value.byteLength
-)
-);
+  }
+
+
+  const value =
+  await c.readValue();
+
+
+  const h =
+  hex(value);
+
+
+  state.reads++;
+
+
+  state.readsLog.push({
+
+    time:
+    now().toISOString(),
+
+    characteristic:
+    label,
+
+    uuid:
+    c.uuid,
+
+    hex:
+    h
+
+  });
+
+
+  $("readCount").textContent =
+  state.reads;
+
+
+  feeLog(
+    `📖 ${label}: ${h}`
+  );
+
+
+  return new Uint8Array(
+    value.buffer.slice(
+      value.byteOffset,
+      value.byteOffset +
+      value.byteLength
+    )
+  );
 
 }
 
@@ -1488,574 +1408,406 @@ value.byteLength
 ========================================================= */
 
 function analyzeFEA1(
-data,
-source
+  b,
+  source="READ"
 ){
 
-const text =
-hex(data);
-
-fea1Reads++;
-
-let steps = null;
-
-let field2 = null;
-
-let field3 = null;
+  const arr =
+  Array.from(b);
 
 
-if(
-data.length >= 4 &&
-data[0] === 0x07
-){
+  const sample={
 
-steps =
-data[1] |
-(
-data[2] << 8
-) |
-(
-data[3] << 16
-);
+    time:
+    now().toISOString(),
 
+    source,
 
-if(data.length >= 7){
+    bytes:
+    arr,
 
-field2 =
-data[4] |
-(
-data[5] << 8
-) |
-(
-data[6] << 16
-);
+    hex:
+    hex(b)
 
-}
+  };
 
 
-if(data.length >= 10){
-
-field3 =
-data[7] |
-(
-data[8] << 8
-) |
-(
-data[9] << 16
-);
-
-}
-
-}
+  state.samples.push(
+    sample
+  );
 
 
-let line =
-"[" +
-now() +
-"] " +
-source +
-" → " +
-text;
+  state.previousFEA1 =
+  state.lastFEA1;
 
 
-if(steps !== null){
-
-line +=
-" | PASOS=" +
-steps +
-" | CAMPO2=" +
-field2 +
-" | CAMPO3=" +
-field3;
-
-}
+  state.lastFEA1 =
+  b;
 
 
-$("fea1").textContent +=
-line +
-"\n";
+  $("fea1Reads").textContent =
+  state.samples.length;
 
 
-$("steps").textContent =
-steps === null
-?
-"—"
-:
-steps;
+  if(arr.length >= 4){
+
+    const steps =
+    arr[1] |
+    (arr[2] << 8) |
+    (arr[3] << 16);
 
 
-$("field2").textContent =
-field2 === null
-?
-"—"
-:
-field2;
+    $("steps").textContent =
+    steps;
 
 
-$("field3").textContent =
-field3 === null
-?
-"—"
-:
-field3;
+    if(arr.length >= 7){
+
+      $("field2").textContent =
+
+      arr[4] |
+      (arr[5] << 8) |
+      (arr[6] << 16);
+
+    }
 
 
-if(fea1Last){
+    if(arr.length >= 10){
 
-const result =
-compareArrays(
-fea1Last,
-data
-);
+      $("field3").textContent =
 
-$("fea1Compare").textContent =
-"FEA1 — ANTERIOR → ACTUAL\n\n" +
-result.text;
+      arr[7] |
+      (arr[8] << 8) |
+      (arr[9] << 16);
 
-}
-else{
+    }
 
-$("fea1Compare").textContent =
-"FEA1: primera muestra.\n" +
-"Necesitamos otra lectura para comparar.";
+  }
+
+
+  if(state.previousFEA1){
+
+    $("fea1Compare").textContent =
+
+    compareBytes(
+
+      state.previousFEA1,
+
+      b,
+
+      "FEA1 anterior",
+
+      "FEA1 actual"
+
+    );
+
+  }else{
+
+    $("fea1Compare").textContent =
+
+    `Primera muestra FEA1\n` +
+
+    `${sample.hex}\n\n` +
+
+    `Esperando la siguiente muestra...`;
+
+  }
 
 }
 
-
-fea1Last =
-Uint8Array.from(data);
-
-updateStats();
-
-}
-
-
-/* =========================================================
-   LEER FEA1
-========================================================= */
 
 async function readFEA1(){
 
-try{
+  try{
 
-const data =
-await readCharacteristic(
-UUID.FEA1
-);
-
-analyzeFEA1(
-data,
-"READ FEA1"
-);
-
-}
-catch(error){
-
-diag(
-"❌ READ FEA1: " +
-error.message
-);
-
-}
-
-}
+    const b =
+    await readChar(
+      UUID.FEA1,
+      "FEA1"
+    );
 
 
-/* =========================================================
-   COMPARADOR
-========================================================= */
-
-function compareArrays(a,b){
-
-const max =
-Math.max(
-a.length,
-b.length
-);
-
-const differences = [];
+    analyzeFEA1(
+      b,
+      "READ"
+    );
 
 
-for(
-let i=0;
-i<max;
-i++
-){
+  }catch(e){
 
-const av =
-i < a.length
-?
-a[i]
-:
-null;
+    feeLog(
+      `❌ FEA1: ${e.message}`
+    );
 
-const bv =
-i < b.length
-?
-b[i]
-:
-null;
-
-
-if(av !== bv){
-
-differences.push(
-
-"Byte " +
-i +
-": " +
-
-(
-av === null
-?
-"—"
-:
-av
-.toString(16)
-.padStart(2,"0")
-.toUpperCase()
-) +
-
-" → " +
-
-(
-bv === null
-?
-"—"
-:
-bv
-.toString(16)
-.padStart(2,"0")
-.toUpperCase()
-)
-
-);
-
-}
+  }
 
 }
 
 
-if(!differences.length){
+async function readFEA2(){
 
-return {
+  try{
 
-text:
-"✅ Ningún byte cambió.\n" +
-"Longitud: " +
-max +
-" bytes."
+    await readChar(
+      UUID.FEA2,
+      "FEA2"
+    );
 
-};
+  }catch(e){
+
+    feeLog(
+      `❌ FEA2: ${e.message}`
+    );
+
+  }
 
 }
 
 
-return {
+async function readFEC9(){
 
-text:
-"⚠️ BYTES MODIFICADOS: " +
-differences.length +
-"\n\n" +
-differences.join("\n")
+  try{
 
-};
+    await readChar(
+      UUID.FEC9,
+      "FEC9"
+    );
+
+  }catch(e){
+
+    feeLog(
+      `❌ FEC9: ${e.message}`
+    );
+
+  }
+
+}
+
+
+async function readAll(){
+
+  await readFEA1();
+
+  await readFEA2();
+
+  await readFEC9();
 
 }
 
 
 /* =========================================================
-   RX
+   NOTIFICACIONES
 ========================================================= */
 
-function handleRX(
-uuid,
-data,
-source
+function onNotification(
+  label,
+  e
 ){
 
-const timestampValue =
-timestamp();
-
-const u =
-uuid.toLowerCase();
-
-const text =
-hex(data);
-
-rxCount++;
+  const h =
+  hex(e.target.value);
 
 
-/*
-   FEE7 solamente para
-   características FEA1,
-   FEA2 y FEC9.
-*/
+  state.rxNotify++;
 
-if(
-u === UUID.FEA1 ||
-u === UUID.FEA2 ||
-u === UUID.FEC9
+
+  $("rxNotify").textContent =
+  state.rxNotify;
+
+
+  const record={
+
+    time:
+    now().toISOString(),
+
+    type:
+    "NOTIFY/INDICATE",
+
+    characteristic:
+    label,
+
+    uuid:
+    e.target.uuid,
+
+    hex:
+    h
+
+  };
+
+
+  state.rx.push(
+    record
+  );
+
+
+  rxLog(
+    `📥 ${label}: ${h}`
+  );
+
+
+  if(state.timeCapture){
+
+    state.timeRx++;
+
+
+    $("timeRx").textContent =
+    state.timeRx;
+
+
+    timeLog(
+      `📥 ${label}: ${h}`
+    );
+
+  }
+
+
+  if(label === "FEA1"){
+
+    const b =
+    new Uint8Array(
+      e.target.value.buffer.slice(
+        e.target.value.byteOffset,
+        e.target.value.byteOffset +
+        e.target.value.byteLength
+      )
+    );
+
+
+    analyzeFEA1(
+      b,
+      "NOTIFY"
+    );
+
+  }
+
+}
+
+
+async function subscribe(
+  uuid,
+  label
 ){
 
-fee7Count++;
+  const c =
+  findChar(uuid);
+
+
+  if(!c){
+
+    throw new Error(
+      `${label} no encontrada`
+    );
+
+  }
+
+
+  if(
+    !c.properties.notify &&
+    !c.properties.indicate
+  ){
+
+    throw new Error(
+      `${label} no tiene NOTIFY/INDICATE`
+    );
+
+  }
+
+
+  const key =
+  c.uuid.toLowerCase();
+
+
+  if(
+    state.subscriptions.has(key)
+  ){
+
+    log(
+      `Ya estaba suscrita: ${label}`
+    );
+
+    return;
+
+  }
+
+
+  const handler =
+  e =>
+  onNotification(
+    label,
+    e
+  );
+
+
+  c.addEventListener(
+    "characteristicvaluechanged",
+    handler
+  );
+
+
+  await c.startNotifications();
+
+
+  state.subscriptions.set(
+    key,
+    {
+      c,
+      handler
+    }
+  );
+
+
+  log(
+    `🔔 Suscripción activa: ${label}`
+  );
 
 }
 
 
-/*
-   FEA1
-*/
-
-if(
-u === UUID.FEA1
+async function unsubscribe(
+  uuid,
+  label
 ){
 
-analyzeFEA1(
-data,
-source +
-" FEA1"
-);
+  const key =
+  uuid.toLowerCase();
 
-}
 
+  const item =
+  state.subscriptions.get(key);
 
-/*
-   Captura de sincronización
-*/
 
-if(timeCapture){
+  if(!item){
 
-timePackets.push({
+    log(
+      `No había suscripción activa: ${label}`
+    );
 
-timestamp:
-timestampValue,
+    return;
 
-characteristic:
-uuid,
+  }
 
-data:
-text,
 
-source:
-source
+  try{
 
-});
+    await item.c.stopNotifications();
 
+  }catch(_){}
 
-timeLog(
-"RX " +
-short(uuid) +
-" → " +
-text
-);
 
-}
+  item.c.removeEventListener(
+    "characteristicvaluechanged",
+    item.handler
+  );
 
 
-/*
-   RX general
-*/
+  state.subscriptions.delete(
+    key
+  );
 
-rxPackets.push({
 
-timestamp:
-timestampValue,
-
-characteristic:
-uuid,
-
-data:
-text,
-
-source:
-source
-
-});
-
-
-rxLog(
-
-"[" +
-now() +
-"] " +
-source +
-" " +
-short(uuid) +
-" → " +
-text
-
-);
-
-
-/*
-   Detección estructura AB
-*/
-
-if(
-data.length >= 3 &&
-data[0] === 0xAB &&
-data[1] === 0x00
-){
-
-const declared =
-data[2] + 3;
-
-rxLog(
-
-"  ↳ AB frame: byte2=" +
-data[2].toString(16).toUpperCase() +
-" | longitud calculada=" +
-declared +
-" | longitud real=" +
-data.length +
-(
-declared === data.length
-?
-" ✓"
-:
-" ⚠️"
-)
-
-);
-
-}
-
-
-updateStats();
-
-}
-
-
-/* =========================================================
-   SUSCRIPCIÓN
-========================================================= */
-
-async function subscribe(uuid){
-
-const c =
-getChar(uuid);
-
-if(!c){
-
-throw new Error(
-"No encontrada: " +
-short(uuid)
-);
-
-}
-
-if(
-!c.properties.notify &&
-!c.properties.indicate
-){
-
-throw new Error(
-"No admite NOTIFY/INDICATE: " +
-short(uuid)
-);
-
-}
-
-
-/*
-   Evitar listener duplicado
-*/
-
-if(c.__roxthalHandler){
-
-diag(
-"Ya estaba suscrita: " +
-short(uuid)
-);
-
-return;
-
-}
-
-
-c.__roxthalHandler =
-event => {
-
-const value =
-event.target.value;
-
-const data =
-new Uint8Array(
-value.buffer.slice(
-value.byteOffset,
-value.byteOffset +
-value.byteLength
-)
-);
-
-handleRX(
-uuid,
-data,
-"NOTIFY"
-);
-
-};
-
-
-c.addEventListener(
-"characteristicvaluechanged",
-c.__roxthalHandler
-);
-
-
-await c.startNotifications();
-
-
-diag(
-"🔔 Suscripción activa: " +
-short(uuid)
-);
-
-}
-
-
-/* =========================================================
-   PARAR SUSCRIPCIÓN
-========================================================= */
-
-async function stopSubscribe(uuid){
-
-const c =
-getChar(uuid);
-
-if(!c){
-
-return;
-
-}
-
-
-if(c.__roxthalHandler){
-
-c.removeEventListener(
-"characteristicvaluechanged",
-c.__roxthalHandler
-);
-
-c.__roxthalHandler =
-null;
-
-}
-
-
-try{
-
-await c.stopNotifications();
-
-}
-catch(error){}
-
-
-diag(
-"⏹️ Suscripción detenida: " +
-short(uuid)
-);
+  log(
+    `⏹️ Suscripción detenida: ${label}`
+  );
 
 }
 
@@ -2064,230 +1816,297 @@ short(uuid)
    CAPTURA DE HORA
 ========================================================= */
 
-async function startTimeCapture(){
+async function captureTimeStart(){
 
-if(
-!conn.server ||
-!conn.server.connected
+  state.timeCapture =
+  true;
+
+
+  state.timeRx =
+  0;
+
+
+  $("timeRx").textContent =
+  "0";
+
+
+  const d =
+  now();
+
+
+  $("phoneTime").textContent =
+  hhmmss(d);
+
+
+  $("phoneDate").textContent =
+  isoDate(d);
+
+
+  timeLog(
+    "⏱️ CAPTURA DE SINCRONIZACIÓN INICIADA"
+  );
+
+
+  timeLog(
+    `Hora teléfono: ${isoDate(d)} ${hhmmss(d)}`
+  );
+
+
+  timeLog(
+    "No se enviará ningún TX."
+  );
+
+
+  const targets=[
+
+    [UUID.FEA1,"FEA1"],
+
+    [UUID.FEC9,"FEC9"],
+
+    [UUID.FEA2,"FEA2"],
+
+    [
+      UUID.NUS_NOTIFY,
+      "NUS 6E400003"
+    ]
+
+  ];
+
+
+  for(
+    const [u,l] of targets
+  ){
+
+    try{
+
+      await subscribe(
+        u,
+        l
+      );
+
+
+      timeLog(
+        `🔔 ${l}: captura activada.`
+      );
+
+    }catch(e){
+
+      timeLog(
+        `⚠️ ${l}: ${e.message}`
+      );
+
+    }
+
+  }
+
+
+  timeLog(
+    "Esperando tráfico real..."
+  );
+
+
+  timeLog(
+    "Ahora puedes provocar una actualización de hora en el reloj."
+  );
+
+}
+
+
+async function captureTimeStop(){
+
+  state.timeCapture =
+  false;
+
+
+  timeLog(
+    `⏹️ Captura detenida. ` +
+    `RX capturados para hora: ${state.timeRx}`
+  );
+
+}
+
+
+/* =========================================================
+   SERVICIO DE HORA ESTÁNDAR
+========================================================= */
+
+async function checkCurrentTime(){
+
+  try{
+
+    const s =
+    await state.server.getPrimaryService(
+      UUID.CURRENT_TIME
+    );
+
+
+    const c =
+    await s.getCharacteristic(
+      UUID.CURRENT_TIME_CHAR
+    );
+
+
+    const v =
+    await c.readValue();
+
+
+    feeLog(
+      `🕒 1805/2A2B disponible: ${hex(v)}`
+    );
+
+
+  }catch(e){
+
+    feeLog(
+      `🕒 1805/2A2B no disponible o no accesible: ${e.message}`
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   COMPARADOR
+========================================================= */
+
+function compareBytes(
+  a,
+  b,
+  nameA="A",
+  nameB="B"
 ){
 
-diag(
-"❌ Conecta primero el F1 Plus."
-);
+  const aa =
+  Array.from(a);
 
-return;
 
-}
+  const bb =
+  Array.from(b);
 
 
-timePackets.length = 0;
+  const n =
+  Math.max(
+    aa.length,
+    bb.length
+  );
 
-timeCapture = true;
 
-timeCaptureStart =
-timestamp();
+  let changed=0;
 
-$("timeLog").textContent =
-"";
 
+  let out =
 
-timeLog(
-"⏱️ CAPTURA DE SINCRONIZACIÓN INICIADA"
-);
+  `${nameA}: ${hex(a)}\n` +
 
-timeLog(
-"Hora teléfono: " +
-new Date().toLocaleString(
-"es-AR"
-)
-);
+  `${nameB}: ${hex(b)}\n\n`;
 
-timeLog(
-"No se enviará ningún TX."
-);
 
+  for(
+    let i=0;
+    i<n;
+    i++
+  ){
 
-/*
-   FEA1
-*/
+    const x =
+    aa[i];
 
-try{
+    const y =
+    bb[i];
 
-await subscribe(
-UUID.FEA1
-);
 
-timeLog(
-"FEA1: captura activada."
-);
+    if(
+      x === undefined
+    ){
 
-}
-catch(error){
+      out +=
 
-timeLog(
-"FEA1: " +
-error.message
-);
+      `Byte ${i}: — → ` +
 
-}
+      `${y.toString(16).padStart(2,"0").toUpperCase()} ` +
 
+      `NUEVO\n`;
 
-/*
-   FEC9
-*/
+      changed++;
 
-try{
+    }
 
-await subscribe(
-UUID.FEC9
-);
+    else if(
+      y === undefined
+    ){
 
-timeLog(
-"FEC9: captura activada."
-);
+      out +=
 
-}
-catch(error){
+      `Byte ${i}: ` +
 
-timeLog(
-"FEC9: " +
-error.message
-);
+      `${x.toString(16).padStart(2,"0").toUpperCase()} → — ` +
 
-}
+      `ELIMINADO\n`;
 
+      changed++;
 
-/*
-   FEA2
-*/
+    }
 
-try{
+    else if(
+      x !== y
+    ){
 
-await subscribe(
-UUID.FEA2
-);
+      out +=
 
-timeLog(
-"FEA2: captura activada."
-);
+      `Byte ${i}: ` +
 
-}
-catch(error){
+      `${x.toString(16).padStart(2,"0").toUpperCase()} → ` +
 
-timeLog(
-"FEA2: " +
-error.message
-);
+      `${y.toString(16).padStart(2,"0").toUpperCase()} ` +
 
-}
+      `CAMBIÓ\n`;
 
+      changed++;
 
-/*
-   NUS
-*/
+    }
 
-try{
+    else{
 
-await subscribe(
-UUID.NOTIFY
-);
+      out +=
 
-timeLog(
-"NUS 6E400003: captura activada."
-);
+      `Byte ${i}: ` +
 
-}
-catch(error){
+      `${x.toString(16).padStart(2,"0").toUpperCase()} ` +
 
-timeLog(
-"NUS: " +
-error.message
-);
+      `igual\n`;
 
-}
+    }
 
+  }
 
-timeLog(
-"Esperando tráfico real..."
-);
 
-timeLog(
-"Ahora puedes provocar una actualización de hora en el reloj."
-);
+  out +=
 
-updateStats();
+  `\nLongitud: ` +
 
-}
+  `${aa.length} → ${bb.length}`;
 
 
-/* =========================================================
-   DETENER CAPTURA DE HORA
-========================================================= */
+  out +=
 
-function stopTimeCapture(){
+  `\nBytes modificados: ${changed}`;
 
-timeCapture = false;
 
-timeLog(
-"⏹️ CAPTURA DETENIDA."
-);
+  if(
+    aa.length >= 3 &&
+    bb.length >= 3
+  ){
 
-timeLog(
-"Paquetes capturados: " +
-timePackets.length
-);
+    out +=
 
-updateStats();
+    `\nRegla estructural byte[2]+3: ` +
 
-}
+    `${aa[2]+3} → ${bb[2]+3}`;
 
+  }
 
-/* =========================================================
-   SERVICIO ESTÁNDAR CURRENT TIME
-========================================================= */
 
-async function readCurrentTime(){
-
-try{
-
-const c =
-getChar(
-UUID.CURRENT_TIME_CHAR
-);
-
-if(!c){
-
-throw new Error(
-"2A2B Current Time no está expuesto por el dispositivo."
-);
-
-}
-
-
-const data =
-await readCharacteristic(
-UUID.CURRENT_TIME_CHAR
-);
-
-
-timeLog(
-"2A2B READ → " +
-hex(data)
-);
-
-timeLog(
-"El firmware expone un servicio estándar de hora."
-);
-
-}
-catch(error){
-
-timeLog(
-"ℹ️ " +
-error.message
-);
-
-}
+  return out;
 
 }
 
@@ -2298,166 +2117,127 @@ error.message
 
 async function sendTX(){
 
-try{
+  try{
 
-if(
-!conn.server ||
-!conn.server.connected
-){
-
-throw new Error(
-"GATT no conectado."
-);
-
-}
+    const data =
+    bytesFromHex(
+      $("txHex").value
+    );
 
 
-const data =
-parseHex(
-$("txHex").value
-);
+    const target =
+    $("txTarget").value;
 
 
-let c =
-getChar(UUID.WRITE);
+    const uuid =
+    target === "nus"
+    ?
+    UUID.NUS_WRITE
+    :
+    UUID.FEA2;
 
 
-/*
-   Si no existe NUS WRITE,
-   permitir FEA2 como WRITE.
-*/
-
-if(!c){
-
-c =
-getChar(UUID.FEA2);
-
-}
+    const label =
+    target === "nus"
+    ?
+    "NUS 6E400002"
+    :
+    "FEA2";
 
 
-if(!c){
-
-throw new Error(
-"No existe característica WRITE disponible."
-);
-
-}
+    const c =
+    findChar(uuid);
 
 
-if(
-!c.properties.write &&
-!c.properties.writeWithoutResponse
-){
+    if(!c){
 
-throw new Error(
-"La característica no admite WRITE."
-);
+      throw new Error(
+        `${label} no encontrada`
+      );
 
-}
+    }
 
 
-if(
-c.properties.writeWithoutResponse
-){
+    if(
+      !c.properties.write &&
+      !c.properties.writeWithoutResponse
+    ){
 
-await c.writeValueWithoutResponse(
-data
-);
+      throw new Error(
+        `${label} no tiene WRITE`
+      );
 
-}
-else{
-
-await c.writeValue(
-data
-);
-
-}
+    }
 
 
-txCount++;
+    if(
+      c.properties.writeWithoutResponse &&
+      !c.properties.write
+    ){
+
+      await c.writeValueWithoutResponse(
+        data
+      );
+
+    }
+
+    else if(
+      c.properties.write
+    ){
+
+      await c.writeValue(
+        data
+      );
+
+    }
+
+    else{
+
+      await c.writeValueWithoutResponse(
+        data
+      );
+
+    }
 
 
-$("txLog").textContent +=
-
-"[" +
-now() +
-"] TX " +
-short(c.uuid) +
-" → " +
-hex(data) +
-"\n";
+    state.tx++;
 
 
-updateStats();
-
-}
-catch(error){
-
-$("txLog").textContent +=
-
-"[" +
-now() +
-"] ❌ " +
-error.message +
-"\n";
-
-}
-
-}
+    $("txCount").textContent =
+    state.tx;
 
 
-/* =========================================================
-   COMPARADOR MANUAL
-========================================================= */
+    const rec={
 
-function compareManual(){
+      time:
+      now().toISOString(),
 
-try{
+      target:
+      label,
 
-const a =
-parseHex(
-$("hexA").value
-);
+      hex:
+      hex(data)
 
-const b =
-parseHex(
-$("hexB").value
-);
+    };
 
 
-const result =
-compareArrays(
-a,
-b
-);
+    state.txLog.push(
+      rec
+    );
 
 
-$("compare").textContent =
+    log(
+      `📤 TX MANUAL → ${label}: ${rec.hex}`
+    );
 
-"A (" +
-a.length +
-" bytes)\n" +
 
-hex(a) +
+  }catch(e){
 
-"\n\nB (" +
-b.length +
-" bytes)\n" +
+    log(
+      `❌ TX: ${e.message}`
+    );
 
-hex(b) +
-
-"\n\n" +
-
-result.text;
-
-}
-catch(error){
-
-$("compare").textContent =
-"❌ " +
-error.message;
-
-}
+  }
 
 }
 
@@ -2468,141 +2248,123 @@ error.message;
 
 function exportJSON(){
 
-const data = {
+  const payload={
 
-application:
-"RoXThal F1 Plus Protocol Laboratory V5",
+    app:
+    "RoXThal F1 Plus Protocol Laboratory",
 
-exportedAt:
-timestamp(),
+    version:
+    "V6",
 
-device:
-conn.device
-?
-{
-name:
-conn.device.name ||
-null,
+    exportedAt:
+    now().toISOString(),
 
-id:
-conn.device.id ||
-null
-}
-:
-null,
+    device:
+    state.device
+    ?
+    {
+      name:
+      state.device.name || null,
 
-connection:
-{
+      id:
+      state.device.id || null
+    }
+    :
+    null,
 
-state:
-conn.state,
+    connection:{
 
-connectCalls:
-conn.calls,
+      gattConnectCalls:
+      state.gattConnectCalls,
 
-realConnections:
-conn.real,
+      realConnections:
+      state.realConnections,
 
-disconnects:
-conn.disconnects,
+      disconnects:
+      state.disconnects,
 
-blocked:
-conn.blocked,
+      duplicateBlocked:
+      state.duplicateBlocked,
 
-automaticReconnects:
-conn.auto,
+      autoReconnects:
+      state.autoReconnects,
 
-connectedAt:
-conn.connectedAt
+      connectAt:
+      state.connectAt
 
-},
+    },
 
-localTime:
-new Date().toISOString(),
+    counters:{
 
-fea1:
-{
+      rxNotify:
+      state.rxNotify,
 
-reads:
-fea1Reads,
+      reads:
+      state.reads,
 
-last:
-fea1Last
-?
-hex(fea1Last)
-:
-null
+      tx:
+      state.tx,
 
-},
+      timeRx:
+      state.timeRx
 
-rx:
-rxPackets,
+    },
 
-timeCapture:
-{
+    fea1Samples:
+    state.samples,
 
-startedAt:
-timeCaptureStart,
+    reads:
+    state.readsLog,
 
-active:
-timeCapture,
+    notifications:
+    state.rx,
 
-packets:
-timePackets
+    txManual:
+    state.txLog
 
-},
-
-txCount:
-txCount,
-
-diagnostics:
-logLines
-
-};
+  };
 
 
-const blob =
-new Blob(
-[
-JSON.stringify(
-data,
-null,
-2
-)
-],
-{
-type:
-"application/json"
-}
-);
+  const blob =
+  new Blob(
+    [
+      JSON.stringify(
+        payload,
+        null,
+        2
+      )
+    ],
+    {
+      type:
+      "application/json"
+    }
+  );
 
 
-const url =
-URL.createObjectURL(
-blob
-);
+  const a =
+  document.createElement("a");
 
 
-const a =
-document.createElement("a");
-
-a.href =
-url;
-
-a.download =
-"roxthal-f1plus-v5-" +
-Date.now() +
-".json";
-
-a.click();
+  a.href =
+  URL.createObjectURL(
+    blob
+  );
 
 
-setTimeout(
-()=>{
-URL.revokeObjectURL(url);
-},
-1000
-);
+  a.download =
+  `roxthal-f1plus-v6-${Date.now()}.json`;
+
+
+  a.click();
+
+
+  setTimeout(
+    () =>
+    URL.revokeObjectURL(
+      a.href
+    ),
+    1000
+  );
 
 }
 
@@ -2613,173 +2375,277 @@ URL.revokeObjectURL(url);
 
 function clearAll(){
 
-rxPackets.length = 0;
+  state.rx=[];
+  state.readsLog=[];
+  state.txLog=[];
+  state.samples=[];
 
-timePackets.length = 0;
+  state.rxNotify=0;
+  state.reads=0;
+  state.tx=0;
+  state.timeRx=0;
 
-logLines.length = 0;
+  state.previousFEA1=null;
+  state.lastFEA1=null;
 
-fea1Last = null;
 
-fea1Reads = 0;
+  $("rxNotify").textContent =
+  "0";
 
-rxCount = 0;
+  $("readCount").textContent =
+  "0";
 
-fee7Count = 0;
+  $("txCount").textContent =
+  "0";
 
-txCount = 0;
+  $("timeRx").textContent =
+  "0";
 
-$("diag").textContent =
-"";
+  $("fea1Reads").textContent =
+  "0";
 
-$("rx").textContent =
-"";
 
-$("fea1").textContent =
-"";
+  $("steps").textContent =
+  "—";
 
-$("fea1Compare").textContent =
-"Esperando dos muestras FEA1...";
+  $("field2").textContent =
+  "—";
 
-$("timeLog").textContent =
-"";
+  $("field3").textContent =
+  "—";
 
-$("txLog").textContent =
-"";
 
-updateStats();
+  $("diag").textContent =
+  "";
 
-diag(
-"Capturas limpiadas."
-);
+  $("fee7Log").textContent =
+  "";
+
+  $("rxLog").textContent =
+  "";
+
+  $("timeLog").textContent =
+  "";
+
+
+  $("fea1Compare").textContent =
+  "Esperando dos muestras FEA1...";
+
+
+  log(
+    "🧹 Capturas limpiadas."
+  );
 
 }
 
 
 /* =========================================================
-   BOTONES
+   EVENTOS
 ========================================================= */
 
-$("btnConnect").onclick =
-() => connect(
-"BUTTON_F1_PLUS"
-);
+$("btnDetect").onclick =
+() =>
+selectAndConnect("f1");
 
 
 $("btnAny").onclick =
-connectAny;
+() =>
+selectAndConnect("any");
 
 
 $("btnDisconnect").onclick =
-disconnect;
+async () => {
+
+  if(!state.device){
+
+    log(
+      "No hay dispositivo."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    if(
+      state.server &&
+      state.device.gatt.connected
+    ){
+
+      state.device.gatt.disconnect();
+
+    }
+
+  }catch(e){
+
+    log(
+      `❌ ${e.message}`
+    );
+
+  }
+
+
+  state.server =
+  null;
+
+};
 
 
 $("btnReadFEA1").onclick =
 readFEA1;
 
 
-$("btnSubFEA1").onclick =
+$("btnReadFEA2").onclick =
+readFEA2;
+
+
+$("btnReadFEC9").onclick =
+readFEC9;
+
+
+$("btnReadAll").onclick =
+readAll;
+
+
+$("subFEA1").onclick =
 () =>
 subscribe(
-UUID.FEA1
+  UUID.FEA1,
+  "FEA1"
 )
 .catch(
-e =>
-diag(
-"❌ " +
-e.message
-)
+  e =>
+  log(
+    `❌ ${e.message}`
+  )
 );
 
 
-$("btnStopFEA1").onclick =
+$("stopFEA1").onclick =
 () =>
-stopSubscribe(
-UUID.FEA1
+unsubscribe(
+  UUID.FEA1,
+  "FEA1"
 );
 
 
-$("btnSubFEC9").onclick =
+$("subFEC9").onclick =
 () =>
 subscribe(
-UUID.FEC9
+  UUID.FEC9,
+  "FEC9"
 )
 .catch(
-e =>
-diag(
-"❌ " +
-e.message
-)
+  e =>
+  log(
+    `❌ ${e.message}`
+  )
 );
 
 
-$("btnStopFEC9").onclick =
+$("stopFEC9").onclick =
 () =>
-stopSubscribe(
-UUID.FEC9
+unsubscribe(
+  UUID.FEC9,
+  "FEC9"
 );
 
 
-$("btnSubFEA2").onclick =
+$("subFEA2").onclick =
 () =>
 subscribe(
-UUID.FEA2
+  UUID.FEA2,
+  "FEA2"
 )
 .catch(
-e =>
-diag(
-"❌ " +
-e.message
-)
+  e =>
+  log(
+    `❌ ${e.message}`
+  )
 );
 
 
-$("btnStopFEA2").onclick =
+$("stopFEA2").onclick =
 () =>
-stopSubscribe(
-UUID.FEA2
+unsubscribe(
+  UUID.FEA2,
+  "FEA2"
 );
 
 
-$("btnSubNUS").onclick =
+$("subNUS").onclick =
 () =>
 subscribe(
-UUID.NOTIFY
+  UUID.NUS_NOTIFY,
+  "NUS 6E400003"
 )
 .catch(
-e =>
-diag(
-"❌ " +
-e.message
-)
+  e =>
+  log(
+    `❌ ${e.message}`
+  )
 );
 
 
-$("btnStopNUS").onclick =
+$("stopNUS").onclick =
 () =>
-stopSubscribe(
-UUID.NOTIFY
+unsubscribe(
+  UUID.NUS_NOTIFY,
+  "NUS 6E400003"
 );
 
 
 $("btnTimeCapture").onclick =
-startTimeCapture;
+() =>
+captureTimeStart()
+.catch(
+  e =>
+  timeLog(
+    `❌ ${e.message}`
+  )
+);
 
 
 $("btnTimeStop").onclick =
-stopTimeCapture;
+captureTimeStop;
 
 
-$("btnTimeRead").onclick =
-readCurrentTime;
+$("btnCheckTime").onclick =
+checkCurrentTime;
 
 
-$("btnTX").onclick =
+$("btnTx").onclick =
 sendTX;
 
 
 $("btnCompare").onclick =
-compareManual;
+() => {
+
+  try{
+
+    $("cmpOut").textContent =
+    compareBytes(
+
+      bytesFromHex(
+        $("cmpA").value
+      ),
+
+      bytesFromHex(
+        $("cmpB").value
+      )
+
+    );
+
+  }catch(e){
+
+    $("cmpOut").textContent =
+    "❌ " + e.message;
+
+  }
+
+};
 
 
 $("btnExport").onclick =
@@ -2794,35 +2660,51 @@ clearAll;
    INICIO
 ========================================================= */
 
-diag(
-"🧪 RoXThal F1 Plus Laboratory V5 preparado."
+$("phoneTime").textContent =
+hhmmss(
+  now()
 );
 
-diag(
-"Detección ampliada: F1 Plus / F1 BAND / F1* / FEE7 / NUS."
+
+$("phoneDate").textContent =
+isoDate(
+  now()
 );
 
-diag(
-"Solo existe una ruta de gatt.connect()."
+
+log(
+  "🧪 RoXThal F1 Plus Laboratory V6 preparado."
 );
 
-diag(
-"🚫 Reconexión automática DESACTIVADA."
+
+log(
+  "🔎 F1 Plus / F1 BAND / F1* / FEE7 / NUS."
 );
 
-diag(
-"FEA1: bytes 1–3 tratados como pasos según pruebas del F1 Plus."
+
+log(
+  "🚫 Reconexión automática DESACTIVADA."
 );
 
-diag(
-"🕒 Modo de investigación de sincronización de hora preparado."
+
+log(
+  "📖 READ FEA1/FEA2/FEC9 disponible cuando la característica lo permita."
 );
 
-diag(
-"📤 TX automático: DESACTIVADO."
+
+log(
+  "🔔 NOTIFY/INDICATE solamente cuando tú lo solicites."
 );
 
-updateStats();
+
+log(
+  "🕒 Sincronización de hora: observación pasiva + lecturas; sin TX automático."
+);
+
+
+log(
+  "📤 TX automático: DESACTIVADO."
+);
 
 </script>
 
