@@ -7023,5 +7023,464 @@ console.log(
 
 })();
 </script>
+  <!-- =========================================================
+     RoXThal F1 Plus — TIME SYNC V3
+     PARCHE ADICIONAL — NO REEMPLAZA V1 NI V2
+     Usa directamente state.writable + sendTX() reales
+     TX SOLO MANUAL AL PULSAR UN BOTÓN
+     ========================================================= -->
+<script>
+(function () {
+  "use strict";
+
+  const PANEL_ID = "roxthal-time-sync-v3";
+
+  if (document.getElementById(PANEL_ID)) return;
+
+  const FEA2_UUID =
+    "0000fea2-0000-1000-8000-00805f9b34fb";
+
+  const NUS_WRITE_UUID =
+    "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function nowBytes() {
+    const d = new Date();
+
+    return [
+      d.getFullYear() - 2000,
+      d.getMonth() + 1,
+      d.getDate(),
+      d.getHours(),
+      d.getMinutes(),
+      d.getSeconds()
+    ];
+  }
+
+  function hex(bytes) {
+    return bytes
+      .map(b =>
+        b.toString(16)
+         .padStart(2, "0")
+         .toUpperCase()
+      )
+      .join(" ");
+  }
+
+  function log(text) {
+    const box =
+      document.getElementById(
+        "roxthal-time-sync-v3-log"
+      );
+
+    if (!box) return;
+
+    const now = new Date();
+
+    const stamp =
+      pad(now.getHours()) +
+      ":" +
+      pad(now.getMinutes()) +
+      ":" +
+      pad(now.getSeconds());
+
+    box.textContent +=
+      "[" + stamp + "] " +
+      text +
+      "\n";
+
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function findWritable(uuid) {
+
+    if (
+      typeof state === "undefined" ||
+      !state.writable
+    ) {
+      return null;
+    }
+
+    const wanted =
+      String(uuid).toLowerCase();
+
+    for (const entry of state.writable.values()) {
+
+      if (
+        String(entry.uuid || "")
+          .toLowerCase() === wanted
+      ) {
+        return entry;
+      }
+
+    }
+
+    return null;
+  }
+
+  function getTarget() {
+
+    const fea2 =
+      findWritable(FEA2_UUID);
+
+    if (fea2) {
+      return fea2;
+    }
+
+    const nus =
+      findWritable(NUS_WRITE_UUID);
+
+    if (nus) {
+      return nus;
+    }
+
+    return null;
+  }
+
+  function sendCandidate(label, bytes) {
+
+    try {
+
+      if (
+        typeof state === "undefined" ||
+        !state.connected
+      ) {
+        log("ERROR: la app no figura conectada.");
+        return;
+      }
+
+      const entry =
+        getTarget();
+
+      if (!entry) {
+        log(
+          "ERROR: no se encontró FEA2 ni NUS WRITE en state.writable."
+        );
+        return;
+      }
+
+      log(
+        "Característica encontrada: " +
+        entry.uuid
+      );
+
+      log(
+        "Método de escritura: " +
+        (
+          entry.properties.write
+            ? "WRITE"
+            : entry.properties.writeWithoutResponse
+              ? "WRITE WITHOUT RESPONSE"
+              : "legacy"
+        )
+      );
+
+      log(
+        "Candidato " +
+        label +
+        ": " +
+        hex(bytes)
+      );
+
+      /*
+       * Usamos EXACTAMENTE el mecanismo TX
+       * que ya tiene la aplicación.
+       */
+      const select =
+        document.getElementById("txChannel");
+
+      const input =
+        document.getElementById("txInput");
+
+      if (!select || !input) {
+        log(
+          "ERROR: controles TX originales no encontrados."
+        );
+        return;
+      }
+
+      select.value = entry.key;
+
+      input.value = hex(bytes);
+
+      log(
+        "Enviando mediante sendTX() de la aplicación..."
+      );
+
+      Promise.resolve(
+        sendTX()
+      )
+      .then(() => {
+
+        log(
+          "TX ejecutado por el motor original."
+        );
+
+        log(
+          "IMPORTANTE: esto confirma la escritura BLE, no todavía que el reloj haya cambiado."
+        );
+
+      })
+      .catch(error => {
+
+        log(
+          "ERROR TX: " +
+          (
+            error?.message ||
+            String(error)
+          )
+        );
+
+      });
+
+    } catch (error) {
+
+      log(
+        "ERROR V3: " +
+        (
+          error?.message ||
+          String(error)
+        )
+      );
+
+    }
+  }
+
+  const panel =
+    document.createElement("section");
+
+  panel.id = PANEL_ID;
+
+  panel.style.cssText = `
+    margin:18px 0;
+    padding:16px;
+    border:1px solid rgba(255,213,74,.35);
+    border-radius:18px;
+    background:#0b1115;
+  `;
+
+  panel.innerHTML = `
+    <div style="
+      color:#ffd54a;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    ">
+      RoXThal F1 Plus
+    </div>
+
+    <h3 style="margin:0 0 7px;">
+      ⏱️ SINCRONIZACIÓN DE HORA V3
+    </h3>
+
+    <p style="
+      margin:0 0 12px;
+      font-size:12px;
+      color:#78909c;
+      line-height:1.5;
+    ">
+      PARCHE ADICIONAL · Usa las referencias reales
+      de la aplicación. No reemplaza V1 ni V2.
+      No transmite automáticamente.
+    </p>
+
+    <div style="
+      padding:10px;
+      border:1px solid #1c3038;
+      border-radius:12px;
+      margin-bottom:12px;
+      background:#050a0d;
+    ">
+      <div style="
+        color:#78909c;
+        font-size:10px;
+        text-transform:uppercase;
+      ">
+        Hora del teléfono
+      </div>
+
+      <strong
+        id="roxthal-time-v3-clock"
+        style="
+          display:block;
+          margin-top:4px;
+          font-size:24px;
+          color:#00e5ff;
+        "
+      >
+        --
+      </strong>
+    </div>
+
+    <div style="
+      display:grid;
+      gap:8px;
+    ">
+
+      <button
+        id="roxthal-v3-a"
+        class="btn warning"
+      >
+        ⏱️ SINCRONIZAR A · FEA2
+      </button>
+
+      <button
+        id="roxthal-v3-b"
+        class="btn"
+      >
+        ⏱️ SINCRONIZAR B
+      </button>
+
+      <button
+        id="roxthal-v3-c"
+        class="btn"
+      >
+        ⏱️ SINCRONIZAR C
+      </button>
+
+      <button
+        id="roxthal-v3-d"
+        class="btn"
+      >
+        ⏱️ SINCRONIZAR D
+      </button>
+
+    </div>
+
+    <pre
+      id="roxthal-time-sync-v3-log"
+      style="
+        margin:12px 0 0;
+        padding:10px;
+        min-height:90px;
+        max-height:220px;
+        overflow:auto;
+        white-space:pre-wrap;
+        word-break:break-word;
+        background:#050a0d;
+        border:1px solid #1c3038;
+        border-radius:12px;
+        color:#9fb6bf;
+        font:11px/1.5 ui-monospace,
+          SFMono-Regular,Menlo,monospace;
+      "
+    >V3 preparada. Esperando una acción manual...</pre>
+  `;
+
+  document.body.appendChild(panel);
+
+  function updateClock() {
+
+    const d = new Date();
+
+    const el =
+      document.getElementById(
+        "roxthal-time-v3-clock"
+      );
+
+    if (!el) return;
+
+    el.textContent =
+      pad(d.getHours()) +
+      ":" +
+      pad(d.getMinutes()) +
+      ":" +
+      pad(d.getSeconds());
+
+  }
+
+  updateClock();
+
+  setInterval(
+    updateClock,
+    1000
+  );
+
+  document
+    .getElementById("roxthal-v3-a")
+    .addEventListener("click", () => {
+
+      const t = nowBytes();
+
+      sendCandidate(
+        "A · YY MM DD HH MM SS",
+        t
+      );
+
+    });
+
+  document
+    .getElementById("roxthal-v3-b")
+    .addEventListener("click", () => {
+
+      const t = nowBytes();
+
+      sendCandidate(
+        "B · 01 YY MM DD HH MM SS",
+        [1, ...t]
+      );
+
+    });
+
+  document
+    .getElementById("roxthal-v3-c")
+    .addEventListener("click", () => {
+
+      const t = nowBytes();
+
+      sendCandidate(
+        "C · 01 SS MM HH DD MM YY",
+        [
+          1,
+          t[5],
+          t[4],
+          t[3],
+          t[2],
+          t[1],
+          t[0]
+        ]
+      );
+
+    });
+
+  document
+    .getElementById("roxthal-v3-d")
+    .addEventListener("click", () => {
+
+      const d = new Date();
+
+      const year =
+        d.getFullYear();
+
+      sendCandidate(
+        "D · YYYY MM DD HH MM SS",
+        [
+          year & 0xFF,
+          (year >> 8) & 0xFF,
+          d.getMonth() + 1,
+          d.getDate(),
+          d.getHours(),
+          d.getMinutes(),
+          d.getSeconds()
+        ]
+      );
+
+    });
+
+  log(
+    "V3 cargada correctamente."
+  );
+
+  log(
+    "state.writable + sendTX() reales serán utilizados."
+  );
+
+})();
+</script>
 </body>
 </html>
