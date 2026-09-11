@@ -6536,5 +6536,492 @@ console.log(
 
 })();
 </script>
+  <!-- =========================================================
+     RoXThal F1 Plus — PARCHE ADICIONAL TIME SYNC V2
+     PEGAR ANTES DE </body>
+     NO REEMPLAZA NI ELIMINA EL V1
+     ========================================================= -->
+<script>
+(function () {
+  "use strict";
+
+  const FEE7 = "0000fee7-0000-1000-8000-00805f9b34fb";
+  const FEA2 = "0000fea2-0000-1000-8000-00805f9b34fb";
+
+  const NUS = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+  const NUS_TX = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+
+  let panel = null;
+  let logBox = null;
+
+  function escribirLog(texto) {
+    if (!logBox) return;
+
+    const hora = new Date().toLocaleTimeString("es-AR", {
+      hour12: false
+    });
+
+    logBox.innerHTML +=
+      "[" + hora + "] " + texto + "<br>";
+
+    logBox.scrollTop = logBox.scrollHeight;
+
+    console.log("[TIME SYNC V2]", texto);
+  }
+
+  function obtenerGATT() {
+
+    const candidatos = [
+      window.state?.server,
+      window.state?.gattServer,
+      window.server,
+      window.gattServer,
+      window.state?.device?.gatt,
+      window.device?.gatt
+    ];
+
+    for (const gatt of candidatos) {
+
+      if (
+        gatt &&
+        typeof gatt.getPrimaryService === "function"
+      ) {
+        return gatt;
+      }
+    }
+
+    return null;
+  }
+
+  async function encontrarFEA2() {
+
+    const gatt = obtenerGATT();
+
+    if (!gatt) {
+      throw new Error(
+        "No se encontró el GATT conectado."
+      );
+    }
+
+    const servicio =
+      await gatt.getPrimaryService(FEE7);
+
+    const caracteristica =
+      await servicio.getCharacteristic(FEA2);
+
+    return caracteristica;
+  }
+
+  async function encontrarNUSTX() {
+
+    const gatt = obtenerGATT();
+
+    if (!gatt) {
+      throw new Error(
+        "No se encontró el GATT conectado."
+      );
+    }
+
+    const servicio =
+      await gatt.getPrimaryService(NUS);
+
+    const caracteristica =
+      await servicio.getCharacteristic(NUS_TX);
+
+    return caracteristica;
+  }
+
+  function construirHora() {
+
+    const ahora = new Date();
+
+    const yy =
+      ahora.getFullYear() % 100;
+
+    const mm =
+      ahora.getMonth() + 1;
+
+    const dd =
+      ahora.getDate();
+
+    const hh =
+      ahora.getHours();
+
+    const mi =
+      ahora.getMinutes();
+
+    const ss =
+      ahora.getSeconds();
+
+    /*
+     * Candidato A:
+     * YY MM DD HH MM SS
+     */
+    return new Uint8Array([
+      yy,
+      mm,
+      dd,
+      hh,
+      mi,
+      ss
+    ]);
+  }
+
+  function mostrarHora() {
+
+    const elemento =
+      document.getElementById(
+        "roxthal-v2-hora"
+      );
+
+    if (!elemento) return;
+
+    elemento.textContent =
+      new Date().toLocaleString(
+        "es-AR",
+        {
+          hour12: false
+        }
+      );
+  }
+
+  async function escribirCaracteristica(
+    caracteristica,
+    datos
+  ) {
+
+    if (
+      caracteristica.properties?.write &&
+      typeof caracteristica.writeValueWithResponse ===
+        "function"
+    ) {
+
+      await caracteristica.writeValueWithResponse(
+        datos
+      );
+
+      return "WRITE WITH RESPONSE";
+    }
+
+    if (
+      caracteristica.properties?.writeWithoutResponse &&
+      typeof caracteristica.writeValueWithoutResponse ===
+        "function"
+    ) {
+
+      await caracteristica.writeValueWithoutResponse(
+        datos
+      );
+
+      return "WRITE WITHOUT RESPONSE";
+    }
+
+    if (
+      typeof caracteristica.writeValue ===
+        "function"
+    ) {
+
+      await caracteristica.writeValue(
+        datos
+      );
+
+      return "WRITE LEGACY";
+    }
+
+    throw new Error(
+      "La característica no tiene método WRITE."
+    );
+  }
+
+  async function sincronizarV2() {
+
+    const boton =
+      document.getElementById(
+        "roxthal-v2-sync"
+      );
+
+    if (boton) {
+      boton.disabled = true;
+      boton.textContent = "ENVIANDO...";
+    }
+
+    try {
+
+      mostrarHora();
+
+      const datos =
+        construirHora();
+
+      escribirLog(
+        "Buscando FEA2 directamente..."
+      );
+
+      let caracteristica = null;
+      let canal = "";
+
+      /*
+       * Primero FEA2.
+       */
+      try {
+
+        caracteristica =
+          await encontrarFEA2();
+
+        canal = "FEA2";
+
+        escribirLog(
+          "FEA2 encontrada: " +
+          caracteristica.uuid
+        );
+
+      } catch (errorFEA2) {
+
+        escribirLog(
+          "FEA2 no disponible."
+        );
+
+        /*
+         * Segundo intento: NUS TX.
+         */
+        escribirLog(
+          "Buscando NUS TX directamente..."
+        );
+
+        caracteristica =
+          await encontrarNUSTX();
+
+        canal = "NUS TX";
+
+        escribirLog(
+          "NUS TX encontrado: " +
+          caracteristica.uuid
+        );
+      }
+
+      escribirLog(
+        "Hora objetivo: " +
+        new Date().toLocaleString(
+          "es-AR",
+          { hour12:false }
+        )
+      );
+
+      escribirLog(
+        "Paquete candidato A: " +
+        Array.from(datos)
+          .map(
+            b =>
+              b.toString(16)
+               .padStart(2, "0")
+               .toUpperCase()
+          )
+          .join(" ")
+      );
+
+      /*
+       * AQUÍ ocurre el único TX.
+       * Solamente porque el usuario pulsó el botón.
+       */
+      const metodo =
+        await escribirCaracteristica(
+          caracteristica,
+          datos
+        );
+
+      escribirLog(
+        "TX enviado por " +
+        canal +
+        " mediante " +
+        metodo
+      );
+
+      escribirLog(
+        "Esperando respuesta del F1 Plus..."
+      );
+
+      await new Promise(
+        resolve =>
+          setTimeout(resolve, 1500)
+      );
+
+      escribirLog(
+        "Prueba finalizada."
+      );
+
+      escribirLog(
+        "Comprobar ahora la hora mostrada físicamente por la pulsera."
+      );
+
+    } catch (error) {
+
+      escribirLog(
+        "ERROR: " +
+        (
+          error?.message ||
+          error
+        )
+      );
+
+      console.error(
+        "[TIME SYNC V2]",
+        error
+      );
+
+    } finally {
+
+      if (boton) {
+        boton.disabled = false;
+        boton.textContent =
+          "⏱️ SINCRONIZAR HORA V2";
+      }
+    }
+  }
+
+  function crearPanel() {
+
+    if (
+      document.getElementById(
+        "roxthal-time-sync-v2-extra"
+      )
+    ) {
+      return;
+    }
+
+    panel =
+      document.createElement("div");
+
+    panel.id =
+      "roxthal-time-sync-v2-extra";
+
+    panel.style.cssText = `
+      margin:16px 0;
+      padding:15px;
+      border:1px solid #d4af37;
+      border-radius:12px;
+      background:#111;
+      color:#fff;
+      font-family:inherit;
+    `;
+
+    panel.innerHTML = `
+      <div style="
+        font-size:19px;
+        font-weight:bold;
+        margin-bottom:8px;
+      ">
+        ⏱️ SINCRONIZACIÓN F1 PLUS V2
+      </div>
+
+      <div style="
+        font-size:13px;
+        opacity:.8;
+        margin-bottom:8px;
+      ">
+        PARCHE ADICIONAL · No reemplaza el V1
+      </div>
+
+      <div style="
+        margin-bottom:10px;
+        padding:10px;
+        background:#1b1b1b;
+        border-radius:8px;
+      ">
+        Hora teléfono:
+        <strong id="roxthal-v2-hora">
+          --
+        </strong>
+      </div>
+
+      <button
+        id="roxthal-v2-sync"
+        type="button"
+        style="
+          width:100%;
+          padding:13px;
+          border:0;
+          border-radius:9px;
+          background:#d4af37;
+          color:#000;
+          font-weight:bold;
+          cursor:pointer;
+        "
+      >
+        ⏱️ SINCRONIZAR HORA V2
+      </button>
+
+      <div
+        id="roxthal-v2-log"
+        style="
+          margin-top:12px;
+          max-height:180px;
+          overflow:auto;
+          padding:10px;
+          background:#050505;
+          border-radius:8px;
+          font-family:monospace;
+          font-size:11px;
+          line-height:1.5;
+        "
+      ></div>
+    `;
+
+    /*
+     * Lo añadimos al final de la aplicación.
+     * NO sustituye ningún elemento existente.
+     */
+    document.body.appendChild(panel);
+
+    logBox =
+      document.getElementById(
+        "roxthal-v2-log"
+      );
+
+    document
+      .getElementById(
+        "roxthal-v2-sync"
+      )
+      .addEventListener(
+        "click",
+        sincronizarV2
+      );
+
+    mostrarHora();
+
+    escribirLog(
+      "Parche V2 cargado correctamente."
+    );
+
+    escribirLog(
+      "No se realizó TX automático."
+    );
+  }
+
+  function iniciar() {
+
+    crearPanel();
+
+    setInterval(
+      mostrarHora,
+      1000
+    );
+  }
+
+  if (
+    document.readyState === "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      iniciar,
+      { once:true }
+    );
+
+  } else {
+
+    iniciar();
+  }
+
+})();
+</script>
 </body>
 </html>
