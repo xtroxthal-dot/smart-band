@@ -5796,5 +5796,207 @@ console.log(
 
 })();
 </script>
+  <!-- ============================================================
+     REPARADOR — RELOJ REAL DEL CELULAR / NAVEGADOR
+     Usa exclusivamente la fecha y hora del sistema del dispositivo.
+     No depende de Bluetooth ni de Supabase.
+     ============================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  const CLOCK_ID = "roxthal-real-clock-repair";
+  let relojInterval = null;
+
+  function crearReloj() {
+    let reloj = document.getElementById(CLOCK_ID);
+
+    if (reloj) return reloj;
+
+    // Crear estilos una sola vez
+    if (!document.getElementById("roxthal-clock-repair-style")) {
+      const style = document.createElement("style");
+
+      style.id = "roxthal-clock-repair-style";
+
+      style.textContent = `
+        #${CLOCK_ID} {
+          position: fixed;
+          top: 72px;
+          right: 12px;
+          z-index: 999999;
+
+          min-width: 112px;
+          padding: 8px 11px;
+
+          background: rgba(5, 8, 10, 0.96);
+          border: 1px solid rgba(0, 229, 255, 0.55);
+          border-radius: 12px;
+
+          box-shadow: 0 6px 24px rgba(0,0,0,.50);
+
+          text-align: center;
+          pointer-events: none;
+
+          font-family:
+            Inter,
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+        }
+
+        #${CLOCK_ID} .roxthal-clock-time {
+          color: #00e5ff;
+          font-size: 17px;
+          line-height: 1.15;
+          font-weight: 800;
+          letter-spacing: 1px;
+          font-variant-numeric: tabular-nums;
+        }
+
+        #${CLOCK_ID} .roxthal-clock-date {
+          margin-top: 3px;
+          color: #78909c;
+          font-size: 9px;
+          line-height: 1;
+          font-weight: 700;
+          letter-spacing: .5px;
+          font-variant-numeric: tabular-nums;
+        }
+
+        @media (max-width: 600px) {
+          #${CLOCK_ID} {
+            top: 68px;
+            right: 8px;
+            min-width: 104px;
+            padding: 7px 9px;
+          }
+
+          #${CLOCK_ID} .roxthal-clock-time {
+            font-size: 15px;
+          }
+
+          #${CLOCK_ID} .roxthal-clock-date {
+            font-size: 8px;
+          }
+        }
+      `;
+
+      document.head.appendChild(style);
+    }
+
+    reloj = document.createElement("div");
+    reloj.id = CLOCK_ID;
+
+    reloj.innerHTML = `
+      <div class="roxthal-clock-time">--:--:--</div>
+      <div class="roxthal-clock-date">--/--/----</div>
+    `;
+
+    document.body.appendChild(reloj);
+
+    return reloj;
+  }
+
+  function actualizarReloj() {
+    const reloj = crearReloj();
+
+    /*
+     * IMPORTANTE:
+     * No se especifica ninguna zona horaria.
+     * new Date() utiliza la hora del sistema y el navegador
+     * la representa en la zona horaria local del dispositivo.
+     */
+    const ahora = new Date();
+
+    const hora = ahora.toLocaleTimeString("es-AR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    });
+
+    const fecha = ahora.toLocaleDateString("es-AR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    });
+
+    const horaElemento =
+      reloj.querySelector(".roxthal-clock-time");
+
+    const fechaElemento =
+      reloj.querySelector(".roxthal-clock-date");
+
+    if (horaElemento) {
+      horaElemento.textContent = hora;
+    }
+
+    if (fechaElemento) {
+      fechaElemento.textContent = fecha;
+    }
+
+    // Disponible para otros módulos de la aplicación
+    window.roxthalRealTime = {
+      date: ahora,
+      time: hora,
+      dateText: fecha,
+      timestamp: ahora.getTime(),
+      timezone:
+        Intl.DateTimeFormat().resolvedOptions().timeZone
+    };
+  }
+
+  function iniciarReloj() {
+    crearReloj();
+    actualizarReloj();
+
+    if (relojInterval) {
+      clearInterval(relojInterval);
+    }
+
+    // Actualización continua
+    relojInterval = setInterval(
+      actualizarReloj,
+      1000
+    );
+  }
+
+  // Iniciar cuando el DOM esté disponible
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      iniciarReloj,
+      { once: true }
+    );
+  } else {
+    iniciarReloj();
+  }
+
+  // Re-sincronizar al volver a la aplicación
+  document.addEventListener(
+    "visibilitychange",
+    function () {
+      if (!document.hidden) {
+        actualizarReloj();
+      }
+    }
+  );
+
+  window.addEventListener(
+    "focus",
+    actualizarReloj
+  );
+
+  // También corrige cambios manuales de hora del teléfono
+  window.addEventListener(
+    "pageshow",
+    actualizarReloj
+  );
+
+})();
+</script>
 </body>
 </html>
