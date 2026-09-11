@@ -5616,6 +5616,185 @@ console.log(
 );
 
 </script>
+<!-- ============================================================
+     REPARADOR — RELOJ REAL VISIBLE
+     Crea automáticamente el reloj en la interfaz.
+     Pegar justo antes de </body>
+     ============================================================ -->
+<script>
+(function () {
+  "use strict";
 
+  const CLOCK_ID = "roxthal-real-clock-repair";
+
+  function crearReloj() {
+    // Evitar duplicados
+    if (document.getElementById(CLOCK_ID)) return;
+
+    const reloj = document.createElement("div");
+
+    reloj.id = CLOCK_ID;
+
+    reloj.innerHTML = `
+      <div class="roxthal-clock-time">--:--:--</div>
+      <div class="roxthal-clock-date">--/--/----</div>
+    `;
+
+    const estilo = document.createElement("style");
+
+    estilo.textContent = `
+      #${CLOCK_ID} {
+        position: fixed;
+        top: 72px;
+        right: 12px;
+        z-index: 9999;
+
+        min-width: 108px;
+        padding: 8px 11px;
+
+        background: rgba(5, 8, 10, 0.94);
+        border: 1px solid rgba(0, 229, 255, 0.45);
+        border-radius: 12px;
+
+        box-shadow: 0 6px 24px rgba(0,0,0,.45);
+
+        text-align: center;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        pointer-events: none;
+      }
+
+      #${CLOCK_ID} .roxthal-clock-time {
+        color: #00e5ff;
+        font-size: 17px;
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: 1px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      #${CLOCK_ID} .roxthal-clock-date {
+        margin-top: 3px;
+        color: #78909c;
+        font-size: 9px;
+        line-height: 1;
+        letter-spacing: .7px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 600px) {
+        #${CLOCK_ID} {
+          top: 68px;
+          right: 8px;
+          min-width: 100px;
+          padding: 7px 9px;
+        }
+
+        #${CLOCK_ID} .roxthal-clock-time {
+          font-size: 15px;
+        }
+
+        #${CLOCK_ID} .roxthal-clock-date {
+          font-size: 8px;
+        }
+      }
+    `;
+
+    document.head.appendChild(estilo);
+    document.body.appendChild(reloj);
+  }
+
+  function actualizarReloj() {
+    const reloj = document.getElementById(CLOCK_ID);
+
+    if (!reloj) return;
+
+    const ahora = new Date();
+
+    const hora = ahora.toLocaleTimeString("es-AR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    });
+
+    const fecha = ahora.toLocaleDateString("es-AR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    });
+
+    const horaElemento =
+      reloj.querySelector(".roxthal-clock-time");
+
+    const fechaElemento =
+      reloj.querySelector(".roxthal-clock-date");
+
+    if (horaElemento) {
+      horaElemento.textContent = hora;
+    }
+
+    if (fechaElemento) {
+      fechaElemento.textContent = fecha;
+    }
+
+    // También deja la hora disponible para el resto de la app
+    window.roxthalRealTime = {
+      date: ahora,
+      time: hora,
+      dateText: fecha,
+      timestamp: ahora.getTime()
+    };
+  }
+
+  function iniciarReloj() {
+    crearReloj();
+    actualizarReloj();
+
+    // Alinear la siguiente actualización con el cambio de segundo
+    function programar() {
+      const ahora = Date.now();
+      const espera = 1000 - (ahora % 1000) + 10;
+
+      setTimeout(function () {
+        actualizarReloj();
+        programar();
+      }, espera);
+    }
+
+    programar();
+  }
+
+  // Esperar a que exista el body
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciarReloj);
+  } else {
+    iniciarReloj();
+  }
+
+  // Re-sincronizar al volver a la app
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) {
+      crearReloj();
+      actualizarReloj();
+    }
+  });
+
+  window.addEventListener("focus", function () {
+    crearReloj();
+    actualizarReloj();
+  });
+
+})();
+</script>
 </body>
 </html>
